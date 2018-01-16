@@ -4,7 +4,8 @@
   "description": "Demos en GraphQL version Web",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "set NODE_ENV=production && webpack --config webpack.prod.js && node index.js",
+    "start": "node index.js",
+    "build": "set NODE_ENV=production && webpack --config webpack.prod.js",
     "dev": "set NODE_ENV=development && webpack-dev-server --open --config webpack.dev.js"
   },
   "repository": {
