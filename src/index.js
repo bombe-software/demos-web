@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 //Apollo configuration object options
 import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
+import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 //Demos components
@@ -25,9 +25,9 @@ const link = createHttpLink({
 });
 
 const client = new ApolloClient({
-  dataIdFromObject: o => o.id,
-  cache: new InMemoryCache(),
   link,
+  cache: new InMemoryCache(),
+  dataIdFromObject: o => o.id
 });
 
 class App extends React.Component {
