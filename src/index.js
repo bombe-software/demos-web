@@ -19,14 +19,20 @@ import RecoverPassword from './components/RecoverPassword';
 import Footer from './components/generic/Footer';
 import Navbar from './components/generic/Navbar';
 
+const link = createHttpLink({
+  uri: 'https://demos-gql.herokuapp.com/graphql',
+  credentials: 'include'
+});
+
 const client = new ApolloClient({
-  //dataIdFromObject: o => o.id,
-  link: new HttpLink({ uri: 'http://localhost:3000' }),
-  cache: new InMemoryCache()
+  dataIdFromObject: o => o.id,
+  cache: new InMemoryCache(),
+  link,
 });
 
 class App extends React.Component {
   render() {
+    // npm run-script dev
     // npm run-script build
     // npm start
     return (
