@@ -4,7 +4,7 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 //Apollo configuration object options
-import  ApolloClient  from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
@@ -20,7 +20,7 @@ import Footer from './components/generic/Footer';
 import Navbar from './components/generic/Navbar';
 
 const link = createHttpLink({
-  uri: 'https://demos-gql.herokuapp.com/graphql',
+  uri: 'http://localhost:3000/graphql',
   credentials: 'include'
 });
 
