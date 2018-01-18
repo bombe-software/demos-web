@@ -9,7 +9,84 @@ class SignUp extends Component {
     });
   }
 
+constructor(props) {
+    super(props);
+    this.state = {
+      avatar: 'jaiba',
+      imgAvatar: ['selected', 'none', 'none', 'none']
+    };
+    this.updateJaiba = this.updateJaiba.bind(this);
+    this.updateAnguila = this.updateAnguila.bind(this);
+    this.updateChivo = this.updateChivo.bind(this);
+    this.updateErizo = this.updateErizo.bind(this);
+  }
 
+  /**
+  * Cambia el avatar actualmente seleccionado a Jaiba.jpg
+  * @method updateJaiba
+  * @const state.avatar Hace referencia al avatar actualmente seleccionado
+  * @const state.imgAvatar Hace referencia a las clases(css) que tiene cada imagen
+  */
+  updateJaiba() {
+    this.setState({
+      avatar: "jaiba",
+      imgAvatar: ['selected', 'none', 'none', 'none']
+    })
+  }
+
+  /**
+  * Cambia el avatar actualmente seleccionado a Anguila.jpg
+  * @method updateAnguila
+  * @const state.avatar Hace referencia al avatar actualmente seleccionado
+  * @const state.imgAvatar Hace referencia a las clases(css) que tiene cada imagen
+  */
+  updateAnguila() {
+    this.setState({
+      avatar: "anguila",
+      imgAvatar: ['none', 'selected', 'none', 'none']
+    })
+  }
+
+  /**
+  * Cambia el avatar actualmente seleccionado a Chivo.jpg
+  * @method updateChivo
+  * @const state.avatar Hace referencia al avatar actualmente seleccionado
+  * @const state.imgAvatar Hace referencia a las clases(css) que tiene cada imagen
+  */
+  updateChivo() {
+    this.setState({
+      avatar: "chivo",
+      imgAvatar: ['none', 'none', 'selected', 'none']
+    })
+  }
+
+  /**
+  * Cambia el avatar actualmente seleccionado a Erizo.jpg
+  * @method updateErizo
+  * @const state.avatar Hace referencia al avatar actualmente seleccionado
+  * @const state.imgAvatar Hace referencia a las clases(css) que tiene cada imagen
+  */
+  updateErizo() {
+    this.setState({
+      avatar: "bussines",
+      imgAvatar: ['none', 'none', 'none', 'selected']
+    })
+  }
+
+  /**
+  * Es una forma de capturar cualquier error en la clase 
+  * y que este no crashe el programa, ayuda con la depuracion
+  * de errores
+  * @method componentDidCatch
+  * @const info Es más informacion acerca del error
+  * @const error Es el titulo del error
+  */
+  componentDidCatch(error, info) {
+    console.log("Error: " + error);
+    console.log("Info: " + info);
+  }
+
+  /**
   /**
   * Realiza el renderizado de la aplicacion 
   * en base a la informacion anterior
