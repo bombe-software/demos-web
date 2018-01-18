@@ -20,7 +20,7 @@ import Footer from './components/generic/Footer';
 import Navbar from './components/generic/Navbar';
 
 const link = createHttpLink({
-  uri: 'https://demos-gql.herokuapp.com/graphql',
+  uri: 'http://localhost:3000/graphql',
   credentials: 'include'
 });
 
