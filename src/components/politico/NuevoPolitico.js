@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
-import mutate from '../queries/AddPoliticos';
+import mutate from '../../queries/addPolitico';
 
-class PoliticoCreate extends Component{
+class NuevoPolitico extends Component{
 
 constructor(props) {
         super(props);
@@ -22,13 +22,12 @@ constructor(props) {
  handleSubmit(event) {
         event.preventDefault();
         const {
-            nombre,partido,tipo_politico,estado
+            nombre
         } = this.state
         console.log(this.props);
         this.props.mutate({
             variables: {
-            nombre, partido, tipo_politico,
-            estado
+            nombre
             }
         }).then(alert('Informacion enviada'));
     }
@@ -87,4 +86,4 @@ constructor(props) {
 
 
 
-export default graphql(mutate)(PoliticoCreate)
+export default graphql(mutate)(NuevoPolitico)
