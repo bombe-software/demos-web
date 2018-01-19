@@ -15,6 +15,8 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import EmailConfirmation from './components/EmailConfirmation';
 import RecoverPassword from './components/RecoverPassword';
+import Politicos from './components/PoliticoList';
+import PoliticoCreate from './components/PoliticoCreate';
 
 import Footer from './components/generic/Footer';
 import Navbar from './components/generic/Navbar';
@@ -47,7 +49,8 @@ class App extends React.Component {
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/email-confirmation" component={EmailConfirmation} />
               <Route exact path="/recover-password" component={RecoverPassword} />
-              
+              <Route exact path="/politicos" component={Politicos} />
+              <Route exact path="/politicos/create" component={PoliticoCreate} />
               <Route component={NotFound} />
             </Switch>
             <Footer />
