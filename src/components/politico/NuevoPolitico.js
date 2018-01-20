@@ -50,8 +50,6 @@ renderTipo(event) {
  
   }
 
-
-
  handleSubmit(event) {
         event.preventDefault();
         const {
@@ -62,7 +60,8 @@ renderTipo(event) {
             nombre,partido,tipo_politico,estado
             }
         }).then(alert('Informacion enviada'));
-    }
+  }
+
   render() {
     if (this.props.fetchPartidos.loading || this.props.fetchTipoPolitico.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
 
@@ -79,7 +78,6 @@ renderTipo(event) {
                     value={this.state.nombre} placeholder="Nombre del Politico" label="Nombre del Politico"/>
             </div>
           </div>
-
           <div className="level">
             <div className="level-item">
 
@@ -88,7 +86,6 @@ renderTipo(event) {
               </select>
             </div>
           </div>
-
           <div className="level">
             <div className="level-item">
               <select onChange={event => this.setState({ tipo_politico: event.target.value })}>
@@ -96,19 +93,13 @@ renderTipo(event) {
               </select>
             </div>
           </div>
-
           <div className="level">
             <div className="level-item">
              <select onChange={event => this.setState({ estado: event.target.value })}>
              {this.renderEstado(event)}
-              </select>
-             
+              </select>      
             </div>
           </div>
-
-
-
-
           <div className="level">
           <div className="level-item">
           <div>
