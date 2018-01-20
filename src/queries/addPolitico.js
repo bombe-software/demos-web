@@ -14,7 +14,7 @@ mutation AddPolitico(
     estado: $estado
 )
   {
-    respuesta
+		id
   }
 }
 `;

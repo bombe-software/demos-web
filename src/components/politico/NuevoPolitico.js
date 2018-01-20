@@ -52,6 +52,7 @@ renderTipo(event) {
 
  handleSubmit(event) {
         event.preventDefault();
+        console.log(this.state)
         const {
             nombre,partido,tipo_politico,estado
         } = this.state
