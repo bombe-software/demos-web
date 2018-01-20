@@ -23,8 +23,8 @@ class NuevoPolitico extends Component {
   }
 
   renderPartidos(event) {
-    const array = [{id:'0', partido: 'Opcion default'}]
-          .concat(this.props.fetchPartidos.partidos);
+    const array = [{ id: '0', partido: 'Opcion default' }]
+      .concat(this.props.fetchPartidos.partidos);
     return array.map(({ id, partido }) => {
       return (
         <option value={id} key={id} className="collection-item">
@@ -34,8 +34,8 @@ class NuevoPolitico extends Component {
     });
   }
   renderTipo(event) {
-    const array = [{id:'0', tipo: 'Opcion default'}]
-    .concat(this.props.fetchTipoPolitico.tipos_politico);
+    const array = [{ id: '0', tipo: 'Opcion default' }]
+      .concat(this.props.fetchTipoPolitico.tipos_politico);
     return array.map(({ id, tipo }) => {
       return (
         <option value={id} key={id} className="collection-item">
@@ -45,8 +45,8 @@ class NuevoPolitico extends Component {
     });
   }
   renderEstado(event) {
-    const array = [{id:'0', estado: 'Opcion default'}]
-    .concat(this.props.fetchEstados.estados);
+    const array = [{ id: '0', estado: 'Opcion default' }]
+      .concat(this.props.fetchEstados.estados);
     return array.map(({ id, estado }) => {
       return (
         <option value={id} key={id} className="collection-item">
@@ -59,10 +59,10 @@ class NuevoPolitico extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state)
     const {
-            nombre, partido, tipo_politico, estado
-        } = this.state
+        nombre, partido,
+        tipo_politico, estado
+    } = this.state
     this.props.addPolitico({
       variables: {
         nombre, partido, tipo_politico, estado
@@ -82,13 +82,13 @@ class NuevoPolitico extends Component {
                 <form onSubmit={this.handleSubmit}>
                   <div className="level">
                     <div className="level-item">
-                      <input type="text" onLoad={event => this.setState({ nombre: event.target.value }) } onChange={event => this.setState({ nombre: event.target.value })}
+                      <input type="text" onLoad={event => this.setState({ nombre: event.target.value })} onChange={event => this.setState({ nombre: event.target.value })}
                         value={this.state.nombre} placeholder="Nombre del Politico" label="Nombre del Politico" />
                     </div>
                   </div>
                   <div className="level">
                     <div className="level-item">
-                      <select onChange={event => this.setState({ partido: event.target.value }) }>
+                      <select onChange={event => this.setState({ partido: event.target.value })}>
                         {this.renderPartidos(event)}
                       </select>
                     </div>
