@@ -5,6 +5,9 @@ import addPolitico from '../../queries/addPolitico';
 import fetchPartidos from '../../queries/fetchPartidos';
 import fetchTipoPolitico from '../../queries/fetchTipoPolitico';
 import fetchEstados from '../../queries/fetchEstados';
+import fetchGradoAcad from '../../queries/fetchGradoAcad';
+import fetchLugarEstudio from '../../queries/fetchLugarEstudio';
+
 import { compose } from 'react-apollo';
 
 class NuevoPolitico extends Component {
@@ -16,7 +19,10 @@ class NuevoPolitico extends Component {
       nombre: '',
       partido: '',
       tipo_politico: '',
-      estado: ''
+      estado: '',
+      titulo: '',
+      gradoAcad: '',
+      lugarEstudio: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,9 +60,30 @@ class NuevoPolitico extends Component {
         </option>
       );
     });
-
   }
+renderGradoAcademico(event) {
+    const array = [{ id: '0', grado: 'Opcion default' }]
+      .concat(this.props.fetchGradoAcad.grados_academico);
+    return array.map(({id, grado }) => {
+      return (
+        <option value={id} key={id} className="collection-item">
+          {grado}
+        </option>
+      );
+    });
+  }
+  renderLugarEstudio(event) {
 
+    const array = [{ id: '0', lugar: 'Opcion default' }]
+      .concat(this.props.fetchLugarEstudio.lugares_estudio);
+    return array.map(({ id, lugar }) => {
+      return (
+        <option value={id} key={id} className="collection-item">
+          {lugar}
+        </option>
+      );
+    });
+  }
   handleSubmit(event) {
     event.preventDefault();
     const {
@@ -71,7 +98,8 @@ class NuevoPolitico extends Component {
   }
 
   render() {
-    if (this.props.fetchPartidos.loading || this.props.fetchTipoPolitico.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
+    console.log(this.props)
+    if (this.props.fetchGradoAcad.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchTipoPolitico.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
 
     return (
       <div><section className="hero is-large">
@@ -107,6 +135,29 @@ class NuevoPolitico extends Component {
                       </select>
                     </div>
                   </div>
+                  <div>
+                  Estudios
+                    </div>
+                  <div className="level">
+                    <div className="level-item">
+                      <input type="text" onLoad={event => this.setState({ nombre: event.target.value })} onChange={event => this.setState({ titulo: event.target.value })}
+                        value={this.state.titulo} placeholder="Titulo" label="Titulo" />
+                    </div>
+                  </div>
+                  <div className="level">
+                    <div className="level-item">
+                      <select onChange={event => this.setState({ gradoAcad: event.target.value })}>
+                        {this.renderGradoAcademico(event)}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="level">
+                    <div className="level-item">
+                      <select onChange={event => this.setState({ lugarEstudio: event.target.value })}>
+                        {this.renderLugarEstudio(event)}
+                      </select>
+                    </div>
+                  </div>
                   <div className="level">
                     <div className="level-item">
                       <div>
@@ -134,6 +185,12 @@ export default compose(
   }),
   graphql(fetchEstados, {
     name: 'fetchEstados'
+  }),
+  graphql(fetchGradoAcad, {
+    name: 'fetchGradoAcad'
+  }),
+  graphql(fetchLugarEstudio, {
+    name: 'fetchLugarEstudio'
   })
 )(NuevoPolitico);
 
