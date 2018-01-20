@@ -15,12 +15,14 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import EmailConfirmation from './components/EmailConfirmation';
 import RecoverPassword from './components/RecoverPassword';
+import NuevoPolitico from './components/politico/NuevoPolitico';
+import AcercaDe from './components/acerca_de/acerca_de';
 
 import Footer from './components/generic/Footer';
 import Navbar from './components/generic/Navbar';
 
 const link = createHttpLink({
-  uri: 'http://localhost:3000',
+  uri: 'http://localhost:3000/graphql',
   credentials: 'include'
 });
 
@@ -47,7 +49,8 @@ class App extends React.Component {
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/email-confirmation" component={EmailConfirmation} />
               <Route exact path="/recover-password" component={RecoverPassword} />
-              
+              <Route exact path="/politicos/nuevo" component={NuevoPolitico} />
+              <Route path="/acerca-de" component={AcercaDe} /> 
               <Route component={NotFound} />
             </Switch>
             <Footer />

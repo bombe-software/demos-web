@@ -25,7 +25,7 @@ class Navbar extends Component {
   }
 
   renderNavEnd(){
-    if(JSON.stringify(this.props.user) == '{}'){
+    if(JSON.stringify(this.props.user) !== '{}'){
       return(
 
         <div>
