@@ -18,6 +18,8 @@ import RecoverPassword from './components/RecoverPassword';
 import NuevoPolitico from './components/politico/NuevoPolitico';
 import AcercaDe from './components/acerca_de/acerca_de';
 import NuevaPropuesta from './components/politico/NuevaPropuesta';
+import NuevoEvento from './components/politico/NuevoEvento';
+import ConfigCuenta from './components/ConfigCuenta/ConfigCuentaForm';
 
 import Footer from './components/generic/Footer';
 import Navbar from './components/generic/Navbar';
@@ -52,6 +54,8 @@ class App extends React.Component {
               <Route exact path="/recover-password" component={RecoverPassword} />
               <Route exact path="/politicos/nuevo" component={NuevoPolitico} />
               <Route exact path="/politicos/propuesta" component={NuevaPropuesta} />
+              <Route exact path="/politicos/evento" component={NuevoEvento} />
+              <Route exact path="/config-cuenta" component={ConfigCuenta} />
               <Route path="/acerca-de" component={AcercaDe} /> 
               <Route component={NotFound} />
             </Switch>
