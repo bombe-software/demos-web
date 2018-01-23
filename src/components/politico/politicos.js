@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import zonas from '../../queries/fetchZonas';
 import { graphql } from 'react-apollo';
 import { Link } from "react-router-dom";
-import PoliticosList from "./politico_list";
+import PoliticoList from "./politico_list";
 
 class Politicos extends Component {
     constructor(props) {

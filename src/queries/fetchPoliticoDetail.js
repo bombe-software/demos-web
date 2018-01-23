@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 
 export default gql`
-query fetchPoliticoDetail($id: ID!){
 {
   politicos(id: $id){
     id,
@@ -30,6 +29,4 @@ query fetchPoliticoDetail($id: ID!){
     }
     }
   }
-  
-}
 `;

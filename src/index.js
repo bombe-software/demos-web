@@ -26,6 +26,7 @@ import RecoverPassword from './components/recover_password';
 import Elecciones from './components/elecciones/elecciones';
 import AcercaDe from './components/acerca_de/acerca_de';
 import Politicos from './components/politico/politicos';
+import PoliticoDetail from './components/politico/politico_detail/politico_detail';
 
 import PoliticoForm from './components/politico/politico_create/politico_form';
 import PropuestaForm from './components/politico/politico_create/propuesta_form';
@@ -67,6 +68,8 @@ class App extends React.Component {
               <Route path="/crear/politico" component={PoliticoForm} />
               <Route path="/crear/propuesta" component={PropuestaForm} />
               <Route path="/crear/evento" component={EventoForm} />
+
+              <Route path="/politico/:id" component={PoliticoDetail} />
 
               {/*Landing page*/}
               <Route path="/" exact component={LandingPage} />
