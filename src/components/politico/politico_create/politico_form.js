@@ -21,8 +21,8 @@ class PoliticoForm extends Component {
       tipo_politico: '',
       estado: '',
       titulo: '',
-      gradoAcad: '',
-      lugarEstudio: ''
+      grado_academico: '',
+      lugar_estudio: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,9 +61,9 @@ class PoliticoForm extends Component {
       );
     });
   }
-renderGradoAcademico(event) {
+rendergrado_academicoemico(event) {
     const array = [{ id: '0', grado: 'Opcion default' }]
-      .concat(this.props.fetchGradoAcad.grados_academico);
+      .concat(this.props.fetchgrado_academico.grados_academico);
     return array.map(({id, grado }) => {
       return (
         <option value={id} key={id} className="collection-item">
@@ -85,21 +85,22 @@ renderGradoAcademico(event) {
     });
   }
   handleSubmit(event) {
+    console.log(this.state);
     event.preventDefault();
     const {
         nombre, partido,
-        tipo_politico, estado
+        tipo_politico, estado,titulo,grado_academico,lugar_estudio
     } = this.state
     this.props.addPolitico({
       variables: {
-        nombre, partido, tipo_politico, estado
+        nombre, partido, tipo_politico, estado,titulo,grado_academico,lugar_estudio
       }
     }).then(alert('Informacion enviada'));
   }
 
   render() {
-    console.log(this.props)
-    if (this.props.fetchGradoAcad.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchTipoPolitico.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
+    //console.log(this.props)
+    if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchTipoPolitico.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
 
     return (
       <div><section className="hero is-large">
@@ -146,14 +147,14 @@ renderGradoAcademico(event) {
                   </div>
                   <div className="level">
                     <div className="level-item">
-                      <select onChange={event => this.setState({ gradoAcad: event.target.value })}>
-                        {this.renderGradoAcademico(event)}
+                      <select onChange={event => this.setState({ grado_academico: event.target.value })}>
+                        {this.rendergrado_academicoemico(event)}
                       </select>
                     </div>
                   </div>
                   <div className="level">
                     <div className="level-item">
-                      <select onChange={event => this.setState({ lugarEstudio: event.target.value })}>
+                      <select onChange={event => this.setState({ lugar_estudio: event.target.value })}>
                         {this.renderLugarEstudio(event)}
                       </select>
                     </div>
@@ -187,7 +188,7 @@ export default compose(
     name: 'fetchEstados'
   }),
   graphql(fetchGradoAcad, {
-    name: 'fetchGradoAcad'
+    name: 'fetchgrado_academico'
   }),
   graphql(fetchLugarEstudio, {
     name: 'fetchLugarEstudio'

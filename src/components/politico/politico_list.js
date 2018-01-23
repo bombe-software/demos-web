@@ -1,53 +1,54 @@
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
-class PoliticosList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          puestos: ['Funcionario', 'Candidato']
-      };
-  }
+import { compose } from "react-apollo";
+import { graphql } from 'react-apollo';
+import fetchPoliticos from '../../queries/fetchPoliticos';
 
-  componentDidMount() {
-    this.props.fetchPoliticos(this.props.id_puesto, this.props.id_estado);
-  }
 
+class PoliticoList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      puestos: ['Candidato', 'Funcionario']
+    };
+  }
   renderTitle() {
+    // console.log(this.props);
     let {id_estado} = this.props;
-    if(id_estado == 33){
+    if (id_estado == 33) {
       return (
-          <div>
-              <p key={1}>{this.state.puestos[this.props.id_puesto]}&nbsp;/&nbsp;Nacional</p>
-          </div>
+        <div>
+          <p key={1}>{this.state.puestos[this.props.id_puesto]}&nbsp;/&nbsp;Nacional</p>
+        </div>
       );
-    }else{
+    } else {
       return (
-            <p>
-              {this.state.puestos[this.props.id_puesto]}&nbsp;/&nbsp;
-              {this.props.estados[this.props.id_estado].zona}&nbsp;/&nbsp;
-              {this.props.estados[this.props.id_estado-1].nombre}
-            </p>
+        <p>
+          {this.state.puestos[this.props.id_puesto]}&nbsp;/&nbsp;
+              {this.props.zona}&nbsp;/&nbsp;
+              {this.props.estados}
+        </p>
       );
     }
   }
 
-
-
-
-  renderListPoliticos(){
-    let {politicos} = this.props;
-    return _.map(politicos, politico => {
-      console.log(politico);
+  renderListPoliticos() {
+    console.log(this.props.fetchPoliticos.politicos);
+    return this.props.fetchPoliticos.politicos.map(({ id, nombre, estado, tipo_politico }) => {
+      console.log(estado.id,this.props.id_estado);
+      console.log(this.state.puestos[this.props.id_puesto],tipo_politico.tipo);
+      if ((estado.id === this.props.id_estado)&&(this.state.puestos[this.props.id_puesto]===tipo_politico.tipo)) {
       return (
-          <div key={politico.id_politico}>
-              <div className="panel-block">
-                  <span className="panel-icon"><i className="fa fa-user"></i></span>
-                  <Link to={'/politico/'+politico.id_politico} >
-                    {politico.nombre}
-                  </Link>
-              </div>
+        <div key={id}>
+          <div className="panel-block">
+            <span className="panel-icon"><i className="fa fa-user"></i></span>
+            <Link to={'/politico/' + id} >
+              {nombre}
+        </Link>
           </div>
+        </div>
       );
+      }
     });
   }
 
@@ -63,35 +64,39 @@ class PoliticosList extends Component {
     console.log("Error: " + error);
     console.log("Info: " + info);
   }
-  render(){
-    return(
+  render() {
+    if (this.props.fetchPoliticos.loading) { return <div>Loading...</div> }
+    //console.log(this.props);
+    return (
       <div>
         <div className="level">
-            <div className="level-left"></div>
-                <div className="level-right">
-                  <div className="level-item">
-                    <p className="has-text-right">
-                      <Link to="/crear/politico/" className="button is-success">
-                        <i className="fa fa-plus" aria-hidden="true"></i>
-                        &nbsp;&nbsp;&nbsp;Agregar un político
+          <div className="level-left"></div>
+          <div className="level-right">
+            <div className="level-item">
+              <p className="has-text-right">
+                <Link to="/politicos/nuevo/" className="button is-success">
+                  <i className="fa fa-plus" aria-hidden="true"></i>
+                  &nbsp;&nbsp;&nbsp;Agregar un político
                       </Link >
-                    </p>
-                  </div>
-              </div>
+              </p>
+            </div>
+          </div>
         </div>
         <div className="panel">
           <div className="panel-heading">
             <h3>{this.renderTitle()}</h3>
           </div>
-            {this.renderListPoliticos()}
+          {this.renderListPoliticos()}
         </div>
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-    return { politicos: state.politico.politicos };
-}
 
-export default PoliticosList;
+export default compose(
+  graphql(fetchPoliticos,
+    {
+      name: 'fetchPoliticos'
+    })
+)(PoliticoList);
