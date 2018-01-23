@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class SignIn extends Component {
+class Login extends Component {
     render() {
         return (
             <div className="is-title">Sign In</div>
@@ -8,4 +8,4 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn;
+export default Login;

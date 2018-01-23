@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose } from 'react-apollo';
 import { graphql } from 'react-apollo';
-import addEvento from '../../queries/addEvento';
+import addEvento from './../../../queries/addEvento';
 
-class NuevoEvento extends Component {
+class EventoForm extends Component {
 
   constructor(props) {
     super(props);
@@ -88,4 +88,4 @@ graphql(addEvento,
     {
       name: 'addEvento'
     })
-)(NuevoEvento);
+)(EventoForm);

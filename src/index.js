@@ -8,22 +8,29 @@ import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-//Demos components
-import NotFound from './components/NotFound';
-import LandingPage from './components/LandingPage';
-import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
-import Elecciones from './components/elecciones/elecciones';
-import EmailConfirmation from './components/EmailConfirmation';
-import RecoverPassword from './components/RecoverPassword';
-import NuevoPolitico from './components/politico/NuevoPolitico';
-import AcercaDe from './components/acerca_de/acerca_de';
-import NuevaPropuesta from './components/politico/NuevaPropuesta';
-import NuevoEvento from './components/politico/NuevoEvento';
-import ConfigCuenta from './components/ConfigCuenta/ConfigCuentaForm';
+//Sin manejo de informacion
+import NotFound from './components/not_found';
+import LandingPage from './components/landing_page';
 
-import Footer from './components/generic/Footer';
-import Navbar from './components/generic/Navbar';
+
+//Genericos
+import Footer from './components/generic/footer';
+import Navbar from './components/generic/navbar';
+
+import SignUp from './components/signup';
+import Login from './components/login';
+//import ConfirmEmail from './components/confirm_ email';
+import RecoverPassword from './components/recover_password';
+//import ConfigCuenta from './components/ConfigCuenta/ConfigCuentaForm';
+
+import Elecciones from './components/elecciones/elecciones';
+import AcercaDe from './components/acerca_de/acerca_de';
+import Politicos from './components/politico/politicos';
+
+import PoliticoForm from './components/politico/politico_create/politico_form';
+import PropuestaForm from './components/politico/politico_create/propuesta_form';
+import EventoForm from './components/politico/politico_create/evento_form';
+
 
 const link = createHttpLink({
   uri: 'http://localhost:3000/graphql',
@@ -47,18 +54,23 @@ class App extends React.Component {
           <div>
             <Navbar />
             <Switch>
-              <Route exact path="/" component={LandingPage} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/login" component={Login} />
+              {/*<Route path="/confirm_email" component={ConfirmEmail} />*/}
+              <Route path="/recover_password" component={RecoverPassword} />
+              {/*<Route path="/config_cuenta" component={ConfigCuenta} />*/}
 
-              <Route exact path="/signup" component={SignUp} />
-              <Route exact path="/signin" component={SignIn} />
-              <Route exact path="/email-confirmation" component={EmailConfirmation} />
               <Route path="/elecciones" component={Elecciones} />
-              <Route exact path="/recover-password" component={RecoverPassword} />
-              <Route exact path="/politicos/nuevo" component={NuevoPolitico} />
-              <Route exact path="/politicos/propuesta" component={NuevaPropuesta} />
-              <Route exact path="/politicos/evento" component={NuevoEvento} />
-              <Route exact path="/config-cuenta" component={ConfigCuenta} />
-              <Route path="/acerca-de" component={AcercaDe} /> 
+              <Route path="/acerca_de" component={AcercaDe} />
+              <Route path="/politicos" component={Politicos} />
+              
+              <Route path="/crear/politico" component={PoliticoForm} />
+              <Route path="/crear/propuesta" component={PropuestaForm} />
+              <Route path="/crear/evento" component={EventoForm} />
+
+              {/*Landing page*/}
+              <Route path="/" exact component={LandingPage} />
+              {/*404 not found*/}
               <Route component={NotFound} />
             </Switch>
             <Footer />

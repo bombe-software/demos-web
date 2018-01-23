@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
-import addPolitico from '../../queries/addPolitico';
-import fetchPartidos from '../../queries/fetchPartidos';
-import fetchTipoPolitico from '../../queries/fetchTipoPolitico';
-import fetchEstados from '../../queries/fetchEstados';
-import fetchGradoAcad from '../../queries/fetchGradoAcad';
-import fetchLugarEstudio from '../../queries/fetchLugarEstudio';
+import addPolitico from './../../../queries/addPolitico';
+import fetchPartidos from './../../../queries/fetchPartidos';
+import fetchTipoPolitico from './../../../queries/fetchTipoPolitico';
+import fetchEstados from './../../../queries/fetchEstados';
+import fetchGradoAcad from './../../../queries/fetchGradoAcad';
+import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
 
 import { compose } from 'react-apollo';
 
-class NuevoPolitico extends Component {
+class PoliticoForm extends Component {
 
   constructor(props) {
     super(props);
@@ -192,5 +192,5 @@ export default compose(
   graphql(fetchLugarEstudio, {
     name: 'fetchLugarEstudio'
   })
-)(NuevoPolitico);
+)(PoliticoForm);
 

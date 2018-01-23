@@ -1,10 +1,8 @@
-import _ from "lodash";
 import React, { Component } from "react";
-import fetchZonas from '../../queries/fetchZonas';
-import { compose } from 'react-apollo';
+import zonas from '../../queries/fetchZonas';
 import { graphql } from 'react-apollo';
 import { Link } from "react-router-dom";
-import PoliticosList from "./PoliticoList";
+import PoliticosList from "./politico_list";
 
 class Politicos extends Component {
     constructor(props) {
@@ -40,7 +38,7 @@ class Politicos extends Component {
     }
 
     renderEstados() {
-        return this.props.fetchZonas.zonas.map(({ zona,estados }) => {
+        return this.props.data.zonas.map(({ zona,estados }) => {
             return(
                 <div key={zona}>
                         <li>
@@ -77,7 +75,7 @@ class Politicos extends Component {
   }
 
     render() {
-         if (this.props.fetchZonas.loading){return <div>Loading...</div>}
+         if (this.props.data.loading){return <div>Loading...</div>}
         return (
             <div className="section">
               <div className="columns mobile">
@@ -124,9 +122,4 @@ class Politicos extends Component {
         )
     }
 }
-export default compose(
-graphql(fetchZonas,
-    {
-      name: 'fetchZonas'
-    })
-)(Politicos);
+export default graphql(zonas)(Politicos);

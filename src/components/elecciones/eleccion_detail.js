@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Doughnut } from 'react-chartjs';
+import { Doughnut } from 'react-chartjs-2';
 
 import { graphql } from 'react-apollo';
 import eleccion from "../../queries/fetchVotacionEstado";

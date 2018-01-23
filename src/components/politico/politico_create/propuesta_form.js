@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import fetchTipoPropuesta from '../../queries/fetchTipoPropuesta';
-import { compose } from 'react-apollo';
-import { graphql } from 'react-apollo';
+import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
+import { compose, graphql } from 'react-apollo';
 
-class NuevaPropuesta extends Component {
+class PropuestaForm extends Component {
 
   constructor(props) {
     super(props);
@@ -92,4 +91,4 @@ graphql(fetchTipoPropuesta,
     {
       name: 'fetchTipoPropuesta'
     })
-)(NuevaPropuesta);
+)(PropuestaForm);
