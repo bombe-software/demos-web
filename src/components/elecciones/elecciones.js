@@ -116,11 +116,7 @@ class Elecciones extends Component {
                   </div>
                   <div className="column is-6-desktop is-10-mobile is-offset-1-mobile is-6-tablet">
                     <div key={this.state.id_estado+this.state.id_puesto}>
-                         <PoliticosList
-                            id_estado = {this.state.id_estado}
-                            estados = {_.values(this.props.estados)}
-                            id_puesto = {this.state.id_puesto}
-                          />
+                         
                     </div>
                   </div>
               </div>

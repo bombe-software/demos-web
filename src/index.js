@@ -22,6 +22,7 @@ import NuevoEvento from './components/politico/NuevoEvento';
 import ConfigCuenta from './components/ConfigCuenta/ConfigCuentaForm';
 import Politicos from './components/politico/politicos';
 import Elecciones from './components/elecciones/elecciones';
+import PoliticoDetail from './components/politico/politico_detail/politico_detail';
 
 import Footer from './components/generic/Footer';
 import Navbar from './components/generic/Navbar';
@@ -59,6 +60,7 @@ class App extends React.Component {
               <Route exact path="/politicos/evento" component={NuevoEvento} />
               <Route exact path="/config-cuenta" component={ConfigCuenta} />
               <Route exact path="/politicos" component={Politicos} />
+              <Route path="/politico/:id" component={PoliticoDetail} />
               <Route path="/elecciones" component={Elecciones} /> 
               <Route path="/acerca-de" component={AcercaDe} /> 
               

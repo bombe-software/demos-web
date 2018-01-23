@@ -5,13 +5,15 @@ mutation AddPolitico(
   $nombre: String,
   $partido: ID,
   $tipo_politico: ID,
-  $estado:ID
+  $estado:ID,
+  $estudios:ID
 ){
   addPolitico(
     nombre: $nombre, 
     partido: $partido, 
     tipo_politico: $tipo_politico, 
-    estado: $estado
+    estado: $estado,
+    estudios: $estudios
 )
   {
 		id

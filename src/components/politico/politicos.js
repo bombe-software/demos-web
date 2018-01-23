@@ -4,25 +4,31 @@ import fetchZonas from '../../queries/fetchZonas';
 import { compose } from 'react-apollo';
 import { graphql } from 'react-apollo';
 import { Link } from "react-router-dom";
-import PoliticosList from "./PoliticoList";
+import PoliticoList from "./PoliticoList";
 
 class Politicos extends Component {
     constructor(props) {
         super(props);
         this.state = {
             id_puesto: 0,
-            id_estado: 33
+            id_estado: 33,
+            zona: '',
+            estado: ''
         };
         this.updateSearch = this.updateSearch.bind(this);
     }
  
-    updateSearch(id, tipo){
+    updateSearch(id, tipo, estado,zona){
+       // console.log(this.state)
         return (()=>{
             this.setState({
                 id_estado: id,
-                id_puesto: tipo
+                id_puesto: tipo,
+                estado,
+                zona
             });
         })
+        
     }
 
     getActivePuesto(i){
@@ -51,7 +57,7 @@ class Politicos extends Component {
                                 return (
                                     <li key={id}>
                                         <a
-                                        onClick={this.updateSearch(id, this.state.id_puesto)}
+                                        onClick={this.updateSearch(id, this.state.id_puesto, estado,zona)}
                                         className={this.getActiveEstado(id)} >{estado}</a>
                                     </li>
                                 )
@@ -62,6 +68,7 @@ class Politicos extends Component {
                     </div>
             );
         });
+        
     }
   /**
   * Es una forma de capturar cualquier error en la clase 
@@ -78,6 +85,7 @@ class Politicos extends Component {
 
     render() {
          if (this.props.fetchZonas.loading){return <div>Loading...</div>}
+         
         return (
             <div className="section">
               <div className="columns mobile">
@@ -93,10 +101,10 @@ class Politicos extends Component {
                           <p className="menu-label">Tipo</p>
                           <ul className="menu-list-light">
                             <li>
-                                <a onClick={this.updateSearch(this.state.id_estado, 0)} className={this.getActivePuesto(0)}>Funcionarios</a>
+                                <a onClick={this.updateSearch(this.state.id_estado, 0,this.state.estado,this.state.zona)} className={this.getActivePuesto(0)}>Candidato</a>
                             </li>
                             <li>
-                                <a onClick={this.updateSearch(this.state.id_estado, 1)} className={this.getActivePuesto(1)}>Candidatos</a>
+                                <a onClick={this.updateSearch(this.state.id_estado, 1,this.state.estado,this.state.zona)} className={this.getActivePuesto(1)}>Funcionario</a>
                             </li>
                           </ul>
                       </div>
@@ -116,7 +124,12 @@ class Politicos extends Component {
                   </div>
                   <div className="column is-6-desktop is-10-mobile is-offset-1-mobile is-6-tablet">
                     <div key={this.state.id_estado+this.state.id_puesto}>
-                         
+                        <PoliticoList
+                            id_estado = {this.state.id_estado}
+                            estados = {this.state.estado}
+                            zona = {this.state.zona}
+                            id_puesto = {this.state.id_puesto}
+                          />
                     </div>
                   </div>
               </div>
@@ -124,6 +137,7 @@ class Politicos extends Component {
         )
     }
 }
+
 export default compose(
 graphql(fetchZonas,
     {
