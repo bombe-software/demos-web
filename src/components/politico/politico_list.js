@@ -33,10 +33,7 @@ class PoliticoList extends Component {
   }
 
   renderListPoliticos() {
-    console.log(this.props.fetchPoliticos.politicos);
-    return this.props.fetchPoliticos.politicos.map(({ id, nombre, estado, tipo_politico }) => {
-      console.log(estado.id,this.props.id_estado);
-      console.log(this.state.puestos[this.props.id_puesto],tipo_politico.tipo);
+    return this.props.fetchPoliticosPorEstado.politicos.map(({ id, nombre, estado, tipo_politico }) => {
       if ((estado.id === this.props.id_estado)&&(this.state.puestos[this.props.id_puesto]===tipo_politico.tipo)) {
       return (
         <div key={id}>
@@ -61,11 +58,9 @@ class PoliticoList extends Component {
   * @const error Es el titulo del error
   */
   componentDidCatch(error, info) {
-    console.log("Error: " + error);
-    console.log("Info: " + info);
   }
   render() {
-    if (this.props.fetchPoliticos.loading) { return <div>Loading...</div> }
+    if (this.props.fetchPoliticosPorEstado.loading) { return <div>Loading...</div> }
     //console.log(this.props);
     return (
       <div>
@@ -97,6 +92,7 @@ class PoliticoList extends Component {
 export default compose(
   graphql(fetchPoliticosPorEstado,
     {
-      name: 'fetchPoliticosPorEstado'
+      name: 'fetchPoliticosPorEstado',
+      options: (props) => {return {variables: {id: props.id_estado}}}
     })
 )(PoliticoList);
