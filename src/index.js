@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 //Apollo configuration object options
 import { ApolloClient } from 'apollo-client';
@@ -31,6 +32,9 @@ import PoliticoDetail from './components/politico/politico_detail/politico_detai
 import PoliticoForm from './components/politico/politico_create/politico_form';
 import PropuestaForm from './components/politico/politico_create/propuesta_form';
 import EventoForm from './components/politico/politico_create/evento_form';
+
+//Pruebas 
+import Form from './components/generic/form';
 
 
 const link = createHttpLink({
@@ -64,12 +68,17 @@ class App extends React.Component {
               <Route path="/elecciones" component={Elecciones} />
               <Route path="/acerca_de" component={AcercaDe} />
               <Route path="/politicos" component={Politicos} />
+
+              <MuiThemeProvider>
+                <Route path="/form" component={Form} />
+              </MuiThemeProvider>
               
               <Route path="/crear/politico" component={PoliticoForm} />
               <Route path="/crear/propuesta" component={PropuestaForm} />
               <Route path="/crear/evento" component={EventoForm} />
 
               <Route path="/politico/:id" component={PoliticoDetail} />
+
 
               {/*Landing page*/}
               <Route path="/" exact component={LandingPage} />
