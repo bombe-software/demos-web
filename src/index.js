@@ -13,6 +13,7 @@ import NotFound from './components/NotFound';
 import LandingPage from './components/LandingPage';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import Elecciones from './components/elecciones/elecciones';
 import EmailConfirmation from './components/EmailConfirmation';
 import RecoverPassword from './components/RecoverPassword';
 import NuevoPolitico from './components/politico/NuevoPolitico';
@@ -51,6 +52,7 @@ class App extends React.Component {
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/email-confirmation" component={EmailConfirmation} />
+              <Route path="/elecciones" component={Elecciones} />
               <Route exact path="/recover-password" component={RecoverPassword} />
               <Route exact path="/politicos/nuevo" component={NuevoPolitico} />
               <Route exact path="/politicos/propuesta" component={NuevaPropuesta} />
