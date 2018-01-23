@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import { compose } from "react-apollo";
 import { graphql } from 'react-apollo';
-import fetchPoliticos from '../../queries/fetchPoliticos';
+import fetchPoliticosPorEstado from '../../queries/fetchPoliticosPorEstado';
 
 
 class PoliticoList extends Component {
@@ -95,8 +95,8 @@ class PoliticoList extends Component {
 
 
 export default compose(
-  graphql(fetchPoliticos,
+  graphql(fetchPoliticosPorEstado,
     {
-      name: 'fetchPoliticos'
+      name: 'fetchPoliticosPorEstado'
     })
 )(PoliticoList);
