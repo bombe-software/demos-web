@@ -11,14 +11,14 @@ class GenericForm extends Component {
     }
 
     //Agregar Select
-    renderTextField(setState, value, error, placeholder, label) {
+    renderTextField(onChange, value, error, placeholder, label) {
         return (
             <div>
                 <TextField
                     hintText={placeholder}
                     floatingLabelText={label}
                     value={value}
-                    onChange={event => setState({ nombre: event.target.value })}
+                    onChange={onChange}
                     errorText={error}
                     id={placeholder}
                 />

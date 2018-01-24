@@ -20,6 +20,7 @@ import Navbar from './components/generic/navbar';
 
 import SignUp from './components/signup';
 import Login from './components/login';
+
 //import ConfirmEmail from './components/confirm_ email';
 import RecoverPassword from './components/recover_password';
 //import ConfigCuenta from './components/ConfigCuenta/ConfigCuentaForm';
@@ -33,8 +34,7 @@ import PoliticoForm from './components/politico/politico_create/politico_form';
 import PropuestaForm from './components/politico/politico_create/propuesta_form';
 import EventoForm from './components/politico/politico_create/evento_form';
 
-//Pruebas 
-import Form from './components/generic/form';
+
 
 
 const link = createHttpLink({
@@ -71,7 +71,7 @@ class App extends React.Component {
               <Route path="/politicos" component={Politicos} />
 
              
-                <Route path="/form" component={Form} />
+                <Route path="/login" component={Login} />
       
               
               <Route path="/crear/politico" component={PoliticoForm} />

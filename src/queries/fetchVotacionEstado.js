@@ -1,19 +1,17 @@
 import gql from 'graphql-tag';
 
 export default gql`
-query Votacion_por_estado($estado: ID){
-  votacion(estado: $estado) {
-    estado {
+query VotacionPorEstado($id_estado: ID){
+  votacion(estado: $id_estado){
+    preferencias{
       id
-      estado
-    }
-    preferencias {
       politico {
         id
         nombre
       }
-      usuarios {
+      usuarios{
         id
+        nombre
       }
     }
   }

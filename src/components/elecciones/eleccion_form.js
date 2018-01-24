@@ -1,12 +1,22 @@
 import React, { Component } from "react";
+import _ from "lodash";
 
 import { graphql } from 'react-apollo';
 import eleccion from "../../queries/fetchVotacionEstado";
 
 class EleccionForm extends Component {
-    
+
     constructor(props) {
         super(props);
+
+        this.state = {
+            id_politico: "",
+            mensaje: ""
+        };
+
+        this.handleClick = this.handleClick.bind(this);
+        this.handlePolitico = this.handlePolitico.bind(this);
+        this.renderListPoliticos = this.renderListPoliticos.bind(this);
     }
     /**
     * Es una forma de capturar cualquier error en la clase 
@@ -20,36 +30,34 @@ class EleccionForm extends Component {
         console.log("Error: " + error);
         console.log("Info: " + info);
     }
-    /*
-    renderListPoliticos(){
-        let {politicos} = this.props;
-        let selected = {'border': 'rgba(69, 196, 158, 0.9) solid 2px'}
-        return _.map(politicos, politico => {
-          return (
-              <div style={{'cursor': 'pointer'}} key={politico.id_politico} onClick={this.handlePoliticoSelected(politico.id_politico)}>
-              <br />
 
-                    <div className="box" style={this.state.id_politico_selected == politico.id_politico ? {selected}:{}}>
-                    <div className="media">
-                      <div className="media-left">
-                        <figure className="image is-32x32">
-                          <img src="../../assets/img/politico.png" alt="Placeholder image" />
-                        </figure>
-                      </div>
-                      <div className="media-content">
-                        <p className="title is-4">{politico.nombre}&nbsp;&nbsp;&nbsp;
-                        </p>
-                        {console.log(politico)}
-                      </div>
-                    </div>
-                    </div>
+    handlePolitico(id) {
+        this.setState({ id_politico: id })
+    }
 
-              </div>
-          );
-        });
-      }
-    */
+    handleClick() {
+        if (this.state.id_politico.length == 0) {
+            this.setState({ mensaje: "Selecciona a alguien" })
+        }else{
+            //Cambiar el console.log() por el cambio en politico
+            console.log(this.state.id_politico);
+            this.props.handleForm();
+        }
+    }
+
+    renderListPoliticos() {
+        const preferencias = this.props.data.votacion[0].preferencias;
+        return _.map(preferencias, preferencia => {
+            return (
+                <div key={preferencia.id} onClick={() => this.handlePolitico(preferencia.politico.id)}>
+                    {preferencia.politico.nombre}
+                </div>
+            );
+        })
+    }
+
     render() {
+        if (this.props.data.loading) return <div>Loading</div>
         return (
             <div>
                 <div className="card-content">
@@ -68,15 +76,18 @@ class EleccionForm extends Component {
                 <div className="card-image">
                     <div className="hero is-small">
                         <div className="hero-body">
-                            {/*
-                            this.renderListPoliticos()
-                            */}
+                            {this.renderListPoliticos()}
                         </div>
                     </div>
                 </div>
                 <div className="level">
                     <div className="level-item">
-                        <button className="button is-primary" onClick={this.props.handleForm}>
+                        {this.state.mensaje}
+                    </div>
+                </div>
+                <div className="level">
+                    <div className="level-item">
+                        <button className="button is-primary" onClick={this.handleClick}>
                             Enviar respuesta
                         </button>
                     </div>
@@ -87,5 +98,5 @@ class EleccionForm extends Component {
     }
 }
 export default graphql(eleccion, {
-    options: ({ id_estado }) => ({ variables: { estado: id_estado } }),
+    options: ({ id_estado }) => ({ variables: { id_estado } }),
 })(EleccionForm);
