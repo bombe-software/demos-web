@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import { compose } from "react-apollo";
 import { graphql } from 'react-apollo';
+import fetchPoliticosPorEstado from '../../queries/fetchPoliticosPorEstado';
 import fetchPoliticos from '../../queries/fetchPoliticos';
-
 
 class PoliticoList extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class PoliticoList extends Component {
   renderTitle() {
     // console.log(this.props);
     let {id_estado} = this.props;
-    if (id_estado == 33) {
+    if (id_estado === "5a66340f2ad334a3426ebc49") {
       return (
         <div>
           <p key={1}>{this.state.puestos[this.props.id_puesto]}&nbsp;/&nbsp;Nacional</p>
@@ -33,11 +33,9 @@ class PoliticoList extends Component {
   }
 
   renderListPoliticos() {
-    console.log(this.props.fetchPoliticos.politicos);
-    return this.props.fetchPoliticos.politicos.map(({ id, nombre, estado, tipo_politico }) => {
-      console.log(estado.id,this.props.id_estado);
-      console.log(this.state.puestos[this.props.id_puesto],tipo_politico.tipo);
-      if ((estado.id === this.props.id_estado)&&(this.state.puestos[this.props.id_puesto]===tipo_politico.tipo)) {
+  console.log(this.props);
+       return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, tipo_politico }) => {
+      if (this.state.puestos[this.props.id_puesto] ===tipo_politico.tipo  ) {
       return (
         <div key={id}>
           <div className="panel-block">
@@ -50,7 +48,8 @@ class PoliticoList extends Component {
       );
       }
     });
-  }
+    }
+  
 
   /**
   * Es una forma de capturar cualquier error en la clase 
@@ -61,11 +60,9 @@ class PoliticoList extends Component {
   * @const error Es el titulo del error
   */
   componentDidCatch(error, info) {
-    console.log("Error: " + error);
-    console.log("Info: " + info);
   }
   render() {
-    if (this.props.fetchPoliticos.loading) { return <div>Loading...</div> }
+    if (this.props.fetchPoliticosPorEstado.loading) { return <div>Loading...</div> }
     //console.log(this.props);
     return (
       <div>
@@ -74,7 +71,7 @@ class PoliticoList extends Component {
           <div className="level-right">
             <div className="level-item">
               <p className="has-text-right">
-                <Link to="/politicos/nuevo/" className="button is-success">
+                <Link to="/crear/politico" className="button is-success">
                   <i className="fa fa-plus" aria-hidden="true"></i>
                   &nbsp;&nbsp;&nbsp;Agregar un político
                       </Link >
@@ -95,7 +92,12 @@ class PoliticoList extends Component {
 
 
 export default compose(
-  graphql(fetchPoliticos,
+  graphql(fetchPoliticosPorEstado,
+    {
+      name: 'fetchPoliticosPorEstado',
+      options: (props) => {return {variables: {id: props.id_estado}}}
+    }),
+     graphql(fetchPoliticos,
     {
       name: 'fetchPoliticos'
     })

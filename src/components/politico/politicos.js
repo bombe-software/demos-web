@@ -9,7 +9,7 @@ class Politicos extends Component {
         super(props);
         this.state = {
             id_puesto: 0,
-            id_estado: 33,
+            id_estado: "5a66340f2ad334a3426ebc49",
             zona: '',
             estado: ''
         };
@@ -82,6 +82,7 @@ class Politicos extends Component {
   }
 
     render() {
+
          if (this.props.data.loading){return <div>Loading...</div>}
         return (
             <div className="section">
@@ -111,7 +112,7 @@ class Politicos extends Component {
                           <ul className="menu-list-light">
                                 <li>
                                   <div>
-                                      <a onClick={this.updateSearch(33, this.state.id_puesto)} className={this.getActiveEstado(33)}>Nacional</a>
+                                      <a onClick={this.updateSearch("5a66340f2ad334a3426ebc49", this.state.id_puesto)} className={this.getActiveEstado("5a66340f2ad334a3426ebc49")}>Nacional</a>
                                   </div>
                                 </li>
                                 {this.renderEstados()}
@@ -120,7 +121,7 @@ class Politicos extends Component {
                     </aside>
                   </div>
                   <div className="column is-6-desktop is-10-mobile is-offset-1-mobile is-6-tablet">
-                    <div key={this.state.id_estado+this.state.id_puesto}>
+                    <div key={this.state.id_estado+this.state.id_puesto}> 
                         <PoliticoList
                             id_estado = {this.state.id_estado}
                             estados = {this.state.estado}

@@ -4,7 +4,7 @@ export default gql`
 {
   lugares_estudio{
     id,
-    lugar
+    nombre
     
   }
   
