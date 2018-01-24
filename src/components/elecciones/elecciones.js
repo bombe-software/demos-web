@@ -54,15 +54,15 @@ class Elecciones extends Component {
                 <div key={item.id}>
                     <li>
                         <details>
-                            <summary>{item.zona}</summary>
+                            <summary>{item.nombre}</summary>
                             <ul>
                                 {item.estados.map(estado => {
                                     return (
                                         <li key={estado.id}>
                                             <a
-                                                onClick={this.updateSearch(estado.id, item.zona, estado.estado)}
+                                                onClick={this.updateSearch(estado.id, item.nombre, estado.nombre)}
                                                 className={this.getActiveEstado(estado.id)} >
-                                                {estado.estado}
+                                                {estado.nombre}
                                             </a>
                                         </li>
                                     )

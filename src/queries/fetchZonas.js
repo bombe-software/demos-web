@@ -4,8 +4,9 @@ export default gql`
 {
 	zonas{
     id,
-    nombre,
+    nombre
     estados{
+      id,
       nombre 
     }
   }
