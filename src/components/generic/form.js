@@ -20,7 +20,7 @@ class Form extends GenericForm {
         }
         this.setState({ errors });
     }
-
+    
     render() {
         return (
             <div>

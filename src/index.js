@@ -58,33 +58,34 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <Navbar />
-            <Switch>
-              <Route path="/signup" component={SignUp} />
-              <Route path="/login" component={Login} />
-              {/*<Route path="/confirm_email" component={ConfirmEmail} />*/}
-              <Route path="/recover_password" component={RecoverPassword} />
-              {/*<Route path="/config_cuenta" component={ConfigCuenta} />*/}
+            <MuiThemeProvider>
+              <Switch>
+                <Route path="/signup" component={SignUp} />
+                <Route path="/login" component={Login} />
+                {/*<Route path="/confirm_email" component={ConfirmEmail} />*/}
+                <Route path="/recover_password" component={RecoverPassword} />
+                {/*<Route path="/config_cuenta" component={ConfigCuenta} />*/}
 
-              <Route path="/elecciones" component={Elecciones} />
-              <Route path="/acerca_de" component={AcercaDe} />
-              <Route path="/politicos" component={Politicos} />
+                <Route path="/elecciones" component={Elecciones} />
+                <Route path="/acerca_de" component={AcercaDe} />
+                <Route path="/politicos" component={Politicos} />
 
-              <MuiThemeProvider>
+
                 <Route path="/form" component={Form} />
-              </MuiThemeProvider>
-              
-              <Route path="/crear/politico" component={PoliticoForm} />
-              <Route path="/crear/propuesta" component={PropuestaForm} />
-              <Route path="/crear/evento" component={EventoForm} />
 
-              <Route path="/politico/:id" component={PoliticoDetail} />
+                <Route path="/crear/politico" component={PoliticoForm} />
+                <Route path="/crear/propuesta" component={PropuestaForm} />
+                <Route path="/crear/evento" component={EventoForm} />
+
+                <Route path="/politico/:id" component={PoliticoDetail} />
 
 
-              {/*Landing page*/}
-              <Route path="/" exact component={LandingPage} />
-              {/*404 not found*/}
-              <Route component={NotFound} />
-            </Switch>
+                {/*Landing page*/}
+                <Route path="/" exact component={LandingPage} />
+                {/*404 not found*/}
+                <Route component={NotFound} />
+              </Switch>
+            </MuiThemeProvider>
             <Footer />
           </div>
         </BrowserRouter>
