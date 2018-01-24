@@ -32,7 +32,7 @@ class EleccionForm extends Component {
     }
 
     handlePolitico(id) {
-        this.setState({ id_politico: id })
+        this.setState({ id_politico: id });
     }
 
     handleClick() {
