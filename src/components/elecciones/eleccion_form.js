@@ -57,7 +57,7 @@ class EleccionForm extends Component {
     }
 
     render() {
-        if (this.props.data.loading) return <div>Loading</div>
+        if (this.props.data.loading) return <div>Loading</div>;
         return (
             <div>
                 <div className="card-content">
