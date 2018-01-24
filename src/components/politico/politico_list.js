@@ -33,7 +33,7 @@ class PoliticoList extends Component {
   }
 
   renderListPoliticos() {
-  console.log(this.props);
+   console.log(this.props);
        return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, tipo_politico }) => {
       if (this.state.puestos[this.props.id_puesto] ===tipo_politico.tipo  ) {
       return (

@@ -44,19 +44,20 @@ class Politicos extends Component {
     }
 
     renderEstados() {
-        return this.props.data.zonas.map(({ zona,estados }) => {
+        return this.props.data.zonas.map(({ nombre,estados }) => { console.log(nombre, estados);
             return(
-                <div key={zona}>
+                <div key={nombre}>
                         <li>
                         <details>
-                            <summary>{zona}</summary>
+                            <summary>{nombre}</summary>
                             <ul>
-                            {estados.map(({ id,estado }) => {
+                            {estados.map( estado => {
                                 return (
-                                    <li key={id}>
+                                   
+                                    <li key={estado.id}>
                                         <a
-                                        onClick={this.updateSearch(id, this.state.id_puesto, estado,zona)}
-                                        className={this.getActiveEstado(id)} >{estado}</a>
+                                        onClick={this.updateSearch(estado.id, this.state.id_puesto, estado.nombre,nombre)}
+                                        className={this.getActiveEstado(estado.id)} >{estado.nombre}</a>
                                     </li>
                                 )
                             })}
@@ -110,11 +111,6 @@ class Politicos extends Component {
                       <div>
                           <p className="menu-label">Region</p>
                           <ul className="menu-list-light">
-                                <li>
-                                  <div>
-                                      <a onClick={this.updateSearch("5a66340f2ad334a3426ebc49", this.state.id_puesto)} className={this.getActiveEstado("5a66340f2ad334a3426ebc49")}>Nacional</a>
-                                  </div>
-                                </li>
                                 {this.renderEstados()}
                           </ul>
                       </div>
