@@ -33,9 +33,9 @@ class PoliticoList extends Component {
   }
 
   renderListPoliticos() {
-   console.log(this.props);
-       return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, tipo_politico }) => {
-      if (this.state.puestos[this.props.id_puesto] ===tipo_politico.tipo  ) {
+   //console.log(this.props);
+       return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, cargo }) => {
+      if (this.state.puestos[this.props.id_puesto] ===cargo) {
       return (
         <div key={id}>
           <div className="panel-block">

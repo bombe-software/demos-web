@@ -66,7 +66,7 @@ class PoliticoDetail extends Component {
                         </div>
                         <hr/>
                         <span className="is-size-6">
-                        <p>Partido: {this.props.data.politicosPorId.partido}</p>
+                        <p>Partido: {this.props.data.politicosPorId.partido.nombre}</p>
     
                       </span>
                     </div>

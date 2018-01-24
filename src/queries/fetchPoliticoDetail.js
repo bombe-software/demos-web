@@ -5,7 +5,10 @@ query fetchPoliticoDetail($id: ID!) {
   politicosPorId(id: $id ){
     id,
     nombre,
-    partido
+    partido{
+      nombre
+    }
 }
 }
+
 `;
