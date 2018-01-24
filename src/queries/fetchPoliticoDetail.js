@@ -7,6 +7,20 @@ query fetchPoliticoDetail($id: ID!) {
     nombre,
     partido{
       nombre
+    },
+    eventos{
+      id,
+      fecha,
+      titulo,
+      descripcion
+    },
+    propuestas{
+      id,
+      fecha,
+      titulo,
+      descripcion,
+      tipo_propuesta{ tipo }
+
     }
 }
 }

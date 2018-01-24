@@ -25,5 +25,20 @@ class GenericForm extends Component {
             </div>
         );
     }
+
+    renderDateField() {
+        return (
+            <div>
+                <DatePicker
+                    hintText="Fecha"
+                    floatingLabelText={label}
+                    value={value}
+                    onChange={event => setState({ nombre: event.target.value })}
+                    errorText={error}
+                    id={placeholder}
+                />
+            </div>
+        );
+    }
 }
 export default GenericForm;

@@ -11,7 +11,8 @@ class PropuestaForm extends Component {
     this.state = {
       descripcion: '',
       fecha: '',
-      tipoPropuesta: ''
+      tipoPropuesta: '',
+      fuente: ''
     };
       this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -66,6 +67,11 @@ class PropuestaForm extends Component {
                     <select onChange={event => this.setState({ tipoPropuesta: event.target.value })}>
                         {this.renderTipoPropuesta(event)}
                       </select>
+                    </div></div>
+                    <div className="level">
+                      <div className="level-item">
+                    <input type="text" placeholder="fuente" onChange={event => this.setState({ fuente: event.target.value })}
+                        value={this.state.fuente} />
                     </div></div>
                     <div className="level">
                       <div className="level-item">

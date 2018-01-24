@@ -12,7 +12,8 @@ class EventoForm extends Component {
     this.state = {
       fecha: '',
       titulo: '',
-      descripcion: ''
+      descripcion: '',
+      fuente:''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,7 +24,7 @@ class EventoForm extends Component {
  event.preventDefault();
     const {
         fecha, titulo,
-        descripcion
+        descripcion,fuente
     } = this.state
     this.props.addEvento({
       variables: {
@@ -69,6 +70,11 @@ class EventoForm extends Component {
               <div className="level-item">      
             <input type="text" onChange={event => this.setState({ descripcion: event.target.value })}
                         value={this.state.descripcion } placeholder="Escriba la descripcion" />
+            </div></div>
+            <div className="level">
+              <div className="level-item">      
+            <input type="text" onChange={event => this.setState({ fuente: event.target.value })}
+                        value={this.state.fuente } placeholder="Escriba la fuente" />
             </div></div>
             <div className="level">
               <div className="level-item">

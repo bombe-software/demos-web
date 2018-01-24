@@ -13,7 +13,6 @@ class PoliticoList extends Component {
     };
   }
   renderTitle() {
-    // console.log(this.props);
     let {id_estado} = this.props;
     if (id_estado === "5a66340f2ad334a3426ebc49") {
       return (
@@ -33,23 +32,22 @@ class PoliticoList extends Component {
   }
 
   renderListPoliticos() {
-   //console.log(this.props);
-       return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, cargo }) => {
-      if (this.state.puestos[this.props.id_puesto] ===cargo) {
-      return (
-        <div key={id}>
-          <div className="panel-block">
-            <span className="panel-icon"><i className="fa fa-user"></i></span>
-            <Link to={'/politico/' + id} >
-              {nombre}
-        </Link>
+    return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, cargo }) => {
+      if (this.state.puestos[this.props.id_puesto] === cargo) {
+        return (
+          <div key={id}>
+            <div className="panel-block">
+              <span className="panel-icon"><i className="fa fa-user"></i></span>
+              <Link to={'/politico/' + id} >
+                {nombre}
+              </Link>
+            </div>
           </div>
-        </div>
-      );
+        );
       }
     });
-    }
-  
+  }
+
 
   /**
   * Es una forma de capturar cualquier error en la clase 
@@ -63,7 +61,6 @@ class PoliticoList extends Component {
   }
   render() {
     if (this.props.fetchPoliticosPorEstado.loading) { return <div>Loading...</div> }
-    //console.log(this.props);
     return (
       <div>
         <div className="level">
@@ -95,9 +92,9 @@ export default compose(
   graphql(fetchPoliticosPorEstado,
     {
       name: 'fetchPoliticosPorEstado',
-      options: (props) => {return {variables: {id: props.id_estado}}}
+      options: (props) => { return { variables: { id: props.id_estado } } }
     }),
-     graphql(fetchPoliticos,
+  graphql(fetchPoliticos,
     {
       name: 'fetchPoliticos'
     })

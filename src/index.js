@@ -33,6 +33,7 @@ import PoliticoForm from './components/politico/politico_create/politico_form';
 import PropuestaForm from './components/politico/politico_create/propuesta_form';
 import EventoForm from './components/politico/politico_create/evento_form';
 
+
 //Pruebas 
 import Form from './components/generic/form';
 
@@ -59,29 +60,30 @@ class App extends React.Component {
           <div>
             <Navbar />
             <MuiThemeProvider>
-            <Switch>
-              <Route path="/signup" component={SignUp} />
-              <Route path="/login" component={Login} />
-              {/*<Route path="/confirm_email" component={ConfirmEmail} />*/}
-              <Route path="/recover_password" component={RecoverPassword} />
-              {/*<Route path="/config_cuenta" component={ConfigCuenta} />*/}
+              <Switch>
+                <Route path="/signup" component={SignUp} />
+                <Route path="/login" component={Login} />
+                {/*<Route path="/confirm_email" component={ConfirmEmail} />*/}
+                <Route path="/recover_password" component={RecoverPassword} />
+                {/*<Route path="/config_cuenta" component={ConfigCuenta} />*/}
 
-              <Route path="/elecciones" component={Elecciones} />
-              <Route path="/acerca_de" component={AcercaDe} />
-              <Route path="/politicos" component={Politicos} />
+                <Route path="/elecciones" component={Elecciones} />
+                <Route path="/acerca_de" component={AcercaDe} />
+                <Route path="/politicos" component={Politicos} />
 
-             
+
                 <Route path="/form" component={Form} />
-      
-              
-              <Route path="/crear/politico" component={PoliticoForm} />
-              <Route path="/crear/propuesta" component={PropuestaForm} />
-              <Route path="/crear/evento" component={EventoForm} />
+
 
                 <Route path="/crear/politico" component={PoliticoForm} />
                 <Route path="/crear/propuesta" component={PropuestaForm} />
                 <Route path="/crear/evento" component={EventoForm} />
 
+                <Route path="/crear/politico" component={PoliticoForm} />
+                <Route path="/crear/evento" component={EventoForm} />
+                
+                <Route path="/crear/historial/:id" component={EventoForm} />
+                <Route path="/crear/propuestas/:id" component={PropuestaForm} />
                 <Route path="/politico/:id" component={PoliticoDetail} />
 
 
