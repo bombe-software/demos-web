@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 import addPolitico from './../../../queries/addPolitico';
 import fetchPartidos from './../../../queries/fetchPartidos';
-import fetchTipoPolitico from './../../../queries/fetchTipoPolitico';
+//import fetchCargo from './../../../queries/fetchCargo';
 import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
@@ -18,8 +18,8 @@ class PoliticoForm extends Component {
     this.state = {
       nombre: '',
       partido: '',
-      tipo_politico: '',
-      estado: '',
+      cargo: '',
+      idestado: '',
       titulo: '',
       grado_academico: '',
       lugar_estudio: ''
@@ -51,17 +51,17 @@ class PoliticoForm extends Component {
     });
   }
   renderEstado(event) {
-    const array = [{ id: '0', estado: 'Opcion default' }]
+    const array = [{ id: '0', nombre: 'Opcion default' }]
       .concat(this.props.fetchEstados.estados);
-    return array.map(({ id, estado }) => {
+    return array.map(({ id, nombre }) => {
       return (
         <option value={id} key={id} className="collection-item">
-          {estado}
+          {nombre}
         </option>
       );
     });
   }
-rendergrado_academicoemico(event) {
+  rendergrado_academicoemico(event) {
     const array = [{ id: '0', grado: 'Opcion default' }]
       .concat(this.props.fetchgrado_academico.grados_academico);
     return array.map(({id, grado }) => {
@@ -88,19 +88,18 @@ rendergrado_academicoemico(event) {
     console.log(this.state);
     event.preventDefault();
     const {
-        nombre, partido,
-        tipo_politico, estado,titulo,grado_academico,lugar_estudio
+      nombre, cargo, idestado
     } = this.state
     this.props.addPolitico({
       variables: {
-        nombre, partido, tipo_politico, estado,titulo,grado_academico,lugar_estudio
+        nombre, cargo, idestado
       }
     }).then(alert('Informacion enviada'));
   }
 
   render() {
-    //console.log(this.props)
-    if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchTipoPolitico.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
+    console.log(this.props)
+    if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
 
     return (
       <div><section className="hero is-large">
@@ -124,8 +123,11 @@ rendergrado_academicoemico(event) {
                   </div>
                   <div className="level">
                     <div className="level-item">
-                      <select onChange={event => this.setState({ tipo_politico: event.target.value })}>
-                        {this.renderTipo(event)}
+                      <select onChange={event => this.setState({ cargo: event.target.value })}>
+                        <option value="0">Opcion Default</option>
+                        <option value="Candidato">Candidato</option>
+                        <option value="Funcionario">Funcionario</option>
+                        <option onClick={this.setCargo} value="Otro">Otro</option>
                       </select>
                     </div>
                   </div>
@@ -137,7 +139,7 @@ rendergrado_academicoemico(event) {
                     </div>
                   </div>
                   <div>
-                  Estudios
+                    Estudios
                     </div>
                   <div className="level">
                     <div className="level-item">
@@ -174,15 +176,11 @@ rendergrado_academicoemico(event) {
 }
 
 export default compose(
-  graphql(addPolitico,
-    {
-      name: 'addPolitico'
-    }),
+  graphql(addPolitico, {
+    name: 'addPolitico'
+  }),
   graphql(fetchPartidos, {
     name: 'fetchPartidos'
-  }),
-  graphql(fetchTipoPolitico, {
-    name: 'fetchTipoPolitico'
   }),
   graphql(fetchEstados, {
     name: 'fetchEstados'

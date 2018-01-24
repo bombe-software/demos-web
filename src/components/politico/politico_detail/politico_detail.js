@@ -48,8 +48,9 @@ class PoliticoDetail extends Component {
     }
 
     renderPerfil(){
-        if(this.props.politico != undefined){
-            let {politico} = this.props;
+        console.log(this.props);
+        if(this.props.data.politicosPorId!= undefined){
+            let {politico} = this.props.data.politicosPorId;
             return(
             <div>
 
@@ -61,13 +62,12 @@ class PoliticoDetail extends Component {
                     </div>
                     <div className="card-content">
                         <div className="is-size-5 has-text-centered">
-                            <span>{politico.nombre}</span>
+                            <span>{this.props.data.politicosPorId.nombre}</span>
                         </div>
                         <hr/>
                         <span className="is-size-6">
-                        <p>Partido: {politico.partido}</p>
-                          <p>Experiencia: {politico.fecha_incio_politica}</p>
-                          <p>Slogan de campaña: {politico.motivacion}</p>
+                        <p>Partido: {this.props.data.politicosPorId.partido}</p>
+    
                       </span>
                     </div>
                 </div>
@@ -98,7 +98,7 @@ class PoliticoDetail extends Component {
   }
 
     render() {
-        console.log(this.props);
+       // console.log(this.props.match.params.id);
         return (
             <div>
                 <br/>
@@ -144,6 +144,6 @@ class PoliticoDetail extends Component {
 export default 
 (graphql(fetchPoliticosDetail,
     {
-      name: 'fetchPoliticoDetail'
+      options: (props) => {return {variables: {id: props.match.params.id}}}
     })
 )(PoliticoDetail);

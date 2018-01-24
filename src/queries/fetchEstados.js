@@ -4,7 +4,7 @@ export default gql`
 {
    estados{
     id,
-    estado
+    nombre
 
    }
 }

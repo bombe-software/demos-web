@@ -3,7 +3,9 @@ import gql from 'graphql-tag';
 export default gql`
 query PoliticosPorEstado($id: ID!){
     politicosPorEstado(id: $id){
-        nombre
-    }
+        id,
+        nombre,
+        cargo
+  }
 }
 `;

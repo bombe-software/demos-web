@@ -69,9 +69,9 @@ class App extends React.Component {
               <Route path="/acerca_de" component={AcercaDe} />
               <Route path="/politicos" component={Politicos} />
 
-              <MuiThemeProvider>
+             
                 <Route path="/form" component={Form} />
-              </MuiThemeProvider>
+      
               
               <Route path="/crear/politico" component={PoliticoForm} />
               <Route path="/crear/propuesta" component={PropuestaForm} />
