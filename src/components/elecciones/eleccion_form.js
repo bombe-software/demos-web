@@ -4,6 +4,7 @@ import _ from "lodash";
 import { graphql, compose } from 'react-apollo';
 import eleccion from "../../queries/fetchVotacionEstado";
 import usuario from "../../queries/fetchUsuario";
+import voto_por_estado from "./../../mutations/voto_por_estado";
 
 class EleccionForm extends Component {
 
@@ -40,6 +41,13 @@ class EleccionForm extends Component {
         if (this.state.id_politico.length == 0) {
             this.setState({ mensaje: "Selecciona a alguien" })
         }else{
+            this.props.updateVoto({
+                variables: {
+                    id_usuario: this.props.fetchUsuario.usuario.id,
+                    id_politico: this.state.id_politico
+                }
+            }).then(alert('Informacion enviada'));
+
             console.log(this.state.id_politico);
             this.props.handleForm();
         }
@@ -117,6 +125,9 @@ export default compose(
     graphql(eleccion, {
       name: 'fetchEleccion',
       options: ({ id_estado }) => ({ variables: { id_estado } }),
+    }),
+    graphql(voto_por_estado, {
+        name: 'updateVoto'
     })
 )(EleccionForm);
 
