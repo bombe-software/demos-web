@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 
 import login from "./../mutations/login";
+import query from "./../queries/fetchUsuario";
 import GenericForm from './generic/generic_form';
 import Field from './generic/field';
 
@@ -29,8 +30,9 @@ class Login extends GenericForm {
     onSubmit(){
         const {email, password} = this.state;
         this.props.mutate({
-            variables: { email, password }
-        }).then(({ data }) => console.log(data));
+            variables: { email, password },
+            refetchQueries: [{ query }]
+        }).then(()=>  this.props.history.push("/"));
     }
 
     render() {
@@ -80,7 +82,7 @@ class Login extends GenericForm {
                                     <div className="level">
                                         {this.state.mensaje}
                                         <div className="level-item has-text-centered">
-                                            <button className="button is-primary" onClick={this.onSubmit()}>
+                                            <button className="button is-primary" onClick={this.onSubmit}>
                                                 Ingresar
                                             </button>
                                         </div>
@@ -95,4 +97,4 @@ class Login extends GenericForm {
     }
 }
 
-export default graphql(login)(Login);
+export default  graphql(query)(graphql(login)(Login));

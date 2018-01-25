@@ -49,10 +49,21 @@ const client = new ApolloClient({
 });
 
 class App extends React.Component {
+  
+  constructor(props){
+    super(props);
+    this.handleRender = this.handleRender.bind(this);
+  }
+
+  handleRender() {
+    this.render();
+  }
+
   render() {
     // npm run-script dev
     // npm run-script build
     // npm start
+
     return (
       <ApolloProvider client={client} >
         <BrowserRouter>
@@ -71,7 +82,7 @@ class App extends React.Component {
               <Route path="/politicos" component={Politicos} />
 
              
-                <Route path="/login" component={Login} />
+              <Route path="/login" component={Login}/>
       
               
               <Route path="/crear/politico" component={PoliticoForm} />

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { graphql } from 'react-apollo';
+import logout from "../../mutations/logout";  
+import usuario from "../../queries/fetchUsuario";
+
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -8,6 +12,7 @@ class Navbar extends Component {
       isToggleOn: false,
       isUserSelected: false
     };
+    this.logout = this.logout.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.renderNavEnd = this.renderNavEnd.bind(this);
   }
@@ -24,10 +29,15 @@ class Navbar extends Component {
     }));
   }
 
-  renderNavEnd(){
-    if(JSON.stringify(this.props.user) !== '{}'){
-      return(
+  logout(){
+    this.props.mutate({
+      refetchQueries: [{ query: usuario }]
+    });
+  }
 
+  renderNavEnd(){
+    if(this.props.data.usuario == undefined){
+      return(
         <div>
           <div className="navbar-item">
             <Link to="/login" className="navbar-item is-light" onClick={this.handleClick}>
@@ -47,13 +57,14 @@ class Navbar extends Component {
           <div className="navbar-item">
             <div className="field is-grouped">
               <div className="navbar-item is-light has-dropdown is-hoverable" onClick={this.handleClick}>
-
-                <div className="navbar-dropdown is-right">
-                 
+                  {this.props.data.usuario.nombre}
+                <div className="navbar-dropdown is-right" onClick={this.logout}>
+                  Salir de la sesion
                 </div>
               </div>
               <div className="navbar-item">
-                </div>
+                {this.props.data.usuario.avatar}
+              </div>
             </div>
           </div>
           </div>
@@ -75,6 +86,7 @@ class Navbar extends Component {
   }
 
   render() {
+    if(this.props.data.loading) return <div>Loading</div>
     return (
       //Logo de la navbar
       <div>
@@ -121,8 +133,4 @@ class Navbar extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { user: state.user };
-}
-
-export default Navbar;
+export default graphql(logout)(graphql(usuario)(Navbar));
