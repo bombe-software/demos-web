@@ -36,7 +36,7 @@ class GenericForm extends Component {
                     hintText="fecha"
                     floatingLabelText={label}
                     value={value}
-                    onChange={event => setState({ nombre: event.target.value })}
+                    onChange={onChange}
                     errorText={error}
                     id={placeholder}
                 />
@@ -50,7 +50,7 @@ class GenericForm extends Component {
                     hintText={placeholder}
                     floatingLabelText={label}
                     value={value}
-                    onChange={event => setState({ nombre: event.target.value })}
+                    onChange={onChange}
                     errorText={error}
                     id={placeholder}
                     children= {children}

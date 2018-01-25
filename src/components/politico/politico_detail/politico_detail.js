@@ -58,6 +58,7 @@ class PoliticoDetail extends Component {
     }
 
     renderPerfil() {
+        console.log(this.props);
         if (this.props.data.politicosPorId != undefined) {
             let {politico} = this.props.data.politicosPorId;
             return (
@@ -76,7 +77,10 @@ class PoliticoDetail extends Component {
                             <hr />
                             <span className="is-size-6">
                                 <p>Partido: {this.props.data.politicosPorId.partido.nombre}</p>
-
+                                <p>Titulo: {this.props.data.politicosPorId.estudios[0].titulo}</p>
+                                <p>Grado academico: {this.props.data.politicosPorId.estudios[0].grado_academico.grado}</p>
+                                <p>Lugar de estudio: {this.props.data.politicosPorId.estudios[0].lugar_estudio.nombre}</p>
+                                
                             </span>
                         </div>
                     </div>

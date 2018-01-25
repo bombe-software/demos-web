@@ -19,12 +19,22 @@ query fetchPoliticoDetail($id: ID!) {
       fecha,
       titulo,
       descripcion,
-      tipo_propuesta{
-         tipo 
-        }
+      tipo_propuesta{ tipo }
 
+    },
+    estudios{
+      id,
+      titulo,
+      grado_academico {
+        id,
+        grado
+      },
+      lugar_estudio {
+        id,
+        nombre
+      }
+      
     }
 }
-}
-
+} 
 `;

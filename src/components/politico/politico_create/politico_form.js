@@ -27,10 +27,19 @@ class PoliticoForm extends GenericForm {
       lugar_estudio: '',
       errors: []
     };
+        this.setState = this.setState.bind(this);
+        this.error = this.error.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+  
+    }
+ 
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+    error(values) {
+        const errors = [];
+        //Poner validaciones
 
+        this.setState({ errors });
+    }
   renderPartidos(event) {
     const array = [{ id: '0', partido: 'Opcion default' }]
       .concat(this.props.fetchPartidos.partidos);

@@ -21,7 +21,7 @@ class PropuestaForm extends GenericForm {
     };
           this.setState = this.setState.bind(this);
           this.error = this.error.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+          this.handleSubmit = this.handleSubmit.bind(this);
   }
 
     error(values) {
