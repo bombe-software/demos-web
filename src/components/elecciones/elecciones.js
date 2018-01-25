@@ -87,7 +87,7 @@ class Elecciones extends Component {
                         </div>
                     </div>
                 </div>
-            );
+        );
         if (this.state.formActive) {
             return (
                 <EleccionForm

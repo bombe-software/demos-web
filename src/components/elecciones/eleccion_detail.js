@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Doughnut } from 'react-chartjs-2';
 import _ from "lodash";
 
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import eleccion from "../../queries/fetchVotacionEstado";
+import usuario from "../../queries/fetchUsuario";
 
 class EleccionDetail extends Component {
     constructor(props) {
@@ -25,44 +26,8 @@ class EleccionDetail extends Component {
 
 
     render() {
-        if(this.props.data.loading) return <div>Loading</div>
-        const votacion = this.props.data.votacion[0].preferencias;
-
-        let colorList = [
-            'rgba(69, 196, 158, 0.9)',
-            'rgba(115, 86, 201, 0.9)',
-            'rgba(234, 83, 136, 0.9)',
-            'rgba(37, 185, 140, 0.9)',
-            'rgba(230, 46, 111, 0.9)',
-            'rgba(89, 55, 191, 0.9)'
-        ];
-
-        let colorOpacityList = [
-            'rgba(69, 196, 158, 1)',
-            'rgba(115, 86, 201, 1)',
-            'rgba(234, 83, 136, 1)',
-            'rgba(37, 185, 140, 1)',
-            'rgba(230, 46, 111, 1)',
-            'rgba(89, 55, 191, 1)'
-        ];
-        let labelsProps = [];
-        let dataProps = [];
-
-        _.mapValues(votacion, function (preferencia) {
-            labelsProps.push(preferencia.politico.nombre);
-            dataProps.push(preferencia.usuarios.length);
-        });
-
-        let data = {
-            labels: labelsProps,
-            datasets: [{
-                data: dataProps,
-                backgroundColor: colorList,
-                hoverBackgroundColor: colorOpacityList
-            }]
-        };
-
-        if (JSON.stringify(this.props.data.votacion) == undefined || JSON.stringify(this.props.data.votacion) == '[]' || JSON.stringify(this.props.data.votacion) == '{}') {
+        if (this.props.fetchEleccion.loading || this.props.fetchUsuario.loading) return <div>Loading</div>
+        if (this.props.fetchEleccion.votacion == undefined || JSON.stringify(this.props.fetchEleccion.votacion) == '[]' || JSON.stringify(this.props.fetchEleccion.votacion) == '{}') {
             return (
                 <div>
                     <div className="card-image">
@@ -72,12 +37,43 @@ class EleccionDetail extends Component {
                             </div>
                         </div>
                     </div>
-                    <button className="button is-primary" onClick={this.props.handleForm}>
-                        Contestar encuesta
-                    </button>
                 </div>
             );
         } else {
+            const votacion = this.props.fetchEleccion.votacion[0].preferencias;
+            let colorList = [
+                'rgba(69, 196, 158, 0.9)',
+                'rgba(115, 86, 201, 0.9)',
+                'rgba(234, 83, 136, 0.9)',
+                'rgba(37, 185, 140, 0.9)',
+                'rgba(230, 46, 111, 0.9)',
+                'rgba(89, 55, 191, 0.9)'
+            ];
+
+            let colorOpacityList = [
+                'rgba(69, 196, 158, 1)',
+                'rgba(115, 86, 201, 1)',
+                'rgba(234, 83, 136, 1)',
+                'rgba(37, 185, 140, 1)',
+                'rgba(230, 46, 111, 1)',
+                'rgba(89, 55, 191, 1)'
+            ];
+            let labelsProps = [];
+            let dataProps = [];
+
+            _.mapValues(votacion, function (preferencia) {
+                labelsProps.push(preferencia.politico.nombre);
+                dataProps.push(preferencia.usuarios.length);
+            });
+
+            let data = {
+                labels: labelsProps,
+                datasets: [{
+                    data: dataProps,
+                    backgroundColor: colorList,
+                    hoverBackgroundColor: colorOpacityList
+                }]
+            };
             return (
                 <div>
                     <div className="card-content">
@@ -96,22 +92,30 @@ class EleccionDetail extends Component {
                     <div className="card-image">
                         <div className="hero is-small">
                             <div className="hero-body">
-                                    <Doughnut data={data} />
+                                <Doughnut data={data} />
                             </div>
                         </div>
                     </div>
                     <div className="card-content">
                         <br />
-                        <button className="button is-primary" onClick={this.props.handleForm}>
-                            Contestar encuesta
-                        </button>
+                        {(() => {if(this.props.fetchUsuario.usuario != undefined) return (
+                            <button className="button is-primary" onClick={this.props.handleForm}>
+                                Contestar encuesta
+                            </button>
+                        )})()}
+
                     </div>
                 </div>
             );
         }
     }
 }
-
-export default graphql(eleccion, {
-    options: ({ id_estado }) => ({ variables: { id_estado } }),
-})(EleccionDetail);
+export default compose(
+    graphql(usuario, {
+      name: 'fetchUsuario'
+    }),
+    graphql(eleccion, {
+      name: 'fetchEleccion',
+      options: ({ id_estado }) => ({ variables: { id_estado } }),
+    })
+)(EleccionDetail);

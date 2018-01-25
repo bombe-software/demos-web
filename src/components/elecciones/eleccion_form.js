@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import _ from "lodash";
 
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import eleccion from "../../queries/fetchVotacionEstado";
+import usuario from "../../queries/fetchUsuario";
 
 class EleccionForm extends Component {
 
@@ -39,25 +40,37 @@ class EleccionForm extends Component {
         if (this.state.id_politico.length == 0) {
             this.setState({ mensaje: "Selecciona a alguien" })
         }else{
-            //Cambiar el console.log() por el cambio en politico
             console.log(this.state.id_politico);
             this.props.handleForm();
         }
     }
 
     renderListPoliticos() {
-        const preferencias = this.props.data.votacion[0].preferencias;
+        const preferencias = this.props.fetchEleccion.votacion[0].preferencias;
+        let selected = {'border': 'rgba(69, 196, 158, 0.9) solid 10px'}
         return _.map(preferencias, preferencia => {
-            return (
-                <div key={preferencia.id} onClick={() => this.handlePolitico(preferencia.politico.id)}>
-                    {preferencia.politico.nombre}
-                </div>
+            return (            
+                <div style={{'cursor': 'pointer'}} key={preferencia.id}  onClick={() => this.handlePolitico(preferencia.politico.id)}>
+                    <br />
+                    <div className="box" style={this.state.id_politico == preferencia.politico.id ? {selected}:{}}>
+                    <div className="media">
+                      <div className="media-left">
+                        <figure className="image is-32x32">
+                          <img src="../../assets/img/politico.png" alt="Placeholder image" />
+                        </figure>
+                      </div>
+                      <div className="media-content">
+                        <p className="title is-4">{preferencia.politico.nombre}&nbsp;&nbsp;&nbsp;
+                        </p>
+                      </div>
+                    </div>
+                    </div>
+              </div>
             );
         })
     }
 
     render() {
-        if (this.props.data.loading) return <div>Loading</div>;
         return (
             <div>
                 <div className="card-content">
@@ -97,6 +110,13 @@ class EleccionForm extends Component {
         )
     }
 }
-export default graphql(eleccion, {
-    options: ({ id_estado }) => ({ variables: { id_estado } }),
-})(EleccionForm);
+export default compose(
+    graphql(usuario, {
+      name: 'fetchUsuario'
+    }),
+    graphql(eleccion, {
+      name: 'fetchEleccion',
+      options: ({ id_estado }) => ({ variables: { id_estado } }),
+    })
+)(EleccionForm);
+
