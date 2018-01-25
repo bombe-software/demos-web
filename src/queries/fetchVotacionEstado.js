@@ -17,3 +17,14 @@ query VotacionPorEstado($id_estado: ID){
   }
 }
 `;
+/*
+
+mutation Voto_Estado($id_usuario: ID, $id_politico: ID){
+  voto_estado(
+    id_usuario: $id_usuario,
+    id_politico: $id_politico
+  ){
+    id
+  }
+}
+*/
