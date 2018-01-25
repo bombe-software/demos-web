@@ -37,18 +37,15 @@ class Propuestas extends Component {
       //  const {user, propuestas_like}  = this.props;
        // const {renderLike} = this;
         return this.props.Politico.propuestas.map(({id, fecha, titulo, tipo_propuesta})=> {
+            console.log(id,fecha,titulo);
             return (
                 <div key={id}>
                     <div className="panel-block">
                       <p className="is-size-5">
                           <a className="has-text-dark">{titulo}</a> &nbsp;{" "}&nbsp;<span className="is-size-7 tag is-light has-text-right">{tipo_propuesta.tipo}</span>
                       </p>
-                          <div className={tipo!="Funcionario" ? "hidden" : ""}>
-                          {user != undefined  && propuestas_like != undefined ?
-                              renderLike(user, propuestas_like, propuesta)
-                           : console.log('vacio')}
-                          </div>
-                    </div>
+                          
+                    </div> 
                 </div>
             );
         });

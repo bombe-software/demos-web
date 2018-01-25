@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
+import GenericForm from '../../generic/generic_form';
+import Field from '../../generic/field';
 import addPolitico from './../../../queries/addPolitico';
 import fetchPartidos from './../../../queries/fetchPartidos';
-//import fetchCargo from './../../../queries/fetchCargo';
+
 import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
 
 import { compose } from 'react-apollo';
 
-class PoliticoForm extends Component {
+class PoliticoForm extends GenericForm {
 
   constructor(props) {
     super(props);
@@ -22,7 +24,8 @@ class PoliticoForm extends Component {
       idestado: '',
       titulo: '',
       grado_academico: '',
-      lugar_estudio: ''
+      lugar_estudio: '',
+      errors: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -110,8 +113,14 @@ class PoliticoForm extends Component {
                 <form onSubmit={this.handleSubmit}>
                   <div className="level">
                     <div className="level-item">
-                      <input type="text" onLoad={event => this.setState({ nombre: event.target.value })} onChange={event => this.setState({ nombre: event.target.value })}
-                        value={this.state.nombre} placeholder="Nombre del Politico" label="Nombre del Politico" />
+                      <Field
+                        changeState={event => { this.setState({ nombre: event.target.value }) }}
+                        mask={this.renderTextField}
+                        value={this.state.nombre}
+                        error={this.state.errors["nombre"]}
+                        placeholder={"Nombre del politico"}
+                        label={"Escriba el nombre del politico"}
+                      />
                     </div>
                   </div>
                   <div className="level">
@@ -143,8 +152,14 @@ class PoliticoForm extends Component {
                     </div>
                   <div className="level">
                     <div className="level-item">
-                      <input type="text" onLoad={event => this.setState({ nombre: event.target.value })} onChange={event => this.setState({ titulo: event.target.value })}
-                        value={this.state.titulo} placeholder="Titulo" label="Titulo" />
+                      <Field
+                        changeState={event => { this.setState({ titulo: event.target.value }) }}
+                        mask={this.renderTextField}
+                        value={this.state.titulo}
+                        error={this.state.errors["titulo"]}
+                        placeholder={"titulo"}
+                        label={"Escriba el titulo"}
+                      />
                     </div>
                   </div>
                   <div className="level">

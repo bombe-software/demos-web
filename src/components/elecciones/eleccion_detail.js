@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Doughnut } from 'react-chartjs-2';
+import _ from "lodash";
 
 import { graphql } from 'react-apollo';
 import eleccion from "../../queries/fetchVotacionEstado";
@@ -22,8 +23,10 @@ class EleccionDetail extends Component {
         console.log("Info: " + info);
     }
 
-    /*
+
     render() {
+        if(this.props.data.loading) return <div>Loading</div>
+        const votacion = this.props.data.votacion[0].preferencias;
 
         let colorList = [
             'rgba(69, 196, 158, 0.9)',
@@ -42,14 +45,12 @@ class EleccionDetail extends Component {
             'rgba(230, 46, 111, 1)',
             'rgba(89, 55, 191, 1)'
         ];
-
         let labelsProps = [];
-
         let dataProps = [];
 
-        _.mapValues(this.props.elecciones, function (eleccion) {
-            labelsProps.push(eleccion.nombre);
-            dataProps.push(eleccion.votos);
+        _.mapValues(votacion, function (preferencia) {
+            labelsProps.push(preferencia.politico.nombre);
+            dataProps.push(preferencia.usuarios.length);
         });
 
         let data = {
@@ -60,9 +61,7 @@ class EleccionDetail extends Component {
                 hoverBackgroundColor: colorOpacityList
             }]
         };
-    }
-    */
-    render() {
+
         if (JSON.stringify(this.props.data.votacion) == undefined || JSON.stringify(this.props.data.votacion) == '[]' || JSON.stringify(this.props.data.votacion) == '{}') {
             return (
                 <div>
@@ -97,10 +96,7 @@ class EleccionDetail extends Component {
                     <div className="card-image">
                         <div className="hero is-small">
                             <div className="hero-body">
-                                {/*
                                     <Doughnut data={data} />
-                                */}
-                                Some more
                             </div>
                         </div>
                     </div>
@@ -117,5 +113,5 @@ class EleccionDetail extends Component {
 }
 
 export default graphql(eleccion, {
-    options: ({ id_estado }) => ({ variables: { estado: id_estado } }),
+    options: ({ id_estado }) => ({ variables: { id_estado } }),
 })(EleccionDetail);

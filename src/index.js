@@ -20,6 +20,7 @@ import Navbar from './components/generic/navbar';
 
 import SignUp from './components/signup';
 import Login from './components/login';
+
 //import ConfirmEmail from './components/confirm_ email';
 import RecoverPassword from './components/recover_password';
 //import ConfigCuenta from './components/ConfigCuenta/ConfigCuentaForm';
@@ -32,6 +33,7 @@ import PoliticoDetail from './components/politico/politico_detail/politico_detai
 import PoliticoForm from './components/politico/politico_create/politico_form';
 import PropuestaForm from './components/politico/politico_create/propuesta_form';
 import EventoForm from './components/politico/politico_create/evento_form';
+
 
 
 //Pruebas 
@@ -60,6 +62,7 @@ class App extends React.Component {
           <div>
             <Navbar />
             <MuiThemeProvider>
+
               <Switch>
                 <Route path="/signup" component={SignUp} />
                 <Route path="/login" component={Login} />
@@ -79,8 +82,6 @@ class App extends React.Component {
                 <Route path="/crear/propuesta" component={PropuestaForm} />
                 <Route path="/crear/evento" component={EventoForm} />
 
-                <Route path="/crear/politico" component={PoliticoForm} />
-                <Route path="/crear/evento" component={EventoForm} />
                 
                 <Route path="/crear/historial/:id" component={EventoForm} />
                 <Route path="/crear/propuestas/:id" component={PropuestaForm} />
