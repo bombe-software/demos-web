@@ -114,7 +114,7 @@ class Navbar extends Component {
                   <Link to="/politicos" className="navbar-item" onClick={this.handleClick}>
                     Politicos
                   </Link>
-                  <Link to="/acerca-de" className="navbar-item" onClick={this.handleClick}>
+                  <Link to="/acerca_de" className="navbar-item" onClick={this.handleClick}>
                     Ayuda
                   </Link>
                   <Link to="/soporte" className="navbar-item" onClick={this.handleClick}>
