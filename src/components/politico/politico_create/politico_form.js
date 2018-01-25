@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
 import GenericForm from '../../generic/generic_form';
 import Field from '../../generic/field';
 import addPolitico from './../../../queries/addPolitico';
@@ -27,75 +30,20 @@ class PoliticoForm extends GenericForm {
       lugar_estudio: '',
       errors: []
     };
-        this.setState = this.setState.bind(this);
-        this.error = this.error.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-  
-    }
- 
+    this.setState = this.setState.bind(this);
+    this.error = this.error.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
-    error(values) {
-        const errors = [];
-        //Poner validaciones
+  }
 
-        this.setState({ errors });
-    }
-  renderPartidos(event) {
-    const array = [{ id: '0', partido: 'Opcion default' }]
-      .concat(this.props.fetchPartidos.partidos);
-    return array.map(({ id, partido }) => {
-      return (
-        <option value={id} key={id} className="collection-item">
-          {partido}
-        </option>
-      );
-    });
-  }
-  renderTipo(event) {
-    const array = [{ id: '0', tipo: 'Opcion default' }]
-      .concat(this.props.fetchTipoPolitico.tipos_politico);
-    return array.map(({ id, tipo }) => {
-      return (
-        <option value={id} key={id} className="collection-item">
-          {tipo}
-        </option>
-      );
-    });
-  }
-  renderEstado(event) {
-    const array = [{ id: '0', nombre: 'Opcion default' }]
-      .concat(this.props.fetchEstados.estados);
-    return array.map(({ id, nombre }) => {
-      return (
-        <option value={id} key={id} className="collection-item">
-          {nombre}
-        </option>
-      );
-    });
-  }
-  rendergrado_academicoemico(event) {
-    const array = [{ id: '0', grado: 'Opcion default' }]
-      .concat(this.props.fetchgrado_academico.grados_academico);
-    return array.map(({id, grado }) => {
-      return (
-        <option value={id} key={id} className="collection-item">
-          {grado}
-        </option>
-      );
-    });
-  }
-  renderLugarEstudio(event) {
 
-    const array = [{ id: '0', lugar: 'Opcion default' }]
-      .concat(this.props.fetchLugarEstudio.lugares_estudio);
-    return array.map(({ id, lugar }) => {
-      return (
-        <option value={id} key={id} className="collection-item">
-          {lugar}
-        </option>
-      );
-    });
+  error(values) {
+    const errors = [];
+    //Poner validaciones
+
+    this.setState({ errors });
   }
+
   handleSubmit(event) {
     console.log(this.state);
     event.preventDefault();
@@ -110,7 +58,6 @@ class PoliticoForm extends GenericForm {
   }
 
   render() {
-    console.log(this.props)
     if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
 
     return (
@@ -134,26 +81,45 @@ class PoliticoForm extends GenericForm {
                   </div>
                   <div className="level">
                     <div className="level-item">
-                      <select onChange={event => this.setState({ partido: event.target.value })}>
-                        {this.renderPartidos(event)}
-                      </select>
+                      <SelectField
+                        errorText={this.state.errors["partido"]}
+                        value={this.state.partido}
+                        onChange={(event, index, value) => this.setState({ partido: value })}
+                        floatingLabelText="Partido"
+                        fullWidth={true}
+                      >
+                        {this.props.fetchPartidos.partidos.map(({ id, nombre }) => {
+                          return <MenuItem value={id} key={id} primaryText={nombre} />
+                        })}
+                      </SelectField>
                     </div>
                   </div>
                   <div className="level">
                     <div className="level-item">
-                      <select onChange={event => this.setState({ cargo: event.target.value })}>
-                        <option value="0">Opcion Default</option>
-                        <option value="Candidato">Candidato</option>
-                        <option value="Funcionario">Funcionario</option>
-                        <option onClick={this.setCargo} value="Otro">Otro</option>
-                      </select>
+                      <SelectField
+                        errorText={this.state.errors["cargo"]}
+                        value={this.state.cargo}
+                        onChange={(event, index, value) => this.setState({ cargo: value })}
+                        floatingLabelText="Cargo"
+                        fullWidth={true}
+                      >
+                        <MenuItem value={1} key={1} primaryText={"Politico"} />
+                        <MenuItem value={2} key={2} primaryText={"Candidato"} />
+                      </SelectField>
                     </div>
                   </div>
                   <div className="level">
                     <div className="level-item">
-                      <select onChange={event => this.setState({ estado: event.target.value })}>
-                        {this.renderEstado(event)}
-                      </select>
+                      <SelectField
+                        fullWidth={true}
+                        errorText={this.state.errors["estado"]}
+                        value={this.state.estado}
+                        floatingLabelText="Estado"
+                        onChange={(event, index, value) => this.setState({ estado: value })}>
+                        {this.props.fetchEstados.estados.map(({ id, nombre }) => {
+                          return <MenuItem value={id} key={id} primaryText={nombre} />
+                        })}
+                      </SelectField>
                     </div>
                   </div>
                   <div>
@@ -173,16 +139,32 @@ class PoliticoForm extends GenericForm {
                   </div>
                   <div className="level">
                     <div className="level-item">
-                      <select onChange={event => this.setState({ grado_academico: event.target.value })}>
-                        {this.rendergrado_academicoemico(event)}
-                      </select>
+                      <SelectField
+                        value={this.state.grado_academico}
+                        errorText={this.state.errors["grado_academico"]}
+                        floatingLabelText="Grado Academico"
+                        onChange={(event, index, value) => this.setState({ grado_academico: value })}
+                        fullWidth={true}
+                      >
+                        {this.props.fetchgrado_academico.grados_academico.map(({ id, grado }) => {
+                          return <MenuItem value={id} key={id} primaryText={grado} />
+                        })}
+                      </ SelectField>
                     </div>
                   </div>
                   <div className="level">
                     <div className="level-item">
-                      <select onChange={event => this.setState({ lugar_estudio: event.target.value })}>
-                        {this.renderLugarEstudio(event)}
-                      </select>
+                      <SelectField
+                        fullWidth={true}
+                        value={this.state.lugar_estudio}
+                        errorText={this.state.errors["lugar_estudio"]}
+                        floatingLabelText="Lugar de estudio"
+                        onChange={(event, index, value) => this.setState({ lugar_estudio: value })}
+                      >
+                        {this.props.fetchLugarEstudio.lugares_estudio.map(({ id, nombre }) => {
+                          return <MenuItem value={id} key={id} primaryText={nombre} />
+                        })}
+                      </SelectField>
                     </div>
                   </div>
                   <div className="level">
@@ -190,8 +172,10 @@ class PoliticoForm extends GenericForm {
                       <div>
                         <button type="submit" className="button is-info">
                           Submit
-            </button>
-                      </div></div></div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </form>
               </div></div></div></div></section>
       </div>
