@@ -5,7 +5,36 @@ query fetchPoliticoDetail($id: ID!) {
   politicosPorId(id: $id ){
     id,
     nombre,
-    partido
+    partido{
+      nombre
+    },
+    eventos{
+      id,
+      fecha,
+      titulo,
+      descripcion
+    },
+    propuestas{
+      id,
+      fecha,
+      titulo,
+      descripcion,
+      tipo_propuesta{ tipo }
+
+    },
+    estudios{
+      id,
+      titulo,
+      grado_academico {
+        id,
+        grado
+      },
+      lugar_estudio {
+        id,
+        nombre
+      }
+      
+    }
 }
-}
+} 
 `;

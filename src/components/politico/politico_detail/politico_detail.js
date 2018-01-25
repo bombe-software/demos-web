@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { compose } from 'react-apollo';
 import { graphql } from 'react-apollo';
+import Historial from './historial';
+import Propuestas from './propuestas';
+
 import fetchPoliticosDetail from '../../../queries/fetchPoliticoDetail';
 
 class PoliticoDetail extends Component {
@@ -21,61 +24,71 @@ class PoliticoDetail extends Component {
         this.setState({ type: 'propuestas' })
     }
     updateHistorial() {
+         
         this.setState({ type: 'historial' })
+    
     }
 
     renderSection() {
-        if(this.props.politico != undefined){
-            let {type} = this.state;
-            if (type == "propuestas") {
+
+        if (this.props.data.politicosPorId!= undefined) {      
+            if (this.state.type == "propuestas") {
                 return (
                     <div>
-                       
+                       <Propuestas
+                            Politico={this.props.data.politicosPorId}
+                        />
                     </div>
                 );
-            } else if (type == "historial") {
+            } else if (this.state.type == "historial") {
+    
                 return (
                     <div>
-                       
+                        <Historial
+                            Politico={this.props.data.politicosPorId}
+                        />
                     </div>
                 );
             }
-        }else{
-            return(
-                    <div className="spinner"></div>
+        } else {
+            return (
+                <div className="spinner"></div>
             );
         }
     }
 
-    renderPerfil(){
+    renderPerfil() {
         console.log(this.props);
-        if(this.props.data.politicosPorId!= undefined){
+        if (this.props.data.politicosPorId != undefined) {
             let {politico} = this.props.data.politicosPorId;
-            return(
-            <div>
+            return (
+                <div>
 
-                <div className="card">
-                    <div className="card-image">
-                      <figure className="image is-1by1">
-                        <img src="../../../assets/img/politico.png" />
-                      </figure>
-                    </div>
-                    <div className="card-content">
-                        <div className="is-size-5 has-text-centered">
-                            <span>{this.props.data.politicosPorId.nombre}</span>
+                    <div className="card">
+                        <div className="card-image">
+                            <figure className="image is-1by1">
+                                <img src="../../../assets/img/politico.png" />
+                            </figure>
                         </div>
-                        <hr/>
-                        <span className="is-size-6">
-                        <p>Partido: {this.props.data.politicosPorId.partido}</p>
-    
-                      </span>
+                        <div className="card-content">
+                            <div className="is-size-5 has-text-centered">
+                                <span>{this.props.data.politicosPorId.nombre}</span>
+                            </div>
+                            <hr />
+                            <span className="is-size-6">
+                                <p>Partido: {this.props.data.politicosPorId.partido.nombre}</p>
+                                <p>Titulo: {this.props.data.politicosPorId.estudios[0].titulo}</p>
+                                <p>Grado academico: {this.props.data.politicosPorId.estudios[0].grado_academico.grado}</p>
+                                <p>Lugar de estudio: {this.props.data.politicosPorId.estudios[0].lugar_estudio.nombre}</p>
+                                
+                            </span>
+                        </div>
                     </div>
-                </div>
 
-        </div>
+                </div>
             );
-        }else{
-            return(
+        } else {
+            return (
                 <div>
                     <div className="spinner">
                     </div>
@@ -84,21 +97,20 @@ class PoliticoDetail extends Component {
         }
     }
 
-  /**
-  * Es una forma de capturar cualquier error en la clase 
-  * y que este no crashe el programa, ayuda con la depuracion
-  * de errores
-  * @method componentDidCatch
-  * @const info Es más informacion acerca del error
-  * @const error Es el titulo del error
-  */
-  componentDidCatch(error, info) {
-    console.log("Error: " + error);
-    console.log("Info: " + info);
-  }
+    /**
+    * Es una forma de capturar cualquier error en la clase 
+    * y que este no crashe el programa, ayuda con la depuracion
+    * de errores
+    * @method componentDidCatch
+    * @const info Es más informacion acerca del error
+    * @const error Es el titulo del error
+    */
+    componentDidCatch(error, info) {
+        console.log("Error: " + error);
+        console.log("Info: " + info);
+    }
 
     render() {
-       // console.log(this.props.match.params.id);
         return (
             <div>
                 <br/>
@@ -141,9 +153,9 @@ class PoliticoDetail extends Component {
     }
 }
 
-export default 
-(graphql(fetchPoliticosDetail,
-    {
-      options: (props) => {return {variables: {id: props.match.params.id}}}
-    })
-)(PoliticoDetail);
+export default
+    (graphql(fetchPoliticosDetail,
+        {
+            options: (props) => { return { variables: { id: props.match.params.id } } }
+        })
+    )(PoliticoDetail);

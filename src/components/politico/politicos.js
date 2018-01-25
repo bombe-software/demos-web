@@ -17,7 +17,6 @@ class Politicos extends Component {
     }
  
     updateSearch(id, tipo, estado,zona){
-       // console.log(this.state)
         return (()=>{
             this.setState({
                 id_estado: id,
@@ -44,7 +43,7 @@ class Politicos extends Component {
     }
 
     renderEstados() {
-        return this.props.data.zonas.map(({ nombre,estados }) => { console.log(nombre, estados);
+        return this.props.data.zonas.map(({ nombre,estados }) => { 
             return(
                 <div key={nombre}>
                         <li>

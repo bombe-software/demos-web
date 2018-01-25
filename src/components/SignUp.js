@@ -5,39 +5,41 @@ import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 
 import signup from '../queries/signup';
+import GenericForm from './generic/generic_form';
+import Field from './generic/field';
 
+class SignUp extends GenericForm {
 
-class SignUp extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            nombre: '',
-            email: '',
-            password: '',
-            curp: '',
-            avatar: '',
-            localidad: ''
-        };
+    this.state = {
+      nombre: '',
+      email: '',
+      password: '',
+      curp: '',
+      avatar: '',
+      localidad: '',
+      errors: []
+    };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        const {
-            nombre, email, password,
-            curp, avatar, localidad
-        } = this.state
-        console.log(this.props);
-        this.props.mutate({
-            variables: {
-                nombre, email, password,
-                curp, avatar, localidad
-            }
-        }).then(alert('Informacion enviada'));
-    }
+  handleSubmit(event) {
+    event.preventDefault();
+    const {
+      nombre, email, password,
+      curp, avatar, localidad
+    } = this.state
+    console.log(this.props);
+    this.props.mutate({
+      variables: {
+        nombre, email, password,
+        curp, avatar, localidad
+      }
+    }).then(alert('Informacion enviada'));
+  }
 
 
   /**
@@ -76,107 +78,106 @@ class SignUp extends Component {
 
                         <div className="level">
                           <div className="level-item">
-                            <input 
-                                className="input"
-                                type="text" 
-                                placeholder="Nombre de Usuario" 
-                                label="Nombre de Usuario"
-                                onChange={event => this.setState({ nombre: event.target.value })}
-                                value={this.state.nombre}
-                            /> 
-                          </div>
-                        </div>
-                        <div className="level">
-                          <div className="level-item">
-                            <input 
-                                className="input"
-                                type="text"
-                                placeholder="example@domain.com"
-                                label="Correo electronico"
-                                onChange={event => this.setState({ email: event.target.value })}
-                                value={this.state.email}
-                            /> 
-                          </div>
-                        </div>
-                        <div className="level">
-                          <div className="level-item">
-                            <input 
-                                className="input"
-                                type="text"
-                                placeholder="Cree contraseña"
-                                label="Cree contraseña"
-                                onChange={event => this.setState({ password: event.target.value })}
-                                value={this.state.password}
+                            <Field
+                              changeState={event => { this.setState({ nombre: event.target.value }) }}
+                              mask={this.renderTextField}
+                              value={this.state.nombre}
+                              error={this.state.errors["nombre"]}
+                              placeholder={"nombre"}
+                              label={"Ingrese su nombre"}
                             />
                           </div>
                         </div>
                         <div className="level">
                           <div className="level-item">
-                            <input 
-                                className="input"
-                                type="text"
-                                placeholder="Repita contraseña"
-                                label="Repita contraseña"
-
+                            <Field
+                              changeState={event => { this.setState({ email: event.target.value }) }}
+                              mask={this.renderTextField}
+                              value={this.state.email}
+                              error={this.state.errors["email"]}
+                              placeholder={"Email"}
+                              label={"Escribe tu email"}
                             />
                           </div>
                         </div>
                         <div className="level">
                           <div className="level-item">
-                            <input
-                                className="input"
-                                type="text"
-                                placeholder="Ingrese su CURP" 
-                                label="Ingrese su CURP"
-                                onChange={event => this.setState({ curp: event.target.value })}
-                                value={this.state.curp}
+                            <Field
+                              changeState={event => { this.setState({ password: event.target.value }) }}
+                              mask={this.renderTextField}
+                              value={this.state.password}
+                              error={this.state.errors["password"]}
+                              placeholder={"Password"}
+                              label={"Escribe tu password"}
                             />
                           </div>
                         </div>
                         <div className="level">
                           <div className="level-item">
-                            <input
-                                className="input"
-                                type="text"
-                                placeholder="Ingrese su avatar" 
-                                label="Ingrese su avatar"
-                                onChange={event => this.setState({ avatar: event.target.value })}
+                            <Field
+                              mask={this.renderTextField}
+                              error={this.state.errors["passwordR"]}
+                              placeholder={"passwordR"}
+                              label={"Repita su contra"}
+                            />
+                          </div>
+                        </div>
+                        <div className="level">
+                          <div className="level-item">
+                            <Field
+                              changeState={event => { this.setState({ curp: event.target.value }) }}
+                              mask={this.renderTextField}
+                              value={this.state.curp}
+                              error={this.state.errors["curp"]}
+                              placeholder={"CURP"}
+                              label={"Escribe tu CURP"}
+                            />
+                          </div>
+                          </div>
+                          <div className="level">
+                            <div className="level-item">
+                              <Field
+                                changeState={event => { this.setState({ avatar: event.target.value }) }}
+                                mask={this.renderTextField}
                                 value={this.state.avatar}
-                            />
+                                error={this.state.errors["avatar"]}
+                                placeholder={"avatar"}
+                                label={"Seleccione avatar"}
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="level">
-                          <div className="level-item">
-                            <input
-                                className="input"
-                                type="text"
-                                placeholder="Ingrese su localidad" 
-                                label="Ingrese su localidad"
-                                onChange={event => this.setState({ localidad: event.target.value })}
+                          <div className="level">
+                            <div className="level-item">
+                              <Field
+                                changeState={event => { this.setState({ localidad: event.target.value }) }}
+                                mask={this.renderTextField}
                                 value={this.state.localidad}
-                            />
+                                error={this.state.errors["localidad"]}
+                                placeholder={"Localidad"}
+                                label={"Localidad"}
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                    </div>
-                    <br />
-                    <div className="level">
-                      <div className="level-item has-text-centered">
-                        <button type="submit" className="button is-primary">
-                          Registrarme
-                        </button>
                       </div>
-                    </div>
+                      <br />
+                      <div className="level">
+                        <div className="level-item has-text-centered">
+                          <button type="submit" className="button is-primary">
+                            Registrarme
+                        </button>
+                        </div>
+                      </div>
 
                   </form>
                 </div>
+                </div>
               </div>
             </div>
-          </div>
         </section>
       </div>
-    );
+        );
   }
 }
 

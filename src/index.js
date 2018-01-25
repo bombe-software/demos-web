@@ -36,6 +36,9 @@ import EventoForm from './components/politico/politico_create/evento_form';
 
 
 
+//Pruebas 
+import Form from './components/generic/form';
+
 
 const link = createHttpLink({
   uri: 'http://localhost:3000/graphql',
@@ -93,6 +96,9 @@ class App extends React.Component {
                 <Route path="/crear/propuesta" component={PropuestaForm} />
                 <Route path="/crear/evento" component={EventoForm} />
 
+                
+                <Route path="/crear/historial/:id" component={EventoForm} />
+                <Route path="/crear/propuestas/:id" component={PropuestaForm} />
                 <Route path="/politico/:id" component={PoliticoDetail} />
 
 
