@@ -23,11 +23,7 @@ import Login from './components/login';
 
 {/*import ConfirmEmail from './components/confirm_ email';*/}
 import RecoverPassword from './components/recover_password';
-<<<<<<< HEAD
-{/*import ConfigCuenta from './components/config_cuenta/config_cuenta';*/}
-=======
 import ConfigCuenta from './components/config_cuenta/config_cuenta';
->>>>>>> origin/MedinaVilla
 
 import Elecciones from './components/elecciones/elecciones';
 import AcercaDe from './components/acerca_de/acerca_de';
