@@ -41,7 +41,7 @@ import Form from './components/generic/form';
 
 
 const link = createHttpLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'https://demos-gql.herokuapp.com/graphql',
   credentials: 'include'
 });
 
