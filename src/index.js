@@ -34,7 +34,7 @@ import PoliticoForm from './components/politico/politico_create/politico_form';
 import PropuestaForm from './components/politico/politico_create/propuesta_form';
 import EventoForm from './components/politico/politico_create/evento_form';
 
-
+import Moderador from './components/moderador/moderador';
 
 //Pruebas 
 import Form from './components/generic/form';
@@ -83,7 +83,7 @@ class App extends React.Component {
               <Route path="/elecciones" component={Elecciones} />
               <Route path="/acerca_de" component={AcercaDe} />
               <Route path="/politicos" component={Politicos} />
-
+              <Route path="/moderador" component={Moderador} />
              
               <Route path="/login" component={Login}/>
       
