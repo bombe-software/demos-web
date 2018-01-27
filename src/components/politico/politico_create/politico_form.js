@@ -24,7 +24,7 @@ class PoliticoForm extends GenericForm {
       nombre: '',
       partido: '',
       cargo: '',
-      idestado: '',
+      estado: '',
       titulo: '',
       grado_academico: '',
       lugar_estudio: '',
@@ -48,11 +48,11 @@ class PoliticoForm extends GenericForm {
     console.log(this.state);
     event.preventDefault();
     const {
-      nombre, cargo, idestado
+      nombre, cargo, estado,titulo,grado_academico,lugar_estudio, partido
     } = this.state
     this.props.addPolitico({
       variables: {
-        nombre, cargo, idestado
+        nombre, cargo, partido,estado, lugar_estudio, grado_academico, titulo
       }
     }).then(alert('Informacion enviada'));
   }
@@ -103,8 +103,8 @@ class PoliticoForm extends GenericForm {
                         floatingLabelText="Cargo"
                         fullWidth={true}
                       >
-                        <MenuItem value={1} key={1} primaryText={"Politico"} />
-                        <MenuItem value={2} key={2} primaryText={"Candidato"} />
+                        <MenuItem value="Politico" key={1} primaryText={"Politico"} />
+                        <MenuItem value="Candidato" key={2} primaryText={"Candidato"} />
                       </SelectField>
                     </div>
                   </div>
