@@ -9,6 +9,7 @@ import Field from '../../generic/field';
 import addPolitico from './../../../queries/addPolitico';
 import fetchPartidos from './../../../queries/fetchPartidos';
 
+import fetchUsuario from './../../../queries/fetchUsuario';
 import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
@@ -45,21 +46,23 @@ class PoliticoForm extends GenericForm {
   }
 
   handleSubmit(event) {
-    console.log(this.state);
+   
+    const idUsuario = this.props.fetchUsuario.usuario.id;
+    //console.log(idUsuario);
     event.preventDefault();
     const {
       nombre, cargo, estado,titulo,grado_academico,lugar_estudio, partido
     } = this.state
     this.props.addPolitico({
       variables: {
-        nombre, cargo, partido,estado, lugar_estudio, grado_academico, titulo
+        nombre, cargo, partido,estado, lugar_estudio, grado_academico, titulo,idUsuario
       }
     }).then(alert('Informacion enviada'));
   }
 
   render() {
     if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
-
+ 
     return (
       <div><section className="hero is-large">
         <div className="section">
@@ -198,6 +201,10 @@ export default compose(
   }),
   graphql(fetchLugarEstudio, {
     name: 'fetchLugarEstudio'
+  }),
+  graphql(fetchUsuario, {
+    name: 'fetchUsuario'
   })
+
 )(PoliticoForm);
 
