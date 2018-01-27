@@ -2,8 +2,16 @@ import gql from 'graphql-tag';
 
 export default gql`
 {
-   solicitudPoliticos{
-        nombre
-   } 
+  solicitudPoliticos {
+    id
+    nombre
+    estudios {
+      id
+      titulo
+    }
+    usuario{
+      id
+    }
+  }
 }
 `;
