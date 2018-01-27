@@ -48,7 +48,7 @@ class PoliticoForm extends GenericForm {
   handleSubmit(event) {
    
     const idUsuario = this.props.fetchUsuario.usuario.id;
-    //console.log(idUsuario);
+    console.log(idUsuario);
     event.preventDefault();
     const {
       nombre, cargo, estado,titulo,grado_academico,lugar_estudio, partido
