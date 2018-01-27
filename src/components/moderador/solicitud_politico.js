@@ -13,6 +13,7 @@ class SolicitudPolitico extends Component {
   }
 
   aceptar(id) {
+    console.log(id);
     this.props.AceptarPolitico({
       variables: {
         id
@@ -31,10 +32,10 @@ class SolicitudPolitico extends Component {
   }
 
   renderList() {
-    let { politicos } = this.props.fetchSolicitudPolitico;
-    return politicos.solicitudPoliticos.map(({id, nombre}) => {
+    console.log(this.props);
+    return this.props.fetchSolicitudPolitico.solicitudPoliticos.map(({id, nombre}) => {
       return (
-        <div key={politico.id_politico}>
+        <div key={id}>
           <div className="panel-block">
             <span className="panel-icon">
               <a className="is-primary" onClick={() => { this.aceptar(id) }}>
@@ -42,7 +43,7 @@ class SolicitudPolitico extends Component {
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(nombre) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
@@ -67,6 +68,9 @@ class SolicitudPolitico extends Component {
   }
 
   render() {
+    if (this.props.fetchSolicitudPolitico.loading){
+      return <div>Loading...</div>
+    }
     return (
       <div className="panel">
         <div className="panel-heading">Politicos</div>
