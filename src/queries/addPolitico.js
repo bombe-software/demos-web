@@ -9,7 +9,7 @@ $estado: ID, $lugar_estudio: ID, $grado_academico: ID, $titulo: String, $usuario
   estado: $estado, 
   lugar_estudio: $lugar_estudio,
   grado_academico: $grado_academico,
-  titulo: $titulo
+  titulo: $titulo,
   usuario: $usuario
   ){
     nombre
