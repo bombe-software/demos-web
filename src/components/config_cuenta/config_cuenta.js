@@ -11,7 +11,10 @@ class Perfil extends Component {
 
 
   render() {
-    if (this.props.data.loading) { <div>Loading...</div> }
+    console.log("jimmy");
+    console.log(this.props);
+  if (this.props.data.loading) { <div>Loading...</div> }
+  console.log(this.props);
     let {usuario} = this.props.data;
     if (JSON.stringify(usuario) == undefined) {
       return (

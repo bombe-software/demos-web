@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import Field from './../generic/field';
 import GenericForm from './../generic/generic_form';
-import updateUsuario from '../../queries/updateUsuario'
+import updateUsuario from '../../queries/updateUsuario';
 class ConfigForm extends GenericForm {
   constructor(props) {
     super(props);
@@ -83,7 +83,7 @@ class ConfigForm extends GenericForm {
   }
 
   render() {
-
+    console.log(this.props);
     return (
       <div className="columns">
         <div className="column is-8 is-offset-2">
