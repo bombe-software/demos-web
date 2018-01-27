@@ -1,7 +1,9 @@
-import React, { Component } from "react";
-import PendientesPropuestas from './pendientes_propuestas';
-import PendientesHistorial from './pendientes_historial';
-import PendientesPoliticos from './pendientes_politicos';
+import React, { Component } from 'react';
+
+//Components
+import PendientesPropuestas from './solicitud_propuesta';
+import PendientesHistorial from './solicitud_evento';
+import PendientesPoliticos from './solicitud_politico';
 
 class Moderador extends Component {
   constructor(props) {
@@ -48,19 +50,6 @@ class Moderador extends Component {
     }
   }
 
-  /**
-  * Es una forma de capturar cualquier error en la clase 
-  * y que este no crashe el programa, ayuda con la depuracion
-  * de errores
-  * @method componentDidCatch
-  * @const info Es más informacion acerca del error
-  * @const error Es el titulo del error
-  */
-  componentDidCatch(error, info) {
-    console.log("Error: " + error);
-    console.log("Info: " + info);
-  }
-
   render() {
     return (
       <div className="section">
@@ -68,19 +57,19 @@ class Moderador extends Component {
           <div className="column is-8-widescreen is-10-desktop is-10-tablet is-10-mobile is-offset-1-mobile is-offset-1-tablet is-offset-1-desktop is-offset-2-widescreen">
           <h1 className="is-size-2">Moderador</h1>
           <hr />
-                <div className="tabs is-medium is-toggle">
-                  <ul>
-                    <li className={this.state.type=="propuestas" ? 'is-active' : ''}>
-                      <a onClick={this.updatePropuestas}>Propuestas</a>
-                    </li>
-                    <li className={this.state.type=="historial" ? 'is-active' : ''}>
-                      <a onClick={this.updateHistorial}>Historial</a>
-                    </li>
-                    <li className={this.state.type=="politicos" ? 'is-active' : ''}>
-                      <a onClick={this.updatePoliticos}>Politicos</a>
-                    </li>
-                  </ul>
-                </div>
+              <div className="tabs is-medium">
+                <ul>
+                  <li className={this.state.type=="propuestas" ? 'is-active' : ''}>
+                    <a onClick={this.updatePropuestas}>Propuestas</a>
+                  </li>
+                  <li className={this.state.type=="historial" ? 'is-active' : ''}>
+                    <a onClick={this.updateHistorial}>Historial</a>
+                  </li>
+                  <li className={this.state.type=="politicos" ? 'is-active' : ''}>
+                    <a onClick={this.updatePoliticos}>Politicos</a>
+                  </li>
+                </ul>
+              </div>
 
                 <div>
                   {this.update()}
@@ -92,6 +81,7 @@ class Moderador extends Component {
       </div>
     )
   }
+
 }
 
 export default Moderador;

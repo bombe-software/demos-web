@@ -120,7 +120,9 @@ class Navbar extends Component {
                   <Link to="/soporte" className="navbar-item" onClick={this.handleClick}>
                     Soporte
                   </Link>
-         
+                  <Link to="/moderador" className="navbar-item" onClick={this.handleClick}>
+                    Moderador
+                  </Link>
               </div>
 
             </div>
