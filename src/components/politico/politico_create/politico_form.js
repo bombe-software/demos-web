@@ -61,8 +61,9 @@ class PoliticoForm extends GenericForm {
   }
 
   render() {
+
     if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
- 
+    console.log(this.props);
     return (
       <div><section className="hero is-large">
         <div className="section">

@@ -12,27 +12,26 @@ class SolicitudPolitico extends Component {
     this.denegar = this.denegar.bind(this);
   }
 
-  aceptar(id) {
-    console.log(id);
+  aceptar(idPolitico) {
     this.props.AceptarPolitico({
       variables: {
-        id
+       idPolitico
       }
     }).then(alert('Informacion enviada'));
     location.reload();
   }
 
-  denegar(id) {
+  denegar(idPolitico) {
     this.props.DenegarPolitico({
       variables: {
-        id
+        idPolitico
       }
     }).then(alert('Informacion enviada'));
     location.reload();
   }
 
   renderList() {
-    console.log(this.props);
+
     return this.props.fetchSolicitudPolitico.solicitudPoliticos.map(({id, nombre}) => {
       return (
         <div key={id}>
