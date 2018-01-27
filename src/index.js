@@ -23,7 +23,7 @@ import Login from './components/login';
 
 {/*import ConfirmEmail from './components/confirm_ email';*/}
 import RecoverPassword from './components/recover_password';
-{/*import ConfigCuenta from './components/config_cuenta/config_cuenta';*/}
+import ConfigCuenta from './components/config_cuenta/config_cuenta';
 
 import Elecciones from './components/elecciones/elecciones';
 import AcercaDe from './components/acerca_de/acerca_de';
@@ -78,7 +78,7 @@ class App extends React.Component {
               <Route path="/login" component={Login} />
               {/*<Route path="/confirm_email" component={ConfirmEmail} />*/}
               <Route path="/recover_password" component={RecoverPassword} />
-              {/*<Route path="/config_cuenta" component={ConfigCuenta} />*/}
+              <Route path="/config_cuenta" component={ConfigCuenta} />
 
               <Route path="/elecciones" component={Elecciones} />
               <Route path="/acerca_de" component={AcercaDe} />

@@ -7,7 +7,8 @@ class Field extends Component{
             this.props.value,
             this.props.error,
             this.props.placeholder,
-            this.props.label
+            this.props.label,
+            this.props.options
         );
     }
 }

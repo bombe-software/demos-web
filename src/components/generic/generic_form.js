@@ -18,6 +18,7 @@ class GenericForm extends Component {
         return (
             <div>
                 <TextField
+                    
                     hintText={placeholder}
                     floatingLabelText={label}
                     value={value}
@@ -40,22 +41,6 @@ class GenericForm extends Component {
                     errorText={error}
                     id={placeholder}
                 />
-            </div>
-        );
-    }
-    renderSelectField(onChange, value, error, placeholder, label, children) {
-        return (
-            <div>
-                <SelectField
-                    hintText={placeholder}
-                    floatingLabelText={label}
-                    value={value}
-                    onChange={onChange}
-                    errorText={error}
-                    id={placeholder}
-                    children= {children}
-                />
-
             </div>
         );
     }

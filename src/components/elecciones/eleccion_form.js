@@ -43,12 +43,11 @@ class EleccionForm extends Component {
         }else{
             this.props.updateVoto({
                 variables: {
+                    id_votacion: this.props.fetchEleccion.votacion[0].id,
                     id_usuario: this.props.fetchUsuario.usuario.id,
                     id_politico: this.state.id_politico
                 }
             }).then(alert('Informacion enviada'));
-
-            console.log(this.state.id_politico);
             this.props.handleForm();
         }
     }

@@ -4,7 +4,8 @@ export default gql`
 
 {
   partidos{
- 	nombre   
+    id
+ 	  nombre   
   }   
 }
 `;
