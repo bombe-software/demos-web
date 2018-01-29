@@ -14,17 +14,17 @@ class GenericForm extends Component {
     }
 
     //Agregar Select
-    renderTextField(onChange, value, error, placeholder, label) {
+    renderTextField(onChange, value, error, placeholder, label, fullWidth) {
         return (
             <div>
                 <TextField
-                    
                     hintText={placeholder}
                     floatingLabelText={label}
                     value={value}
                     onChange={onChange}
                     errorText={error}
                     id={placeholder}
+                    fullWidth={fullWidth}
                 />
             </div>
         );
