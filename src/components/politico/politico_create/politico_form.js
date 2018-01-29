@@ -1,26 +1,25 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import TextField from 'material-ui/TextField';
 
 import GenericForm from '../../generic/generic_form';
 import Field from '../../generic/field';
+
 import addPolitico from './../../../queries/addPolitico';
 import fetchPartidos from './../../../queries/fetchPartidos';
-
 import fetchUsuario from './../../../queries/fetchUsuario';
 import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
 
-import { compose } from 'react-apollo';
-
 class PoliticoForm extends GenericForm {
 
   constructor(props) {
     super(props);
-
+    
     this.state = {
       nombre: '',
       partido: '',
@@ -62,24 +61,38 @@ class PoliticoForm extends GenericForm {
 
   render() {
 
-    if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) { return <div>Loading...</div>; }
-    console.log(this.props);
+    if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading){
+      return <div>Loading...</div>; 
+    }
     return (
-      <div><section className="hero is-large">
+      <div>
+        <section className="hero is-large">
         <div className="section">
           <div className="columns">
             <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
-              <div className="box"><div className="has-text-centered"><h1 className="title is-3">Crear político</h1></div><hr />
+              <div className="box">
+                <br />
+                <h1 className="title">
+                  Registrar un político
+                </h1>
+                <br />
+                <p className="subtitle">
+                  ¿No encuentra a un político en nuestra página? 
+                  Brindenos su información y solicite registrarlo para
+                  que toda nuestra comunidad pueda verlo.
+                </p>
+                <br />
                 <form onSubmit={this.handleSubmit}>
                   <div className="level">
                     <div className="level-item">
-                      <Field
-                        changeState={event => { this.setState({ nombre: event.target.value }) }}
-                        mask={this.renderTextField}
+                      <TextField
+                        onChange={event => { this.setState({ nombre: event.target.value }) }}
                         value={this.state.nombre}
-                        error={this.state.errors["nombre"]}
-                        placeholder={"Nombre del politico"}
-                        label={"Escriba el nombre del politico"}
+                        errorText={this.state.errors["nombre"]}
+                        floatingLabelText={"Nombre del político"}
+                        fullWidth={true}
+                        floatingLabelFixed={true}
+                        hintText={"Enrique Peña Nieto"}
                       />
                     </div>
                   </div>
@@ -127,26 +140,14 @@ class PoliticoForm extends GenericForm {
                     </div>
                   </div>
                   <div>
-                    Estudios
-                    </div>
-                  <div className="level">
-                    <div className="level-item">
-                      <Field
-                        changeState={event => { this.setState({ titulo: event.target.value }) }}
-                        mask={this.renderTextField}
-                        value={this.state.titulo}
-                        error={this.state.errors["titulo"]}
-                        placeholder={"titulo"}
-                        label={"Escriba el titulo"}
-                      />
-                    </div>
+                    <h3 className="title is-5">Estudios</h3>
                   </div>
                   <div className="level">
                     <div className="level-item">
                       <SelectField
                         value={this.state.grado_academico}
                         errorText={this.state.errors["grado_academico"]}
-                        floatingLabelText="Grado Academico"
+                        floatingLabelText="Título"
                         onChange={(event, index, value) => this.setState({ grado_academico: value })}
                         fullWidth={true}
                       >
@@ -154,6 +155,19 @@ class PoliticoForm extends GenericForm {
                           return <MenuItem value={id} key={id} primaryText={grado} />
                         })}
                       </ SelectField>
+                    </div>
+                  </div>
+                  <div className="level">
+                    <div className="level-item">
+                      <TextField
+                        onChange={event => { this.setState({ titulo: event.target.value }) }}
+                        value={this.state.titulo}
+                        errorText={this.state.errors["titulo"]}
+                        hintText={"Derecho"}
+                        floatingLabelText={"Estudios o especialidad"}
+                        floatingLabelFixed={true}
+                        fullWidth={true}
+                     />
                     </div>
                   </div>
                   <div className="level">
@@ -174,14 +188,18 @@ class PoliticoForm extends GenericForm {
                   <div className="level">
                     <div className="level-item">
                       <div>
-                        <button type="submit" className="button is-info">
-                          Submit
+                        <button  type="submit" className="button is-primary is-medium">
+                          Registrar Político
                         </button>
                       </div>
                     </div>
                   </div>
                 </form>
-              </div></div></div></div></section>
+              </div>
+            </div>
+          </div>
+        </div>
+        </section>
       </div>
     );
   }
