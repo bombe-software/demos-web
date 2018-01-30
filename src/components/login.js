@@ -5,12 +5,7 @@ import { graphql } from 'react-apollo';
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
 
-<<<<<<< HEAD
-class Login extends GenericForm {
-
-=======
 class Login extends Component {
->>>>>>> origin/MedinaVilla
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
