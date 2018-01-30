@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 import { graphql } from 'react-apollo';
-
+import TextField from 'material-ui/TextField';
 import signup from '../queries/signup';
 import GenericForm from './generic/generic_form';
-import Field from './generic/field';
+import { Form, Field } from "react-final-form";
 
-class SignUp extends GenericForm {
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+class SignUp extends Component {
 
   constructor(props) {
     super(props);
@@ -17,17 +19,19 @@ class SignUp extends GenericForm {
       nombre: '',
       email: '',
       password: '',
+      passwordR: '',
       curp: '',
       avatar: '',
       localidad: '',
       errors: []
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.setState = this.setState.bind(this);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  async onSubmit(values) {
+    console.log(values);
     const {
       nombre, email, password,
       curp, avatar, localidad
@@ -39,7 +43,8 @@ class SignUp extends GenericForm {
         curp, avatar, localidad
       }
     }).then(alert('Informacion enviada'));
-  }
+  };
+
 
 
   /**
@@ -71,113 +76,69 @@ class SignUp extends GenericForm {
             <div className="columns">
               <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
                 <div className="box"> <h1 className="title is-3">Registro</h1><p>Ingrese la siguiente información</p><hr />
-                  <form onSubmit={this.handleSubmit}>
-                    <div className="columns">
-
-                      <div className="column">
-
-                        <div className="level">
-                          <div className="level-item">
-                            <Field
-                              changeState={event => { this.setState({ nombre: event.target.value }) }}
-                              mask={this.renderTextField}
-                              value={this.state.nombre}
-                              error={this.state.errors["nombre"]}
-                              placeholder={"nombre"}
-                              label={"Ingrese su nombre"}
-                            />
-                          </div>
-                        </div>
-                        <div className="level">
-                          <div className="level-item">
-                            <Field
-                              changeState={event => { this.setState({ email: event.target.value }) }}
-                              mask={this.renderTextField}
-                              value={this.state.email}
-                              error={this.state.errors["email"]}
-                              placeholder={"Email"}
-                              label={"Escribe tu email"}
-                            />
-                          </div>
-                        </div>
-                        <div className="level">
-                          <div className="level-item">
-                            <Field
-                              changeState={event => { this.setState({ password: event.target.value }) }}
-                              mask={this.renderTextField}
-                              value={this.state.password}
-                              error={this.state.errors["password"]}
-                              placeholder={"Password"}
-                              label={"Escribe tu password"}
-                            />
-                          </div>
-                        </div>
-                        <div className="level">
-                          <div className="level-item">
-                            <Field
-                              mask={this.renderTextField}
-                              error={this.state.errors["passwordR"]}
-                              placeholder={"passwordR"}
-                              label={"Repita su contra"}
-                            />
-                          </div>
-                        </div>
-                        <div className="level">
-                          <div className="level-item">
-                            <Field
-                              changeState={event => { this.setState({ curp: event.target.value }) }}
-                              mask={this.renderTextField}
-                              value={this.state.curp}
-                              error={this.state.errors["curp"]}
-                              placeholder={"CURP"}
-                              label={"Escribe tu CURP"}
-                            />
-                          </div>
-                          </div>
-                          <div className="level">
-                            <div className="level-item">
-                              <Field
-                                changeState={event => { this.setState({ avatar: event.target.value }) }}
-                                mask={this.renderTextField}
-                                value={this.state.avatar}
-                                error={this.state.errors["avatar"]}
-                                placeholder={"avatar"}
-                                label={"Seleccione avatar"}
-                              />
+                  <Form
+                    onSubmit={this.onSubmit}
+                    validate={values => {
+                      const errors = {};
+                      if (!values.nombre) {
+                        errors.nombre = "Ingrese su nombre de usuario";
+                      }
+                      if (!values.email) {
+                        errors.email = "Ingrese su email";
+                      }
+                      if (!values.password) {
+                        errors.password = "Ingrese su password";
+                      }
+                      return errors;
+                    }}
+                    render={({ handleSubmit, reset, submitting, pristine, values }) => (
+                      <form onSubmit={handleSubmit}>
+                        <Field name="nombre">
+                          {({ input, meta }) => (
+                            <div>
+                              <TextField hintText="Nombre de usuario" floatingLabelText="Usuario"
+                                onChange={(event, index, value) => this.setState({ nombre: value })}
+                                value={this.state.nombre}
+                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
                             </div>
-                          </div>
-                          <div className="level">
-                            <div className="level-item">
-                              <Field
-                                changeState={event => { this.setState({ localidad: event.target.value }) }}
-                                mask={this.renderTextField}
-                                value={this.state.localidad}
-                                error={this.state.errors["localidad"]}
-                                placeholder={"Localidad"}
-                                label={"Localidad"}
-                              />
+                          )}
+                        </Field>
+                        <Field name="email">
+                          {({ input, meta }) => (
+                            <div>
+                              <TextField hintText="Ingrese su email" floatingLabelText="E-mail"
+                                onChange={(event, index, value) => this.setState({ email: value })}
+                                value={this.state.email}
+                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
                             </div>
-                          </div>
+                          )}
+                        </Field>
+                        <Field name="password">
+                          {({ input, meta }) => (
+                            <div>
+                              <TextField hintText="Ingrese usuario" floatingLabelText="Password"
+                                onChange={(event, index, value) => this.setState({ password: value })}
+                                value={this.state.password}
+                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                            </div>
+                          )}
+                        </Field>
+                        <div className="buttons">
+                          <button type="submit" disabled={submitting}>
+                            Submit
+            </button>
                         </div>
 
-                      </div>
-                      <br />
-                      <div className="level">
-                        <div className="level-item has-text-centered">
-                          <button type="submit" className="button is-primary">
-                            Registrarme
-                        </button>
-                        </div>
-                      </div>
-
-                  </form>
-                </div>
+                      </form>
+                    )}
+                  />
                 </div>
               </div>
             </div>
+          </div>
         </section>
       </div>
-        );
+    );
   }
 }
 

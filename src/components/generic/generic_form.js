@@ -14,7 +14,7 @@ class GenericForm extends Component {
     }
 
     //Agregar Select
-    renderTextField(onChange, value, error, placeholder, label, fullWidth) {
+    renderTextField(onChange, value, error, placeholder, touched, label, fullWidth) {
         return (
             <div>
                 <TextField
