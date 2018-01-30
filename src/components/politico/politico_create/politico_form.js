@@ -5,9 +5,6 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 
-import GenericForm from '../../generic/generic_form';
-import Field from '../../generic/field';
-
 import addPolitico from './../../../queries/addPolitico';
 import fetchPartidos from './../../../queries/fetchPartidos';
 import fetchUsuario from './../../../queries/fetchUsuario';
@@ -15,7 +12,7 @@ import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
 
-class PoliticoForm extends GenericForm {
+class PoliticoForm extends Component {
 
   constructor(props) {
     super(props);
