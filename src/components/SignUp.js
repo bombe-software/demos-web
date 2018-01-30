@@ -8,26 +8,12 @@ import signup from '../queries/signup';
 import GenericForm from './generic/generic_form';
 import { Form, Field } from "react-final-form";
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class SignUp extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      nombre: '',
-      email: '',
-      password: '',
-      passwordR: '',
-      curp: '',
-      avatar: '',
-      localidad: '',
-      errors: []
-    };
-
     this.onSubmit = this.onSubmit.bind(this);
-    this.setState = this.setState.bind(this);
   }
 
   async onSubmit(values) {
