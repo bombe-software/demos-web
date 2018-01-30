@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { compose } from 'react-apollo';
 import { graphql } from 'react-apollo';
 import addEvento from './../../../queries/addEvento';
-import Field from '../../generic/field';
-import GenericForm from '../../generic/generic_form';
 
-class EventoForm extends GenericForm {
+
+class EventoForm extends Component{
 
   constructor(props) {
     super(props);
