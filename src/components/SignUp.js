@@ -32,17 +32,18 @@ class SignUp extends Component {
 
   async onSubmit(values) {
     console.log(values);
+    /*
     const {
       nombre, email, password,
       curp, avatar, localidad
-    } = this.state
-    console.log(this.props);
+    } = values;
     this.props.mutate({
       variables: {
         nombre, email, password,
         curp, avatar, localidad
       }
     }).then(alert('Informacion enviada'));
+    */
   };
 
 
@@ -97,8 +98,6 @@ class SignUp extends Component {
                           {({ input, meta }) => (
                             <div>
                               <TextField hintText="Nombre de usuario" floatingLabelText="Usuario"
-                                onChange={(event, index, value) => this.setState({ nombre: value })}
-                                value={this.state.nombre}
                                 errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
                             </div>
                           )}
@@ -107,8 +106,6 @@ class SignUp extends Component {
                           {({ input, meta }) => (
                             <div>
                               <TextField hintText="Ingrese su email" floatingLabelText="E-mail"
-                                onChange={(event, index, value) => this.setState({ email: value })}
-                                value={this.state.email}
                                 errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
                             </div>
                           )}
@@ -117,8 +114,6 @@ class SignUp extends Component {
                           {({ input, meta }) => (
                             <div>
                               <TextField hintText="Ingrese usuario" floatingLabelText="Password"
-                                onChange={(event, index, value) => this.setState({ password: value })}
-                                value={this.state.password}
                                 errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
                             </div>
                           )}
@@ -126,9 +121,8 @@ class SignUp extends Component {
                         <div className="buttons">
                           <button type="submit" disabled={submitting}>
                             Submit
-            </button>
+                          </button>
                         </div>
-
                       </form>
                     )}
                   />
