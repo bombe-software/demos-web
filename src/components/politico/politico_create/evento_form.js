@@ -19,7 +19,7 @@ class EventoForm extends Component{
     super(props);
 
     this.state = {
-      fecha: {},
+      fecha: null,
       titulo: '',
       descripcion: '',
       fuente: '',
@@ -70,7 +70,7 @@ class EventoForm extends Component{
   * @const error Es el titulo del error
   */
   render() {
-
+    console.log(this.props.fetchUsuario);
     return (
       <div>
 
