@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { compose } from 'react-apollo';
-import { graphql } from 'react-apollo';
-import addEvento from './../../../queries/addEvento';
-import Field from '../../generic/field';
-import GenericForm from '../../generic/generic_form';
+import { compose, graphql } from 'react-apollo';
 
-class EventoForm extends GenericForm {
+//Componentes
+import MenuItem from 'material-ui/MenuItem';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import DatePicker from "material-ui/DatePicker";
+
+//Queries
+import fetchUsuario from './../../../queries/fetchUsuario';
+import addEvento from './../../../queries/addEvento';
+
+
+class EventoForm extends Component{
 
   constructor(props) {
     super(props);
@@ -21,6 +28,7 @@ class EventoForm extends GenericForm {
     this.setState = this.setState.bind(this);
     this.error = this.error.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
   }
 
   error(values) {
@@ -30,16 +38,24 @@ class EventoForm extends GenericForm {
     this.setState({ errors });
   }
 
+  handleChangeDate(event, date) {
+    this.setState({
+      fecha: date,
+    });
+  };
+
   handleSubmit(event) {
-    console.log(this.state);
+    const usuario = this.props.fetchUsuario.usuario.id;
+    const politico =this.props.match.params.id;
     event.preventDefault();
     const {
       fecha, titulo,
-      descripcion, fuente
+      descripcion, referencia
     } = this.state
+    console.log(this.state);
     this.props.addEvento({
       variables: {
-        fecha, titulo, descripcion
+        fecha, titulo, descripcion, referencia, politico, usuario
       }
     }).then(alert('Informacion enviada'));
 
@@ -68,53 +84,58 @@ class EventoForm extends GenericForm {
                   <form onSubmit={this.handleSubmit}>
                     <div className="level">
                       <div className="level-item">
-                        <Field
-                          changeState={event => { this.setState({ fecha: event.target.value }) }}
-                          mask={this.renderDateField}
+                        <DatePicker
+                          onChange={this.handleChangeDate}
                           value={this.state.fecha}
-                          error={this.state.errors["fecha"]}
-                          placeholder={"Seleccione fecha"}
-                          label={"Seleccione fecha"}
+                          errorText={this.state.errors["fecha"]}
+                          floatingLabelText={"Fecha del evento"}
+                          fullWidth={true}
                         />
                       </div></div>
                     <div className="level">
                       <div className="level-item">
-                        <Field
-                          changeState={event => { this.setState({ titulo: event.target.value }) }}
-                          mask={this.renderTextField}
+                        <TextField
+                          onChange={event => { this.setState({ titulo: event.target.value }) }}
                           value={this.state.titulo}
-                          error={this.state.errors["titulo"]}
-                          placeholder={"Seleccione titulo"}
-                          label={"Seleccione titulo"}
+                          errorText={this.state.errors["titulo"]}
+                          floatingLabelText={"Título del evento"}
+                          hintText={"Elegido como precandidato del PAN"}
+                          floatingLabelFixed={true}
+                          fullWidth={true}
                         />
                       </div></div>
                     <div className="level">
                       <div className="level-item">
-                        <Field
-                          changeState={event => { this.setState({ descripcion: event.target.value }) }}
-                          mask={this.renderTextField}
+                        <TextField
+                          onChange={event => { this.setState({ descripcion: event.target.value }) }}
                           value={this.state.descripcion}
-                          error={this.state.errors["descripcion"]}
-                          placeholder={"Seleccione descripcion"}
-                          label={"Seleccione descripcion"}
+                          errorText={this.state.errors["descripcion"]}
+                          floatingLabelText={"Descripción"}
+                          hintText={"Fue elegido por votación de integrantes del mismo partido"}
+                          floatingLabelFixed={true}
+                          multiLine={true}
+                          rows={2}
+                          rowsMax={10}
+                          fullWidth={true}
                         />
                       </div></div>
                     <div className="level">
                       <div className="level-item">
-                        <Field
-                          changeState={event => { this.setState({ fuente: event.target.value }) }}
-                          mask={this.renderTextField}
+                        <TextField
+                          onChange={event => { this.setState({ fuente: event.target.value }) }}
                           value={this.state.fuente}
-                          error={this.state.errors["fuente"]}
-                          placeholder={"Seleccione fuente"}
-                          label={"Seleccione fuente"}
+                          errorText={this.state.errors["fuente"]}
+                          floatingLabelText={"Fuente de consulta"}
+                          floatingLabelFixed={true}
+                          hintText={"www.eluniversal.com.mx"}
+                          fullWidth={true}
                         />
                       </div></div>
                     <div className="level">
                       <div className="level-item">
-                        <button type="submit" className="button is-info">
-                          Submit
-            </button>
+                      <button type="submit" className="button is-primary is-medium">
+                          Registrar evento
+                      </button>
                       </div></div>
                   </form>
                 </div></div></div></div></section>
@@ -127,5 +148,9 @@ export default compose(
   graphql(addEvento,
     {
       name: 'addEvento'
+    }),
+  graphql(fetchUsuario,
+    {
+      name: 'fetchUsuario'
     })
 )(EventoForm);

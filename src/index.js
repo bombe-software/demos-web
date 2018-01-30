@@ -37,7 +37,6 @@ import EventoForm from './components/politico/politico_create/evento_form';
 import Moderador from './components/moderador/moderador';
 
 //Pruebas 
-import Form from './components/generic/form';
 
 
 const link = createHttpLink({

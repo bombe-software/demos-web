@@ -12,7 +12,7 @@ import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
 
-class PoliticoForm extends Component {
+class PoliticoForm extends Component{
 
   constructor(props) {
     super(props);

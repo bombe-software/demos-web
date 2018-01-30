@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 
-//Componentes
-import GenericForm from '../../generic/generic_form';
-import Field from '../../generic/field';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
@@ -15,7 +12,7 @@ import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
 import addPropuesta from "../../../queries/addPropuesta";
 import fetchUsuario from "../../../queries/fetchUsuario";
 
-class PropuestaForm extends GenericForm {
+class PropuestaForm extends Component {
 
   constructor(props) {
     super(props);
@@ -169,7 +166,7 @@ class PropuestaForm extends GenericForm {
                       <div className="level-item">
                         <button type="submit" className="button is-primary is-medium">
                           Registrar propuesta
-                    </button>
+                        </button>
                       </div></div>
                   </form>
                 </div>
