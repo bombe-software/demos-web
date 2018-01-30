@@ -4,10 +4,8 @@ import { graphql } from 'react-apollo';
 
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
-import GenericForm from './generic/generic_form';
-import Field from './generic/field';
 
-class Login extends GenericForm {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {

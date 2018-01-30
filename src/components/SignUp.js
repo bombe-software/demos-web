@@ -5,10 +5,6 @@ import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 import TextField from 'material-ui/TextField';
 import signup from '../queries/signup';
-import GenericForm from './generic/generic_form';
-import { Form, Field } from "react-final-form";
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class SignUp extends Component {
 

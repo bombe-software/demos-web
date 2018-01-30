@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import Field from './../generic/field';
-import GenericForm from './../generic/generic_form';
 import updateUsuario from '../../queries/updateUsuario';
-class ConfigForm extends GenericForm {
+class ConfigForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
