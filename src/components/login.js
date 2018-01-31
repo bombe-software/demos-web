@@ -10,7 +10,7 @@ class Login extends Component {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
-    
+
     async onSubmit(values) {
         console.log(values);
         /*
@@ -21,6 +21,7 @@ class Login extends Component {
             }).then(()=>  this.props.history.push("/"));
         */
     };
+    
 
     /**
      * Es una forma de capturar cualquier error en la clase 
@@ -50,44 +51,44 @@ class Login extends Component {
                         <div className="columns">
                             <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
                                 <div className="box"><h1 className="title is-3">Inicio de sesión</h1><hr />
-                                <Form
-                                    onSubmit={this.onSubmit}
-                                    validate={values => {
-                                    const errors = {};
-                                    if (!values.email) {
-                                        errors.email = "Ingrese su email";
-                                    }
-                                    if (!values.password) {
-                                        errors.password = "Ingrese su password";
-                                    }
-                                    return errors;
-                                    }}
-                                    render={({ handleSubmit, reset, submitting, pristine, values }) => (
-                                    <form onSubmit={handleSubmit}>
-                                        <Field name="email">
-                                        {({ input, meta }) => (
-                                            <div>
-                                            <TextField hintText="Ingrese su email" floatingLabelText="E-mail"
-                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                                            </div>
+                                    <Form
+                                        onSubmit={this.onSubmit}
+                                        validate={values => {
+                                            const errors = {};
+                                            if (!values.email) {
+                                                errors.email = "Ingrese su email";
+                                            }
+                                            if (!values.password) {
+                                                errors.password = "Ingrese su password";
+                                            }
+                                            return errors;
+                                        }}
+                                        render={({ handleSubmit, reset, submitting, pristine, values }) => (
+                                            <form onSubmit={handleSubmit}>
+                                                <Field name="email">
+                                                    {({ input, meta }) => (
+                                                        <div>
+                                                            <TextField hintText="Ingrese su email" floatingLabelText="E-mail"
+                                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                                                        </div>
+                                                    )}
+                                                </Field>
+                                                <Field name="password">
+                                                    {({ input, meta }) => (
+                                                        <div>
+                                                            <TextField hintText="Ingrese usuario" floatingLabelText="Password"
+                                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                                                        </div>
+                                                    )}
+                                                </Field>
+                                                <div className="buttons">
+                                                    <button type="submit" disabled={submitting}>
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </form>
                                         )}
-                                        </Field>
-                                        <Field name="password">
-                                        {({ input, meta }) => (
-                                            <div>
-                                            <TextField hintText="Ingrese usuario" floatingLabelText="Password"
-                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                                            </div>
-                                        )}
-                                        </Field>
-                                        <div className="buttons">
-                                            <button type="submit" disabled={submitting}>
-                                                Submit
-                                            </button>
-                                        </div>
-                                    </form>
-                                    )}
-                                />
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -98,4 +99,4 @@ class Login extends Component {
     }
 }
 
-export default  graphql(query)(graphql(login)(Login));
+export default graphql(query)(graphql(login)(Login));
