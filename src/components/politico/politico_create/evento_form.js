@@ -7,6 +7,7 @@ import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
+import fetchUsuario from "../../../queries/fetchUsuario";
 
 class EventoForm extends GenericForm {
 
@@ -17,17 +18,19 @@ class EventoForm extends GenericForm {
   }
 
   async onSubmit(values) {
+    const usuario = this.props.fetchUsuario.usuario.id;
     const {
       fecha, titulo,
-      descripcion, fuente
-    } = this.state
-
+      descripcion, referencia
+    } = values
+    console.log(fecha, titulo, descripcion, referencia, usuario);
+    { /**
     this.props.mutate({
       variables: {
         fecha, titulo,
-        descripcion, fuente
+        descripcion, referencia
       }
-    }).then(alert('Informacion enviada'));
+    }).then(alert('Informacion enviada')); **/}
   };
   /**
   * Es una forma de capturar cualquier error en la clase 
@@ -88,7 +91,7 @@ class EventoForm extends GenericForm {
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
                       <form onSubmit={handleSubmit}>
 
-                         <div className="level">
+                        <div className="level">
                           <div className="level-item">
                             <Field name="titulo"
                               component={this.renderTextField}
@@ -97,7 +100,7 @@ class EventoForm extends GenericForm {
                             />
                           </div>
                         </div>
-                         <div className="level">
+                        <div className="level">
                           <div className="level-item">
                             <Field name="descripcion"
                               component={this.renderTextField}
@@ -106,7 +109,7 @@ class EventoForm extends GenericForm {
                             />
                           </div>
                         </div>
-                         <div className="level">
+                        <div className="level">
                           <div className="level-item">
                             <Field name="fecha"
                               component={this.renderTextField}
@@ -115,7 +118,7 @@ class EventoForm extends GenericForm {
                             />
                           </div>
                         </div>
-                         <div className="level">
+                        <div className="level">
                           <div className="level-item">
                             <Field name="referencia"
                               component={this.renderTextField}
@@ -143,5 +146,9 @@ export default compose(
   graphql(addEvento,
     {
       name: 'addEvento'
+    }),
+     graphql(fetchUsuario,
+    {
+      name: 'fetchUsuario'
     })
 )(EventoForm);

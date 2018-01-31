@@ -22,18 +22,17 @@ class PoliticoForm extends GenericForm {
   }
 
   async onSubmit(values) {
-    console.log(values);
-    /*
     const idUsuario = this.props.fetchUsuario.usuario.id;
     const {
       nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido
-    } = this.state
+    } = values
+    console.log(nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, idUsuario);
+    {/*
     this.props.addPolitico({
       variables: {
         nombre, cargo, partido, estado, lugar_estudio, grado_academico, titulo, idUsuario
       }
-    }).then(alert('Informacion enviada'));
-    */
+    }).then(alert('Informacion enviada')); */}
   };
 
 
@@ -104,7 +103,6 @@ class PoliticoForm extends GenericForm {
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
                       <form onSubmit={handleSubmit}>
-
                         <div className="level">
                           <div className="level-item">
                             <Field name="nombre"

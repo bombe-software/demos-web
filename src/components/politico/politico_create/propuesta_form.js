@@ -17,29 +17,10 @@ class PropuestaForm extends GenericForm {
 
   constructor(props) {
     super(props);
-    this.state = {
-      tipo_propuesta: '',
 
-    };
     this.onSubmit = this.onSubmit.bind(this);
-    this.handleChangeDate = this.handleChangeDate.bind(this);
-  }
-  renderTipoPropuesta() {
-    const array = [{ id: '0', tipo: 'Opcion default' }]
-      .concat(this.props.fetchTipoPropuesta.tipos_propuesta);
-    return array.map(({ id, tipo }) => {
-      return (
-        <MenuItem value={id} key={id} primaryText={tipo} />
-      );
-    });
 
-  }
-
-  handleChangeDate(event, date) {
-    this.setState({
-      fecha: date,
-    });
-  };
+  } 
 
   async onSubmit(values) {
 
@@ -47,13 +28,15 @@ class PropuestaForm extends GenericForm {
     const politico = this.props.match.params.id;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
-    } = this.state
-
-    this.props.mutate({
+    } = values
+    console.log(titulo, descripcion,fecha, tipo_propuesta, referencia);
+    {/*
+    this.props.addPropuesta({
       variables: {
-        titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
+       titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
       }
-    }).then(alert('Informacion enviada'));
+    }).then(alert('Informacion enviada')); */}
+
   };
 
   render() {
@@ -144,7 +127,9 @@ class PropuestaForm extends GenericForm {
                               hintText="Escribe tipo de la propuesta"
                               floatingLabelText="Tipo de la propuesta"
                             >
-                              {this.renderTipoPropuesta()}
+                             {this.props.fetchTipoPropuesta.tipos_propuesta.map(({ id, tipo }) => {
+                                return <MenuItem value={id} key={id} primaryText={tipo} />
+                              })}
                             </Field>
                           </div>
                         </div>
@@ -199,5 +184,5 @@ export default compose(
   graphql(fetchUsuario,
     {
       name: 'fetchUsuario'
-    }),
+    })
 )(PropuestaForm);

@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import updateUsuario from '../../queries/updateUsuario';
-class ConfigForm extends Component {
+
+import { Form, Field } from "react-final-form";
+import GenericForm from './../generic/generic_form';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+
+class ConfigForm extends GenericForm {
   constructor(props) {
     super(props);
     this.state = {
-      nombre: '',
-      password: '',
-      Rpassword: '',
       avatar: 'jaiba',
       imgAvatar: ['selected', 'none', 'none', 'none'],
       errors: []
@@ -18,17 +21,9 @@ class ConfigForm extends Component {
     this.updateChivo = this.updateChivo.bind(this);
     this.updateErizo = this.updateErizo.bind(this);
     this.setState = this.setState.bind(this);
-    this.error = this.error.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
   }
-  error(values) {
-    const errors = [];
-    //Poner validaciones
-
-    this.setState({ errors });
-  }
-
   updateJaiba() {
     this.setState({
       avatar: "jaiba",
@@ -54,18 +49,18 @@ class ConfigForm extends Component {
     })
   }
 
-  onSubmit(event) {
-    event.preventDefault();
-    const id = this.props.usuario.id;
+  async onSubmit(values) {
+  const id = this.props.usuario.id;
     const {
-      nombre,password,avatar
-    } = this.state
-    this.props.mutate({
+      nombre, password
+    } = values
+    console.log(nombre,password);
+    { /* this.props.mutate({
       variables: {
         id, nombre, password, avatar
       }
     }).then(alert('Informacion enviada'));
-    location.reload();
+    location.reload(); */ } 
   }
   /**
   * Es una forma de capturar cualquier error en la clase 
@@ -86,71 +81,107 @@ class ConfigForm extends Component {
       <div className="columns">
         <div className="column is-8 is-offset-2">
           <div className="box"> <h1 className="is-size-4">Configura tu cuenta</h1><hr />
-            <form onSubmit={this.onSubmit}>
-              <Field
-                changeState={event => { this.setState({ nombre: event.target.value }) }}
-                mask={this.renderTextField}
-                value={this.state.nombre}
-                error={this.state.errors["nombre"]}
-                placeholder={"nombre"}
-                label={"Escriba su nombre"}
-              />
-              <Field
-                changeState={event => { this.setState({ password: event.target.value }) }}
-                mask={this.renderTextField}
-                value={this.state.password}
-                error={this.state.errors["password"]}
-                placeholder={"password"}
-                label={"Escribe su password"}
-              />
-              <Field
-                changeState={event => { this.setState({ Rpassword: event.target.value }) }}
-                mask={this.renderTextField}
-                value={this.state.Rpassword}
-                error={this.state.errors["Rpassword"]}
-                placeholder={"Repita password"}
-                label={"Repita su password"}
-              />
-              <div>
-                <div>
-                  <h2 className="is-size-5">Seleccione un avatar</h2>
-                </div><br />
-                <div className="level">
-                  <div className="level-item has-text-centered">
-                    <label>
-                      <input type="radio" name="imagen" />
-                      <img src="./assets/img/jaiba.svg" className={this.state.imgAvatar[0] + " image is-64x64"} width="100px" height="100px" onClick={this.updateJaiba} />
-                    </label>
+            <Form
+              onSubmit={this.onSubmit}
+              validate={values => {
+                const errors = {};
+                if (!values.nombre) {
+                  errors.nombre = "Escriba su nombre de usuario";
+                }
+                if (values.nombre != undefined) {
+                  var ra = /^[a-z0-9]+$/i;
+                  if (!ra.test(values.nombre)) {
+                    errors.nombre = "Solo puede contener alfa numericos y sin espacios";
+                  }
+                }
+              
+                if (!values.password) {
+                  errors.password = "Escriba su contraseña";
+                }
+                if (values.password != undefined) {
+                  var re = /^(?=(?:.*\d){1})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){1})\S{6,}$/;
+                  if (!re.test(values.password)) {
+                    errors.password = "Min. 6 caractéres, 1 mayuscula, 1 minuscula y sin espacios";
+                  }
+                }
+                if (!values.Rpassword) {
+                  errors.Rpassword = "Escriba su contraseña";
+                }
+                if (values.password != values.Rpassword) {
+                  errors.Rpassword = "Asegurese que las contraseñas coincidan";
+                }
+               
+                return errors;
+              }}
+              render={({ handleSubmit, reset, submitting, pristine, values }) => (
+                <form onSubmit={handleSubmit}>
+                  <div className="level">
+                    <div className="level-item">
+                      <Field name="nombre"
+                        component={this.renderTextField}
+                        hintText="Escribe tu nombre"
+                        floatingLabelText="Nombre"
+                      />
+                    </div>
                   </div>
-                  <div className="level-item has-text-centered">
-                    <label>
-                      <input type="radio" name="imagen" />
-                      <img src="./assets/img/anguila.svg" className={this.state.imgAvatar[1] + " image is-64x64"} width="100px" height="100px" onClick={this.updateAnguila} />
-                    </label>
+                  <div className="level">
+                    <div className="level-item">
+                      <Field name="password"
+                        component={this.renderTextField}
+                        hintText="Ingrese su password"
+                        floatingLabelText="Password"
+                      />
+                    </div>
                   </div>
-                  <div className="level-item has-text-centered">
-                    <label>
-                      <input type="radio" name="imagen" />
-                      <img src="./assets/img/chivo.svg" className={this.state.imgAvatar[2] + " image is-64x64"} width="100px" height="100px" onClick={this.updateChivo} />
-                    </label>
+                  <div className="level">
+                    <div className="level-item">
+                      <Field name="Rpassword"
+                        component={this.renderTextField}
+                        hintText="Ingrese nuevamente su password"
+                        floatingLabelText="Password"
+                      />
+                    </div>
                   </div>
-                  <div className="level-item has-text-centered">
-                    <label>
-                      <input type="radio" name="imagen" />
-                      <img src="./assets/img/hedgehog.svg" className={this.state.imgAvatar[3] + " image is-64x64"} width="100px" height="100px" onClick={this.updateErizo} />
-                    </label>
+                  <div>
+                  <div>
+                    <h2 className="is-size-5">Seleccione un avatar</h2>
+                  </div><br/>
+                  <div className="level">
+                    <div className="level-item has-text-centered">
+                      <label>
+                        <input type="radio" name="imagen" />
+                        <img src="./assets/img/jaiba.svg" className={this.state.imgAvatar[0] + " image is-64x64"} width="100px" height="100px" onClick={this.updateJaiba}/>
+                      </label>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <label>
+                        <input type="radio" name="imagen" />
+                        <img src="./assets/img/anguila.svg" className={this.state.imgAvatar[1] + " image is-64x64"} width="100px" height="100px" onClick={this.updateAnguila}/>
+                      </label>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <label>
+                        <input type="radio" name="imagen" />
+                        <img src="./assets/img/chivo.svg" className={this.state.imgAvatar[2] + " image is-64x64"} width="100px" height="100px" onClick={this.updateChivo}/>
+                      </label>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <label>
+                        <input type="radio" name="imagen" />
+                        <img src="./assets/img/hedgehog.svg" className={this.state.imgAvatar[3] + " image is-64x64"} width="100px" height="100px" onClick={this.updateErizo}/>
+                      </label>
+                    </div>
                   </div>
+                  <br/>
                 </div>
-                <br />
-              </div>
-              <div className="level">
-                <div className="level-item has-text-centered">
-                  <button type="submit" className="button is-primary">
-                    Submit
-                </button>
-                </div>
-              </div>
-            </form>
+                  <div className="buttons">
+                    <button type="submit" disabled={submitting}>
+                      Submit
+                          </button>
+                  </div>
+                </form>
+              )}
+            />
           </div>
         </div>
       </div>

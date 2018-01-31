@@ -134,13 +134,43 @@ class SignUp extends GenericForm {
                       validate={values => {
                         const errors = {};
                         if (!values.nombre) {
-                          errors.nombre = "Ingrese su nombre de usuario";
+                          errors.nombre = "Escriba su nombre de usuario";
+                        }
+                        if (values.nombre != undefined) {
+                          var ra = /^[a-z0-9]+$/i;
+                          if (!ra.test(values.nombre)) {
+                            errors.nombre = "Solo puede contener alfa numericos y sin espacios";
+                          }
                         }
                         if (!values.email) {
-                          errors.email = "Ingrese su email";
+                          errors.email = "Escriba su email";
                         }
                         if (!values.password) {
-                          errors.password = "Ingrese su password";
+                          errors.password = "Escriba su contraseña";
+                        }
+                        if (values.password != undefined) {
+                          var re = /^(?=(?:.*\d){1})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){1})\S{6,}$/;
+                          if (!re.test(values.password)) {
+                            errors.password = "Min. 6 caractéres, 1 mayuscula, 1 minuscula y sin espacios";
+                          }
+                        }
+                        if (!values.Rpassword) {
+                          errors.Rpassword = "Escriba su contraseña";
+                        }
+                        if (!values.curp) {
+                          errors.curp = "Escriba su curp";
+                        }
+                        if (values.curp != undefined) {
+                          var ri = /^([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\d)$/i
+                          if (!ri.test(values.curp)) {
+                            errors.curp = "CURP invalido"
+                          }
+                        }
+                        if (values.password != values.Rpassword) {
+                          errors.Rpassword = "Asegurese que las contraseñas coincidan";
+                        }
+                        if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                          errors.email = 'Correo inválido'
                         }
                         return errors;
                       }}
@@ -177,7 +207,7 @@ class SignUp extends GenericForm {
                               </div>
                               <div className="level">
                                 <div className="level-item">
-                                  <Field name="rpassword"
+                                  <Field name="Rpassword"
                                     component={this.renderTextField}
                                     hintText="Ingrese nuevamente su password"
                                     floatingLabelText="Password"
