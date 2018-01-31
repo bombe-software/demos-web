@@ -5,6 +5,8 @@ import { graphql } from 'react-apollo';
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
 
+import TextField from 'material-ui/TextField';
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -43,26 +45,23 @@ class Login extends Component {
                                 <div className="box"><h1 className="title is-3">Inicio de sesión</h1><hr />
                                     <div className="level">
                                         <div className="level-item">
-                                            <Field
-                                                changeState={event => { this.setState({ email: event.target.value }) }}
-                                                mask={this.renderTextField}
+                                            <TextField
+                                                onChange={event => { this.setState({ email: event.target.value }) }}
                                                 value={this.state.email}
-                                                error={this.state.errors["email"]}
-                                                placeholder={"Email"}
-                                                label={"Escribe tu email"}
+                                                errorText={this.state.errors["email"]}
+                                                floatingLabelText="Email"
                                             />
 
                                         </div>
                                     </div>
                                     <div className="level">
                                         <div className="level-item">
-                                            <Field
-                                                changeState={event => { this.setState({ password: event.target.value }) }}
-                                                mask={this.renderTextField}
+                                            <TextField
+                                                onChange={event => { this.setState({ password: event.target.value }) }}
                                                 value={this.state.password}
-                                                error={this.state.errors["password"]}
-                                                placeholder={"Password"}
-                                                label={"Escribe tu password"}
+                                                type="password"
+                                                errorText={this.state.errors["password"]}
+                                                floatingLabelText="Password"
                                             />
                                         </div>
                                     </div>
