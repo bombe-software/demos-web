@@ -114,38 +114,38 @@ class PoliticoDetail extends Component {
         return (
             <div>
                 <br/>
-                        <div className="section">
-                            <div className="columns is-desktop">
-                                <div className="column is-3-fullhd is-4-widescreen is-3-desktop is-offset-1-desktop is-12-tablet is-12-mobile is-offset-2-fullhd">
-                                {this.renderPerfil()}
+                    <div className="section">
+                        <div className="columns is-desktop">
+                            <div className="column is-2-fullhd is-3-widescreen is-3-desktop is-offset-1-desktop is-offset-1-widescreen is-12-tablet is-12-mobile is-offset-2-fullhd">
+                            {this.renderPerfil()}
+                            </div>
+                            <div className="column is-6-fullhd is-7-widescreen is-7-desktop is-12-tablet is-12-mobile">
+                                <div className="tabs is-medium is-boxed">
+                                    <ul>
+                                        <li className={this.state.type == "propuestas" ? 'is-active' : ''}>
+                                            <a onClick={this.updatePropuestas}>
+                                                <span className="icon is-small">
+                                                <i className="fa fa-lightbulb-o" aria-hidden="true"></i>
+                                                </span>
+                                                <span>&nbsp;Propuestas</span>
+                                            </a>
+                                        </li>
+                                        <li className={this.state.type == "historial" ? 'is-active' : ''}>
+                                            <a onClick={this.updateHistorial}>
+                                                <span className="icon is-small">
+                                                <i className="fa fa-clock-o" aria-hidden="true"></i>
+                                                </span>
+                                                <span>&nbsp;Historial</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div className="column is-5-fullhd is-6-widescreen is-6-desktop is-12-tablet is-12-mobile">
-                                    <div className="tabs is-medium is-boxed">
-                                        <ul>
-                                            <li className={this.state.type == "propuestas" ? 'is-active' : ''}>
-                                                <a onClick={this.updatePropuestas}>
-                                                  <span className="icon is-small">
-                                                    <i className="fa fa-lightbulb-o" aria-hidden="true"></i>
-                                                  </span>
-                                                  <span>&nbsp;Propuestas</span>
-                                                </a>
-                                            </li>
-                                            <li className={this.state.type == "historial" ? 'is-active' : ''}>
-                                                <a onClick={this.updateHistorial}>
-                                                  <span className="icon is-small">
-                                                    <i className="fa fa-clock-o" aria-hidden="true"></i>
-                                                  </span>
-                                                  <span>&nbsp;Historial</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        {this.renderSection()}
-                                    </div>
+                                <div>
+                                    {this.renderSection()}
                                 </div>
                             </div>
-                        </div>            
+                        </div>
+                    </div>            
                 <br/><br/>
             </div>
 

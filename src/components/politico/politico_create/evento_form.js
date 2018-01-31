@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { compose } from 'react-apollo';
-import { graphql } from 'react-apollo';
-import addEvento from './../../../queries/addEvento';
-import DatePicker from 'material-ui/DatePicker';
+import { compose, graphql } from 'react-apollo';
+
+//Componentes
+import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import DatePicker from "material-ui/DatePicker";
+
+//Queries
+import fetchUsuario from './../../../queries/fetchUsuario';
+import addEvento from './../../../queries/addEvento';
 import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
-import fetchUsuario from "../../../queries/fetchUsuario";
 
 class EventoForm extends GenericForm {
 
@@ -24,14 +29,14 @@ class EventoForm extends GenericForm {
       descripcion, referencia
     } = values
     console.log(fecha, titulo, descripcion, referencia, usuario);
-    { /**
+    { /*
     this.props.mutate({
       variables: {
         fecha, titulo,
         descripcion, referencia
-      }
-    }).then(alert('Informacion enviada')); **/}
-  };
+    }).then(alert('Informacion enviada'));  
+     */} }
+
   /**
   * Es una forma de capturar cualquier error en la clase 
   * y que este no crashe el programa, ayuda con la depuracion
@@ -41,7 +46,7 @@ class EventoForm extends GenericForm {
   * @const error Es el titulo del error
   */
   render() {
-
+    console.log(this.props.fetchUsuario);
     return (
       <div>
 
