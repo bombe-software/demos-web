@@ -62,16 +62,38 @@ class PoliticoForm extends Component {
                     validate={values => {
                       const errors = {};
                       if (!values.nombre) {
-                        errors.nombre = "Ingrese su nombre del evento";
+                        errors.nombre = "Escriba el nombre completo";
+                      }
+                      if (/^\s+|\s+$/.test(values.nombre)) {
+                        errors.nombre = "Escriba un nombre completo válido";
+
+                      }
+
+                      if (!values.partido) {
+                        errors.partido = "Seleccione el partido";
+                      }
+
+                      if (!values.estado) {
+                        errors.estado = "Seleccione el estado";
+                      }
+                      if (!values.cargo) {
+                        errors.cargo= "Seleccione el cargo";
                       }
                       if (!values.titulo) {
-                        errors.titulo = "Ingrese el titulo";
+                        errors.titulo = "Ingrese el titulo de estudio";
                       }
-                      if (!values.descripcion) {
-                        errors.descripcion = "Ingrese la descripcion";
-                      }
-                      if (!values.fuente) {
-                        errors.fuente = "Ingrese la fuente de referencia";
+
+                      if (!values.referencia) {
+                        errors.referencia = "Escriba el link de referenica";
+
+                      } else if (values.referencia != undefined) {
+                        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
+                        if (/^\s+|\s+$/.test(values.referencia)) {
+                          errors.referencia = "Link invalido";
+                        } else
+                          if (!re.test(values.referencia)) {
+                            errors.referencia = "Link invalido";
+                          }
                       }
                       return errors;
                     }}
