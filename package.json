@@ -42,6 +42,7 @@
     "react-chartjs-2": "^2.7.0",
     "react-dom": "^16.2.0",
     "react-final-form": "^3.1.0",
+    "react-final-form-antd": "0.0.3",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-validation": "^3.0.7",

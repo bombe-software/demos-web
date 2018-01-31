@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 import TextField from 'material-ui/TextField';
 import signup from '../queries/signup';
+import { Form, Field } from "react-final-form";
 
 class SignUp extends Component {
 
