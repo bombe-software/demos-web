@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { graphql, compose } from 'react-apollo';
-import SelectField from 'material-ui/SelectField';
+
 import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
 import { Form, Field } from "react-final-form";
 
+import GenericForm from '../../generic/generic_form';
 import addPolitico from './../../../queries/addPolitico';
 import fetchPartidos from './../../../queries/fetchPartidos';
 import fetchUsuario from './../../../queries/fetchUsuario';
@@ -13,7 +13,7 @@ import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
 
-class PoliticoForm extends Component {
+class PoliticoForm extends GenericForm {
 
   constructor(props) {
     super(props);
@@ -22,6 +22,8 @@ class PoliticoForm extends Component {
   }
 
   async onSubmit(values) {
+    console.log(values);
+    /*
     const idUsuario = this.props.fetchUsuario.usuario.id;
     const {
       nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido
@@ -31,6 +33,7 @@ class PoliticoForm extends Component {
         nombre, cargo, partido, estado, lugar_estudio, grado_academico, titulo, idUsuario
       }
     }).then(alert('Informacion enviada'));
+    */
   };
 
 
@@ -101,51 +104,42 @@ class PoliticoForm extends Component {
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
                       <form onSubmit={handleSubmit}>
-                        <Field name="nombre">
-                          {({ input, meta }) => (
-                            <div>
-                              <TextField hintText="Ingrese el nombre del politico" floatingLabelText="Nombre"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                            </div>
-                          )}
-                        </Field>
-                        <Field name="partido">
-                          {({ input, meta }) => (
-                            <div>
-                              <SelectField hintText="Partido politico" floatingLabelText="Partido politico"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text">
-                                {this.props.fetchPartidos.partidos.map(({ id, nombre }) => {
-                                  return <MenuItem value={id} key={id} primaryText={nombre} />
-                                })}
-                              </SelectField>
-                            </div>
-                          )}
+                        <Field name="nombre"
+                          component={this.renderTextField}
+                          hintText="Escribe tu nombre"
+                          floatingLabelText="Nombre"
+                        />
 
-                        </Field>
-                        <Field name="cargo">
-                          {({ input, meta }) => (
-                            <div>
-                              <SelectField hintText="Cargo politico" floatingLabelText="Cargo"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text">
-                                <MenuItem value="Politico" key={1} primaryText={"Politico"} />
-                                <MenuItem value="Candidato" key={2} primaryText={"Candidato"} />
-                              </SelectField>
-                            </div>
-                          )}
+                        <Field name="partido"
+                          component={this.renderSelectField}
+                          hintText="Partido politico"
+                          floatingLabelText="Partido"
+                        >
+                          {this.props.fetchPartidos.partidos.map(({ id, nombre }) => {
+                            return <MenuItem value={id} key={id} primaryText={nombre} />
+                          })}
                         </Field>
 
-                        <Field name="estado">
-                          {({ input, meta }) => (
-                            <div>
-                              <SelectField hintText="Estado" floatingLabelText="Estado"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text">
-                                {this.props.fetchEstados.estados.map(({ id, nombre }) => {
-                                  return <MenuItem value={id} key={id} primaryText={nombre} />
-                                })}
-                              </SelectField>
-                            </div>
-                          )}
+                        <Field name="partido"
+                          component={this.renderSelectField}
+                          hintText="Cargo politico"
+                          floatingLabelText="Cargo"
+                        >
+                          <MenuItem value="Politico" key={1} primaryText={"Politico"} />
+                          <MenuItem value="Candidato" key={2} primaryText={"Candidato"} />
                         </Field>
+
+                        <Field name="partido"
+                          component={this.renderSelectField}
+                          hintText="Seleccione un Estado"
+                          floatingLabelText="Estado"
+                        >
+                          {this.props.fetchEstados.estados.map(({ id, nombre }) => {
+                            return <MenuItem value={id} key={id} primaryText={nombre} />
+                          })}
+                        </Field>
+
+                        {/*
                         <Field name="titulo">
                           {({ input, meta }) => (
                             <div>
@@ -187,10 +181,12 @@ class PoliticoForm extends Component {
                             </div>
                           )}
                         </Field>
+                        */}
+
                         <div className="buttons">
                           <button type="submit" disabled={submitting}>
                             Submit
-            </button>
+                          </button>
                         </div>
 
                       </form>
