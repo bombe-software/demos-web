@@ -16,7 +16,7 @@ class PropuestaForm extends Component {
 
   constructor(props) {
     super(props);
-  this.state = {
+    this.state = {
       tipo_propuesta: '',
 
     };
@@ -82,21 +82,38 @@ class PropuestaForm extends Component {
                     onSubmit={this.onSubmit}
                     validate={values => {
                       const errors = {};
-                     if (!values.titulo) {
-                        errors.titulo = "Ingrese su nombre del evento";
+                      if (!values.titulo) {
+                        errors.titulo = "Escriba el nombre de la propuesta";
+                      } else if (/^\s+|\s+$/.test(values.titulo)) {
+                        errors.titulo = "Escriba una propuesta valida";
                       }
-                        if (!values.descripcion) {
-                        errors.descripcion = "Ingrese su nombre del evento";
+                      if (!values.descripcion) {
+                        errors.descripcion = "Escriba la descripción";
+                      } else if (/^\s+|\s+$/.test(values.descripcion)) {
+                        errors.descripcion = "Escriba descripción válida";
                       }
-                        if (!values.tipo_propuesta) {
-                        errors.tipo_propuesta = "Ingrese su nombre del evento";
+                      if (!values.tipo_propuesta) {
+                        errors.tipo_propuesta = "Seleccione el tipo de propuesta";
                       }
-                        if (!values.fuente) {
-                        errors.fuente = "Ingrese su nombre del evento";
+                      if (!values.fecha) {
+                        errors.fecha = "Seleccione la fecha";
+                      }
+                      if (!values.referencia) {
+                        errors.referencia = "Escriba el link de referenica";
+
+                      } else if (values.referencia != undefined) {
+                        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
+                        if (/^\s+|\s+$/.test(values.referencia)) {
+                          errors.referencia = "Link invalido";
+                        } else
+                          if (!re.test(values.referencia)) {
+                            errors.referencia = "Link invalido";
+                          }
                       }
 
                       return errors;
-                    }}
+                    }
+                    }
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
                       <form onSubmit={handleSubmit}>
                         <Field name="titulo">
@@ -115,21 +132,29 @@ class PropuestaForm extends Component {
                             </div>
                           )}
                         </Field>
-                       
+
                         <Field name="tipo_propuesta">
                           {({ input, meta }) => (
                             <div>
                               <SelectField hintText="Tipo de propuesta" floatingLabelText="Tipo" value="hola"
-                                 errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text">
+                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text">
                                 {this.renderTipoPropuesta()}
                               </SelectField>
                             </div>
                           )}
                         </Field>
-                        <Field name="fuente">
+                        <Field name="fecha">
                           {({ input, meta }) => (
                             <div>
-                              <TextField hintText="Ingrese la fuente de referencia" floatingLabelText="Fuente"
+                               <DatePicker hintText="Fecha" 
+                               errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} />
+                            </div>
+                          )}
+                        </Field>
+                        <Field name="referencia">
+                          {({ input, meta }) => (
+                            <div>
+                              <TextField hintText="Ingrese la fuente de referencia" floatingLabelText="Referencia"
                                 errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
                             </div>
                           )}

@@ -7,7 +7,7 @@ import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import { Form, Field } from "react-final-form";
 
-class EventoForm extends Component{
+class EventoForm extends Component {
 
   constructor(props) {
     super(props);
@@ -15,7 +15,7 @@ class EventoForm extends Component{
     this.onSubmit = this.onSubmit.bind(this);
   }
 
- async onSubmit(values) {
+  async onSubmit(values) {
     const {
       fecha, titulo,
       descripcion, fuente
@@ -24,7 +24,7 @@ class EventoForm extends Component{
     this.props.mutate({
       variables: {
         fecha, titulo,
-      descripcion, fuente
+        descripcion, fuente
       }
     }).then(alert('Informacion enviada'));
   };
@@ -48,34 +48,45 @@ class EventoForm extends Component{
                 <div className="box">
                   <div className="has-text-centered"><h1 className="title is-3">Registrar evento</h1></div>
                   <hr />
-                   <Form
+                  <Form
                     onSubmit={this.onSubmit}
                     validate={values => {
                       const errors = {};
-                      if (!values.nombre) {
-                        errors.nombre = "Ingrese su nombre del evento";
+                      if (!values.fecha) {
+                        errors.fecha = "Seleccione la fecha";
                       }
                       if (!values.titulo) {
-                        errors.titulo = "Ingrese el titulo";
+                        errors.titulo = "Escriba el título del evento";
+                      }
+                      if (values.titulo != undefined) {
+
+                        if (/^\s+|\s+$/.test(values.titulo)) {
+                          errors.titulo = "Escriba un titulo válido";
+                        }
                       }
                       if (!values.descripcion) {
-                        errors.descripcion = "Ingrese la descripcion";
-                      }
-                      if (!values.fuente) {
-                        errors.fuente = "Ingrese la fuente de referencia";
+                        errors.descripcion = "Escriba la descripción del evento";
+                      } else
+                        if (/^\s+|\s+$/.test(values.descripcion)) {
+                          errors.descripcion = "Escriba una descripción válida";
+                        }
+                      if (!values.referencia) {
+                        errors.referencia = "Escriba el link de referenica";
+
+                      } else if (values.referencia != undefined) {
+                        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
+                        if (/^\s+|\s+$/.test(values.referencia)) {
+                          errors.referencia = "Link invalido";
+                        } else
+                          if (!re.test(values.referencia)) {
+                            errors.referencia = "Link invalido";
+                          }
                       }
                       return errors;
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
                       <form onSubmit={handleSubmit}>
-                        <Field name="nombre">
-                          {({ input, meta }) => (
-                            <div>
-                               <DatePicker hintText="Fecha" 
-                               errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} />
-                            </div>
-                          )}
-                        </Field>
+
                         <Field name="titulo">
                           {({ input, meta }) => (
                             <div>
@@ -89,6 +100,14 @@ class EventoForm extends Component{
                             <div>
                               <TextField hintText="Ingrese la descripcion" floatingLabelText="Descripcion"
                                 errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                            </div>
+                          )}
+                        </Field>
+                        <Field name="fecha">
+                          {({ input, meta }) => (
+                            <div>
+                              <DatePicker hintText="Fecha"
+                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} />
                             </div>
                           )}
                         </Field>

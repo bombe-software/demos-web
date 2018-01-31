@@ -66,23 +66,25 @@ class PoliticoForm extends Component {
                       }
                       if (/^\s+|\s+$/.test(values.nombre)) {
                         errors.nombre = "Escriba un nombre completo válido";
-
                       }
-
                       if (!values.partido) {
                         errors.partido = "Seleccione el partido";
                       }
-
                       if (!values.estado) {
                         errors.estado = "Seleccione el estado";
                       }
                       if (!values.cargo) {
-                        errors.cargo= "Seleccione el cargo";
+                        errors.cargo = "Seleccione el cargo";
+                      }
+                      if (!values.grado_academico) {
+                        errors.grado_academico = "Seleccione el grado academico";
+                      }
+                      if (!values.lugar_estudio) {
+                        errors.lugar_estudio = "Seleccione el lugar de estudio";
                       }
                       if (!values.titulo) {
                         errors.titulo = "Ingrese el titulo de estudio";
                       }
-
                       if (!values.referencia) {
                         errors.referencia = "Escriba el link de referenica";
 
@@ -173,6 +175,15 @@ class PoliticoForm extends Component {
                                   return <MenuItem value={id} key={id} primaryText={grado} />
                                 })}
                               </SelectField>
+                            </div>
+                          )}
+                        </Field>
+                        <br/>
+                        <Field name="referencia">
+                          {({ input, meta }) => (
+                            <div>
+                              <TextField hintText="Ingrese el link de referencia" floatingLabelText="Referencia"
+                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
                             </div>
                           )}
                         </Field>
