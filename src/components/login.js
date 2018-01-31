@@ -8,31 +8,40 @@ import query from "./../queries/fetchUsuario";
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            email: "",
-            password: "",
-            errors: []
-        };
-        this.setState = this.setState.bind(this);
-        this.error = this.error.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
+    
+    async onSubmit(values) {
+        console.log(values);
+        /*
+            const {email, password} = this.state;
+            this.props.mutate({
+                variables: { email, password },
+                refetchQueries: [{ query }]
+            }).then(()=>  this.props.history.push("/"));
+        */
+    };
 
-    error(values) {
-        const errors = [];
-        //Poner validaciones
-
-        this.setState({ errors });
+    /**
+     * Es una forma de capturar cualquier error en la clase 
+    * y que este no crashe el programa, ayuda con la depuracion
+    * de errores
+    * @method componentDidCatch
+    * @const info Es más informacion acerca del error
+    * @const error Es el titulo del error
+    */
+    componentDidCatch(error, info) {
+        console.log("Error: " + error);
+        console.log("Info: " + info);
     }
 
-    onSubmit(){
-        const {email, password} = this.state;
-        this.props.mutate({
-            variables: { email, password },
-            refetchQueries: [{ query }]
-        }).then(()=>  this.props.history.push("/"));
-    }
-
+    /**
+     /**
+      * Realiza el renderizado de la aplicacion 
+    * en base a la informacion anterior
+    * @returns La cadena HTML que sera mostrada al usuario
+    * @method render
+    */
     render() {
         return (
             <div>
@@ -41,50 +50,44 @@ class Login extends Component {
                         <div className="columns">
                             <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
                                 <div className="box"><h1 className="title is-3">Inicio de sesión</h1><hr />
-                                    <div className="level">
-                                        <div className="level-item">
-                                            <Field
-                                                changeState={event => { this.setState({ email: event.target.value }) }}
-                                                mask={this.renderTextField}
-                                                value={this.state.email}
-                                                error={this.state.errors["email"]}
-                                                placeholder={"Email"}
-                                                label={"Escribe tu email"}
-                                            />
-
-                                        </div>
-                                    </div>
-                                    <div className="level">
-                                        <div className="level-item">
-                                            <Field
-                                                changeState={event => { this.setState({ password: event.target.value }) }}
-                                                mask={this.renderTextField}
-                                                value={this.state.password}
-                                                error={this.state.errors["password"]}
-                                                placeholder={"Password"}
-                                                label={"Escribe tu password"}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="level">
-                                        <div className="level-item">
-                                            ¿Olvidaste tu contraseña? &nbsp; <Link to="/recover_pass" > Recuperar </Link>
-                                        </div>
-                                    </div>
-                                    <div className="level">
-                                        <div className="level-item">
-                                            ¿No tienes una cuenta Demos? &nbsp; <Link to="/signin" > Registrate </Link>
-                                        </div>
-                                    </div>
-
-                                    <div className="level">
-                                        {this.state.mensaje}
-                                        <div className="level-item has-text-centered">
-                                            <button className="button is-primary" onClick={this.onSubmit}>
-                                                Ingresar
+                                <Form
+                                    onSubmit={this.onSubmit}
+                                    validate={values => {
+                                    const errors = {};
+                                    if (!values.email) {
+                                        errors.email = "Ingrese su email";
+                                    }
+                                    if (!values.password) {
+                                        errors.password = "Ingrese su password";
+                                    }
+                                    return errors;
+                                    }}
+                                    render={({ handleSubmit, reset, submitting, pristine, values }) => (
+                                    <form onSubmit={handleSubmit}>
+                                        <Field name="email">
+                                        {({ input, meta }) => (
+                                            <div>
+                                            <TextField hintText="Ingrese su email" floatingLabelText="E-mail"
+                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                                            </div>
+                                        )}
+                                        </Field>
+                                        <Field name="password">
+                                        {({ input, meta }) => (
+                                            <div>
+                                            <TextField hintText="Ingrese usuario" floatingLabelText="Password"
+                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                                            </div>
+                                        )}
+                                        </Field>
+                                        <div className="buttons">
+                                            <button type="submit" disabled={submitting}>
+                                                Submit
                                             </button>
                                         </div>
-                                    </div>
+                                    </form>
+                                    )}
+                                />
                                 </div>
                             </div>
                         </div>
