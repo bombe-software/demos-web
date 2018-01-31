@@ -3,47 +3,31 @@ import { Link } from "react-router-dom";
 import { compose } from 'react-apollo';
 import { graphql } from 'react-apollo';
 import addEvento from './../../../queries/addEvento';
-
+import DatePicker from 'material-ui/DatePicker';
+import TextField from 'material-ui/TextField';
+import { Form, Field } from "react-final-form";
 
 class EventoForm extends Component{
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      fecha: {},
-      titulo: '',
-      descripcion: '',
-      fuente: '',
-      errors: []
-    };
-    this.setState = this.setState.bind(this);
-    this.error = this.error.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  error(values) {
-    const errors = [];
-    //Poner validaciones
-
-    this.setState({ errors });
-  }
-
-  handleSubmit(event) {
-    console.log(this.state);
-    event.preventDefault();
+ async onSubmit(values) {
     const {
       fecha, titulo,
       descripcion, fuente
     } = this.state
-    this.props.addEvento({
+
+    this.props.mutate({
       variables: {
-        fecha, titulo, descripcion
+        fecha, titulo,
+      descripcion, fuente
       }
     }).then(alert('Informacion enviada'));
-
-  }
-
+  };
   /**
   * Es una forma de capturar cualquier error en la clase 
   * y que este no crashe el programa, ayuda con la depuracion
@@ -64,58 +48,67 @@ class EventoForm extends Component{
                 <div className="box">
                   <div className="has-text-centered"><h1 className="title is-3">Registrar evento</h1></div>
                   <hr />
-                  <form onSubmit={this.handleSubmit}>
-                    <div className="level">
-                      <div className="level-item">
-                        <Field
-                          changeState={event => { this.setState({ fecha: event.target.value }) }}
-                          mask={this.renderDateField}
-                          value={this.state.fecha}
-                          error={this.state.errors["fecha"]}
-                          placeholder={"Seleccione fecha"}
-                          label={"Seleccione fecha"}
-                        />
-                      </div></div>
-                    <div className="level">
-                      <div className="level-item">
-                        <Field
-                          changeState={event => { this.setState({ titulo: event.target.value }) }}
-                          mask={this.renderTextField}
-                          value={this.state.titulo}
-                          error={this.state.errors["titulo"]}
-                          placeholder={"Seleccione titulo"}
-                          label={"Seleccione titulo"}
-                        />
-                      </div></div>
-                    <div className="level">
-                      <div className="level-item">
-                        <Field
-                          changeState={event => { this.setState({ descripcion: event.target.value }) }}
-                          mask={this.renderTextField}
-                          value={this.state.descripcion}
-                          error={this.state.errors["descripcion"]}
-                          placeholder={"Seleccione descripcion"}
-                          label={"Seleccione descripcion"}
-                        />
-                      </div></div>
-                    <div className="level">
-                      <div className="level-item">
-                        <Field
-                          changeState={event => { this.setState({ fuente: event.target.value }) }}
-                          mask={this.renderTextField}
-                          value={this.state.fuente}
-                          error={this.state.errors["fuente"]}
-                          placeholder={"Seleccione fuente"}
-                          label={"Seleccione fuente"}
-                        />
-                      </div></div>
-                    <div className="level">
-                      <div className="level-item">
-                        <button type="submit" className="button is-info">
-                          Submit
+                   <Form
+                    onSubmit={this.onSubmit}
+                    validate={values => {
+                      const errors = {};
+                      if (!values.nombre) {
+                        errors.nombre = "Ingrese su nombre del evento";
+                      }
+                      if (!values.titulo) {
+                        errors.titulo = "Ingrese el titulo";
+                      }
+                      if (!values.descripcion) {
+                        errors.descripcion = "Ingrese la descripcion";
+                      }
+                      if (!values.fuente) {
+                        errors.fuente = "Ingrese la fuente de referencia";
+                      }
+                      return errors;
+                    }}
+                    render={({ handleSubmit, reset, submitting, pristine, values }) => (
+                      <form onSubmit={handleSubmit}>
+                        <Field name="nombre">
+                          {({ input, meta }) => (
+                            <div>
+                               <DatePicker hintText="Fecha" 
+                               errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} />
+                            </div>
+                          )}
+                        </Field>
+                        <Field name="titulo">
+                          {({ input, meta }) => (
+                            <div>
+                              <TextField hintText="Ingrese el titulo" floatingLabelText="Titulo"
+                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                            </div>
+                          )}
+                        </Field>
+                        <Field name="descripcion">
+                          {({ input, meta }) => (
+                            <div>
+                              <TextField hintText="Ingrese la descripcion" floatingLabelText="Descripcion"
+                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                            </div>
+                          )}
+                        </Field>
+                        <Field name="fuente">
+                          {({ input, meta }) => (
+                            <div>
+                              <TextField hintText="Ingrese la fuente de referencia" floatingLabelText="Fuente"
+                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                            </div>
+                          )}
+                        </Field>
+                        <div className="buttons">
+                          <button type="submit" disabled={submitting}>
+                            Submit
             </button>
-                      </div></div>
-                  </form>
+                        </div>
+
+                      </form>
+                    )}
+                  />
                 </div></div></div></div></section>
       </div>
     );
