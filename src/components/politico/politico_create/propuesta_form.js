@@ -7,12 +7,13 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import DatePicker from "material-ui/DatePicker";
 import { Form, Field } from "react-final-form";
+import GenericForm from '../../generic/generic_form';
 //Queries y Mutations
 import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
 import addPropuesta from "../../../queries/addPropuesta";
 import fetchUsuario from "../../../queries/fetchUsuario";
 
-class PropuestaForm extends Component {
+class PropuestaForm extends GenericForm {
 
   constructor(props) {
     super(props);
@@ -59,6 +60,7 @@ class PropuestaForm extends Component {
     if (this.props.fetchTipoPropuesta.loading) {
       return <div>Loading...</div>;
     }
+    console.log(this.props);
     return (
       <div>
         <section className="hero is-large">
@@ -116,49 +118,54 @@ class PropuestaForm extends Component {
                     }
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
                       <form onSubmit={handleSubmit}>
-                        <Field name="titulo">
-                          {({ input, meta }) => (
-                            <div>
-                              <TextField hintText="Titulo de la propuesta" floatingLabelText="Titulo"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                            </div>
-                          )}
-                        </Field>
-                        <Field name="descripcion">
-                          {({ input, meta }) => (
-                            <div>
-                              <TextField hintText="Ingrese la descripcion" floatingLabelText="Descripcion"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                            </div>
-                          )}
-                        </Field>
+                        <div className="level">
+                          <div className="level-item">
+                            <Field name="titulo"
+                              component={this.renderTextField}
+                              hintText="Escribe el titulo del evento"
+                              floatingLabelText="Titulo"
+                            />
+                          </div>
+                        </div>
+                        <div className="level">
+                          <div className="level-item">
+                            <Field name="descripcion"
+                              component={this.renderTextField}
+                              hintText="Escribe la descripcion"
+                              floatingLabelText="Descripcion"
+                            />
+                          </div>
+                        </div>
 
-                        <Field name="tipo_propuesta">
-                          {({ input, meta }) => (
-                            <div>
-                              <SelectField hintText="Tipo de propuesta" floatingLabelText="Tipo" value="hola"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text">
-                                {this.renderTipoPropuesta()}
-                              </SelectField>
-                            </div>
-                          )}
-                        </Field>
-                        <Field name="fecha">
-                          {({ input, meta }) => (
-                            <div>
-                               <DatePicker hintText="Fecha" 
-                               errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} />
-                            </div>
-                          )}
-                        </Field>
-                        <Field name="referencia">
-                          {({ input, meta }) => (
-                            <div>
-                              <TextField hintText="Ingrese la fuente de referencia" floatingLabelText="Referencia"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                            </div>
-                          )}
-                        </Field>
+                        <div className="level">
+                          <div className="level-item">
+                            <Field name="tipo_propuesta"
+                              component={this.renderSelectField}
+                              hintText="Escribe tipo de la propuesta"
+                              floatingLabelText="Tipo de la propuesta"
+                            >
+                              {this.renderTipoPropuesta()}
+                            </Field>
+                          </div>
+                        </div>
+                        <div className="level">
+                          <div className="level-item">
+                            <Field name="fecha"
+                              component={this.renderTextField}
+                              hintText="Seleccione la fecha"
+                              floatingLabelText="Fecha"
+                            />
+                          </div>
+                        </div>
+                        <div className="level">
+                          <div className="level-item">
+                            <Field name="referencia"
+                              component={this.renderTextField}
+                              hintText="Escribe el link de referencia"
+                              floatingLabelText="Referencia"
+                            />
+                          </div>
+                        </div>
                         <div className="buttons">
                           <button type="submit" disabled={submitting}>
                             Submit

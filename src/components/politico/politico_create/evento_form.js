@@ -6,8 +6,9 @@ import addEvento from './../../../queries/addEvento';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import { Form, Field } from "react-final-form";
+import GenericForm from '../../generic/generic_form';
 
-class EventoForm extends Component {
+class EventoForm extends GenericForm {
 
   constructor(props) {
     super(props);
@@ -87,38 +88,42 @@ class EventoForm extends Component {
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
                       <form onSubmit={handleSubmit}>
 
-                        <Field name="titulo">
-                          {({ input, meta }) => (
-                            <div>
-                              <TextField hintText="Ingrese el titulo" floatingLabelText="Titulo"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                            </div>
-                          )}
-                        </Field>
-                        <Field name="descripcion">
-                          {({ input, meta }) => (
-                            <div>
-                              <TextField hintText="Ingrese la descripcion" floatingLabelText="Descripcion"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                            </div>
-                          )}
-                        </Field>
-                        <Field name="fecha">
-                          {({ input, meta }) => (
-                            <div>
-                              <DatePicker hintText="Fecha"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} />
-                            </div>
-                          )}
-                        </Field>
-                        <Field name="fuente">
-                          {({ input, meta }) => (
-                            <div>
-                              <TextField hintText="Ingrese la fuente de referencia" floatingLabelText="Fuente"
-                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                            </div>
-                          )}
-                        </Field>
+                         <div className="level">
+                          <div className="level-item">
+                            <Field name="titulo"
+                              component={this.renderTextField}
+                              hintText="Escribe el titulo del evento"
+                              floatingLabelText="Titulo"
+                            />
+                          </div>
+                        </div>
+                         <div className="level">
+                          <div className="level-item">
+                            <Field name="descripcion"
+                              component={this.renderTextField}
+                              hintText="Escribe la descripcion"
+                              floatingLabelText="Descripcion"
+                            />
+                          </div>
+                        </div>
+                         <div className="level">
+                          <div className="level-item">
+                            <Field name="fecha"
+                              component={this.renderTextField}
+                              hintText="Seleccione la fecha"
+                              floatingLabelText="Fecha"
+                            />
+                          </div>
+                        </div>
+                         <div className="level">
+                          <div className="level-item">
+                            <Field name="referencia"
+                              component={this.renderTextField}
+                              hintText="Escribe el link de referencia"
+                              floatingLabelText="Referencia"
+                            />
+                          </div>
+                        </div>
                         <div className="buttons">
                           <button type="submit" disabled={submitting}>
                             Submit
