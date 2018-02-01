@@ -30,12 +30,12 @@ class PropuestaForm extends GenericForm {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values
     console.log(titulo, descripcion,fecha, tipo_propuesta, referencia);
-    {/*
+    
     this.props.addPropuesta({
       variables: {
        titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
-      }
-    }).then(alert('Informacion enviada')); */}
+      
+    }}).then(alert('Informacion enviada'));
 
   };
 

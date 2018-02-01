@@ -23,12 +23,13 @@ class Perfil extends Component {
         </div>
       );
     } else {
+      const fecha = new Date(usuario.fecha_registro);
       return (
-        <div className="columns">
-          <div className="column is-8 is-10-mobile is-offset-2 is-offset-1-mobile">
+        <div className="section">
+
             <br />
             <div className="columns">
-              <div className="column is-4 is-12-mobile">
+              <div className="column is-4-desktop is-4-widescreen is-3-fullhd is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                 <div className="card">
                   <div className="card-content">
                     <div className="media">
@@ -43,21 +44,21 @@ class Perfil extends Component {
                       </div>
                     </div>
                     <div className="content">
-                      Fecha de registro: {usuario.fecha_registro}<br />
+                      Fecha de registro: {`${fecha.getDay()}/${fecha.getDate()}/${fecha.getFullYear()}`}<br />
                       Localidad: {usuario.localidad}<br />
                       Puntos: {usuario.puntos}<br />
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="column is-8 is-12-mobile">
+              <div className="column is-6-desktop is-6-widescreen is-5-fullhd is-12-mobile">
                 <ConfigForm
                   usuario={this.props.data.usuario}
                 />
               </div>
             </div>
             <br /><br />
-          </div>
+          
         </div>
       );
     }

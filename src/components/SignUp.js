@@ -19,6 +19,7 @@ class SignUp extends GenericForm {
     super(props);
     this.state = {
       avatar: 'jaiba',
+      localidad: "localidad",
       imgAvatar: ['selected', 'none', 'none', 'none']
     };
     this.updateJaiba = this.updateJaiba.bind(this);
@@ -83,18 +84,18 @@ class SignUp extends GenericForm {
   async onSubmit(values) {
     console.log(values);
     console.log(this.state.avatar)
-    /*
+    const {avatar, localidad} = this.state;
     const {
       nombre, email, password,
-      curp, avatar, localidad
+      curp
     } = values;
     this.props.mutate({
       variables: {
-        nombre, email, password,
+        nombre, email, password, localidad,
         curp, avatar, localidad
       }
     }).then(alert('Informacion enviada'));
-    */
+    
   };
 
 

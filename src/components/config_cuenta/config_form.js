@@ -54,13 +54,14 @@ class ConfigForm extends GenericForm {
     const {
       nombre, password
     } = values
+    const avatar = this.state.avatar;
     console.log(nombre,password);
-    { /* this.props.mutate({
+     this.props.mutate({
       variables: {
         id, nombre, password, avatar
       }
     }).then(alert('Informacion enviada'));
-    location.reload(); */ } 
+    location.reload(); 
   }
   /**
   * Es una forma de capturar cualquier error en la clase 

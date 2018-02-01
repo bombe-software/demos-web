@@ -24,19 +24,20 @@ class EventoForm extends GenericForm {
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
+    const politico = this.props.match.params.id;
     const {
       fecha, titulo,
       descripcion, referencia
     } = values
-    console.log(fecha, titulo, descripcion, referencia, usuario);
-    { /*
-    this.props.mutate({
+    console.log(fecha, titulo, descripcion, referencia, usuario,politico);
+     
+    this.props.addEvento({
       variables: {
         fecha, titulo,
-        descripcion, referencia
-    }).then(alert('Informacion enviada'));  
-     */} }
-
+        descripcion, referencia, usuario, politico
+    }}).then(alert('Informacion enviada'));  
+      }
+  
   /**
   * Es una forma de capturar cualquier error en la clase 
   * y que este no crashe el programa, ayuda con la depuracion
@@ -46,7 +47,7 @@ class EventoForm extends GenericForm {
   * @const error Es el titulo del error
   */
   render() {
-    console.log(this.props.fetchUsuario);
+    console.log(this.props);
     return (
       <div>
 

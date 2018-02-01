@@ -22,17 +22,17 @@ class PoliticoForm extends GenericForm {
   }
 
   async onSubmit(values) {
-    const idUsuario = this.props.fetchUsuario.usuario.id;
+    const usuario = this.props.fetchUsuario.usuario.id;
     const {
-      nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido
+      nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, referencia
     } = values
-    console.log(nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, idUsuario);
-    {/*
+    console.log(nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, usuario, referencia);
+   
     this.props.addPolitico({
       variables: {
-        nombre, cargo, partido, estado, lugar_estudio, grado_academico, titulo, idUsuario
+        nombre, cargo, partido, estado, lugar_estudio, grado_academico, titulo, usuario, referencia
       }
-    }).then(alert('Informacion enviada')); */}
+    }).then(alert('Informacion enviada')); 
   };
 
 
@@ -191,7 +191,15 @@ class PoliticoForm extends GenericForm {
                             </Field>
                           </div>
                         </div>
-
+                        <div className="level">
+                          <div className="level-item">
+                            <Field name="referencia"
+                              component={this.renderTextField}
+                              hintText="Ingrese el link de referencia"
+                              floatingLabelText="Referencia"
+                            />
+                          </div>
+                        </div>
                         <div className="buttons">
                           <button type="submit" disabled={submitting}>
                             Submit
