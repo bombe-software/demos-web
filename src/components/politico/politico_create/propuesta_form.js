@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 import { compose, graphql } from 'react-apollo';
 
 import NeedLogin from './../../generic/need_login';
