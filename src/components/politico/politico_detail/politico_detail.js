@@ -33,6 +33,7 @@ class PoliticoDetail extends Component {
                 return (
                     <div>
                         <Propuestas
+                            cargo = {this.props.fetchPolitico.politicosPorId.cargo}
                             propuestas={this.props.fetchPolitico.politicosPorId.propuestas}
                             id_politico={this.props.fetchPolitico.politicosPorId.id}
                             cargo={this.props.fetchPolitico.politicosPorId.cargo}

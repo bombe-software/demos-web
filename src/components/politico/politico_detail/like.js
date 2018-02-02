@@ -14,36 +14,39 @@ class Like extends Component {
         this.onDislike = this.onDislike.bind(this);
     }
 
-    componentDidMount(){
-        const {likes} = this.props;
-        const isLiked = this.props.id_usuario == true; 
-        this.setState({count:likes.length, isLiked});
+    componentDidMount() {
+        const { likes } = this.props;
+        const isLiked = likes.indexOf(this.props.id_usuario) >= 0;
+        this.setState({ count: likes.length, isLiked });
     }
 
-    onLike(){
+    onLike() {
         const { id_propuesta, id_usuario } = this.props;
         this.props.mutateLike({
             variables: { id_propuesta, id_usuario }
-        }).then(data => console.log(data));
-        this.setState({ isLiked: true });
+
+        }).then(response => this.setState({ isLiked: true, count: response.data.like_propuesta.likes.length }));
     }
 
-    onDislike(){
+    onDislike() {
         const { id_propuesta, id_usuario } = this.props;
         this.props.mutateDislike({
             variables: { id_propuesta, id_usuario }
-        }).then(data => console.log(data));
-        this.setState({ isLiked: false });
+        }).then(response => {
+                if (response.data.like_propuesta != undefined) {
+                    this.setState({ isLiked: false, count: response.data.like_propuesta.likes.length })
+                } else {
+                    this.setState({ isLiked: false, count: 0 })
+                }
+            });
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
-                {12}
+                {this.state.count}
                 <a onClick={this.state.isLiked ? this.onDislike : this.onLike}>
-                    {console.log("some")}
-                    Hola
-                    <i className={this.state.isLiked ? "fa fa-thumbs-up": "fa fa-thumbs-o-up"} aria-hidden="true"></i>
+                    <i className={this.state.isLiked ? "fa fa-thumbs-up" : "fa fa-thumbs-o-up"} aria-hidden="true"></i>
                 </a>
             </div>
         );
@@ -51,7 +54,7 @@ class Like extends Component {
 }
 
 
-export default compose( 
+export default compose(
     graphql(likeGQL, {
         name: 'mutateLike'
     }),
