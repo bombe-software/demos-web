@@ -26,55 +26,51 @@ class Usuario extends GenericForm {
       variables: {
         id, nombre, password, avatar
       }
-    }).then(alert('Informacion enviada'));
+    });
     location.reload();
 
   }
 
   render() {
     return (
-      <div className="columns">
-        <div className="column is-8 is-offset-2">
-          <div className="box"> <h1 className="is-size-4">Configura tu cuenta</h1><hr />
-            <Form
-              onSubmit={this.onSubmit}
-              validate={values => {
-                const errors = {};
+      <div className="box"> <h1 className="is-size-4">Cambia tu nombre de usuario</h1><hr />
+        <Form
+          onSubmit={this.onSubmit}
+          validate={values => {
+            const errors = {};
 
-                if (!values.nombre) {
-                  errors.nombre = "Escriba su nombre de usuario";
-                }
-                if (values.nombre != undefined) {
-                  var ra = /^[a-z0-9]+$/i;
-                  if (!ra.test(values.nombre)) {
-                    errors.nombre = "Solo puede contener alfa numericos y sin espacios";
-                  }
-                }
+            if (!values.nombre) {
+              errors.nombre = "Escriba su nombre de usuario";
+            }
+            if (values.nombre != undefined) {
+              var ra = /^[a-z0-9]+$/i;
+              if (!ra.test(values.nombre)) {
+                errors.nombre = "Solo puede contener alfa numericos y sin espacios";
+              }
+            }
 
-                return errors;
-              }}
-              render={({ handleSubmit, reset, submitting, pristine, values }) => (
-                <form onSubmit={handleSubmit}>
-                  <div className="level">
-                    <div className="level-item">
-                      <Field name="nombre"
-                        component={this.renderTextField}
-                        hintText="Escribe tu nombre de usuario"
-                        floatingLabelText="Nombre de usuario"
-                      />
-                    </div>
-                  </div>
-                  <br />
-                  <div className="buttons">
-                    <button type="submit" disabled={submitting}>
-                      Submit
-                          </button>
-                  </div>
-                </form>
-              )}
-            />
-          </div>
-        </div>
+            return errors;
+          }}
+          render={({ handleSubmit, reset, submitting, pristine, values }) => (
+            <form onSubmit={handleSubmit}>
+              <div className="level">
+                <div className="level-item">
+                  <Field name="nombre"
+                    component={this.renderTextField}
+                    hintText="Escribe tu nombre de usuario"
+                    floatingLabelText="Nombre de usuario"
+                  />
+                </div>
+              </div>
+              <br />
+              <div className="has-text-centered">
+                <button type="submit" className="button is-primary" disabled={submitting}>
+                  Cambiar nombre de usuario
+                </button>
+              </div>
+            </form>
+          )}
+        />
       </div>
     );
   }

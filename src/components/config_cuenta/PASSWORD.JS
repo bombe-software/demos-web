@@ -20,76 +20,72 @@ class Password extends GenericForm {
     const {
       password
     } = values
-    console.log(nombre, avatar, password, id);
     this.props.mutate({
       variables: {
         id, nombre, password, avatar
       }
-    }).then(alert('Informacion enviada'));
+    });
     location.reload();
 
   }
 
   render() {
     return (
-      <div className="columns">
-        <div className="column is-8 is-offset-2">
-          <div className="box"> <h1 className="is-size-4">Configura tu cuenta</h1><hr />
-            <Form
-              onSubmit={this.onSubmit}
-              validate={values => {
-                const errors = {};
+      <div class="box">
+        <h1 className="is-size-4">Cambia tu password</h1><hr />
+          <Form
+            onSubmit={this.onSubmit}
+            validate={values => {
+              const errors = {};
 
-                if (!values.password) {
-                  errors.password = "Escriba su contraseña";
+              if (!values.password) {
+                errors.password = "Escriba su contraseña";
+              }
+              if (values.password != undefined) {
+                var re = /^(?=(?:.*\d){1})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){1})\S{6,}$/;
+                if (!re.test(values.password)) {
+                  errors.password = "Min. 6 caractéres, 1 mayuscula, 1 minuscula y sin espacios";
                 }
-                if (values.password != undefined) {
-                  var re = /^(?=(?:.*\d){1})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){1})\S{6,}$/;
-                  if (!re.test(values.password)) {
-                    errors.password = "Min. 6 caractéres, 1 mayuscula, 1 minuscula y sin espacios";
-                  }
-                }
-                if (!values.Rpassword) {
-                  errors.Rpassword = "Escriba su contraseña";
-                }
-                if (values.password != values.Rpassword) {
-                  errors.Rpassword = "Asegurese que las contraseñas coincidan";
-                }
+              }
+              if (!values.Rpassword) {
+                errors.Rpassword = "Escriba su contraseña";
+              }
+              if (values.password != values.Rpassword) {
+                errors.Rpassword = "Asegurese que las contraseñas coincidan";
+              }
 
-                return errors;
-              }}
-              render={({ handleSubmit, reset, submitting, pristine, values }) => (
-                <form onSubmit={handleSubmit}>
+              return errors;
+            }}
+            render={({ handleSubmit, reset, submitting, pristine, values }) => (
+              <form onSubmit={handleSubmit}>
 
-                  <div className="level">
-                    <div className="level-item">
-                      <Field name="password"
-                        component={this.renderPasswordField}
-                        hintText="Ingrese su password"
-                        floatingLabelText="Password"
-                      />
-                    </div>
+                <div className="level">
+                  <div className="level-item">
+                    <Field name="password"
+                      component={this.renderPasswordField}
+                      hintText="Ingrese su password"
+                      floatingLabelText="Password"
+                    />
                   </div>
-                  <div className="level">
-                    <div className="level-item">
-                      <Field name="Rpassword"
-                        component={this.renderPasswordField}
-                        hintText="Ingrese nuevamente su password"
-                        floatingLabelText="Password"
-                      />
-                    </div>
+                </div>
+                <div className="level">
+                  <div className="level-item">
+                    <Field name="Rpassword"
+                      component={this.renderPasswordField}
+                      hintText="Ingrese nuevamente su password"
+                      floatingLabelText="Password"
+                    />
                   </div>
-                  <br />
-                  <div className="buttons">
-                    <button type="submit" disabled={submitting}>
-                      Submit
-                          </button>
-                  </div>
-                </form>
-              )}
-            />
-          </div>
-        </div>
+                </div>
+                <br />
+                <div className="has-text-centered">
+                  <button type="submit" className="button is-primary" disabled={submitting}>
+                    Cambiar Password
+                  </button>
+                </div>
+              </form>
+            )}
+          />
       </div>
     );
   }
