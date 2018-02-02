@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 import NeedLogin from './../../generic/need_login';
+import AnimatedBackground from './../../generic/animated_background';
+
 
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
@@ -158,9 +160,9 @@ class PropuestaForm extends GenericForm {
                             />
                           </div>
                         </div>
-                        <div className="buttons">
-                          <button type="submit" disabled={submitting}>
-                            Submit
+                        <div className="buttons has-text-centered">
+                          <button type="submit" className="button is-primary" disabled={submitting}>
+                            Registrar Evento
             </button>
                         </div>
 
@@ -172,6 +174,7 @@ class PropuestaForm extends GenericForm {
             </div>
           </div>
         </section>
+        <AnimatedBackground />
       </div>
     );
   }

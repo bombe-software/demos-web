@@ -5,6 +5,8 @@ import { graphql } from 'react-apollo';
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
 
+import WaveBackground from './generic/wave_background';
+
 import { Form, Field } from "react-final-form";
 import TextField from 'material-ui/TextField';
 
@@ -67,6 +69,8 @@ class Login extends Component {
                                         }}
                                         render={({ handleSubmit, reset, submitting, pristine, values }) => (
                                             <form onSubmit={handleSubmit}>
+                                            <div className="level">
+                                                <div className="level-item">
                                                 <Field name="email">
                                                     {({ input, meta }) => (
                                                         <div>
@@ -75,7 +79,10 @@ class Login extends Component {
                                                         </div>
                                                     )}
                                                 </Field>
-                                                <Field name="password">
+                                            </div></div>
+                                            <div className="level">
+                                                <div className="level-item">
+                                                <Field name="password" type="password" >
                                                     {({ input, meta }) => (
                                                         <div>
                                                             <TextField hintText="Ingrese usuario" floatingLabelText="Password"
@@ -83,9 +90,10 @@ class Login extends Component {
                                                         </div>
                                                     )}
                                                 </Field>
-                                                <div className="buttons">
-                                                    <button type="submit" disabled={submitting}>
-                                                        Submit
+                                                </div></div>
+                                                <div className="buttons has-text-centered">
+                                                    <button type="submit" className="button is-primary" disabled={submitting}>
+                                                        Iniciar Sesión
                                                     </button>
                                                 </div>
                                             </form>
@@ -96,6 +104,7 @@ class Login extends Component {
                         </div>
                     </div>
                 </section>
+                <WaveBackground />
             </div>
         );
     }

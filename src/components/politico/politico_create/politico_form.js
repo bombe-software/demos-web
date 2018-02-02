@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import { Form, Field } from "react-final-form";
 
 import NeedLogin from './../../generic/need_login';
+import AnimatedBackground from './../../generic/animated_background';
 
 import GenericForm from '../../generic/generic_form';
 import addPolitico from './../../../queries/addPolitico';
@@ -54,13 +55,13 @@ class PoliticoForm extends GenericForm {
           <div className="section">
             <div className="columns">
               <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
-                <div className="box">
+                <div className="box" style={{padding: "48px"}}>
                   <br />
-                  <h1 className="title">
+                  <h1 className="title has-text-centered">
                     Registrar un político
                 </h1>
                   <br />
-                  <p className="subtitle">
+                  <p className="subtitle has-text-centered">
                     ¿No encuentra a un político en nuestra página?
                   Brindenos su información y solicite registrarlo para
                   que toda nuestra comunidad pueda verlo.
@@ -141,7 +142,7 @@ class PoliticoForm extends GenericForm {
                               hintText="Cargo politico"
                               floatingLabelText="Cargo"
                             >
-                              <MenuItem value="Politico" key={1} primaryText={"Politico"} />
+                              <MenuItem value="Funcionario" key={1} primaryText={"Funcionario"} />
                               <MenuItem value="Candidato" key={2} primaryText={"Candidato"} />
                             </Field>
                           </div>
@@ -163,19 +164,6 @@ class PoliticoForm extends GenericForm {
 
                         <div className="level">
                           <div className="level-item">
-                            <Field name="titulo"
-                              component={this.renderTextField}
-                              hintText="Derecho y Contadur[ia"
-                              floatingLabelText="Estudios"
-                            />
-                          </div>
-                        </div>
-                        <br />
-                        <div>Nivel de estúdios del político</div>
-
-                        <div className="level">
-                        <div className="level-left">
-                          <div className="level-item">
                             <Field name="grado_academico"
                               component={this.renderSelectField}
                               hintText="Ing."
@@ -187,6 +175,15 @@ class PoliticoForm extends GenericForm {
                             </Field>
                           </div>
                         </div>
+
+                        <div className="level">
+                          <div className="level-item">
+                            <Field name="titulo"
+                              component={this.renderTextField}
+                              hintText="Derecho y Contadur[ia"
+                              floatingLabelText="Estudios"
+                            />
+                          </div>
                         </div>
 
                         <div className="level">
@@ -212,9 +209,9 @@ class PoliticoForm extends GenericForm {
                             />
                           </div>
                         </div>
-                        <div className="buttons">
-                          <button type="submit" disabled={submitting}>
-                            Submit
+                        <div className="buttons has-text-centered">
+                          <button type="submit" className="button is-primary" disabled={submitting}>
+                            Registrar político
                           </button>
                         </div>
                       </form>
@@ -225,6 +222,7 @@ class PoliticoForm extends GenericForm {
             </div>
           </div>
         </section>
+        <AnimatedBackground />
       </div>
     );
   }
