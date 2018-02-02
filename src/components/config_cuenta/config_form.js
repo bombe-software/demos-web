@@ -89,48 +89,37 @@ class ConfigForm extends GenericForm {
     render() {
         return (
             <div>
-                <br />
-                <div className="section">
-                    <div className="columns is-desktop">
-                        <div className="column is-3-fullhd is-4-widescreen is-3-desktop is-offset-1-desktop is-12-tablet is-12-mobile is-offset-2-fullhd">
-
-                        </div>
-                        <div className="column is-5-fullhd is-6-widescreen is-6-desktop is-12-tablet is-12-mobile">
-                            <div className="tabs is-medium is-boxed">
-                                <ul>
-                                    <li className={this.state.type == "Usuario" ? 'is-active' : ''}>
-                                        <a onClick={this.updateUsuario}>
-                                            <span className="icon is-small">
-                                                <i className="fa fa-lightbulb-o" aria-hidden="true"></i>
-                                            </span>
-                                            <span>&nbsp;Usuario</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.state.type == "Password" ? 'is-active' : ''}>
-                                        <a onClick={this.updatePassword}>
-                                            <span className="icon is-small">
-                                                <i className="fa fa-clock-o" aria-hidden="true"></i>
-                                            </span>
-                                            <span>&nbsp;Password</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.state.type == "Avatar" ? 'is-active' : ''}>
-                                        <a onClick={this.updateAvatar}>
-                                            <span className="icon is-small">
-                                                <i className="fa fa-clock-o" aria-hidden="true"></i>
-                                            </span>
-                                            <span>&nbsp;Avatar</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                {this.renderSection()}
-                            </div>
-                        </div>
-                    </div>
+                <div className="tabs is-medium is-boxed">
+                    <ul>
+                        <li className={this.state.type == "Usuario" ? 'is-active' : ''}>
+                            <a onClick={this.updateUsuario}>
+                                <span className="icon is-small">
+                                    <i className="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                                <span>&nbsp;Usuario</span>
+                            </a>
+                        </li>
+                        <li className={this.state.type == "Password" ? 'is-active' : ''}>
+                            <a onClick={this.updatePassword}>
+                                <span className="icon is-small">
+                                    <i className="fa fa-key" aria-hidden="true"></i>
+                                </span>
+                                <span>&nbsp;Password</span>
+                            </a>
+                        </li>
+                        <li className={this.state.type == "Avatar" ? 'is-active' : ''}>
+                            <a onClick={this.updateAvatar}>
+                                <span className="icon is-small">
+                                    <i className="fa fa-picture-o" aria-hidden="true"></i>
+                                </span>
+                                <span>&nbsp;Avatar</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <br /><br />
+                <div>
+                    {this.renderSection()}
+                </div>
             </div>
 
         )

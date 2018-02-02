@@ -50,13 +50,15 @@ class Avatar extends Component {
       variables: {
         id, nombre, password, avatar
       }
-    }).then(alert('Informacion enviada'));
+    });
     location.reload();
   }
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <div className="box">
+        <h1 className="is-size-4">Cambia tu avatar</h1><hr />
+        <form onSubmit={this.onSubmit}>
         <div className="level">
           <div className="level-item has-text-centered">
             <label>
@@ -83,12 +85,13 @@ class Avatar extends Component {
             </label>
           </div>
         </div>
-        <div className="buttons">
-          <button type="submit">
-            Submit
+        <div className="has-text-centered">
+          <button type="submit" className="button is-primary">
+            Cambiar Avatar
                           </button>
         </div>
       </form>
+      </div>
     );
   }
 }
