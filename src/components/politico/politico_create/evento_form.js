@@ -8,6 +8,8 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import DatePicker from "material-ui/DatePicker";
 
+import NeedLogin from './../../generic/need_login';
+
 //Queries
 import fetchUsuario from './../../../queries/fetchUsuario';
 import addEvento from './../../../queries/addEvento';
@@ -35,7 +37,7 @@ class EventoForm extends GenericForm {
       variables: {
         fecha, titulo,
         descripcion, referencia, usuario, politico
-    }}).then(alert('Informacion enviada'));  
+    }}).then(()=>this.props.history.push(`/politico/${this.props.match.params.id}`));
       }
   
   /**
@@ -48,6 +50,11 @@ class EventoForm extends GenericForm {
   */
   render() {
     console.log(this.props);
+    if (!this.props.fetchUsuario.usuario){
+      return (
+        <NeedLogin />
+      );
+    }
     return (
       <div>
 

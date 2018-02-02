@@ -5,6 +5,8 @@ import { graphql, compose } from 'react-apollo';
 import MenuItem from 'material-ui/MenuItem';
 import { Form, Field } from "react-final-form";
 
+import NeedLogin from './../../generic/need_login';
+
 import GenericForm from '../../generic/generic_form';
 import addPolitico from './../../../queries/addPolitico';
 import fetchPartidos from './../../../queries/fetchPartidos';
@@ -32,7 +34,7 @@ class PoliticoForm extends GenericForm {
       variables: {
         nombre, cargo, partido, estado, lugar_estudio, grado_academico, titulo, usuario, referencia
       }
-    }).then(alert('Informacion enviada')); 
+    }).then(()=>this.props.history.push(`/politicos`)); 
   };
 
 
@@ -40,6 +42,11 @@ class PoliticoForm extends GenericForm {
 
     if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) {
       return <div>Loading...</div>;
+    }
+    if (!this.props.fetchUsuario.usuario){
+      return (
+        <NeedLogin />
+      );
     }
     return (
       <div>
@@ -158,10 +165,28 @@ class PoliticoForm extends GenericForm {
                           <div className="level-item">
                             <Field name="titulo"
                               component={this.renderTextField}
-                              hintText="Ingrese el titulo de estudio"
-                              floatingLabelText="Titulo"
+                              hintText="Derecho y Contadur[ia"
+                              floatingLabelText="Estudios"
                             />
                           </div>
+                        </div>
+                        <br />
+                        <div>Nivel de estúdios del político</div>
+
+                        <div className="level">
+                        <div className="level-left">
+                          <div className="level-item">
+                            <Field name="grado_academico"
+                              component={this.renderSelectField}
+                              hintText="Ing."
+                              floatingLabelText="Título"
+                            >
+                              {this.props.fetchgrado_academico.grados_academico.map(({ id, grado }) => {
+                                return <MenuItem value={id} key={id} primaryText={grado} />
+                              })}
+                            </Field>
+                          </div>
+                        </div>
                         </div>
 
                         <div className="level">
@@ -178,19 +203,6 @@ class PoliticoForm extends GenericForm {
                           </div>
                         </div>
 
-                        <div className="level">
-                          <div className="level-item">
-                            <Field name="grado_academico"
-                              component={this.renderSelectField}
-                              hintText="Grado academico"
-                              floatingLabelText="Grado academico"
-                            >
-                              {this.props.fetchgrado_academico.grados_academico.map(({ id, grado }) => {
-                                return <MenuItem value={id} key={id} primaryText={grado} />
-                              })}
-                            </Field>
-                          </div>
-                        </div>
                         <div className="level">
                           <div className="level-item">
                             <Field name="referencia"

@@ -15,12 +15,12 @@ class Login extends Component {
     }
 
     async onSubmit(values) {
-        console.log(values);
-            const {email, password} = values;
-            this.props.mutate({
-                variables: { email, password },
-                refetchQueries: [{ query }]
-            }).then(()=>  this.props.history.push("/"));
+        
+        const {email, password} = values;
+        this.props.mutate({
+            variables: { email, password },
+            refetchQueries: [{ query }]
+        }).then(()=>  this.props.history.push("/"));
         
     };
     
