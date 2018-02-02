@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 import { Form, Field } from "react-final-form";
 
+import WaveBackground from './generic/wave_background';
+
 import signup from '../queries/signup';
 import GenericForm from './generic/generic_form';
 
@@ -200,6 +202,7 @@ class SignUp extends GenericForm {
                               <div className="level">
                                 <div className="level-item">
                                   <Field name="password"
+                                    type="password"
                                     component={this.renderTextField}
                                     hintText="Ingrese su password"
                                     floatingLabelText="Password"
@@ -209,6 +212,7 @@ class SignUp extends GenericForm {
                               <div className="level">
                                 <div className="level-item">
                                   <Field name="Rpassword"
+                                    type="password"
                                     component={this.renderTextField}
                                     hintText="Ingrese nuevamente su password"
                                     floatingLabelText="Password"
@@ -291,6 +295,7 @@ class SignUp extends GenericForm {
             </div>
           </section>
         </section>
+        <WaveBackground />
       </div>
     );
   }

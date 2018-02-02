@@ -9,6 +9,7 @@ export default gql`
         localidad,
         puntos,
         fecha_registro,
+        password,
         avatar
     } 
 }

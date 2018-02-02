@@ -18,8 +18,7 @@ class SolicitudPropuesta extends Component {
       variables: {
        idPropuesta
       }
-    }).then(alert('Informacion enviada'));
-    location.reload();
+    }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
 
   denegar(idPropuesta) {
@@ -27,8 +26,7 @@ class SolicitudPropuesta extends Component {
       variables: {
         idPropuesta
       }
-    }).then(alert('Informacion enviada'));
-    location.reload();
+    }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
 
   renderList() {

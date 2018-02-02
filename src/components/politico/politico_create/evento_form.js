@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 import { compose, graphql } from 'react-apollo';
 
 //Componentes
@@ -7,6 +7,9 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import DatePicker from "material-ui/DatePicker";
+
+import NeedLogin from './../../generic/need_login';
+import AnimatedBackground from './../../generic/animated_background';
 
 //Queries
 import fetchUsuario from './../../../queries/fetchUsuario';
@@ -29,13 +32,13 @@ class EventoForm extends GenericForm {
       fecha, titulo,
       descripcion, referencia
     } = values
-    console.log(fecha, titulo, descripcion, referencia, usuario,politico);
+  
      
     this.props.addEvento({
       variables: {
         fecha, titulo,
         descripcion, referencia, usuario, politico
-    }}).then(alert('Informacion enviada'));  
+    }}).then(()=>this.props.history.push(`/politico/${this.props.match.params.id}`));
       }
   
   /**
@@ -48,6 +51,11 @@ class EventoForm extends GenericForm {
   */
   render() {
     console.log(this.props);
+    if (!this.props.fetchUsuario.usuario){
+      return (
+        <NeedLogin />
+      );
+    }
     return (
       <div>
 
@@ -133,9 +141,9 @@ class EventoForm extends GenericForm {
                             />
                           </div>
                         </div>
-                        <div className="buttons">
-                          <button type="submit" disabled={submitting}>
-                            Submit
+                        <div className="buttons has-text-centered">
+                          <button type="submit" className="button is-primary" disabled={submitting}>
+                            Registrar evento
             </button>
                         </div>
 
@@ -143,6 +151,7 @@ class EventoForm extends GenericForm {
                     )}
                   />
                 </div></div></div></div></section>
+                <AnimatedBackground />
       </div>
     );
   }

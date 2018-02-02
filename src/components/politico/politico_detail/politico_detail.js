@@ -59,7 +59,9 @@ class PoliticoDetail extends Component {
     }
 
     renderPerfil() {
-        if (!this.props.fetchPolitico.loading) {
+
+        if (this.props.data.politicosPorId != undefined) {
+            let {politico} = this.props.data.politicosPorId;
             return (
                 <div>
                     <div className="card">

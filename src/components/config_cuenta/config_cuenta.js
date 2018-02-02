@@ -11,10 +11,7 @@ class Perfil extends Component {
 
 
   render() {
-    console.log("jimmy");
-    console.log(this.props);
   if (this.props.data.loading) { <div>Loading...</div> }
-  console.log(this.props);
     let {usuario} = this.props.data;
     if (JSON.stringify(usuario) == undefined) {
       return (
@@ -26,7 +23,6 @@ class Perfil extends Component {
       const fecha = new Date(usuario.fecha_registro);
       return (
         <div className="section">
-
             <br />
             <div className="columns">
               <div className="column is-4-desktop is-4-widescreen is-3-fullhd is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">

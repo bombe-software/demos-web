@@ -17,8 +17,7 @@ class SolicitudPolitico extends Component {
       variables: {
        idPolitico
       }
-    }).then(alert('Informacion enviada'));
-    location.reload();
+    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
   }
 
   denegar(idPolitico) {
@@ -26,8 +25,7 @@ class SolicitudPolitico extends Component {
       variables: {
         idPolitico
       }
-    }).then(alert('Informacion enviada'));
-    location.reload();
+    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
   }
 
   renderList() {
@@ -67,6 +65,7 @@ class SolicitudPolitico extends Component {
   }
 
   render() {
+    console.log(this.props);
     if (this.props.fetchSolicitudPolitico.loading){
       return <div>Loading...</div>
     }
