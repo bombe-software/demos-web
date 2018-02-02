@@ -7,10 +7,8 @@ class Historial extends Component {
         this.renderHistorialList = this.renderHistorialList.bind(this);
     }
 
-
     renderHistorialList() {
-        
-        return this.props.Politico.eventos.map(({id, titulo, fecha}) => {
+        return this.props.eventos.map(({id, titulo, fecha}) => {
             return (
                 <div  key={id} >
                     <div className="columns is-mobile is-relative">
@@ -43,8 +41,7 @@ class Historial extends Component {
   }
 
     render() {
-        console.log(this.props);
-        if(this.props.Politico.eventos != undefined){
+        if(this.props.eventos != undefined){
             return(
                 <div>
                     <div className="level">
@@ -52,7 +49,7 @@ class Historial extends Component {
                     <div className="level-right">
                       <div className="level-item">
                         <p className="has-text-right">
-                          <Link to={"/crear/historial/"+this.props.Politico.id} className="button is-success">
+                          <Link to={"/crear/historial/"+this.props.id_politico} className="button is-success">
                             <i className="fa fa-plus" aria-hidden="true"></i>
                             &nbsp;&nbsp;&nbsp;Agregar un evento
                           </Link >
@@ -72,12 +69,6 @@ class Historial extends Component {
             );
         }
     }
-}
-
-function mapStateToProps(state) {
-    return {
-        historial: state.politico.historial
-    };
 }
 
 export default Historial;

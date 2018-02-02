@@ -1,49 +1,33 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Like  from './like';
 
 class Propuestas extends Component {
     constructor(props) {
         super(props);
         this.renderPropuestaList = this.renderPropuestaList.bind(this);
-        this.renderLike = this.renderLike.bind(this);
     }
-
-
-
-    renderLike(user, propuestas_like, propuesta) {
-        let propuesta_like = _.filter(propuestas_like, { 'id_propuesta': propuesta.id_propuesta });
-        let isLiked = false;
-        let count_actual = undefined;
-        if (_.filter(this.props.count, { 'id_propuesta': propuesta.id_propuesta })[0] != undefined) {
-            count_actual = _.filter(this.props.count, { 'id_propuesta': propuesta.id_propuesta })[0].count;
-        }
-        if (propuesta_like[0] != undefined) {
-            isLiked = true;
-        }
-        return (
-            <div>
-                {count_actual}
-                <a onClick={() => { this.props.putIsliked(propuesta.id_propuesta, user.id_usuario); this.props.fetchCountLikes(propuesta.id_propuesta); this.props.fetchIsliked(user.id_usuario); }}>
-                    <i className={isLiked == true ? "fa fa-thumbs-up" : "fa fa-thumbs-o-up"} aria-hidden="true"></i>
-                </a>
-            </div>
-        );
+    renderLike(id_propuesta,id_usuario, likes){
+        if(id_usuario != undefined)
+            return <Like id_propuesta={id_propuesta} id_usuario={id_usuario} likes={likes} />;
+        else
+            return ""
     }
-
-
 
     renderPropuestaList() {
-        console.log(this.props);
-      //  const {user, propuestas_like}  = this.props;
-       // const {renderLike} = this;
-        return this.props.Politico.propuestas.map(({id, fecha, titulo, tipo_propuesta})=> {
-            if(fecha && id && titulo && tipo_propuesta) return (
+        const { id_politico, propuestas, id_usuario, cargo } = this.props;
+        console.log(cargo);
+        return propuestas.map(({ id, fecha, titulo, tipo_propuesta, likes }) => {
+            if (fecha && id && titulo && tipo_propuesta) return (
                 <div key={id}>
                     <div className="panel-block">
-                      <p className="is-size-5">
-                          <a className="has-text-dark">{titulo}</a> &nbsp;{" "}&nbsp;<span className="is-size-7 tag is-light has-text-right">{tipo_propuesta.tipo}</span>
-                      </p>
-                    </div> 
+                        <p className="is-size-5">
+                            <a className="has-text-dark">{titulo}</a> &nbsp;{" "}&nbsp;<span className="is-size-7 tag is-light has-text-right">{tipo_propuesta.tipo}</span>
+                        </p>
+                        <div className={cargo != "Candidato" ? "hidden" : ""}>
+                            {this.renderLike(id ,id_usuario, likes)}
+                        </div>
+                    </div>
                 </div>
             );
         });
@@ -65,37 +49,30 @@ class Propuestas extends Component {
 
 
     render() {
-        if (this.props.Politico != undefined) {
-            return (
-                <div>
-                    <div className="level">
-                        <div className="level-left"></div>
-                        <div className="level-right">
-                            <div className="level-item">
-                                <p className="has-text-right">
-                                    <Link to={"/crear/propuestas/" + this.props.Politico.id} className="button is-success">
-                                        <i className="fa fa-plus" aria-hidden="true"></i>
-                                        &nbsp;&nbsp;&nbsp;Agregar una propuesta
+        return (
+            <div>
+                <div className="level">
+                    <div className="level-left"></div>
+                    <div className="level-right">
+                        <div className="level-item">
+                            <p className="has-text-right">
+                                <Link to={"/crear/propuestas/" + this.props.id_politico} className="button is-success">
+                                    <i className="fa fa-plus" aria-hidden="true"></i>
+                                    &nbsp;&nbsp;&nbsp;Agregar una propuesta
                           </Link>
-                                </p>
-                            </div>
+                            </p>
                         </div>
                     </div>
-                    <div className="panel">
-                        <div className="panel-heading">
-                            Propuestas del político
+                </div>
+                <div className="panel">
+                    <div className="panel-heading">
+                        Propuestas del político
                       </div>
-                        {this.renderPropuestaList()}
-                    </div>
+                    {this.renderPropuestaList()}
                 </div>
-            );
-        } else {
-            return (
-                <div className="spinner">
-                </div>
-            );
-        }
+            </div>
+        );
     }
 }
 
-export default Propuestas;
+export default Propuestas; 

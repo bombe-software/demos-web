@@ -60,7 +60,7 @@ class PoliticoList extends Component {
   componentDidCatch(error, info) {
   }
   render() {
-    if (this.props.fetchPoliticosPorEstado.loading) { return <div>Loading...</div> }
+    if (this.props.fetchPoliticosPorEstado.loading) { return <div className="spinner"> </div> }
     return (
       <div>
         <div className="level">

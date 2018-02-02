@@ -87,7 +87,7 @@ class Navbar extends Component {
   }
 
   render() {
-    if(this.props.data.loading) return <div>Loading</div>
+    if(this.props.data.loading) return <div> </div>
     return (
       //Logo de la navbar
       <div>

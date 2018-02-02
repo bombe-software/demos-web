@@ -125,7 +125,7 @@ class Elecciones extends Component {
     }
 
     render() {
-        if (this.props.data.loading) return <div>Cargando</div>;
+        if (this.props.data.loading) return <div className="spinner"> </div>;
         return (
             <div className="section">
                 <div className="columns mobile">
