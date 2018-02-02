@@ -43,7 +43,7 @@ class Historial extends Component {
   }
 
     render() {
-        console.log(this.props);
+
         if(this.props.Politico.eventos != undefined){
             return(
                 <div>
@@ -74,10 +74,6 @@ class Historial extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        historial: state.politico.historial
-    };
-}
+
 
 export default Historial;

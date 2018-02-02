@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 import { graphql, compose } from 'react-apollo';
 
 import MenuItem from 'material-ui/MenuItem';

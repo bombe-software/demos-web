@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 import { compose, graphql } from 'react-apollo';
 
 //Componentes
@@ -31,7 +31,7 @@ class EventoForm extends GenericForm {
       fecha, titulo,
       descripcion, referencia
     } = values
-    console.log(fecha, titulo, descripcion, referencia, usuario,politico);
+  
      
     this.props.addEvento({
       variables: {
