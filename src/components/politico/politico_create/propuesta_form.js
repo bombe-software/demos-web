@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 
+import NeedLogin from './../../generic/need_login';
+import AnimatedBackground from './../../generic/animated_background';
+
+
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
@@ -35,13 +39,18 @@ class PropuestaForm extends GenericForm {
       variables: {
        titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
       
-    }}).then(alert('Informacion enviada'));
+    }}).then(()=>this.props.history.push(`/politico/${this.props.match.params.id}`)); 
 
   };
 
   render() {
     if (this.props.fetchTipoPropuesta.loading) {
       return <div>Loading...</div>;
+    }
+    if (!this.props.fetchUsuario.usuario){
+      return (
+        <NeedLogin />
+      );
     }
     console.log(this.props);
     return (
@@ -151,9 +160,9 @@ class PropuestaForm extends GenericForm {
                             />
                           </div>
                         </div>
-                        <div className="buttons">
-                          <button type="submit" disabled={submitting}>
-                            Submit
+                        <div className="buttons has-text-centered">
+                          <button type="submit" className="button is-primary" disabled={submitting}>
+                            Registrar Evento
             </button>
                         </div>
 
@@ -165,6 +174,7 @@ class PropuestaForm extends GenericForm {
             </div>
           </div>
         </section>
+        <AnimatedBackground />
       </div>
     );
   }

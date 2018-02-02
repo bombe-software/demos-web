@@ -17,8 +17,7 @@ class SolicitudEvento extends Component {
       variables: {
        idEvento
       }
-    }).then(alert('Informacion enviada'));
-    location.reload();
+    }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
 
   denegar(idEvento) {
@@ -26,8 +25,7 @@ class SolicitudEvento extends Component {
       variables: {
         idEvento
       }
-    }).then(alert('Informacion enviada'));
-    location.reload();
+    }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
 
   renderList() {
