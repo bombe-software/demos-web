@@ -5,8 +5,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 //Apollo configuration object options
+import { split } from 'apollo-link';
 import { ApolloClient } from 'apollo-client';
+import { WebSocketLink } from 'apollo-link-ws';
 import { createHttpLink } from 'apollo-link-http';
+import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 //Sin manejo de informacion
@@ -38,11 +41,31 @@ import Moderador from './components/moderador/moderador';
 
 //Pruebas 
 
-
-const link = createHttpLink({
+// Crear un http link
+const httpLink = createHttpLink({
   uri: 'http://localhost:3000/graphql',
   credentials: 'include'
 });
+
+// Crear el web socket link
+const wsLink = new WebSocketLink({
+  uri: `ws://localhost:3000/`,
+  options: {
+    reconnect: true
+  },
+  credentials: 'include'
+});
+
+// USar dependencia split para hacer una union de ambos 
+// caminos de comunicacion y separa uno del otro
+const link = split(
+  ({ query }) => {
+    const { kind, operation } = getMainDefinition(query);
+    return kind === 'OperationDefinition' && operation === 'subscription';
+  },
+  wsLink,
+  httpLink
+);
 
 const client = new ApolloClient({
   link,
