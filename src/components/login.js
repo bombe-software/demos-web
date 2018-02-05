@@ -96,11 +96,12 @@ class Login extends GenericForm {
                                                             hintText="Ingrese su password"
                                                             floatingLabelText="Password"
                                                         />
-                                                        <code>
-                                                        {this.state.error}
-                                                        </code>
                                                     </div>
                                                 </div>
+                                                <code>
+                                                    {this.state.error}
+                                                </code>
+                                                <br/>
                                                 <div className="buttons has-text-centered">
                                                     <button type="submit" className="button is-primary" disabled={submitting}>
                                                         Iniciar Sesión
