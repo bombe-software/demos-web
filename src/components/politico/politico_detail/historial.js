@@ -42,7 +42,7 @@ class Historial extends Component {
 
     render() {
 
-        if(this.props.Politico.eventos != undefined){
+        if(this.props.eventos != undefined){
             return(
                 <div>
                     <div className="level">
