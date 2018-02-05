@@ -26,13 +26,11 @@ class Login extends Component {
             variables: { email, password },
             refetchQueries: [{ query }]
         })
-            .then(() => this.props.history.push("/"))
-            .catch(res => {
-                const errors = res.graphQLErrors.map(error => error.message);
-                const error = errors[0]
-                this.setState({ error });
-            });
-
+        .catch(res => {
+            const errors = res.graphQLErrors.map(error => error.message);
+            const error = errors[0]
+            this.setState({ error });
+        }).then(() => this.props.history.push("/"));
     };
 
 
@@ -104,7 +102,7 @@ class Login extends Component {
                                                 <div className="level">
                                                     <div className="level-item">
                                                         <code>
-                                                        {this.state.error}
+                                                            {this.state.error}
                                                         </code>
                                                     </div>
                                                 </div>
