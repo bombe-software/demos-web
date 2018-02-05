@@ -11,7 +11,9 @@ export default gql`
         fecha_registro,
         password,
         avatar,
-        tipo_usuario
+        tipo_usuario{
+            tipo
+        }
     } 
 }
 `;

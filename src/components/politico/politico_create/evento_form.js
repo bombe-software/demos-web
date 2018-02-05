@@ -111,7 +111,7 @@ class EventoForm extends GenericForm {
                           errors.descripcion = "Escriba una descripción válida";
                         }
                       if (!values.referencia) {
-                        errors.referencia = "Escriba el link de referenica";
+                        errors.referencia = "Escriba el link de referencia";
 
                       } else if (values.referencia != undefined) {
                         var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
