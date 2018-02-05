@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
@@ -14,16 +14,24 @@ class Login extends GenericForm {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
+        this.state = {
+            error: ''
+        }
     }
 
     async onSubmit(values) {
 
-        const {email, password} = values;
+        const { email, password } = values;
         this.props.mutate({
             variables: { email, password },
             refetchQueries: [{ query }]
-        }).then(() => this.props.history.push("/"));
-
+        })
+            .then(() => this.props.history.push("/"))
+            .catch(res => {
+                const errors = res.graphQLErrors.map(error => error.message);
+                const error = errors[0]
+                this.setState({ error });
+            });
     };
 
 
@@ -88,6 +96,9 @@ class Login extends GenericForm {
                                                             hintText="Ingrese su password"
                                                             floatingLabelText="Password"
                                                         />
+                                                        <code>
+                                                        {this.state.error}
+                                                        </code>
                                                     </div>
                                                 </div>
                                                 <div className="buttons has-text-centered">
