@@ -11,6 +11,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { createHttpLink } from 'apollo-link-http';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createUploadLink } from 'apollo-upload-client';
 
 //Sin manejo de informacion
 import NotFound from './components/not_found';
@@ -55,10 +56,11 @@ const wsLink = new WebSocketLink({
   },
   credentials: 'include'
 });
-
-import { createUploadLink } from 'apollo-upload-client'
  
-const uploadLink = createUploadLink();
+const uploadLink = createUploadLink({
+  uri: 'http://localhost:3000/graphql',
+  credentials: 'include'
+});
 
 
 // USar dependencia split para hacer una union de ambos 
