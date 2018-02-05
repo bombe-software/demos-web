@@ -7,9 +7,8 @@ import AnimatedBackground from './../../generic/animated_background';
 
 
 import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import DatePicker from "material-ui/DatePicker";
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
 //Queries y Mutations
@@ -23,8 +22,21 @@ class PropuestaForm extends GenericForm {
     super(props);
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      open: false
+    };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+  }
 
-  } 
+  handleOpen(){
+    this.setState({ open: true });
+  };
+
+  handleClose(){
+    this.setState({ open: false });
+    this.props.history.push(`/politico/${this.props.match.params.id}`)
+  };
 
   async onSubmit(values) {
 
@@ -33,13 +45,14 @@ class PropuestaForm extends GenericForm {
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values
-    console.log(titulo, descripcion,fecha, tipo_propuesta, referencia);
-    
+    console.log(titulo, descripcion, fecha, tipo_propuesta, referencia);
+
     this.props.addPropuesta({
       variables: {
-       titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
-      
-    }}).then(()=>this.props.history.push(`/politico/${this.props.match.params.id}`)); 
+        titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
+
+      }
+    }).then(this.handleOpen); 
 
   };
 
@@ -47,7 +60,7 @@ class PropuestaForm extends GenericForm {
     if (this.props.fetchTipoPropuesta.loading) {
       return <div>Loading...</div>;
     }
-    if (!this.props.fetchUsuario.usuario){
+    if (!this.props.fetchUsuario.usuario) {
       return (
         <NeedLogin />
       );
@@ -55,6 +68,15 @@ class PropuestaForm extends GenericForm {
     console.log(this.props);
     return (
       <div>
+        <Dialog
+          title="Tu propuesta ahora está en espera de aprobación"
+          actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          Espera la aprobación de un moderador de tu propuesta
+        </Dialog>
         <section className="hero is-large">
           <div className="section">
             <div className="columns">
@@ -136,7 +158,7 @@ class PropuestaForm extends GenericForm {
                               hintText="Escribe tipo de la propuesta"
                               floatingLabelText="Tipo de la propuesta"
                             >
-                             {this.props.fetchTipoPropuesta.tipos_propuesta.map(({ id, tipo }) => {
+                              {this.props.fetchTipoPropuesta.tipos_propuesta.map(({ id, tipo }) => {
                                 return <MenuItem value={id} key={id} primaryText={tipo} />
                               })}
                             </Field>

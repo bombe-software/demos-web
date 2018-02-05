@@ -4,9 +4,8 @@ import { compose, graphql } from 'react-apollo';
 
 //Componentes
 import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import DatePicker from "material-ui/DatePicker";
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 import NeedLogin from './../../generic/need_login';
 import AnimatedBackground from './../../generic/animated_background';
@@ -23,7 +22,21 @@ class EventoForm extends GenericForm {
     super(props);
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      open: false
+    };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
   }
+
+  handleOpen(){
+    this.setState({ open: true });
+  };
+
+  handleClose(){
+    this.setState({ open: false });
+    this.props.history.push(`/politico/${this.props.match.params.id}`);
+  };
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
@@ -32,15 +45,16 @@ class EventoForm extends GenericForm {
       fecha, titulo,
       descripcion, referencia
     } = values
-  
-     
+
+
     this.props.addEvento({
       variables: {
         fecha, titulo,
         descripcion, referencia, usuario, politico
-    }}).then(()=>this.props.history.push(`/politico/${this.props.match.params.id}`));
       }
-  
+    }).then(this.handleOpen); 
+  }
+
   /**
   * Es una forma de capturar cualquier error en la clase 
   * y que este no crashe el programa, ayuda con la depuracion
@@ -51,14 +65,22 @@ class EventoForm extends GenericForm {
   */
   render() {
     console.log(this.props);
-    if (!this.props.fetchUsuario.usuario){
+    if (!this.props.fetchUsuario.usuario) {
       return (
         <NeedLogin />
       );
-    }
+    }    
     return (
       <div>
-
+        <Dialog
+          title="Tu propuesta ahora está en espera de aprobación"
+          actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          Espera la aprobación de un moderador de tu propuesta
+        </Dialog>
         <section className="hero is-large">
           <div className="section">
             <div className="columns">
@@ -151,7 +173,7 @@ class EventoForm extends GenericForm {
                     )}
                   />
                 </div></div></div></div></section>
-                <AnimatedBackground />
+        <AnimatedBackground />
       </div>
     );
   }
@@ -162,7 +184,7 @@ export default compose(
     {
       name: 'addEvento'
     }),
-     graphql(fetchUsuario,
+  graphql(fetchUsuario,
     {
       name: 'fetchUsuario'
     })

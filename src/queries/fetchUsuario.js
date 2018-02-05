@@ -10,7 +10,8 @@ export default gql`
         puntos,
         fecha_registro,
         password,
-        avatar
+        avatar,
+        tipo_usuario
     } 
 }
 `;

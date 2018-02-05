@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
@@ -14,18 +14,27 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
+        this.state = {
+            error: ''
+        }
     }
 
     async onSubmit(values) {
-        
-        const {email, password} = values;
+
+        const { email, password } = values;
         this.props.mutate({
             variables: { email, password },
             refetchQueries: [{ query }]
-        }).then(()=>  this.props.history.push("/"));
-        
+        })
+            .then(() => this.props.history.push("/"))
+            .catch(res => {
+                const errors = res.graphQLErrors.map(error => error.message);
+                const error = errors[0]
+                this.setState({ error });
+            });
+
     };
-    
+
 
     /**
      * Es una forma de capturar cualquier error en la clase 
@@ -69,28 +78,36 @@ class Login extends Component {
                                         }}
                                         render={({ handleSubmit, reset, submitting, pristine, values }) => (
                                             <form onSubmit={handleSubmit}>
-                                            <div className="level">
-                                                <div className="level-item">
-                                                <Field name="email">
-                                                    {({ input, meta }) => (
-                                                        <div>
-                                                            <TextField hintText="Ingrese su email" floatingLabelText="E-mail"
-                                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                                                        </div>
-                                                    )}
-                                                </Field>
-                                            </div></div>
-                                            <div className="level">
-                                                <div className="level-item">
-                                                <Field name="password" type="password" >
-                                                    {({ input, meta }) => (
-                                                        <div>
-                                                            <TextField hintText="Ingrese usuario" floatingLabelText="Password"
-                                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                                                        </div>
-                                                    )}
-                                                </Field>
-                                                </div></div>
+                                                <div className="level">
+                                                    <div className="level-item">
+                                                        <Field name="email">
+                                                            {({ input, meta }) => (
+                                                                <div>
+                                                                    <TextField hintText="Ingrese su email" floatingLabelText="E-mail"
+                                                                        errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                                                                </div>
+                                                            )}
+                                                        </Field>
+                                                    </div></div>
+                                                <div className="level">
+                                                    <div className="level-item">
+                                                        <Field name="password" type="password" >
+                                                            {({ input, meta }) => (
+                                                                <div>
+                                                                    <TextField hintText="Ingrese usuario" floatingLabelText="Password"
+                                                                        errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
+                                                                </div>
+                                                            )}
+                                                        </Field>
+                                                    </div>
+                                                </div>
+                                                <div className="level">
+                                                    <div className="level-item">
+                                                        <code>
+                                                        {this.state.error}
+                                                        </code>
+                                                    </div>
+                                                </div>
                                                 <div className="buttons has-text-centered">
                                                     <button type="submit" className="button is-primary" disabled={submitting}>
                                                         Iniciar Sesión

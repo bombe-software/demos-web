@@ -49,7 +49,7 @@ const httpLink = createHttpLink({
 
 // Crear el web socket link
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:3000/`,
+  uri: `ws://localhost:3000/subscriptions`,
   options: {
     reconnect: true
   },

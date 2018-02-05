@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 
 import MenuItem from 'material-ui/MenuItem';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import { Form, Field } from "react-final-form";
 
 import NeedLogin from './../../generic/need_login';
@@ -22,7 +24,21 @@ class PoliticoForm extends GenericForm {
     super(props);
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      open: false
+    };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
   }
+
+  handleOpen(){
+    this.setState({ open: true });
+  };
+
+  handleClose(){
+    this.setState({ open: false });
+    this.props.history.push(`/politicos`);
+  };
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
@@ -35,7 +51,7 @@ class PoliticoForm extends GenericForm {
       variables: {
         nombre, cargo, partido, estado, lugar_estudio, grado_academico, titulo, usuario, referencia
       }
-    }).then(()=>this.props.history.push(`/politicos`)); 
+    }).then(this.handleOpen); 
   };
 
 
@@ -51,6 +67,15 @@ class PoliticoForm extends GenericForm {
     }
     return (
       <div>
+        <Dialog
+          title="Tu propuesta ahora está en espera de aprobación"
+          actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          Espera la aprobación de un moderador de tu propuesta
+        </Dialog>
         <section className="hero is-large">
           <div className="section">
             <div className="columns">
