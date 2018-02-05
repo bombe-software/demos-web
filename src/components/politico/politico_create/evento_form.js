@@ -148,7 +148,7 @@ class EventoForm extends GenericForm {
                         <div className="level">
                           <div className="level-item">
                             <Field name="fecha"
-                              component={this.renderTextField}
+                              component={this.renderDateField}
                               hintText="Seleccione la fecha"
                               floatingLabelText="Fecha"
                             />

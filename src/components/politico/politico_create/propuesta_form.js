@@ -50,7 +50,6 @@ class PropuestaForm extends GenericForm {
     this.props.addPropuesta({
       variables: {
         titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
-
       }
     }).then(this.handleOpen); 
 
@@ -167,7 +166,7 @@ class PropuestaForm extends GenericForm {
                         <div className="level">
                           <div className="level-item">
                             <Field name="fecha"
-                              component={this.renderTextField}
+                              component={this.renderDateField}
                               hintText="Seleccione la fecha"
                               floatingLabelText="Fecha"
                             />
