@@ -56,6 +56,11 @@ const wsLink = new WebSocketLink({
   credentials: 'include'
 });
 
+import { createUploadLink } from 'apollo-upload-client'
+ 
+const uploadLink = createUploadLink();
+
+
 // USar dependencia split para hacer una union de ambos 
 // caminos de comunicacion y separa uno del otro
 const link = split(
