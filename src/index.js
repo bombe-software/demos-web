@@ -34,6 +34,9 @@ import PoliticoForm from './components/politico/politico_create/politico_form';
 import PropuestaForm from './components/politico/politico_create/propuesta_form';
 import EventoForm from './components/politico/politico_create/evento_form';
 
+import PropuestaSeleccionada from './components/politico/politico_detail/propuesta_seleccionada';
+import EventoSeleccionado from './components/politico/politico_detail/evento_seleccionado';
+
 import Moderador from './components/moderador/moderador';
 
 //Pruebas 
@@ -98,8 +101,10 @@ class App extends React.Component {
                 
                 <Route path="/crear/historial/:id" component={EventoForm} />
                 <Route path="/crear/propuestas/:id" component={PropuestaForm} />
-                <Route path="/politico/:id" component={PoliticoDetail} />
+                <Route path="/politico/:id" exact component={PoliticoDetail} />
 
+                <Route path="/politico/:id/propuesta/:id_propuesta" exact component={PropuestaSeleccionada} />
+                <Route path="/politico/:id/evento/:id_evento" exact component={EventoSeleccionado} />
 
                 {/*Landing page*/}
                 <Route path="/" exact component={LandingPage} />

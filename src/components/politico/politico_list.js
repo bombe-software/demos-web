@@ -32,16 +32,27 @@ class PoliticoList extends Component {
   }
 
   renderListPoliticos() {
-    return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, cargo }) => {
+    return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, cargo, partido }) => {
       if (this.state.puestos[this.props.id_puesto] === cargo) {
         return (
           <div key={id}>
-            <div className="panel-block">
-              <span className="panel-icon"><i className="fa fa-user"></i></span>
-              <Link to={'/politico/' + id} >
-                {nombre}
-              </Link>
-            </div>
+            <Link to={'/politico/' + id} >
+              <div className="card">
+              <div className="card-content">
+                <div className="media">
+                  <div className="media-left">
+                    <figure className="image is-48x48">
+                      <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+                    </figure>
+                  </div>
+                  <div className="media-content">
+                    <p className="title is-4">{nombre}</p>
+                    <p className="subtitle is-6">{partido.nombre}</p>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </Link>
           </div>
         );
       }
@@ -70,17 +81,16 @@ class PoliticoList extends Component {
                 <Link to="/crear/politico" className="button is-success">
                   <i className="fa fa-plus" aria-hidden="true"></i>
                   &nbsp;&nbsp;&nbsp;Agregar un político
-                      </Link >
+                </Link >
               </p>
             </div>
           </div>
         </div>
-        <div className="panel">
-          <div className="panel-heading">
-            <h3>{this.renderTitle()}</h3>
-          </div>
+
+          <h3 className="title is-3">{this.renderTitle()}</h3>
+          <br />
           {this.renderListPoliticos()}
-        </div>
+
       </div>
     )
   }

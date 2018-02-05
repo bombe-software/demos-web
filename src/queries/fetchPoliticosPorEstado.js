@@ -5,7 +5,10 @@ query PoliticosPorEstado($id: ID!){
     politicosPorEstado(id: $id){
         id,
         nombre,
-        cargo
+        cargo,
+        partido {
+            nombre
+        }
   }
 }
 `;

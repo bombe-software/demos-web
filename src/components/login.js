@@ -9,6 +9,7 @@ import WaveBackground from './generic/wave_background';
 
 import { Form, Field } from "react-final-form";
 import TextField from 'material-ui/TextField';
+import PasswordField from 'material-ui-password-field';
 
 class Login extends Component {
     constructor(props) {
@@ -85,7 +86,7 @@ class Login extends Component {
                                                 <Field name="password" type="password" >
                                                     {({ input, meta }) => (
                                                         <div>
-                                                            <TextField hintText="Ingrese usuario" floatingLabelText="Password"
+                                                            <PasswordField hintText="Ingrese usuario" floatingLabelText="Password" type="password"
                                                                 errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
                                                         </div>
                                                     )}
