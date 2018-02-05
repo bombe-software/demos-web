@@ -15,6 +15,7 @@ class Navbar extends Component {
     this.logout = this.logout.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.renderNavEnd = this.renderNavEnd.bind(this);
+    this.renderModerador = this.renderModerador.bind(this);
   }
 
   handleClick() {
@@ -72,7 +73,17 @@ class Navbar extends Component {
       );
     }
   }
-
+renderModerador(){
+    if(this.props.data.usuario != null){
+      if(this.props.data.usuario.tipo_usuario.tipo == 'Moderador'){
+        return(
+            <Link to="/moderador" className="navbar-item">
+              Moderador
+            </Link>
+        );
+      }
+    }
+  }
   /**
   * Es una forma de capturar cualquier error en la clase 
   * y que este no crashe el programa, ayuda con la depuracion
@@ -120,9 +131,7 @@ class Navbar extends Component {
                   <Link to="/soporte" className="navbar-item" onClick={this.handleClick}>
                     Soporte
                   </Link>
-                  <Link to="/moderador" className="navbar-item" onClick={this.handleClick}>
-                    Moderador
-                  </Link>
+                  {this.renderModerador()}
               </div>
 
             </div>

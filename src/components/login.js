@@ -9,23 +9,23 @@ import WaveBackground from './generic/wave_background';
 
 import { Form, Field } from "react-final-form";
 import TextField from 'material-ui/TextField';
-
-class Login extends Component {
+import GenericForm from './generic/generic_form';
+class Login extends GenericForm {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     async onSubmit(values) {
-        
+
         const {email, password} = values;
         this.props.mutate({
             variables: { email, password },
             refetchQueries: [{ query }]
-        }).then(()=>  this.props.history.push("/"));
-        
+        }).then(() => this.props.history.push("/"));
+
     };
-    
+
 
     /**
      * Es una forma de capturar cualquier error en la clase 
@@ -62,6 +62,9 @@ class Login extends Component {
                                             if (!values.email) {
                                                 errors.email = "Ingrese su email";
                                             }
+                                            if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                                                errors.email = 'Correo inválido';
+                                            }
                                             if (!values.password) {
                                                 errors.password = "Ingrese su password";
                                             }
@@ -69,28 +72,24 @@ class Login extends Component {
                                         }}
                                         render={({ handleSubmit, reset, submitting, pristine, values }) => (
                                             <form onSubmit={handleSubmit}>
-                                            <div className="level">
-                                                <div className="level-item">
-                                                <Field name="email">
-                                                    {({ input, meta }) => (
-                                                        <div>
-                                                            <TextField hintText="Ingrese su email" floatingLabelText="E-mail"
-                                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                                                        </div>
-                                                    )}
-                                                </Field>
-                                            </div></div>
-                                            <div className="level">
-                                                <div className="level-item">
-                                                <Field name="password" type="password" >
-                                                    {({ input, meta }) => (
-                                                        <div>
-                                                            <TextField hintText="Ingrese usuario" floatingLabelText="Password"
-                                                                errorText={(meta.error && meta.touched) ? meta.error : ""} {...input} type="text" />
-                                                        </div>
-                                                    )}
-                                                </Field>
-                                                </div></div>
+                                                <div className="level">
+                                                    <div className="level-item">
+                                                        <Field name="email"
+                                                            component={this.renderTextField}
+                                                            hintText="Escribe su email"
+                                                            floatingLabelText="Email"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="level">
+                                                    <div className="level-item">
+                                                        <Field name="password"
+                                                            component={this.renderPasswordField}
+                                                            hintText="Ingrese su password"
+                                                            floatingLabelText="Password"
+                                                        />
+                                                    </div>
+                                                </div>
                                                 <div className="buttons has-text-centered">
                                                     <button type="submit" className="button is-primary" disabled={submitting}>
                                                         Iniciar Sesión

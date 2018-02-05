@@ -84,8 +84,6 @@ class SignUp extends GenericForm {
   }
 
   async onSubmit(values) {
-    console.log(values);
-    console.log(this.state.avatar)
     const {avatar, localidad} = this.state;
     const {
       nombre, email, password,
@@ -166,14 +164,14 @@ class SignUp extends GenericForm {
                         if (values.curp != undefined) {
                           var ri = /^([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\d)$/i
                           if (!ri.test(values.curp)) {
-                            errors.curp = "CURP invalido"
+                            errors.curp = "CURP invalido";
                           }
                         }
                         if (values.password != values.Rpassword) {
                           errors.Rpassword = "Asegurese que las contraseñas coincidan";
                         }
                         if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                          errors.email = 'Correo inválido'
+                          errors.email = 'Correo inválido';
                         }
                         return errors;
                       }}
