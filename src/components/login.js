@@ -84,6 +84,7 @@ class Login extends GenericForm {
                                                     }
                                                     return errors;
                                                 }}
+                
                                                 render={({ handleSubmit, reset, submitting, pristine, values }) => (
                                                     <form onSubmit={handleSubmit}>
                                                         <div className="level">

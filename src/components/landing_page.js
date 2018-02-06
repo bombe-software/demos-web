@@ -125,9 +125,9 @@ class LandingPage extends Component {
                             <br /><br />
                             <div className="columns">
                                 <div className="column is-8">
-                                    {/*
+                                    {
                                     <Line data={this.generateData(estados)} />
-                                    */}
+                                    }
                                 </div>
                                 <div className="column is-4">
                                     <p className="is-size-3">Estados más participativos</p>
@@ -139,9 +139,9 @@ class LandingPage extends Component {
                                     <p className="is-size-3">Tendencia de preferencias por partido</p>
                                 </div>
                                 <div className="column is-8">
-                                    {/*
+                                    {
                                     <Pie data={this.generateData(partidos)} />
-                                     */}
+                                     }
                                 </div>
                             </div>
                         </div>

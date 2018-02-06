@@ -21,7 +21,7 @@ class Propuestas extends Component {
                 <div key={id}>
                     <div className="panel-block">
                         <p className="is-size-5">
-                            <a className="has-text-dark">{titulo}</a> &nbsp;{" "}&nbsp;<span className="is-size-7 tag is-light has-text-right">{tipo_propuesta.tipo}</span>
+                            <Link to={`/politico/${id_politico}/propuesta/${id}`} className="has-text-dark">{titulo}</Link> &nbsp;{" "}&nbsp;<span className="is-size-7 tag is-light has-text-right">{tipo_propuesta.tipo}</span>
                         </p>
                         <div className={cargo != "Candidato" ? "hidden" : ""}>
                             {this.renderLike(id ,id_usuario, likes)}

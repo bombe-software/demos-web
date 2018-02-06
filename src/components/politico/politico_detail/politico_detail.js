@@ -6,6 +6,8 @@ import Propuestas from './propuestas';
 import fetchPoliticosDetail from '../../../queries/fetchPoliticoDetail';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
+import PoliticoPerfil from './politico_perfil';
+
 class PoliticoDetail extends Component {
     constructor(props) {
         super(props);
@@ -16,8 +18,6 @@ class PoliticoDetail extends Component {
         };
         this.updatePropuestas = this.updatePropuestas.bind(this);
         this.updateHistorial = this.updateHistorial.bind(this);
-
-        this.renderPerfil = this.renderPerfil.bind(this);
     }
 
     updatePropuestas() {
@@ -36,7 +36,6 @@ class PoliticoDetail extends Component {
                             cargo = {this.props.fetchPolitico.politicosPorId.cargo}
                             propuestas={this.props.fetchPolitico.politicosPorId.propuestas}
                             id_politico={this.props.fetchPolitico.politicosPorId.id}
-                            cargo={this.props.fetchPolitico.politicosPorId.cargo}
                             id_usuario={this.props.fetchUsuario.usuario == undefined ? null : this.props.fetchUsuario.usuario.id}
                         />
                     </div>
@@ -58,46 +57,6 @@ class PoliticoDetail extends Component {
             );
         }
     }
-
-    renderPerfil() {
-
-        if (this.props.fetchPolitico.politicosPorId != undefined) {
-            let {politico} = this.props.fetchPolitico.politicosPorId;
-            return (
-                <div>
-                    <div className="card">
-                        <div className="card-image">
-                            <figure className="image is-1by1">
-                                <img src="../../../assets/img/politico.png" />
-                            </figure>
-                        </div>
-                        <div className="card-content">
-                            <div className="is-size-5 has-text-centered">
-                                <span>{this.props.fetchPolitico.politicosPorId.nombre}</span>
-                            </div>
-                            <hr />
-                            <span className="is-size-6">
-                                <p>Partido: {this.props.fetchPolitico.politicosPorId.partido.nombre}</p>
-                                <p>Titulo: {this.props.fetchPolitico.politicosPorId.estudios[0].titulo}</p>
-                                <p>Grado academico: {this.props.fetchPolitico.politicosPorId.estudios[0].grado_academico.grado}</p>
-                                <p>Lugar de estudio: {this.props.fetchPolitico.politicosPorId.estudios[0].lugar_estudio.nombre}</p>
-
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <div className="spinner">
-                    </div>
-                </div>
-            );
-        }
-    }
-
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion
@@ -112,13 +71,15 @@ class PoliticoDetail extends Component {
     }
 
     render() {
+        console.log(this.props);
+
         return (
             <div>
                 <br />
                 <div className="section">
                     <div className="columns is-desktop">
                         <div className="column is-2-fullhd is-3-widescreen is-3-desktop is-offset-1-desktop is-offset-1-widescreen is-12-tablet is-12-mobile is-offset-2-fullhd">
-                            {this.renderPerfil()}
+                            <PoliticoPerfil id={this.props.match.params.id} />
                         </div>
                         <div className="column is-6-fullhd is-7-widescreen is-7-desktop is-12-tablet is-12-mobile">
                             <div className="tabs is-medium is-boxed">
@@ -149,7 +110,6 @@ class PoliticoDetail extends Component {
                 </div>
                 <br /><br />
             </div>
-
         )
     }
 }

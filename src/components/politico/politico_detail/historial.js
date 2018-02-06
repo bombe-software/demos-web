@@ -8,6 +8,8 @@ class Historial extends Component {
     }
 
     renderHistorialList() {
+        console.log(this.props);
+        const { id_politico, eventos, id_usuario, cargo } = this.props;
         return this.props.eventos.map(({id, titulo, fecha}) => {
             return (
                 <div  key={id} >
@@ -17,7 +19,9 @@ class Historial extends Component {
                             </div>
                             <div className="timeline-text">
                                 <div className="box">
+                                <Link to={`/politico/${id_politico}/evento/${id}`}>
                                     {fecha.substring(0, 10)} | {titulo}
+                                </Link>
                                 </div>
                             </div>
                         </div>
