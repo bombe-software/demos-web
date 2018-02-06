@@ -45,7 +45,6 @@ class PoliticoForm extends GenericForm {
     const {
       nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, referencia
     } = values
-    console.log(nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, usuario, referencia);
    
     this.props.addPolitico({
       variables: {
