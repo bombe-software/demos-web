@@ -53,7 +53,7 @@ const httpLink = createHttpLink({
 
 // Crear el web socket link
 const wsLink = new WebSocketLink({
-  uri: `ws://demos-gql.herokuapp.com//subscriptions`,
+  uri: `wss://demos-gql.herokuapp.com//subscriptions`,
   options: {
     reconnect: true
   },
