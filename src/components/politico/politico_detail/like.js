@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import likeGQL from './../../../mutations/like';
 import dislikeGQL from './../../../mutations/dislike';
+import _ from 'lodash';
 
 class Like extends Component {
     constructor(props) {
@@ -16,20 +17,21 @@ class Like extends Component {
 
     componentDidMount() {
         const { likes } = this.props;
-        const isLiked = likes.indexOf(this.props.id_usuario) >= 0;
+        const isLiked = _.map(likes, 'id').indexOf(this.props.id_usuario) >= 0;
         this.setState({ count: likes.length, isLiked });
     }
 
     onLike() {
         const { id_propuesta, id_usuario } = this.props;
+        console.log("dislike");
         this.props.mutateLike({
             variables: { id_propuesta, id_usuario }
-
         }).then(response => this.setState({ isLiked: true, count: response.data.like_propuesta.likes.length }));
     }
 
     onDislike() {
         const { id_propuesta, id_usuario } = this.props;
+        console.log("like");
         this.props.mutateDislike({
             variables: { id_propuesta, id_usuario }
         }).then(response => {
