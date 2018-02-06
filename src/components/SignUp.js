@@ -20,9 +20,10 @@ class SignUp extends GenericForm {
   constructor(props) {
     super(props);
     this.state = {
-      avatar: 'jaiba',
+      avatar: '',
       localidad: "localidad",
-      imgAvatar: ['selected', 'none', 'none', 'none']
+      imgAvatar: ['none', 'none', 'none', 'none'],
+      error: ''
     };
     this.updateJaiba = this.updateJaiba.bind(this);
     this.updateAnguila = this.updateAnguila.bind(this);
@@ -84,18 +85,21 @@ class SignUp extends GenericForm {
   }
 
   async onSubmit(values) {
-    const {avatar, localidad} = this.state;
-    const {
-      nombre, email, password,
-      curp
-    } = values;
-    this.props.mutate({
-      variables: {
-        nombre, email, password, localidad,
-        curp, avatar, localidad
-      }
-    }).then(alert('Informacion enviada'));
-    
+    if(this.state.avatar == ''){
+      this.setState({error: 'Selecciona un avatar'})
+    }else{
+      const {avatar, localidad} = this.state;
+      const {
+        nombre, email, password,
+        curp
+      } = values;
+      this.props.mutate({
+        variables: {
+          nombre, email, password, localidad,
+          curp, avatar, localidad
+        }
+      }).then(alert('Informacion enviada'));
+    }
   };
 
 
@@ -133,6 +137,7 @@ class SignUp extends GenericForm {
                     <Form
                       onSubmit={this.onSubmit}
                       validate={values => {
+                        /*
                         const errors = {};
                         if (!values.nombre) {
                           errors.nombre = "Escriba su nombre de usuario";
@@ -174,6 +179,7 @@ class SignUp extends GenericForm {
                           errors.email = 'Correo inválido';
                         }
                         return errors;
+                        */
                       }}
                       render={({ handleSubmit, reset, submitting, pristine, values }) => (
                         <form onSubmit={handleSubmit}>
@@ -273,6 +279,11 @@ class SignUp extends GenericForm {
                                   <div className="level-item"></div>
                                 </div>
                                 <br />
+                              </div>
+                              <div className="level">
+                                <div className="level-item">
+                                  <code>{this.state.error}</code>
+                                </div>
                               </div>
                             </div>
                           </div>
