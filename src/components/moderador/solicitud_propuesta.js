@@ -4,6 +4,7 @@ import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPropuesta from '../../queries/fetchSolicitudPropuesta';
 import AceptarPropuesta from '../../queries/AceptarPropuesta';
 import DenegarPropuesta from '../../queries/DenegarPropuesta';
+import fetchPoliticosDetail from './../../queries/fetchPoliticoDetail';
 
 class SolicitudPropuesta extends Component {
   constructor(props) {
@@ -12,36 +13,52 @@ class SolicitudPropuesta extends Component {
     this.denegar = this.denegar.bind(this);
   }
 
-  aceptar(idPropuesta) {
-
+  aceptar(idPropuesta, politico) {
     this.props.AceptarPropuesta({
       variables: {
        idPropuesta
-      }
+      },
+      refetchQueries: [
+        { 
+          query:  fetchPoliticosDetail,
+          variables: {
+            id: politico.id
+          }
+        }
+      ]
     }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
 
-  denegar(idPropuesta) {
+  denegar(idPropuesta, politico) {
+    console.log(this.props.fetchSolicitudPropuesta.solicitudPropuestas);
     this.props.DenegarPropuesta({
       variables: {
         idPropuesta
-      }
+      },
+      refetchQueries: [
+        { 
+          query:  fetchPoliticosDetail,
+          variables: {
+            id: politico.id
+          }
+        }
+      ]
     }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
 
   renderList() {
 
-    return this.props.fetchSolicitudPropuesta.solicitudPropuestas.map(({id, titulo}) => {
+    return this.props.fetchSolicitudPropuesta.solicitudPropuestas.map(({id, titulo, politico}) => {
       return (
         <div key={id}>
           <div className="panel-block">
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id, politico) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id ,politico) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
