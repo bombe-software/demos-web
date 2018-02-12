@@ -12,7 +12,7 @@ class EleccionForm extends Component {
         super(props);
 
         this.state = {
-            id_politico: "",
+            id_preferencia: "",
             mensaje: ""
         };
 
@@ -34,18 +34,19 @@ class EleccionForm extends Component {
     }
 
     handlePolitico(id) {
-        this.setState({ id_politico: id });
+        this.setState({ id_preferencia: id });
     }
 
     handleClick() {
-        if (this.state.id_politico.length == 0) {
+        if (this.state.id_preferencia.length == 0) {
             this.setState({ mensaje: "Selecciona a alguien" })
         }else{
             this.props.updateVoto({
                 variables: {
-                    id_votacion: this.props.fetchEleccion.votacion[0].id,
+                    id_votacion: this.props.fetchEleccion.votacion.id,
                     id_usuario: this.props.fetchUsuario.usuario.id,
-                    id_politico: this.state.id_politico
+                    id_preferencia: this.state.id_preferencia,
+                    id_estado: this.props.fetchEleccion.votacion.estado.id
                 }
             }).then(alert('Informacion enviada'));
             this.props.handleForm();
@@ -53,13 +54,13 @@ class EleccionForm extends Component {
     }
 
     renderListPoliticos() {
-        const preferencias = this.props.fetchEleccion.votacion[0].preferencias;
-        let selected = {'border': 'rgba(69, 196, 158, 0.9) solid 10px'}
+        const preferencias = this.props.fetchEleccion.votacion.preferencias;
+        let selected = {'color': 'red'}
         return _.map(preferencias, preferencia => {
             return (            
-                <div style={{'cursor': 'pointer'}} key={preferencia.id}  onClick={() => this.handlePolitico(preferencia.politico.id)}>
+                <div style={{'cursor': 'pointer'}} key={preferencia.id}  onClick={() => this.handlePolitico(preferencia.id)}>
                     <br />
-                    <div className="box" style={this.state.id_politico == preferencia.politico.id ? {selected}:{}}>
+                    <div className="box" style={this.state.id_preferencia == preferencia.id ? {selected}:{}}>
                     <div className="media">
                       <div className="media-left">
                         <figure className="image is-32x32">
@@ -109,6 +110,11 @@ class EleccionForm extends Component {
                     <div className="level-item">
                         <button className="button is-primary" onClick={this.handleClick}>
                             Enviar respuesta
+                        </button>
+                    </div>
+                    <div className="level-item">
+                        <button className="button is-primary" onClick={this.props.handleForm}>
+                            Regresar
                         </button>
                     </div>
                 </div>
