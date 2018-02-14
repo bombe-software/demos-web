@@ -5,6 +5,8 @@ import fetchSolicitudPropuesta from '../../queries/fetchSolicitudPropuesta';
 import AceptarPropuesta from '../../queries/AceptarPropuesta';
 import DenegarPropuesta from '../../queries/DenegarPropuesta';
 
+//import DetalleSolicitud from './detalle_solicitud';
+
 class SolicitudPropuesta extends Component {
   constructor(props) {
     super(props);
@@ -66,14 +68,26 @@ class SolicitudPropuesta extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.fetchSolicitudPropuesta.loading){
       return <div>Loading...</div>
     }
     return (
-      <div className="panel">
-        <div className="panel-heading">Propuestas</div>
-        {this.renderList()}
+      <div className="columns">
+        <div className="column is-5-widescreen is-5-desktop is-10-tablet is-offset-1-tablet is-offset-1-desktop is-offset-2-widescreen">
+          <div>
+            
+          </div>
+        </div>
+        <div className="column is-3-widescreen is-3-desktop is-10-tablet">
+          <div>
+            
+          <div className="panel">
+            <div className="panel-heading">Politicos</div>
+            {this.renderList()}
+          </div>
+
+          </div>
+        </div>
       </div>
     )
   }
