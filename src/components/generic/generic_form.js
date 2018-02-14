@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
-import { RadioButtonGroup } from 'material-ui/RadioButton';
+import {RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -38,7 +38,10 @@ class GenericForm extends Component {
     return (
       <Checkbox label={label}
         checked={input.value ? true : false}
-        onCheck={input.onChange} />
+        onCheck={input.onChange}
+        
+         />
+      
     );
   }
 

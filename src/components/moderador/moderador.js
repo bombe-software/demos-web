@@ -67,28 +67,26 @@ class Moderador extends Component {
     return (
       <div className="section">
         <div className="columns is-desktop">
-          <div className="column is-8-widescreen is-10-desktop is-10-tablet is-10-mobile is-offset-1-mobile is-offset-1-tablet is-offset-1-desktop is-offset-2-widescreen">
-            <h1 className="is-size-2">Moderador</h1>
-            <hr />
-            <div className="tabs is-medium">
-              <ul>
-                <li className={this.state.type == "propuestas" ? 'is-active' : ''}>
-                  <a onClick={this.updatePropuestas}>Propuestas</a>
-                </li>
-                <li className={this.state.type == "historial" ? 'is-active' : ''}>
-                  <a onClick={this.updateHistorial}>Historial</a>
-                </li>
-                <li className={this.state.type == "politicos" ? 'is-active' : ''}>
-                  <a onClick={this.updatePoliticos}>Politicos</a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              {this.update()}
-            </div>
-
+          <div className="column is-8-widescreen is-10-dektop is-10-tablet is-offset-1-desktop is-offset-2-widescreen is-offset-1-tablet">
+          <h1 className="is-size-2">Moderador</h1>
+          <hr />
+          <div className="tabs is-medium">
+            <ul>
+              <li className={this.state.type=="propuestas" ? 'is-active' : ''}>
+                <a onClick={this.updatePropuestas}>Propuestas</a>
+              </li>
+              <li className={this.state.type=="historial" ? 'is-active' : ''}>
+                <a onClick={this.updateHistorial}>Historial</a>
+              </li>
+              <li className={this.state.type=="politicos" ? 'is-active' : ''}>
+                <a onClick={this.updatePoliticos}>Politicos</a>
+              </li>
+            </ul>
           </div>
+          </div>
+        </div>
+        <div>
+          {this.update()}
         </div>
         <div className="level"><br /><br /></div>
       </div>

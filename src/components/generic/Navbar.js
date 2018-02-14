@@ -123,7 +123,7 @@ renderModerador(){
                     Elecciones
                   </Link>
                   <Link to="/politicos" className="navbar-item" onClick={this.handleClick}>
-                    Politicos
+                    Políticos
                   </Link>
                   <Link to="/acerca_de" className="navbar-item" onClick={this.handleClick}>
                     Ayuda

@@ -2,17 +2,29 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudEvento from '../../queries/fetchSolicitudEvento';
-import AceptarEvento from '../../queries/AceptarEvento';
+
+import AceptarEvento from '../../queries/AceptarEvento'
 import DenegarEvento from '../../queries/DenegarEvento';
+
+import DetalleSolicitudEvento from './detalle_solicitud_evento';
 
 class SolicitudEvento extends Component {
   constructor(props) {
     super(props);
+    
+    this.state = {
+      idEvento: null
+    }
+
     this.aceptar = this.aceptar.bind(this);
     this.denegar = this.denegar.bind(this);
+    this.seleccionar = this.seleccionar.bind(this);
+    this.setState = this.setState.bind(this);
+    this.renderSectionEvento = this.renderSectionEvento.bind(this);
   }
 
   aceptar(idEvento) {
+    this.setState({ idEvento: null });
     this.props.AceptarEvento({
       variables: {
        idEvento
@@ -21,6 +33,7 @@ class SolicitudEvento extends Component {
   }
 
   denegar(idEvento) {
+    this.setState({ idEvento: null });
     this.props.DenegarEvento({
       variables: {
         idEvento
@@ -28,12 +41,16 @@ class SolicitudEvento extends Component {
     }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
 
+  seleccionar(idEvento) {
+    this.setState({ idEvento });
+  }
+
   renderList() {
-    console.log(this.props);
+   // console.log(this.props.fetchSolicitudEvento);
     return this.props.fetchSolicitudEvento.solicitudEventos.map(({id, titulo}) => {
       return (
         <div key={id}>
-          <div className="panel-block">
+          <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
             <span className="panel-icon">
               <a className="is-primary" onClick={() => { this.aceptar(id) }}>
                 <i className="fa fa-check"></i>
@@ -44,24 +61,34 @@ class SolicitudEvento extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            {titulo}
+            <a
+            style={{color: 'inherit', textDecoration: 'none'}}
+            >{titulo}</a>
           </div>
         </div>
       );
     });
   }
 
-  /**
-  * Es una forma de capturar cualquier error en la clase 
-  * y que este no crashe el programa, ayuda con la depuracion
-  * de errores
-  * @method componentDidCatch
-  * @const info Es más informacion acerca del error
-  * @const error Es el titulo del error
-  */
   componentDidCatch(error, info) {
     console.log("Error: " + error);
     console.log("Info: " + info);
+  }
+
+  renderSectionEvento(){
+    if(this.state.idEvento){
+      return <DetalleSolicitudEvento id={this.state.idEvento} />;
+    }else{
+      return(          
+        <div className="card">
+            <div className="card-content">
+              <div className="section has-text-centered">
+                Selecciona un evento
+              </div>
+            </div>
+          </div>
+        );
+    }
   }
 
   render() {
@@ -69,21 +96,33 @@ class SolicitudEvento extends Component {
       return <div>Loading...</div>
     }
     return (
-      <div className="panel">
-        <div className="panel-heading">Eventos</div>
-        {this.renderList()}
+      <div className="columns is-desktop">
+        <div className="column is-3-widescreen is-3-desktop is-12-tablet is-offset-1-desktop is-offset-2-widescreen">
+          <div>
+            
+          <div className="panel">
+            <div className="panel-heading">Eventos</div>
+            {this.renderList()}
+          </div>
+
+          </div>
+        </div>
+        <div className="column is-5-widescreen is-7-desktop is-12-tablet">
+          {this.renderSectionEvento()}
+        </div>
       </div>
     )
   }
 }
 export default compose(
+    graphql(fetchSolicitudEvento, {
+        name: 'fetchSolicitudEvento'
+    }),
     graphql(AceptarEvento, {
       name: 'AceptarEvento'
     }),
     graphql(DenegarEvento, {
         name: 'DenegarEvento'
     }),
-     graphql(fetchSolicitudEvento, {
-        name: 'fetchSolicitudEvento'
-    })
 )(SolicitudEvento);
+

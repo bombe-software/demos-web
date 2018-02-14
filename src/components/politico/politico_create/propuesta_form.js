@@ -135,8 +135,8 @@ class PropuestaForm extends GenericForm {
                           <div className="level-item">
                             <Field name="titulo"
                               component={this.renderTextField}
-                              hintText="Escribe el titulo del evento"
-                              floatingLabelText="Titulo"
+                              hintText="Escribe el título del evento"
+                              floatingLabelText="Título"
                             />
                           </div>
                         </div>
@@ -144,8 +144,8 @@ class PropuestaForm extends GenericForm {
                           <div className="level-item">
                             <Field name="descripcion"
                               component={this.renderTextField}
-                              hintText="Escribe la descripcion"
-                              floatingLabelText="Descripcion"
+                              hintText="Escribe la descripción"
+                              floatingLabelText="Descripción"
                             />
                           </div>
                         </div>
