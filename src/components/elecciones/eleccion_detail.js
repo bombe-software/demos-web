@@ -40,82 +40,105 @@ class EleccionDetail extends Component {
                 </div>
             );
         } else {
-            const votacion = this.props.fetchEleccion.votacion[0].preferencias;
-            let colorList = [
-                'rgba(69, 196, 158, 0.9)',
-                'rgba(115, 86, 201, 0.9)',
-                'rgba(234, 83, 136, 0.9)',
-                'rgba(37, 185, 140, 0.9)',
-                'rgba(230, 46, 111, 0.9)',
-                'rgba(89, 55, 191, 0.9)'
-            ];
-
-            let colorOpacityList = [
-                'rgba(69, 196, 158, 1)',
-                'rgba(115, 86, 201, 1)',
-                'rgba(234, 83, 136, 1)',
-                'rgba(37, 185, 140, 1)',
-                'rgba(230, 46, 111, 1)',
-                'rgba(89, 55, 191, 1)'
-            ];
-            let labelsProps = [];
-            let dataProps = [];
-
-            _.mapValues(votacion, function (preferencia) {
-                labelsProps.push(preferencia.politico.nombre);
-                dataProps.push(preferencia.usuarios.length);
-            });
-
-            let data = {
-                labels: labelsProps,
-                datasets: [{
-                    data: dataProps,
-                    backgroundColor: colorList,
-                    hoverBackgroundColor: colorOpacityList
-                }]
-            };
-            return (
-                <div>
-                    <div className="card-content">
-                        <div className="title">
-                            <nav className="breadcrumb" aria-label="breadcrumbs">
-                                <ul>
-                                    <React.Fragment>
-                                        <li><a href="#" >Estatal</a></li>
-                                        <li><a href="#" >{this.props.zona}</a></li>
-                                        <li key><a href="#" >{this.props.estado}</a></li>
-                                    </React.Fragment>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <div className="card-image">
-                        <div className="hero is-small">
-                            <div className="hero-body">
-                                <Doughnut data={data} />
+            if (this.props.fetchEleccion.votacion.preferencias.length <= 0) {
+                return (
+                    <div>
+                        <div className="card-image">
+                            <div className="hero is-light">
+                                <div className="hero-body">
+                                    <h3>Todavia no elaboramos la eleccion espera unas horas</h3>
+                                </div>
                             </div>
                         </div>
+                        {(() => {
+                                if (this.props.fetchUsuario.usuario != undefined) return (
+                                    <button className="button is-primary" onClick={this.props.handleForm}>
+                                        Contestar encuesta
+                                </button>
+                                )
+                        })()}
                     </div>
-                    <div className="card-content">
-                        <br />
-                        {(() => {if(this.props.fetchUsuario.usuario != undefined) return (
-                            <button className="button is-primary" onClick={this.props.handleForm}>
-                                Contestar encuesta
-                            </button>
-                        )})()}
+                );
+            } else {
+                console.log(this.props.fetchEleccion.votacion);
+                const votacion = this.props.fetchEleccion.votacion.preferencias;
+                let colorList = [
+                    'rgba(69, 196, 158, 0.9)',
+                    'rgba(115, 86, 201, 0.9)',
+                    'rgba(234, 83, 136, 0.9)',
+                    'rgba(37, 185, 140, 0.9)',
+                    'rgba(230, 46, 111, 0.9)',
+                    'rgba(89, 55, 191, 0.9)'
+                ];
 
+                let colorOpacityList = [
+                    'rgba(69, 196, 158, 1)',
+                    'rgba(115, 86, 201, 1)',
+                    'rgba(234, 83, 136, 1)',
+                    'rgba(37, 185, 140, 1)',
+                    'rgba(230, 46, 111, 1)',
+                    'rgba(89, 55, 191, 1)'
+                ];
+                let labelsProps = [];
+                let dataProps = [];
+
+                _.mapValues(votacion, function (preferencia) {
+                    labelsProps.push(preferencia.politico.nombre);
+                    dataProps.push(preferencia.usuarios.length);
+                });
+
+                let data = {
+                    labels: labelsProps,
+                    datasets: [{
+                        data: dataProps,
+                        backgroundColor: colorList,
+                        hoverBackgroundColor: colorOpacityList
+                    }]
+                };
+                return (
+                    <div>
+                        <div className="card-content">
+                            <div className="title">
+                                <nav className="breadcrumb" aria-label="breadcrumbs">
+                                    <ul>
+                                        <React.Fragment>
+                                            <li><a href="#" >Estatal</a></li>
+                                            <li><a href="#" >{this.props.zona}</a></li>
+                                            <li key><a href="#" >{this.props.estado}</a></li>
+                                        </React.Fragment>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div className="card-image">
+                            <div className="hero is-small">
+                                <div className="hero-body">
+                                    <Doughnut data={data} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card-content">
+                            <br />
+                            {(() => {
+                                if (this.props.fetchUsuario.usuario != undefined) return (
+                                    <button className="button is-primary" onClick={this.props.handleForm}>
+                                        Contestar encuesta
+                                </button>
+                                )
+                            })()}
+                        </div>
                     </div>
-                </div>
-            );
+                );
+            }
         }
     }
 }
 export default compose(
     graphql(usuario, {
-      name: 'fetchUsuario'
+        name: 'fetchUsuario'
     }),
     graphql(eleccion, {
-      name: 'fetchEleccion',
-      options: ({ id_estado }) => ({ variables: { id_estado } }),
+        name: 'fetchEleccion',
+        options: ({ id_estado }) => ({ variables: { id_estado } }),
     })
 )(EleccionDetail);

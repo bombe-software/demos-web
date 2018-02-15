@@ -14,7 +14,7 @@ class PoliticoList extends Component {
   }
   renderTitle() {
     let {id_estado} = this.props;
-    if (id_estado === "5a68b566f5985aaea61a93ce") {
+    if (id_estado === "5a66340f2ad334a3426ebc49") {
       return (
         <div>
           <p key={1}>{this.state.puestos[this.props.id_puesto]}&nbsp;/&nbsp;Nacional</p>

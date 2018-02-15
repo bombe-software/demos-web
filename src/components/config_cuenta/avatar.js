@@ -8,8 +8,9 @@ class Avatar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      avatar: 'jaiba',
-      imgAvatar: ['selected', 'none', 'none', 'none']
+      avatar: '',
+      error: '',
+      imgAvatar: ['none', 'none', 'none', 'none']
     };
     this.updateJaiba = this.updateJaiba.bind(this);
     this.updateAnguila = this.updateAnguila.bind(this);
@@ -42,55 +43,66 @@ class Avatar extends Component {
       imgAvatar: ['none', 'none', 'none', 'selected']
     })
   }
-  async onSubmit(values) {
-    const {id, nombre, password} = this.props;
-    const avatar = this.state.avatar;
-    console.log(id, nombre, avatar);
-    this.props.mutate({
-      variables: {
-        id, nombre, password, avatar
-      }
-    });
-    location.reload();
+  async onSubmit(event) {
+    event.preventDefault();
+    console.log("Todo bien");
+    if (this.state.avatar == '') {
+      this.setState({ error: 'Selecciona un avatar' })
+    } else {
+      const { id, nombre, password } = this.props;
+      const avatar = this.state.avatar;
+      console.log(id, nombre, avatar);
+      this.props.mutate({
+        variables: {
+          id, nombre, password, avatar
+        }
+      });
+      location.reload();
+    }
   }
 
   render() {
     return (
       <div className="box">
         <h1 className="is-size-4">Cambia tu avatar</h1><hr />
-        <form onSubmit={this.onSubmit}>
-        <div className="level">
-          <div className="level-item has-text-centered">
-            <label>
-              <input type="radio" name="imagen" />
-              <img src="./assets/img/jaiba.svg" className={this.state.imgAvatar[0] + " image is-64x64"} width="100px" height="100px" onClick={this.updateJaiba} />
-            </label>
+        <form>
+          <div className="level">
+            <div className="level-item has-text-centered">
+              <label>
+                <input type="radio" name="imagen" />
+                <img src="./assets/img/jaiba.svg" className={this.state.imgAvatar[0] + " image is-64x64"} width="100px" height="100px" onClick={this.updateJaiba} />
+              </label>
+            </div>
+            <div className="level-item has-text-centered">
+              <label>
+                <input type="radio" name="imagen" />
+                <img src="./assets/img/anguila.svg" className={this.state.imgAvatar[1] + " image is-64x64"} width="100px" height="100px" onClick={this.updateAnguila} />
+              </label>
+            </div>
+            <div className="level-item has-text-centered">
+              <label>
+                <input type="radio" name="imagen" />
+                <img src="./assets/img/chivo.svg" className={this.state.imgAvatar[2] + " image is-64x64"} width="100px" height="100px" onClick={this.updateChivo} />
+              </label>
+            </div>
+            <div className="level-item has-text-centered">
+              <label>
+                <input type="radio" name="imagen" />
+                <img src="./assets/img/hedgehog.svg" className={this.state.imgAvatar[3] + " image is-64x64"} width="100px" height="100px" onClick={this.updateErizo} />
+              </label>
+            </div>
           </div>
-          <div className="level-item has-text-centered">
-            <label>
-              <input type="radio" name="imagen" />
-              <img src="./assets/img/anguila.svg" className={this.state.imgAvatar[1] + " image is-64x64"} width="100px" height="100px" onClick={this.updateAnguila} />
-            </label>
+          <div className="level">
+            <div className="level-item">
+              <code>{this.state.error}</code>
+            </div>
           </div>
-          <div className="level-item has-text-centered">
-            <label>
-              <input type="radio" name="imagen" />
-              <img src="./assets/img/chivo.svg" className={this.state.imgAvatar[2] + " image is-64x64"} width="100px" height="100px" onClick={this.updateChivo} />
-            </label>
+          <div className="has-text-centered">
+            <button type="button" className="button is-primary" onClick={this.onSubmit}>
+              Cambiar Avatar
+          </button>
           </div>
-          <div className="level-item has-text-centered">
-            <label>
-              <input type="radio" name="imagen" />
-              <img src="./assets/img/hedgehog.svg" className={this.state.imgAvatar[3] + " image is-64x64"} width="100px" height="100px" onClick={this.updateErizo} />
-            </label>
-          </div>
-        </div>
-        <div className="has-text-centered">
-          <button type="submit" className="button is-primary">
-            Cambiar Avatar
-                          </button>
-        </div>
-      </form>
+        </form>
       </div>
     );
   }

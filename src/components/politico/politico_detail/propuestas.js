@@ -16,7 +16,6 @@ class Propuestas extends Component {
 
     renderPropuestaList() {
         const { id_politico, propuestas, id_usuario, cargo } = this.props;
-        console.log(cargo);
         return propuestas.map(({ id, fecha, titulo, tipo_propuesta, likes }) => {
             if (fecha && id && titulo && tipo_propuesta) return (
                 <div key={id}>
