@@ -25,6 +25,9 @@ class EventoSeleccionado extends Component {
                     <Link to={`/politico/${politico.id}`}>
                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Regresar</span>
                     </Link>
+                    <Link to={`/evento/modify/${this.props.match.params.id_evento}`}>
+                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
+                    </Link>
                    </div>
                    <br />
                    <div className="card">

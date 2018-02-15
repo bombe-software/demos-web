@@ -12,11 +12,12 @@ class GenericForm extends Component {
     super(props);
   }
 
-  renderTextField({ input, label, meta: { touched, error }, ...custom }) {
+  renderTextField({ input, label, meta: { touched, error }, ...custom}) {
     return (
       <TextField hintText={label}
         floatingLabelText={label}
         errorText={touched && error}
+      
         {...input}
         {...custom}
       />
