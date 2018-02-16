@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 
 import { graphql, compose } from 'react-apollo';
@@ -274,5 +273,3 @@ export default compose(
   })
 
 )(PoliticoForm);
-
->>>>>>> origin/hgwells07

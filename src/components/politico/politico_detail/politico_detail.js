@@ -30,6 +30,7 @@ class PoliticoDetail extends Component {
     renderSection() {
         if (!this.props.fetchPolitico.loading &&  !this.props.fetchUsuario.loading) {
             if (this.state.type == "propuestas") {
+                console.log(this.props);
                 return (
                     <div>
                         <Propuestas

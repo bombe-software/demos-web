@@ -217,5 +217,4 @@ export default compose(
     {
       name: 'fetchUsuario'
     })
->>>>>>> origin/hgwells07
 )(PropuestaForm);

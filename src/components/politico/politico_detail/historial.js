@@ -79,4 +79,3 @@ class Historial extends Component {
 
 
 export default Historial;
->>>>>>> origin/hgwells07

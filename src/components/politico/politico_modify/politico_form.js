@@ -17,13 +17,36 @@ import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
 import fetchPolitico from './../../../queries/fetchPoliticoPerfil';
 
+
+const load = async (props) => {
+  console.log(props);
+  if(props.loading)return <div>Loading...</div>;
+  return {
+    nombre: props.politicosPorId.nombre,
+    partido: props.politicosPorId.partido.id,
+    estado: props.politicosPorId.estado.id,
+    cargo: props.politicosPorId.cargo,
+    grado_academico: props.politicosPorId.estudios[0].grado_academico.id,
+    lugar_estudio: props.politicosPorId.estudios[0].lugar_estudio.id,
+    titulo: props.politicosPorId.estudios[0].titulo
+  };
+};
+
 class ModificarPoliticoForm extends GenericForm {
 
   constructor(props) {
     super(props);
-
+    this.state = {
+            data: {}
+        };
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+   async renderFetchField(props) {
+    this.setState({ loading: true });
+    const data = await load(props);
+    this.setState({ loading: false, data });
+   }
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
@@ -38,10 +61,12 @@ class ModificarPoliticoForm extends GenericForm {
       }
     }).then(() => this.props.history.push(`/politicos`));
   };
-
+componentWillReceiveProps(props){
+{this.renderFetchField(props.fetchPolitico)}
+}
 
   render() {
-    if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) {
+    if (this.props.fetchPolitico.loading || this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) {
       return <div>Loading...</div>;
     }
     if (!this.props.fetchUsuario.usuario) {
@@ -58,17 +83,17 @@ class ModificarPoliticoForm extends GenericForm {
                 <div className="box" style={{ padding: "48px" }}>
                   <br />
                   <h1 className="title has-text-centered">
-                    Registrar un político
+                    Modificar un político
                 </h1>
                   <br />
                   <p className="subtitle has-text-centered">
-                    ¿No encuentra a un político en nuestra página?
-                  Brindenos su información y solicite registrarlo para
+                    ¿Encontro un informacion incorrecta en los datos de algun politico?
+                  Brindenos su información y solicite modificarlo para
                   que toda nuestra comunidad pueda verlo.
                 </p>
                   <br />
                   <Form
-                    onSubmit={this.onSubmit}
+                    onSubmit={this.onSubmit} initialValues={this.state.data}
                     validate={values => {
                       const errors = {};
                       if (!values.nombre) {
@@ -97,7 +122,6 @@ class ModificarPoliticoForm extends GenericForm {
                       }
                       if (!values.referencia) {
                         errors.referencia = "Escriba el link de referenica";
-
                       } else if (values.referencia != undefined) {
                         var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
                         if (/^\s+|\s+$/.test(values.referencia)) {
@@ -110,7 +134,7 @@ class ModificarPoliticoForm extends GenericForm {
                       return errors;
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
-                      <form onSubmit={handleSubmit}>
+                      <form onSubmit={handleSubmit }>
                         <div className="level">
                           <div className="level-item">
                             <Field name="nombre"

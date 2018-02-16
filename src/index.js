@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
@@ -142,7 +141,7 @@ class App extends React.Component {
                 <Route path="/politico/:id/evento/:id_evento" exact component={EventoSeleccionado} />
                 
                 <Route path="/evento/modify/:id_evento" exact component={ModificarEvento} />
-                <Route path="/propuesta/modify/:id_politico" exact component={ModificarPropuesta} />
+                <Route path="/propuesta/modify/:id_propuesta" exact component={ModificarPropuesta} />
                  <Route path="/politico/modify/:id_politico" exact component={ModificarPolitico} />
 
                 {/*Landing page*/}

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';

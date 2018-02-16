@@ -11,10 +11,21 @@ import NeedLogin from './../../generic/need_login';
 import AnimatedBackground from './../../generic/animated_background';
 
 //Queries
+import fetchEvento from './../../../queries/fetchEvento'
 import fetchUsuario from './../../../queries/fetchUsuario';
 import addEvento from './../../../queries/addEvento';
 import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
+
+const load = async (props) => {
+  console.log(props);
+  if(props.loading)return <div>Loading...</div>;
+  return {
+    titulo: props.evento.titulo,
+    descripcion: props.evento.descripcion,
+    fecha: props.evento.fecha,
+  };
+};
 
 class ModificarEventoForm extends GenericForm {
 
@@ -23,7 +34,8 @@ class ModificarEventoForm extends GenericForm {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      open: false
+      open: false,
+      data: {}
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -37,6 +49,16 @@ class ModificarEventoForm extends GenericForm {
     this.setState({ open: false });
     this.props.history.push(`/politico/${this.props.match.params.id}`);
   };
+
+  componentWillReceiveProps(props){
+    {this.renderFetchField(props.fetchEvento)}
+  } 
+
+ async renderFetchField(props) {
+    this.setState({ loading: true });
+    const data = await load(props);
+    this.setState({ loading: false, data });
+   }
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
@@ -86,10 +108,15 @@ class ModificarEventoForm extends GenericForm {
             <div className="columns">
               <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
                 <div className="box">
-                  <div className="has-text-centered"><h1 className="title is-3">Registrar evento</h1></div>
+                  <div className="has-text-centered"><h1 className="title is-3">Modificar un  evento</h1></div>
                   <hr />
+                  <p className="subtitle has-text-centered">
+                    ¿Encontro un informacion incorrecta en los datos de algun evento?
+                  Brindenos su información y solicite modificarlo para
+                  que toda nuestra comunidad pueda verlo.
+                </p>
                   <Form
-                    onSubmit={this.onSubmit}
+                    onSubmit={this.onSubmit} initialValues={this.state.data}
                     validate={values => {
                       const errors = {};
                       if (!values.fecha) {
@@ -187,5 +214,11 @@ export default compose(
   graphql(fetchUsuario,
     {
       name: 'fetchUsuario'
-    })
+    }),
+    graphql(fetchEvento,
+      {
+        name: 'fetchEvento',
+        options: (props) => { return { variables: { id: props.match.params.id_evento} } }
+      }
+    )
 )(ModificarEventoForm);

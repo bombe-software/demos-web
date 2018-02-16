@@ -147,4 +147,3 @@ renderModerador(){
 }
 
 export default graphql(logout)(graphql(usuario)(Navbar));
->>>>>>> origin/hgwells07
