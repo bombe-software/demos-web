@@ -61,7 +61,7 @@ const wsLink = new WebSocketLink({
 });
  
 const uploadLink = createUploadLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'https://demos-gql.herokuapp.com/graphql',
   credentials: 'include'
 });
 

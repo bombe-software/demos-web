@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { graphql, compose } from 'react-apollo';
+import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
@@ -20,18 +22,40 @@ class Login extends GenericForm {
     }
 
     async onSubmit(values) {
-
         const { email, password } = values;
-        this.props.mutate({
-            variables: { email, password },
-            refetchQueries: [{ query }]
-        })
-            .then(() => this.props.history.push("/"))
-            .catch(res => {
-                const errors = res.graphQLErrors.map(error => error.message);
-                const error = errors[0]
-                this.setState({ error });
-            });
+
+        const ticket = {
+            email,
+            date: (new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear())
+        };
+
+        const request = axios.post("http://localhost:5000/ticket_controller", ticket);
+
+        request.then(({ data }) => {
+            if (data.message != 404) {
+                let bytes = CryptoJS.AES.decrypt(data.message, values.password);
+                if (bytes.words[0] == 2065855593) {
+                    let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                    this.props.mutate({
+                        variables: {
+                            email,
+                            password: decryptedData.ticket
+                        },
+                        refetchQueries: [{ query }]
+                    })
+                    .then(() => this.props.history.push("/"))
+                    .catch(res => {
+                        const errors = res.graphQLErrors.map(error => error.message);
+                        const error = errors[0]
+                        this.setState({ error });
+                    });  
+                } else {
+                    this.setState({ error: "Password o email incorrecto." });
+                }
+            } else {
+                this.setState({ error: "Password o email incorrecto." });
+            }
+        });
     };
 
 
@@ -84,7 +108,7 @@ class Login extends GenericForm {
                                                     }
                                                     return errors;
                                                 }}
-                
+
                                                 render={({ handleSubmit, reset, submitting, pristine, values }) => (
                                                     <form onSubmit={handleSubmit}>
                                                         <div className="level">
