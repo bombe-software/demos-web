@@ -47,13 +47,13 @@ import Moderador from './components/moderador/moderador';
 
 // Crear un http link
 const httpLink = createHttpLink({
-  uri: 'https://demos-gql.herokuapp.com/graphql',
+  uri: 'http://localhost:3000/graphql',
   credentials: 'include'
 });
 
 // Crear el web socket link
 const wsLink = new WebSocketLink({
-  uri: `wss://demos-gql.herokuapp.com/subscriptions`,
+  uri: `ws://localhost:3000/subscriptions`,
   options: {
     reconnect: true
   },
