@@ -4,9 +4,7 @@ import React, { Component } from 'react';
 import PendientesPropuestas from './solicitud_propuesta';
 import PendientesHistorial from './solicitud_evento';
 import PendientesPoliticos from './solicitud_politico';
-import fetchUsuario from './../../queries/fetchUsuario';
-import { graphql } from 'react-apollo';
-import NotFound from './../not_found';
+
 class Moderador extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +32,7 @@ class Moderador extends Component {
     if (type == "propuestas") {
       return (
         <div>
-          <PendientesPropuestas />
+          <PendientesPropuestas  />
         </div>
       );
     } else if (type == "historial") {
@@ -43,7 +41,7 @@ class Moderador extends Component {
           <PendientesHistorial />
         </div>
       );
-    } else if (type == "politicos") {
+    }else if (type == "politicos") {
       return (
         <div>
           <PendientesPoliticos />
@@ -53,17 +51,6 @@ class Moderador extends Component {
   }
 
   render() {
-    if (this.props.data.loading) {return(<div>Loading..</div>);
-    }
-    if (this.props.data.usuario === null) {
-      return (
-        <NotFound />
-      );
-    } else if(this.props.data.usuario.tipo_usuario.tipo != "Moderador") {
-      return(
-        <NotFound />
-      );
-    }
     return (
       <div className="section">
         <div className="columns is-desktop">
@@ -95,4 +82,4 @@ class Moderador extends Component {
 
 }
 
-export default graphql(fetchUsuario)(Moderador);
+export default Moderador;

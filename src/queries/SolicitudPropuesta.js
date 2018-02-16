@@ -1,25 +1,27 @@
 import gql from 'graphql-tag';
 
 export default gql`
-{
-    solicitudPropuestas {
+query SolicitudPropuesta($id: ID!) {
+  solicitudPropuesta(id: $id) {
+    id
+    titulo
+    descripcion
+    usuario {
       id
-      titulo
-      descripcion
-      usuario {
-        id
-        nombre
-      }
-      fecha
-      tipo_propuesta {
-        tipo
-      }
-      referencia
-      politico {
-        id
-        nombre
-        cargo
-      }
+      nombre
+      avatar
+    }
+    tipo_propuesta{
+      id
+      tipo
+    }
+    fecha
+    referencia
+    politico {
+      id
+      nombre
+      cargo
     }
   }
+}
 `;

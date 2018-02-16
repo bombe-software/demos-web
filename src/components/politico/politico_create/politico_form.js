@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 
 import { graphql, compose } from 'react-apollo';
@@ -6,7 +7,6 @@ import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { Form, Field } from "react-final-form";
-import { RadioButton } from 'material-ui/RadioButton';
 
 import NeedLogin from './../../generic/need_login';
 import AnimatedBackground from './../../generic/animated_background';
@@ -26,91 +26,32 @@ class PoliticoForm extends GenericForm {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      open: false,
-      booleanEst: false
+      open: false
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
-    this.handleSiEstudio = this.handleSiEstudio.bind(this);
-    this.handleNoEstudio = this.handleNoEstudio.bind(this);
-
   }
 
-  handleOpen() {
+  handleOpen(){
     this.setState({ open: true });
   };
 
-  handleClose() {
+  handleClose(){
     this.setState({ open: false });
     this.props.history.push(`/politicos`);
   };
-
-  handleSiEstudio() {
-    this.setState({ booleanEst: true });
-  }
-
-  handleNoEstudio() {
-    this.setState({ booleanEst: false });
-  }
-
-  renderEstudios() {
-    if (this.state.booleanEst) {
-      return (
-        <div>
-          <div className="level">
-            <div className="level-item">
-              <Field name="grado_academico"
-                component={this.renderSelectField}
-                hintText="Ing."
-                floatingLabelText="Título"
-              >
-                {this.props.fetchgrado_academico.grados_academico.map(({ id, grado }) => {
-                  return <MenuItem value={id} key={id} primaryText={grado} />
-                })}
-              </Field>
-            </div>
-          </div>
-
-          <div className="level">
-            <div className="level-item">
-              <Field name="titulo"
-                component={this.renderTextField}
-                hintText="Ingrese el título de estudios"
-                floatingLabelText="Estudios"
-              />
-            </div>
-          </div>
-
-          <div className="level">
-            <div className="level-item">
-              <Field name="lugar_estudio"
-                component={this.renderSelectField}
-                hintText="Lugar de estudio"
-                floatingLabelText="Lugar de estudio"
-              >
-                {this.props.fetchLugarEstudio.lugares_estudio.map(({ id, nombre }) => {
-                  return <MenuItem value={id} key={id} primaryText={nombre} />
-                })}
-              </Field>
-            </div>
-          </div>
-
-        </div>
-      );
-    }
-  }
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
     const {
       nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, referencia
     } = values
-    console.log(values);
+   
     this.props.addPolitico({
       variables: {
         nombre, cargo, partido, estado, lugar_estudio, grado_academico, titulo, usuario, referencia
       }
-    }).then(this.handleOpen);
+    }).then(this.handleOpen); 
   };
 
 
@@ -119,7 +60,7 @@ class PoliticoForm extends GenericForm {
     if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) {
       return <div>Loading...</div>;
     }
-    if (!this.props.fetchUsuario.usuario) {
+    if (!this.props.fetchUsuario.usuario){
       return (
         <NeedLogin />
       );
@@ -139,7 +80,7 @@ class PoliticoForm extends GenericForm {
           <div className="section">
             <div className="columns">
               <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
-                <div className="box" style={{ padding: "48px" }}>
+                <div className="box" style={{padding: "48px"}}>
                   <br />
                   <h1 className="title has-text-centered">
                     Registrar un político
@@ -147,7 +88,7 @@ class PoliticoForm extends GenericForm {
                   <br />
                   <p className="subtitle has-text-centered">
                     ¿No encuentra a un político en nuestra página?
-                  Bríndenos su información y solicite registrarlo para
+                  Brindenos su información y solicite registrarlo para
                   que toda nuestra comunidad pueda verlo.
                 </p>
                   <br />
@@ -170,32 +111,27 @@ class PoliticoForm extends GenericForm {
                       if (!values.cargo) {
                         errors.cargo = "Seleccione el cargo";
                       }
-                      if (values.EstudioBoolean === undefined) {
-                        errors.EstudioBoolean = "Seleccione una opcion";
+                      if (!values.grado_academico) {
+                        errors.grado_academico = "Seleccione el grado academico";
                       }
-                      if (values.EstudioBoolean === 1) {
-                        if (!values.grado_academico) {
-                          errors.grado_academico = "Seleccione el grado academico";
-                        }
-                        if (!values.lugar_estudio) {
-                          errors.lugar_estudio = "Seleccione el lugar de estudio";
-                        }
-                        if (!values.titulo) {
-                          errors.titulo = "Ingrese el titulo de estudio";
-                        }
+                      if (!values.lugar_estudio) {
+                        errors.lugar_estudio = "Seleccione el lugar de estudio";
+                      }
+                      if (!values.titulo) {
+                        errors.titulo = "Ingrese el titulo de estudio";
                       }
                       if (!values.referencia) {
                         errors.referencia = "Escriba el link de referenica";
 
-                      } else
+                      } else if (values.referencia != undefined) {
+                        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
                         if (/^\s+|\s+$/.test(values.referencia)) {
                           errors.referencia = "Link invalido";
-                        } else {
-                          var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
+                        } else
                           if (!re.test(values.referencia)) {
                             errors.referencia = "Link invalido";
                           }
-                        }
+                      }
                       return errors;
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
@@ -250,15 +186,44 @@ class PoliticoForm extends GenericForm {
                             </Field>
                           </div>
                         </div>
+
                         <div className="level">
                           <div className="level-item">
-                            <Field name="EstudioBoolean" component={this.renderRadioGroup}  >
-                              <RadioButton value={1} label="Tiene estudios" onClick={this.handleSiEstudio} />
-                              <RadioButton value={2} label="No tiene estudios" onClick={this.handleNoEstudio} />
+                            <Field name="grado_academico"
+                              component={this.renderSelectField}
+                              hintText="Ing."
+                              floatingLabelText="Título"
+                            >
+                              {this.props.fetchgrado_academico.grados_academico.map(({ id, grado }) => {
+                                return <MenuItem value={id} key={id} primaryText={grado} />
+                              })}
                             </Field>
                           </div>
                         </div>
-                        {this.renderEstudios()}
+
+                        <div className="level">
+                          <div className="level-item">
+                            <Field name="titulo"
+                              component={this.renderTextField}
+                              hintText="Derecho y Contadur[ia"
+                              floatingLabelText="Estudios"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="level">
+                          <div className="level-item">
+                            <Field name="lugar_estudio"
+                              component={this.renderSelectField}
+                              hintText="Lugar de estudio"
+                              floatingLabelText="Lugar de estudio"
+                            >
+                              {this.props.fetchLugarEstudio.lugares_estudio.map(({ id, nombre }) => {
+                                return <MenuItem value={id} key={id} primaryText={nombre} />
+                              })}
+                            </Field>
+                          </div>
+                        </div>
 
                         <div className="level">
                           <div className="level-item">
@@ -310,3 +275,4 @@ export default compose(
 
 )(PoliticoForm);
 
+>>>>>>> origin/hgwells07

@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
@@ -123,7 +124,7 @@ renderModerador(){
                     Elecciones
                   </Link>
                   <Link to="/politicos" className="navbar-item" onClick={this.handleClick}>
-                    Políticos
+                    Politicos
                   </Link>
                   <Link to="/acerca_de" className="navbar-item" onClick={this.handleClick}>
                     Ayuda
@@ -146,3 +147,4 @@ renderModerador(){
 }
 
 export default graphql(logout)(graphql(usuario)(Navbar));
+>>>>>>> origin/hgwells07

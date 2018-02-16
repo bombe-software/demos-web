@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 
 import { compose, graphql } from 'react-apollo';
@@ -135,8 +136,8 @@ class PropuestaForm extends GenericForm {
                           <div className="level-item">
                             <Field name="titulo"
                               component={this.renderTextField}
-                              hintText="Escribe el título del evento"
-                              floatingLabelText="Título"
+                              hintText="Escribe el titulo del evento"
+                              floatingLabelText="Titulo"
                             />
                           </div>
                         </div>
@@ -144,8 +145,8 @@ class PropuestaForm extends GenericForm {
                           <div className="level-item">
                             <Field name="descripcion"
                               component={this.renderTextField}
-                              hintText="Escribe la descripción"
-                              floatingLabelText="Descripción"
+                              hintText="Escribe la descripcion"
+                              floatingLabelText="Descripcion"
                             />
                           </div>
                         </div>
@@ -216,4 +217,5 @@ export default compose(
     {
       name: 'fetchUsuario'
     })
+>>>>>>> origin/hgwells07
 )(PropuestaForm);
