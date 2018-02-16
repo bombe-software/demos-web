@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 //Components
-import PendientesPropuestas from './solicitud_propuesta';
-import PendientesHistorial from './solicitud_evento';
-import PendientesPoliticos from './solicitud_politico';
+import PendientesAgregarPropuestas from './solicitud_agregar_propuesta';
+import PendientesAgregarHistorial from './solicitud_agregar_evento';
+import PendientesAgregarPoliticos from './solicitud_agregar_politico';
 
 class Moderador extends Component {
   constructor(props) {
@@ -32,19 +32,19 @@ class Moderador extends Component {
     if (type == "propuestas") {
       return (
         <div>
-          <PendientesPropuestas  />
+          <PendientesAgregarPropuestas  />
         </div>
       );
     } else if (type == "historial") {
       return (
         <div>
-          <PendientesHistorial />
+          <PendientesAgregarHistorial />
         </div>
       );
     }else if (type == "politicos") {
       return (
         <div>
-          <PendientesPoliticos />
+          <PendientesAgregarPoliticos />
         </div>
       );
     }
