@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { Form, Field } from "react-final-form";
+import GenericForm from './generic/generic_form';
+import WaveBackground from './generic/wave_background';
+
 class ConfirmEmail extends GenericForm {
 
     constructor(props) {
         super(props);
         this.state = {
-            mensaje: ''
+            error: ''
         };
     }
 
-    onSubmit(values) {
-        console.log("Confirmacion")
+    async onSubmit(values) {
+        console.log(values);
     }
 
     /**
@@ -36,55 +40,47 @@ class ConfirmEmail extends GenericForm {
                         <div className="columns">
                             <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
                                 <div className="box"><h1 className="title is-3">Inicio de sesión</h1><hr />
-                                    <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                                        <p>Te enviamos un correo electronico de {'info@bombesoftware.com'} con una clave, ingrésala para continuar</p>
+                                    <p>Te enviamos un correo electronico de {'info@bombesoftware.com'} con una clave, ingrésala para continuar</p>
+                                    <Form
+                                        onSubmit={this.onSubmit}
+                                        validate={values => {
+                                            const errors = {};
 
-                                        <div className="level">
-                                            <div className="level-item">
-                                                <input  />
-                                            </div>
-                                        </div>
+                                            return errors;
+                                        }}
 
-                                        <div className="level">
-                                            <div className="level-item">
-                                                <input  />
-                                            </div>
-                                        </div>
-
-                                        <div className="level">
-                                            <div className="level-item">
-                                                <input  />
-                                            </div></div>
-
-                                        <div className="level">
-                                            {this.state.mensaje}
-                                            <div className="level-item">
-                                                <button type="submit" className="button">
-                                                    Ingresar
-                  </button>
-                                            </div></div>
-                                    </form>
+                                        render={({ handleSubmit, reset, submitting, pristine, values }) => (
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="level">
+                                                    <div className="level-item">
+                                                        <Field name="codigo"
+                                                            component={this.renderTextField}
+                                                            hintText="Escribe el codigo"
+                                                            floatingLabelText="Codigo"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <code>
+                                                    {this.state.error}
+                                                </code>
+                                                <br />
+                                                <div className="buttons has-text-centered">
+                                                    <button type="submit" className="button is-primary" disabled={submitting}>
+                                                        Confirmar email
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        )}
+                                    />
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <WaveBackground />
                 </section>
             </div>
         );
     }
 }
 
-function validate(values) {
-    const errors = {};
-
-    if (values.clave == undefined) {
-        errors.clave = "Ingrese la clave";
-    }
-
-    return errors;
-}
-
-export default reduxForm({
-    validate,
-    form: "ConfirmEmailForm"
-})(connect(null, { confirmEmail })(ConfirmEmail));
+export default ConfirmEmail;

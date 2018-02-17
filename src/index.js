@@ -25,7 +25,7 @@ import Navbar from './components/generic/navbar';
 import SignUp from './components/signup';
 import Login from './components/login';
 
-{/*import ConfirmEmail from './components/confirm_ email';*/}
+import ConfirmEmail from './components/confirm_ email';
 import RecoverPassword from './components/recover_password';
 import ConfigCuenta from './components/config_cuenta/config_cuenta';
 
@@ -108,7 +108,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
-              {/*<Route path="/confirm_email" component={ConfirmEmail} />*/}
+              <Route path="/confirm_email" component={ConfirmEmail} />
               <Route path="/recover_password" component={RecoverPassword} />
               <Route path="/config_cuenta" component={ConfigCuenta} />
 

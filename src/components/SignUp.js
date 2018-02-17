@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 import { Form, Field } from "react-final-form";
+import axios from "axios";
 
 import WaveBackground from './generic/wave_background';
 
@@ -85,10 +86,10 @@ class SignUp extends GenericForm {
   }
 
   async onSubmit(values) {
-    if(this.state.avatar == ''){
-      this.setState({error: 'Selecciona un avatar'})
-    }else{
-      const {avatar, localidad} = this.state;
+    if (this.state.avatar == '') {
+      this.setState({ error: 'Selecciona un avatar' })
+    } else {
+      const { avatar, localidad } = this.state;
       const {
         nombre, email, password,
         curp
@@ -98,7 +99,9 @@ class SignUp extends GenericForm {
           nombre, email, password, localidad,
           curp, avatar, localidad
         }
-      }).then(alert('Informacion enviada'));
+      }).then(() => {
+        alert('Informacion enviada');
+      });
     }
   };
 
