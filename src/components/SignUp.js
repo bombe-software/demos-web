@@ -100,7 +100,7 @@ class SignUp extends GenericForm {
           curp, avatar, localidad
         }
       }).then(() => {
-        alert('Informacion enviada');
+        this.props.history.push("/confirm_email");
       });
     }
   };
