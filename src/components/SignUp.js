@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 import { Form, Field } from "react-final-form";
+import Toggle from 'material-ui/Toggle';
+import { createClient } from '@google/maps';
+
 import axios from "axios";
 
 import WaveBackground from './generic/wave_background';
@@ -24,9 +27,12 @@ class SignUp extends GenericForm {
       avatar: '',
       localidad: "localidad",
       imgAvatar: ['none', 'none', 'none', 'none'],
-      error: ''
+      error: '',
+      toggled: false,
+      address: ''
     };
     this.updateJaiba = this.updateJaiba.bind(this);
+    this.loadPosition = this.loadPosition.bind(this);
     this.updateAnguila = this.updateAnguila.bind(this);
     this.updateChivo = this.updateChivo.bind(this);
     this.updateErizo = this.updateErizo.bind(this);
@@ -83,6 +89,31 @@ class SignUp extends GenericForm {
       avatar: "bussines",
       imgAvatar: ['none', 'none', 'none', 'selected']
     })
+  }
+
+  loadPosition(event, bool) {
+    if(bool){
+      navigator.geolocation.getCurrentPosition(
+        (pos)=>{
+          let crd = pos.coords;
+          createClient({ key: 'AIzaSyCRi0T7zpYssizFATxh2n0LovJQtvVDNSY' }).reverseGeocode({
+            latlng:(crd.latitude+","+crd.longitude)
+          },(err, response) => {
+            if (!err) {
+              console.log(response.json.results[0].address_components);
+            }
+          });
+          this.setState({toggled: true });
+        }, 
+        (err)=>{
+          this.setState({error: "Recarga la pagina y activa la ubicacion o no podras continuar", toggled: false});
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        });
+    }
   }
 
   async onSubmit(values) {
@@ -232,6 +263,16 @@ class SignUp extends GenericForm {
                                     component={this.renderTextField}
                                     hintText="Ingrese su curp"
                                     floatingLabelText="CURP"
+                                  />
+                                </div>
+                              </div>
+                              <div className="level">
+                                <div className="level-item">
+                                  <Toggle
+                                    label="Dar acceso a la localizacion"
+                                    onToggle={this.loadPosition}
+                                    toggled={this.state.toggled}
+                                    style={({marginBottom: 16})}
                                   />
                                 </div>
                               </div>
