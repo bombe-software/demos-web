@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 //Queries
-import SolicitudPolitico from '../../queries/SolicitudPolitico';
+import SolicitudPolitico from '../../../queries/SolicitudPolitico';
 
 class DetalleSolicitudPolitico extends Component {
 

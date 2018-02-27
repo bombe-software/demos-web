@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPolitico from '../../queries/fetchSolicitudPolitico';
+import fetchSolicitudPropuesta from '../../../queries/fetchSolicitudPropuesta';
+import AceptarPropuesta from '../../../queries/AceptarPropuesta';
+import DenegarPropuesta from '../../../queries/DenegarPropuesta';
 
-import AceptarPolitico from '../../queries/AceptarPolitico'
-import DenegarPolitico from '../../queries/DenegarPolitico';
+import DetalleSolicitudPropuesta from './detalle_solicitud_propuesta';
 
-import DetalleSolicitudPolitico from './detalle_solicitud_politico';
-
-class SolicitudPolitico extends Component {
+class SolicitudPropuesta extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      idPolitico: null
+      idPropuesta: null
     }
 
     this.aceptar = this.aceptar.bind(this);
@@ -22,31 +21,30 @@ class SolicitudPolitico extends Component {
     this.setState = this.setState.bind(this);
   }
 
-  aceptar(idPolitico) {
-    this.setState({ idPolitico: null });
-    this.props.AceptarPolitico({
+  aceptar(idPropuesta) {
+    this.setState({ idPropuesta: null });
+    this.props.AceptarPropuesta({
       variables: {
-       idPolitico
+       idPropuesta
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
 
-  denegar(idPolitico) {
-    this.setState({ idPolitico: null });
-    this.props.DenegarPolitico({
+  denegar(idPropuesta) {
+    this.setState({ idPropuesta: null });
+    this.props.DenegarPropuesta({
       variables: {
-        idPolitico
+        idPropuesta
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
 
-  seleccionar(idPolitico) {
-    this.setState({ idPolitico });
+  seleccionar(idPropuesta) {
+    this.setState({ idPropuesta });
   }
 
   renderList() {
-
-    return this.props.fetchSolicitudPolitico.solicitudPoliticos.map(({id, nombre}) => {
+    return this.props.fetchSolicitudPropuesta.solicitudPropuestas.map(({id, titulo}) => {
       return (
         <div key={id}>
           <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
@@ -62,7 +60,7 @@ class SolicitudPolitico extends Component {
             </span>
             <a
             style={{color: 'inherit', textDecoration: 'none'}}
-            >{nombre}</a>
+            >{titulo}</a>
           </div>
         </div>
       );
@@ -83,8 +81,7 @@ class SolicitudPolitico extends Component {
   }
 
   render() {
-    console.log(this.props);
-    if (this.props.fetchSolicitudPolitico.loading){
+    if (this.props.fetchSolicitudPropuesta.loading){
       return <div>Loading...</div>
     }
     return (
@@ -93,14 +90,14 @@ class SolicitudPolitico extends Component {
           <div>
             
           <div className="panel">
-            <div className="panel-heading">Politicos</div>
+            <div className="panel-heading">Propuestas</div>
             {this.renderList()}
           </div>
 
           </div>
         </div>
         <div className="column is-5-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPolitico ? <DetalleSolicitudPolitico id={this.state.idPolitico} />: 
+          { this.state.idPropuesta ? <DetalleSolicitudPropuesta id={this.state.idPropuesta} />: 
           <div className="card">
             <div className="card-content">
               <div className="section has-text-centered">
@@ -114,13 +111,13 @@ class SolicitudPolitico extends Component {
   }
 }
 export default compose(
-    graphql(fetchSolicitudPolitico, {
-        name: 'fetchSolicitudPolitico'
+    graphql(fetchSolicitudPropuesta, {
+        name: 'fetchSolicitudPropuesta'
     }),
-    graphql(AceptarPolitico, {
-      name: 'AceptarPolitico'
+    graphql(AceptarPropuesta, {
+      name: 'AceptarPropuesta'
     }),
-    graphql(DenegarPolitico, {
-        name: 'DenegarPolitico'
+    graphql(DenegarPropuesta, {
+        name: 'DenegarPropuesta'
     }),
-)(SolicitudPolitico);
+)(SolicitudPropuesta);

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 //Queries
-import SolicitudEvento from '../../queries/SolicitudEvento';
+import SolicitudEvento from '../../../queries/SolicitudEvento';
 
 class DetalleSolicitudEvento extends Component {
 
@@ -16,7 +16,6 @@ class DetalleSolicitudEvento extends Component {
                 <div>Loading...</div>
             );
         }
-        console.log(this.props);
         const evento = this.props.SolicitudEvento.SolicitudEvento;
         return (
             <div className="card">

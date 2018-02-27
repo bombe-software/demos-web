@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudEvento from '../../queries/fetchSolicitudEvento';
+import fetchSolicitudEvento from '../../../queries/fetchSolicitudEvento';
 
-import AceptarEvento from '../../queries/AceptarEvento'
-import DenegarEvento from '../../queries/DenegarEvento';
+import AceptarEvento from '../../../queries/AceptarEvento'
+import DenegarEvento from '../../../queries/DenegarEvento';
 
 import DetalleSolicitudEvento from './detalle_solicitud_evento';
 
-class SolicitudEvento extends Component {
+class SolicitudEventoModif extends Component {
   constructor(props) {
     super(props);
     
@@ -101,7 +101,7 @@ class SolicitudEvento extends Component {
           <div>
             
           <div className="panel">
-            <div className="panel-heading">Eventos</div>
+            <div className="panel-heading">Eventos Cambios</div>
             {this.renderList()}
           </div>
 
@@ -124,5 +124,5 @@ export default compose(
     graphql(DenegarEvento, {
         name: 'DenegarEvento'
     }),
-)(SolicitudEvento);
+)(SolicitudEventoModif);
 

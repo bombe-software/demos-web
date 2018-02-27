@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 //Queries
-import SolicitudPropuesta from '../../queries/SolicitudPropuesta';
+import SolicitudPropuesta from '../../../queries/SolicitudPropuesta';
 
 class DetalleSolicitudPropuesta extends Component {
 

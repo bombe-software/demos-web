@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPropuesta from '../../queries/fetchSolicitudPropuesta';
-import AceptarPropuesta from '../../queries/AceptarPropuesta';
-import DenegarPropuesta from '../../queries/DenegarPropuesta';
+import fetchSolicitudPolitico from '../../../queries/fetchSolicitudPolitico';
 
-import DetalleSolicitudPropuesta from './detalle_solicitud_propuesta';
+import AceptarPolitico from '../../../queries/AceptarPolitico'
+import DenegarPolitico from '../../../queries/DenegarPolitico';
 
-class SolicitudPropuesta extends Component {
+import DetalleSolicitudPolitico from './detalle_solicitud_politico';
+
+class SolicitudPoliticoModif extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      idPropuesta: null
+      idPolitico: null
     }
 
     this.aceptar = this.aceptar.bind(this);
@@ -21,13 +22,13 @@ class SolicitudPropuesta extends Component {
     this.setState = this.setState.bind(this);
   }
 
-  aceptar(idPropuesta) {
-    this.setState({ idPropuesta: null });
-    this.props.AceptarPropuesta({
+  aceptar(idPolitico) {
+    this.setState({ idPolitico: null });
+    this.props.AceptarPolitico({
       variables: {
-       idPropuesta
+       idPolitico
       }
-    }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
+    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
   }
 
   denegar(idPolitico) {
@@ -36,16 +37,16 @@ class SolicitudPropuesta extends Component {
       variables: {
         idPolitico
       }
-    }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
+    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
   }
 
-  seleccionar(idPropuesta) {
-    this.setState({ idPropuesta });
+  seleccionar(idPolitico) {
+    this.setState({ idPolitico });
   }
 
   renderList() {
-      console.log(this.props);
-    return this.props.fetchSolicitudPropuesta.solicitudPropuestas.map(({id, titulo}) => {
+
+    return this.props.fetchSolicitudPolitico.solicitudPoliticos.map(({id, nombre}) => {
       return (
         <div key={id}>
           <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
@@ -61,7 +62,7 @@ class SolicitudPropuesta extends Component {
             </span>
             <a
             style={{color: 'inherit', textDecoration: 'none'}}
-            >{titulo}</a>
+            >{nombre}</a>
           </div>
         </div>
       );
@@ -82,8 +83,7 @@ class SolicitudPropuesta extends Component {
   }
 
   render() {
-    console.log(this.props);
-    if (this.props.fetchSolicitudPropuesta.loading){
+    if (this.props.fetchSolicitudPolitico.loading){
       return <div>Loading...</div>
     }
     return (
@@ -92,14 +92,14 @@ class SolicitudPropuesta extends Component {
           <div>
             
           <div className="panel">
-            <div className="panel-heading">Propuestas</div>
+            <div className="panel-heading">Politicos Cambios</div>
             {this.renderList()}
           </div>
 
           </div>
         </div>
         <div className="column is-5-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPropuesta ? <DetalleSolicitudPropuesta id={this.state.idPropuesta} />: 
+          { this.state.idPolitico ? <DetalleSolicitudPolitico id={this.state.idPolitico} />: 
           <div className="card">
             <div className="card-content">
               <div className="section has-text-centered">
@@ -113,14 +113,13 @@ class SolicitudPropuesta extends Component {
   }
 }
 export default compose(
-    graphql(fetchSolicitudPropuesta, {
-        name: 'fetchSolicitudPropuesta'
+    graphql(fetchSolicitudPolitico, {
+        name: 'fetchSolicitudPolitico'
     }),
-    graphql(AceptarPropuesta, {
-      name: 'AceptarPropuesta'
+    graphql(AceptarPolitico, {
+      name: 'AceptarPolitico'
     }),
-    graphql(DenegarPropuesta, {
-        name: 'DenegarPropuesta'
+    graphql(DenegarPolitico, {
+        name: 'DenegarPolitico'
     }),
-)(SolicitudPropuesta);
-
+)(SolicitudPoliticoModif);

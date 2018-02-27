@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
 
 //Components
-import PendientesPropuestas from './solicitud_propuesta';
-import PendientesHistorial from './solicitud_evento';
-import PendientesPoliticos from './solicitud_politico';
+import PendientesPropuestas from './Propuesta/solicitud_propuesta';
+import PendientesHistorial from './Evento/solicitud_evento';
+import PendientesPoliticos from './Politico/solicitud_politico';
+
+import PendientesPoliticosModif from './Politico/solicitud_politico_modif';
+import PendientesHistorialModif from './Evento/solicitud_evento_modif';
+import PendientesPropuestasModif from './Propuesta/solicitud_propuesta_modif';
 
 class Moderador extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'propuestas'
+      type: 'propuestas',
+      tabList: 'nuevo'
     };
     this.updatePropuestas = this.updatePropuestas.bind(this);
     this.updateHistorial = this.updateHistorial.bind(this);
     this.updatePoliticos = this.updatePoliticos.bind(this);
+
+    this.renderPendientesPoliticos = this.renderPendientesPoliticos.bind(this);
+    this.renderPendientesPropuestas = this.renderPendientesPropuestas.bind(this);
+    this.renderPendientesHistorial = this.renderPendientesHistorial.bind(this);
+
+    this.updateNuevo = this.updateNuevo.bind(this);
+    this.updateModificacion = this.updateModificacion.bind(this);
+    this.updateEliminar = this.updateEliminar.bind(this);
+
     this.update = this.update.bind(this);
   }
 
@@ -26,25 +40,143 @@ class Moderador extends Component {
   updatePoliticos() {
     this.setState({ type: 'politicos' })
   }
+  updateNuevo() {
+    this.setState({ tabList: 'nuevo' });
+  }
+  updateModificacion() {
+    this.setState({ tabList: 'modif' })
+  }
+  updateEliminar() {
+    this.setState({ tabList: 'eliminar' })
+  }
+  renderPendientesPoliticos() {
+    let tabList = this.state.tabList;
+    if (tabList == "nuevo") {
+      return (
+        <div>
+          <PendientesPoliticos />
+        </div>
+      );
+    }
+    else if (tabList == "modif") {
+      return (
+        <div>
+          <PendientesPoliticosModif />
+        </div>
+      );
+    } else if (tabList == "eliminar") {
+      return (
+        <div>
+       
+        </div>
+      );
+    }
+  }
+
+  renderPendientesHistorial() {
+    let tabList = this.state.tabList;
+    if (tabList == "nuevo") {
+      return (
+        <div>
+          <PendientesHistorial />
+        </div>
+      );
+    }
+    else if (tabList == "modif") {
+      return (
+        <div>
+          <PendientesHistorialModif />
+        </div>
+      );
+    } else if (tabList == "eliminar") {
+      return (
+        <div>
+       
+        </div>
+      );
+    }
+  }
+  renderPendientesPropuestas() {
+    let tabList = this.state.tabList;
+    if (tabList == "nuevo") {
+      return (
+        <div>
+          <PendientesPropuestas />
+        </div>
+      );
+    }
+    else if (tabList == "modif") {
+      return (
+        <div>
+          <PendientesPropuestasModif />
+        </div>
+      );
+    } else if (tabList == "eliminar") {
+      return (
+        <div>
+       
+        </div>
+      );
+    }
+  }
 
   update() {
     let type = this.state.type;
     if (type == "propuestas") {
       return (
         <div>
-          <PendientesPropuestas  />
+          <div className="tabs is-toggle">
+            <ul>
+              <li className={this.state.tabList == "nuevo" ? 'is-active' : ''}>
+                <a onClick={this.updateNuevo}>Nuevo</a>
+              </li>
+              <li className={this.state.tabList == "modif" ? 'is-active' : ''}>
+                <a onClick={this.updateModificacion}>Modificacion</a>
+              </li>
+              <li className={this.state.tabList == "eliminar" ? 'is-active' : ''}>
+                <a onClick={this.updateEliminar}>Eliminar</a>
+              </li>
+            </ul>
+          </div>
+          {this.renderPendientesPropuestas()}
         </div>
       );
     } else if (type == "historial") {
       return (
         <div>
-          <PendientesHistorial />
+          <div className="tabs is-toggle">
+            <ul>
+              <li className={this.state.tabList == "nuevo" ? 'is-active' : ''}>
+                <a onClick={this.updateNuevo}>Nuevo</a>
+              </li>
+              <li className={this.state.tabList == "modif" ? 'is-active' : ''}>
+                <a onClick={this.updateModificacion}>Modificacion</a>
+              </li>
+              <li className={this.state.tabList == "eliminar" ? 'is-active' : ''}>
+                <a onClick={this.updateEliminar}>Eliminar</a>
+              </li>
+            </ul>
+          </div>
+          {this.renderPendientesHistorial()}
         </div>
       );
-    }else if (type == "politicos") {
+    } else if (type == "politicos") {
       return (
         <div>
-          <PendientesPoliticos />
+          <div className="tabs is-toggle">
+            <ul>
+              <li className={this.state.tabList == "nuevo" ? 'is-active' : ''}>
+                <a onClick={this.updateNuevo}>Nuevo</a>
+              </li>
+              <li className={this.state.tabList == "modif" ? 'is-active' : ''}>
+                <a onClick={this.updateModificacion}>Modificacion</a>
+              </li>
+              <li className={this.state.tabList == "eliminar" ? 'is-active' : ''}>
+                <a onClick={this.updateEliminar}>Eliminar</a>
+              </li>
+            </ul>
+          </div>
+          {this.renderPendientesPoliticos()}
         </div>
       );
     }
@@ -55,21 +187,21 @@ class Moderador extends Component {
       <div className="section">
         <div className="columns is-desktop">
           <div className="column is-8-widescreen is-10-dektop is-10-tablet is-offset-1-desktop is-offset-2-widescreen is-offset-1-tablet">
-          <h1 className="is-size-2">Moderador</h1>
-          <hr />
-          <div className="tabs is-medium">
-            <ul>
-              <li className={this.state.type=="propuestas" ? 'is-active' : ''}>
-                <a onClick={this.updatePropuestas}>Propuestas</a>
-              </li>
-              <li className={this.state.type=="historial" ? 'is-active' : ''}>
-                <a onClick={this.updateHistorial}>Historial</a>
-              </li>
-              <li className={this.state.type=="politicos" ? 'is-active' : ''}>
-                <a onClick={this.updatePoliticos}>Politicos</a>
-              </li>
-            </ul>
-          </div>
+            <h1 className="is-size-2">Moderador</h1>
+            <hr />
+            <div className="tabs is-medium">
+              <ul>
+                <li className={this.state.type == "propuestas" ? 'is-active' : ''}>
+                  <a onClick={this.updatePropuestas}>Propuestas</a>
+                </li>
+                <li className={this.state.type == "historial" ? 'is-active' : ''}>
+                  <a onClick={this.updateHistorial}>Historial</a>
+                </li>
+                <li className={this.state.type == "politicos" ? 'is-active' : ''}>
+                  <a onClick={this.updatePoliticos}>Politicos</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div>
