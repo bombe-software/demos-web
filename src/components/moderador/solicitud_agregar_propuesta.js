@@ -30,11 +30,11 @@ class SolicitudPropuesta extends Component {
     }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
 
-  denegar(idPolitico) {
-    this.setState({ idPolitico: null });
-    this.props.DenegarPolitico({
+  denegar(idPropuesta) {
+    this.setState({ idPropuesta: null });
+    this.props.DenegarPropuesta({
       variables: {
-        idPolitico
+        idPropuesta
       }
     }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
@@ -44,7 +44,6 @@ class SolicitudPropuesta extends Component {
   }
 
   renderList() {
-      console.log(this.props);
     return this.props.fetchSolicitudPropuesta.solicitudPropuestas.map(({id, titulo}) => {
       return (
         <div key={id}>

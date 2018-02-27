@@ -7,6 +7,7 @@ query fetchPropuesta($id: ID!){
       titulo
       descripcion
       referencia
+      fecha
       politico {
         id
       }

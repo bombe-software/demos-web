@@ -16,7 +16,6 @@ class DetalleSolicitudPropuesta extends Component {
                 <div>Loading...</div>
             );
         }
-        console.log(this.props);
         const propuesta = this.props.SolicitudPropuesta.solicitudPropuesta;
         return (
             <div className="card">

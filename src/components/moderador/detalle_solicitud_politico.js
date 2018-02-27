@@ -29,7 +29,14 @@ class DetalleSolicitudPolitico extends Component {
                     <p><b>Cargo: </b>{politico.cargo}</p>
                     <p><b>Partido: </b>{politico.partido.nombre}</p>
                     <p><b>Estado: </b>{politico.estado.nombre}</p>
-                    <p><b>Estudios: </b>{politico.estudios[0].grado_academico.grado} en {politico.estudios[0].titulo} en {politico.estudios[0].lugar_estudio.nombre}</p>
+                    {politico.estudios[0] ? 
+                        <p>
+                        <b>Estudios: </b>
+                        {politico.estudios[0].grado_academico.grado} 
+                        en {politico.estudios[0].titulo} 
+                        en {politico.estudios[0].lugar_estudio.nombre}
+                        </p> : <p>No se encontraron estudios</p>
+                    }
                     <hr />
                     <b>Fuente de consulta: </b><a target="_blank" href={politico.referencia}>{politico.referencia}</a>
                 </div>
