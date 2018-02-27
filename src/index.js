@@ -44,6 +44,9 @@ import EventoSeleccionado from './components/politico/politico_detail/evento_sel
 import Moderador from './components/moderador/moderador';
 
 import Soporte from './components/soporte/soporte';
+import ModificarEvento from './components/politico/politico_modify/evento_form';
+import ModificarPolitico from './components/politico/politico_modify/politico_form';
+import ModificarPropuesta from './components/politico/politico_modify/propuesta_form';
 
 //Pruebas 
 
@@ -140,6 +143,10 @@ class App extends React.Component {
 
                 <Route path="/politico/:id/propuesta/:id_propuesta" exact component={PropuestaSeleccionada} />
                 <Route path="/politico/:id/evento/:id_evento" exact component={EventoSeleccionado} />
+                
+                <Route path="/evento/modify/:id_evento" exact component={ModificarEvento} />
+                <Route path="/propuesta/modify/:id_propuesta" exact component={ModificarPropuesta} />
+                 <Route path="/politico/modify/:id_politico" exact component={ModificarPolitico} />
 
                 {/*Landing page*/}
                 <Route path="/" exact component={LandingPage} />

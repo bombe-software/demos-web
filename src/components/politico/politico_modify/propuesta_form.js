@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 
 import { compose, graphql } from 'react-apollo';
@@ -16,15 +15,27 @@ import GenericForm from '../../generic/generic_form';
 import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
 import addPropuesta from "../../../queries/addPropuesta";
 import fetchUsuario from "../../../queries/fetchUsuario";
+import fetchPropuesta from '../../../queries/fetchPropuesta'
 
-class PropuestaForm extends GenericForm {
+const load = async (props) => {
+  if(props.loading)return <div>Loading...</div>;
+  return {
+    titulo: props.propuesta.titulo,
+    descripcion: props.propuesta.descripcion,
+    tipo_propuesta: props.propuesta.tipo_propuesta.id,
+    fecha: props.propuesta.fecha
+  };
+};
+
+class ModificarPropuestaForm extends GenericForm {
 
   constructor(props) {
     super(props);
 
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      open: false
+      open: false,
+      data: {}
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -39,6 +50,15 @@ class PropuestaForm extends GenericForm {
     this.props.history.push(`/politico/${this.props.match.params.id}`)
   };
 
+  componentWillReceiveProps(props){
+{this.renderFetchField(props.fetchPropuesta)}
+}
+
+ async renderFetchField(props) {
+    this.setState({ loading: true });
+    const data = await load(props);
+    this.setState({ loading: false, data });
+   }
   async onSubmit(values) {
 
     const usuario = this.props.fetchUsuario.usuario.id;
@@ -46,7 +66,6 @@ class PropuestaForm extends GenericForm {
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values
-    console.log(titulo, descripcion, fecha, tipo_propuesta, referencia);
 
     this.props.addPropuesta({
       variables: {
@@ -65,7 +84,6 @@ class PropuestaForm extends GenericForm {
         <NeedLogin />
       );
     }
-    console.log(this.props);
     return (
       <div>
         <Dialog
@@ -84,18 +102,17 @@ class PropuestaForm extends GenericForm {
                 <div className="box">
                   <br />
                   <h1 className="title">
-                    Registrar una propuesta
+                    Modificar una propuesta
                 </h1>
                   <br />
                   <p className="subtitle">
-                    Registra una propuesta que haya realizado este político
-                  y que no aparezca en nuestra página. Cree un título que
-                  resuma la propuesta y escriba los detalles en el campo
-                  descripción.
+                    ¿Encontro un informacion incorrecta en los datos de alguna propuesta?
+                  Brindenos su información y solicite modificarlo para
+                  que toda nuestra comunidad pueda verlo.
                 </p>
                   <br />
                   <Form
-                    onSubmit={this.onSubmit}
+                    onSubmit={this.onSubmit} initialValues={this.state.data}
                     validate={values => {
                       const errors = {};
                       if (!values.titulo) {
@@ -136,8 +153,8 @@ class PropuestaForm extends GenericForm {
                           <div className="level-item">
                             <Field name="titulo"
                               component={this.renderTextField}
-                              hintText="Escribe el titulo del evento"
-                              floatingLabelText="Titulo"
+                              hintText="Escribe el título del evento"
+                              floatingLabelText="Título"
                             />
                           </div>
                         </div>
@@ -145,8 +162,8 @@ class PropuestaForm extends GenericForm {
                           <div className="level-item">
                             <Field name="descripcion"
                               component={this.renderTextField}
-                              hintText="Escribe la descripcion"
-                              floatingLabelText="Descripcion"
+                              hintText="Escribe la descripción"
+                              floatingLabelText="Descripción"
                             />
                           </div>
                         </div>
@@ -216,5 +233,10 @@ export default compose(
   graphql(fetchUsuario,
     {
       name: 'fetchUsuario'
+    }),
+    graphql(fetchPropuesta,
+    {
+      name: 'fetchPropuesta',
+      options: (props) => { return { variables: { id: props.match.params.id_propuesta} } }
     })
-)(PropuestaForm);
+)(ModificarPropuestaForm);

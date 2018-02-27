@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 
 import MenuItem from 'material-ui/MenuItem';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import { Form, Field } from "react-final-form";
 
 import NeedLogin from './../../generic/need_login';
@@ -17,82 +15,85 @@ import fetchUsuario from './../../../queries/fetchUsuario';
 import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
+import fetchPolitico from './../../../queries/fetchPoliticoPerfil';
 
-class PoliticoForm extends GenericForm {
+
+const load = async (props) => {
+  console.log(props);
+  if(props.loading)return <div>Loading...</div>;
+  return {
+    nombre: props.politicosPorId.nombre,
+    partido: props.politicosPorId.partido.id,
+    estado: props.politicosPorId.estado.id,
+    cargo: props.politicosPorId.cargo,
+    grado_academico: props.politicosPorId.estudios[0].grado_academico.id,
+    lugar_estudio: props.politicosPorId.estudios[0].lugar_estudio.id,
+    titulo: props.politicosPorId.estudios[0].titulo
+  };
+};
+
+class ModificarPoliticoForm extends GenericForm {
 
   constructor(props) {
     super(props);
-
-    this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      open: false
-    };
-    this.handleClose = this.handleClose.bind(this);
-    this.handleOpen = this.handleOpen.bind(this);
+            data: {}
+        };
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  handleOpen(){
-    this.setState({ open: true });
-  };
-
-  handleClose(){
-    this.setState({ open: false });
-    this.props.history.push(`/politicos`);
-  };
+   async renderFetchField(props) {
+    this.setState({ loading: true });
+    const data = await load(props);
+    this.setState({ loading: false, data });
+   }
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
     const {
       nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, referencia
     } = values
-   
+    console.log(nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, usuario, referencia);
+
     this.props.addPolitico({
       variables: {
         nombre, cargo, partido, estado, lugar_estudio, grado_academico, titulo, usuario, referencia
       }
-    }).then(this.handleOpen); 
+    }).then(() => this.props.history.push(`/politicos`));
   };
-
+componentWillReceiveProps(props){
+{this.renderFetchField(props.fetchPolitico)}
+}
 
   render() {
-
-    if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) {
+    if (this.props.fetchPolitico.loading || this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) {
       return <div>Loading...</div>;
     }
-    if (!this.props.fetchUsuario.usuario){
+    if (!this.props.fetchUsuario.usuario) {
       return (
         <NeedLogin />
       );
     }
     return (
       <div>
-        <Dialog
-          title="Tu propuesta ahora está en espera de aprobación"
-          actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
-          Espera la aprobación de un moderador de tu propuesta
-        </Dialog>
         <section className="hero is-large">
           <div className="section">
             <div className="columns">
               <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
-                <div className="box" style={{padding: "48px"}}>
+                <div className="box" style={{ padding: "48px" }}>
                   <br />
                   <h1 className="title has-text-centered">
-                    Registrar un político
+                    Modificar un político
                 </h1>
                   <br />
                   <p className="subtitle has-text-centered">
-                    ¿No encuentra a un político en nuestra página?
-                  Brindenos su información y solicite registrarlo para
+                    ¿Encontro un informacion incorrecta en los datos de algun politico?
+                  Brindenos su información y solicite modificarlo para
                   que toda nuestra comunidad pueda verlo.
                 </p>
                   <br />
                   <Form
-                    onSubmit={this.onSubmit}
+                    onSubmit={this.onSubmit} initialValues={this.state.data}
                     validate={values => {
                       const errors = {};
                       if (!values.nombre) {
@@ -121,7 +122,6 @@ class PoliticoForm extends GenericForm {
                       }
                       if (!values.referencia) {
                         errors.referencia = "Escriba el link de referenica";
-
                       } else if (values.referencia != undefined) {
                         var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
                         if (/^\s+|\s+$/.test(values.referencia)) {
@@ -134,7 +134,7 @@ class PoliticoForm extends GenericForm {
                       return errors;
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
-                      <form onSubmit={handleSubmit}>
+                      <form onSubmit={handleSubmit }>
                         <div className="level">
                           <div className="level-item">
                             <Field name="nombre"
@@ -270,6 +270,10 @@ export default compose(
   }),
   graphql(fetchUsuario, {
     name: 'fetchUsuario'
+  }),
+  graphql(fetchPolitico, {
+    name: "fetchPolitico",
+    options: (props) => { return { variables: { id: props.match.params.id_politico } } }
   })
 
-)(PoliticoForm);
+)(ModificarPoliticoForm);

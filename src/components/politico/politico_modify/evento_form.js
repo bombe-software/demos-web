@@ -1,30 +1,41 @@
-
 import React, { Component } from "react";
 
 import { compose, graphql } from 'react-apollo';
 
-import NeedLogin from './../../generic/need_login';
-import AnimatedBackground from './../../generic/animated_background';
-
-
+//Componentes
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+
+import NeedLogin from './../../generic/need_login';
+import AnimatedBackground from './../../generic/animated_background';
+
+//Queries
+import fetchEvento from './../../../queries/fetchEvento'
+import fetchUsuario from './../../../queries/fetchUsuario';
+import addEvento from './../../../queries/addEvento';
 import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
-//Queries y Mutations
-import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
-import addPropuesta from "../../../queries/addPropuesta";
-import fetchUsuario from "../../../queries/fetchUsuario";
 
-class PropuestaForm extends GenericForm {
+const load = async (props) => {
+  console.log(props);
+  if(props.loading)return <div>Loading...</div>;
+  return {
+    titulo: props.evento.titulo,
+    descripcion: props.evento.descripcion,
+    fecha: props.evento.fecha,
+  };
+};
+
+class ModificarEventoForm extends GenericForm {
 
   constructor(props) {
     super(props);
 
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      open: false
+      open: false,
+      data: {}
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -36,36 +47,51 @@ class PropuestaForm extends GenericForm {
 
   handleClose(){
     this.setState({ open: false });
-    this.props.history.push(`/politico/${this.props.match.params.id}`)
+    this.props.history.push(`/politico/${this.props.match.params.id}`);
   };
 
-  async onSubmit(values) {
+  componentWillReceiveProps(props){
+    {this.renderFetchField(props.fetchEvento)}
+  } 
 
+ async renderFetchField(props) {
+    this.setState({ loading: true });
+    const data = await load(props);
+    this.setState({ loading: false, data });
+   }
+
+  async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
     const politico = this.props.match.params.id;
     const {
-      titulo, descripcion, fecha, tipo_propuesta, referencia
+      fecha, titulo,
+      descripcion, referencia
     } = values
-    console.log(titulo, descripcion, fecha, tipo_propuesta, referencia);
 
-    this.props.addPropuesta({
+
+    this.props.addEvento({
       variables: {
-        titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
+        fecha, titulo,
+        descripcion, referencia, usuario, politico
       }
     }).then(this.handleOpen); 
+  }
 
-  };
-
+  /**
+  * Es una forma de capturar cualquier error en la clase 
+  * y que este no crashe el programa, ayuda con la depuracion
+  * de errores
+  * @method componentDidCatch
+  * @const info Es más informacion acerca del error
+  * @const error Es el titulo del error
+  */
   render() {
-    if (this.props.fetchTipoPropuesta.loading) {
-      return <div>Loading...</div>;
-    }
+    console.log(this.props);
     if (!this.props.fetchUsuario.usuario) {
       return (
         <NeedLogin />
       );
-    }
-    console.log(this.props);
+    }    
     return (
       <div>
         <Dialog
@@ -82,40 +108,37 @@ class PropuestaForm extends GenericForm {
             <div className="columns">
               <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
                 <div className="box">
-                  <br />
-                  <h1 className="title">
-                    Registrar una propuesta
-                </h1>
-                  <br />
-                  <p className="subtitle">
-                    Registra una propuesta que haya realizado este político
-                  y que no aparezca en nuestra página. Cree un título que
-                  resuma la propuesta y escriba los detalles en el campo
-                  descripción.
+                  <div className="has-text-centered"><h1 className="title is-3">Modificar un  evento</h1></div>
+                  <hr />
+                  <p className="subtitle has-text-centered">
+                    ¿Encontro un informacion incorrecta en los datos de algun evento?
+                  Brindenos su información y solicite modificarlo para
+                  que toda nuestra comunidad pueda verlo.
                 </p>
-                  <br />
                   <Form
-                    onSubmit={this.onSubmit}
+                    onSubmit={this.onSubmit} initialValues={this.state.data}
                     validate={values => {
                       const errors = {};
-                      if (!values.titulo) {
-                        errors.titulo = "Escriba el nombre de la propuesta";
-                      } else if (/^\s+|\s+$/.test(values.titulo)) {
-                        errors.titulo = "Escriba una propuesta valida";
-                      }
-                      if (!values.descripcion) {
-                        errors.descripcion = "Escriba la descripción";
-                      } else if (/^\s+|\s+$/.test(values.descripcion)) {
-                        errors.descripcion = "Escriba descripción válida";
-                      }
-                      if (!values.tipo_propuesta) {
-                        errors.tipo_propuesta = "Seleccione el tipo de propuesta";
-                      }
                       if (!values.fecha) {
                         errors.fecha = "Seleccione la fecha";
                       }
+                      if (!values.titulo) {
+                        errors.titulo = "Escriba el título del evento";
+                      }
+                      if (values.titulo != undefined) {
+
+                        if (/^\s+|\s+$/.test(values.titulo)) {
+                          errors.titulo = "Escriba un titulo válido";
+                        }
+                      }
+                      if (!values.descripcion) {
+                        errors.descripcion = "Escriba la descripción del evento";
+                      } else
+                        if (/^\s+|\s+$/.test(values.descripcion)) {
+                          errors.descripcion = "Escriba una descripción válida";
+                        }
                       if (!values.referencia) {
-                        errors.referencia = "Escriba el link de referenica";
+                        errors.referencia = "Escriba el link de referencia";
 
                       } else if (values.referencia != undefined) {
                         var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
@@ -126,12 +149,11 @@ class PropuestaForm extends GenericForm {
                             errors.referencia = "Link invalido";
                           }
                       }
-
                       return errors;
-                    }
-                    }
+                    }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
                       <form onSubmit={handleSubmit}>
+
                         <div className="level">
                           <div className="level-item">
                             <Field name="titulo"
@@ -148,20 +170,6 @@ class PropuestaForm extends GenericForm {
                               hintText="Escribe la descripcion"
                               floatingLabelText="Descripcion"
                             />
-                          </div>
-                        </div>
-
-                        <div className="level">
-                          <div className="level-item">
-                            <Field name="tipo_propuesta"
-                              component={this.renderSelectField}
-                              hintText="Escribe tipo de la propuesta"
-                              floatingLabelText="Tipo de la propuesta"
-                            >
-                              {this.props.fetchTipoPropuesta.tipos_propuesta.map(({ id, tipo }) => {
-                                return <MenuItem value={id} key={id} primaryText={tipo} />
-                              })}
-                            </Field>
                           </div>
                         </div>
                         <div className="level">
@@ -184,37 +192,33 @@ class PropuestaForm extends GenericForm {
                         </div>
                         <div className="buttons has-text-centered">
                           <button type="submit" className="button is-primary" disabled={submitting}>
-                            Registrar Evento
+                            Registrar evento
             </button>
                         </div>
 
                       </form>
                     )}
                   />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+                </div></div></div></div></section>
         <AnimatedBackground />
       </div>
     );
   }
 }
 
-
-
 export default compose(
-  graphql(fetchTipoPropuesta,
+  graphql(addEvento,
     {
-      name: 'fetchTipoPropuesta'
-    }),
-  graphql(addPropuesta,
-    {
-      name: 'addPropuesta'
+      name: 'addEvento'
     }),
   graphql(fetchUsuario,
     {
       name: 'fetchUsuario'
-    })
-)(PropuestaForm);
+    }),
+    graphql(fetchEvento,
+      {
+        name: 'fetchEvento',
+        options: (props) => { return { variables: { id: props.match.params.id_evento} } }
+      }
+    )
+)(ModificarEventoForm);

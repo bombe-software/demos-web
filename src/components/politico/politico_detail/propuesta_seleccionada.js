@@ -25,6 +25,9 @@ class PropuestaSeleccionada extends Component {
                     <Link to={`/politico/${politico.id}`}>
                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Regresar</span>
                     </Link>
+                    <Link to={`/propuesta/modify/${this.props.match.params.id_propuesta}`}>
+                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
+                    </Link>
                    </div>
                    <br />
                    <div className="card">
@@ -61,8 +64,6 @@ class PropuestaSeleccionada extends Component {
     }
 
     render() {
-        console.log(this.props);
-
         return (
             <div>
                 <br />

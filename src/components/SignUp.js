@@ -183,7 +183,7 @@ class SignUp extends GenericForm {
                     <Form
                       onSubmit={this.onSubmit}
                       validate={values => {
-                        /*
+                        
                         const errors = {};
                         if (!values.nombre) {
                           errors.nombre = "Escriba su nombre de usuario";
@@ -225,7 +225,7 @@ class SignUp extends GenericForm {
                           errors.email = 'Correo inválido';
                         }
                         return errors;
-                        */
+                        
                       }}
                       render={({ handleSubmit, reset, submitting, pristine, values }) => (
                         <form onSubmit={handleSubmit}>
