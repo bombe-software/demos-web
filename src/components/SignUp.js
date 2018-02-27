@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo';
 import { Form, Field } from "react-final-form";
 import Toggle from 'material-ui/Toggle';
 import { createClient } from '@google/maps';
+import _ from 'lodash';
 
 import axios from "axios";
 
@@ -25,7 +26,7 @@ class SignUp extends GenericForm {
     super(props);
     this.state = {
       avatar: '',
-      localidad: "localidad",
+      localidad: '',
       imgAvatar: ['none', 'none', 'none', 'none'],
       error: '',
       toggled: false,
@@ -99,9 +100,19 @@ class SignUp extends GenericForm {
           createClient({ key: 'AIzaSyCRi0T7zpYssizFATxh2n0LovJQtvVDNSY' }).reverseGeocode({
             latlng:(crd.latitude+","+crd.longitude)
           },(err, response) => {
+            let estado = '';
             if (!err) {
-              console.log(response.json.results[0].address_components);
+              response.json.results[0].address_components.map((o) => { 
+                for (let i = 0; i < o.types.length; i++) {
+                  const element = o.types[i];
+                  if(element=="administrative_area_level_1"){
+                    estado = o.long_name;
+                  }
+                }
+                return true;
+              });
             }
+            this.setState({localidad: estado });
           });
           this.setState({toggled: true });
         }, 
@@ -159,6 +170,7 @@ class SignUp extends GenericForm {
   * @method render
   */
   render() {
+    console.log(this.state.localidad);
     const { handleSubmit } = this.props;
     return (
       <div>
