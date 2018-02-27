@@ -87,9 +87,7 @@ componentWillReceiveProps(props){
                 </h1>
                   <br />
                   <p className="subtitle has-text-centered">
-                    ¿Encontro un informacion incorrecta en los datos de algun politico?
-                  Brindenos su información y solicite modificarlo para
-                  que toda nuestra comunidad pueda verlo.
+                    ¿Encontró información incorrecta en los datos de algún político? Bríndenos su información y solicite modificarlo para que toda nuestra comunidad pueda verlo.
                 </p>
                   <br />
                   <Form

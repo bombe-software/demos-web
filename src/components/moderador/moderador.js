@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 
 //Components
-import PendientesPropuestas from './Propuesta/solicitud_propuesta';
-import PendientesHistorial from './Evento/solicitud_evento';
-import PendientesPoliticos from './Politico/solicitud_politico';
-
-import PendientesPoliticosModif from './Politico/solicitud_politico_modif';
-import PendientesHistorialModif from './Evento/solicitud_evento_modif';
-import PendientesPropuestasModif from './Propuesta/solicitud_propuesta_modif';
+import PendientesAgregarPropuestas from './solicitud_agregar_propuesta';
+import PendientesAgregarHistorial from './solicitud_agregar_evento';
+import PendientesAgregarPoliticos from './solicitud_agregar_politico';
 
 class Moderador extends Component {
   constructor(props) {
@@ -125,58 +121,19 @@ class Moderador extends Component {
     if (type == "propuestas") {
       return (
         <div>
-          <div className="tabs is-toggle">
-            <ul>
-              <li className={this.state.tabList == "nuevo" ? 'is-active' : ''}>
-                <a onClick={this.updateNuevo}>Nuevo</a>
-              </li>
-              <li className={this.state.tabList == "modif" ? 'is-active' : ''}>
-                <a onClick={this.updateModificacion}>Modificacion</a>
-              </li>
-              <li className={this.state.tabList == "eliminar" ? 'is-active' : ''}>
-                <a onClick={this.updateEliminar}>Eliminar</a>
-              </li>
-            </ul>
-          </div>
-          {this.renderPendientesPropuestas()}
+          <PendientesAgregarPropuestas  />
         </div>
       );
     } else if (type == "historial") {
       return (
         <div>
-          <div className="tabs is-toggle">
-            <ul>
-              <li className={this.state.tabList == "nuevo" ? 'is-active' : ''}>
-                <a onClick={this.updateNuevo}>Nuevo</a>
-              </li>
-              <li className={this.state.tabList == "modif" ? 'is-active' : ''}>
-                <a onClick={this.updateModificacion}>Modificacion</a>
-              </li>
-              <li className={this.state.tabList == "eliminar" ? 'is-active' : ''}>
-                <a onClick={this.updateEliminar}>Eliminar</a>
-              </li>
-            </ul>
-          </div>
-          {this.renderPendientesHistorial()}
+          <PendientesAgregarHistorial />
         </div>
       );
     } else if (type == "politicos") {
       return (
         <div>
-          <div className="tabs is-toggle">
-            <ul>
-              <li className={this.state.tabList == "nuevo" ? 'is-active' : ''}>
-                <a onClick={this.updateNuevo}>Nuevo</a>
-              </li>
-              <li className={this.state.tabList == "modif" ? 'is-active' : ''}>
-                <a onClick={this.updateModificacion}>Modificacion</a>
-              </li>
-              <li className={this.state.tabList == "eliminar" ? 'is-active' : ''}>
-                <a onClick={this.updateEliminar}>Eliminar</a>
-              </li>
-            </ul>
-          </div>
-          {this.renderPendientesPoliticos()}
+          <PendientesAgregarPoliticos />
         </div>
       );
     }
