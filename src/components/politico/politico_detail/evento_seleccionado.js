@@ -65,8 +65,6 @@ class EventoSeleccionado extends Component {
     }
 
     render() {
-        console.log(this.props);
-
         return (
             <div>
                 <br />

@@ -81,7 +81,6 @@ class SolicitudPropuesta extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.fetchSolicitudPropuesta.loading){
       return <div>Loading...</div>
     }

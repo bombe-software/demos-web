@@ -19,8 +19,7 @@ import fetchPolitico from './../../../queries/fetchPoliticoPerfil';
 
 
 const load = async (props) => {
-  console.log(props);
-  if(props.loading)return <div>Loading...</div>;
+  if (props.loading) return <div>Loading...</div>;
   return {
     nombre: props.politicosPorId.nombre,
     partido: props.politicosPorId.partido.id,
@@ -37,23 +36,22 @@ class ModificarPoliticoForm extends GenericForm {
   constructor(props) {
     super(props);
     this.state = {
-            data: {}
-        };
+      data: {}
+    };
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-   async renderFetchField(props) {
+  async renderFetchField(props) {
     this.setState({ loading: true });
     const data = await load(props);
     this.setState({ loading: false, data });
-   }
+  }
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
     const {
       nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, referencia
     } = values
-    console.log(nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, usuario, referencia);
 
     this.props.addPolitico({
       variables: {
@@ -61,9 +59,9 @@ class ModificarPoliticoForm extends GenericForm {
       }
     }).then(() => this.props.history.push(`/politicos`));
   };
-componentWillReceiveProps(props){
-{this.renderFetchField(props.fetchPolitico)}
-}
+  componentWillReceiveProps(props) {
+    { this.renderFetchField(props.fetchPolitico) }
+  }
 
   render() {
     if (this.props.fetchPolitico.loading || this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) {
@@ -121,18 +119,19 @@ componentWillReceiveProps(props){
                       if (!values.referencia) {
                         errors.referencia = "Escriba el link de referenica";
                       } else if (values.referencia != undefined) {
-                        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
+                        var re = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
+                        //var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
                         if (/^\s+|\s+$/.test(values.referencia)) {
                           errors.referencia = "Link invalido";
                         } else
                           if (!re.test(values.referencia)) {
-                            errors.referencia = "Link invalido";
+                            errors.referencia = "Los links deben empezar con http,https. (http(s)://www.demos.com)";
                           }
                       }
                       return errors;
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
-                      <form onSubmit={handleSubmit }>
+                      <form onSubmit={handleSubmit}>
                         <div className="level">
                           <div className="level-item">
                             <Field name="nombre"
@@ -231,6 +230,7 @@ componentWillReceiveProps(props){
                             />
                           </div>
                         </div>
+                        <br />
                         <div className="buttons has-text-centered">
                           <button type="submit" className="button is-primary" disabled={submitting}>
                             Registrar político
