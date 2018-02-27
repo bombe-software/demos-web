@@ -6,7 +6,7 @@ import fetchSolicitudEvento from '../../queries/fetchSolicitudEvento';
 import AceptarEvento from '../../queries/AceptarEvento'
 import DenegarEvento from '../../queries/DenegarEvento';
 
-import DetalleSolicitudEvento from './detalle_solicitud_evento';
+import DetalleSolicitudEvento from './Evento/detalle_solicitud_evento';
 
 class SolicitudEvento extends Component {
   constructor(props) {

@@ -5,7 +5,7 @@ import fetchSolicitudPropuesta from '../../queries/fetchSolicitudPropuesta';
 import AceptarPropuesta from '../../queries/AceptarPropuesta';
 import DenegarPropuesta from '../../queries/DenegarPropuesta';
 
-import DetalleSolicitudPropuesta from './detalle_solicitud_propuesta';
+import DetalleSolicitudPropuesta from './Propuesta/detalle_solicitud_propuesta';
 
 class SolicitudPropuesta extends Component {
   constructor(props) {

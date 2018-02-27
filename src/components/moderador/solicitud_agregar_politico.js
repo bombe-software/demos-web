@@ -6,7 +6,7 @@ import fetchSolicitudPolitico from '../../queries/fetchSolicitudPolitico';
 import AceptarPolitico from '../../queries/AceptarPolitico'
 import DenegarPolitico from '../../queries/DenegarPolitico';
 
-import DetalleSolicitudPolitico from './detalle_solicitud_politico';
+import DetalleSolicitudPolitico from './Politico/detalle_solicitud_politico';
 
 class SolicitudPolitico extends Component {
   constructor(props) {
