@@ -5,6 +5,10 @@ import PendientesAgregarPropuestas from './solicitud_agregar_propuesta';
 import PendientesAgregarHistorial from './solicitud_agregar_evento';
 import PendientesAgregarPoliticos from './solicitud_agregar_politico';
 
+ import PendientesModificarPoliticos from './Politico/solicitud_politico_modif';
+ import PendientesModificarHistorial from './Evento/solicitud_evento_modif';
+ import PendientesModificarPropuestas from './Propuesta/solicitud_propuesta_modif';
+
 class Moderador extends Component {
   constructor(props) {
     super(props);
@@ -50,20 +54,20 @@ class Moderador extends Component {
     if (tabList == "nuevo") {
       return (
         <div>
-          <PendientesPoliticos />
+          <PendientesAgregarPoliticos />
         </div>
       );
     }
     else if (tabList == "modif") {
       return (
         <div>
-          <PendientesPoliticosModif />
+          <PendientesModificarPoliticos />
         </div>
       );
     } else if (tabList == "eliminar") {
       return (
         <div>
-       
+
         </div>
       );
     }
@@ -74,20 +78,20 @@ class Moderador extends Component {
     if (tabList == "nuevo") {
       return (
         <div>
-          <PendientesHistorial />
+          <PendientesAgregarHistorial />
         </div>
       );
     }
     else if (tabList == "modif") {
       return (
         <div>
-          <PendientesHistorialModif />
+          <PendientesModificarHistorial />
         </div>
       );
     } else if (tabList == "eliminar") {
       return (
         <div>
-       
+
         </div>
       );
     }
@@ -97,20 +101,20 @@ class Moderador extends Component {
     if (tabList == "nuevo") {
       return (
         <div>
-          <PendientesPropuestas />
+          <PendientesAgregarPropuestas />
         </div>
       );
     }
     else if (tabList == "modif") {
       return (
         <div>
-          <PendientesPropuestasModif />
+          <PendientesModificarPropuestas />
         </div>
       );
     } else if (tabList == "eliminar") {
       return (
         <div>
-       
+
         </div>
       );
     }
@@ -121,54 +125,92 @@ class Moderador extends Component {
     if (type == "propuestas") {
       return (
         <div>
-          <PendientesAgregarPropuestas  />
+          <div className="tabs is-toggle">
+            <ul>
+              <li className={this.state.tabList == "nuevo" ? 'is-active' : ''}>
+                <a onClick={this.updateNuevo}>Nuevo</a>
+              </li>
+              <li className={this.state.tabList == "modif" ? 'is-active' : ''}>
+                <a onClick={this.updateModificacion}>Modificacion</a>
+              </li>
+              <li className={this.state.tabList == "eliminar" ? 'is-active' : ''}>
+                <a onClick={this.updateEliminar}>Eliminar</a>
+              </li>
+            </ul>
+          </div>
+          {this.renderPendientesPropuestas()}
         </div>
       );
     } else if (type == "historial") {
       return (
         <div>
-          <PendientesAgregarHistorial />
+          <div className="tabs is-toggle">
+            <ul>
+              <li className={this.state.tabList == "nuevo" ? 'is-active' : ''}>
+                <a onClick={this.updateNuevo}>Nuevo</a>
+              </li>
+              <li className={this.state.tabList == "modif" ? 'is-active' : ''}>
+                <a onClick={this.updateModificacion}>Modificacion</a>
+              </li>
+              <li className={this.state.tabList == "eliminar" ? 'is-active' : ''}>
+                <a onClick={this.updateEliminar}>Eliminar</a>
+              </li>
+            </ul>
+          </div>
+          {this.renderPendientesHistorial()}
         </div>
       );
     } else if (type == "politicos") {
       return (
         <div>
-          <PendientesAgregarPoliticos />
+          <div className="tabs is-toggle">
+            <ul>
+              <li className={this.state.tabList == "nuevo" ? 'is-active' : ''}>
+                <a onClick={this.updateNuevo}>Nuevo</a>
+              </li>
+              <li className={this.state.tabList == "modif" ? 'is-active' : ''}>
+                <a onClick={this.updateModificacion}>Modificacion</a>
+              </li>
+              <li className={this.state.tabList == "eliminar" ? 'is-active' : ''}>
+                <a onClick={this.updateEliminar}>Eliminar</a>
+              </li>
+            </ul>
+          </div>
+          {this.renderPendientesPoliticos()}
         </div>
       );
     }
   }
-
-  render() {
-    return (
-      <div className="section">
-        <div className="columns is-desktop">
-          <div className="column is-8-widescreen is-10-dektop is-10-tablet is-offset-1-desktop is-offset-2-widescreen is-offset-1-tablet">
-            <h1 className="is-size-2">Moderador</h1>
-            <hr />
-            <div className="tabs is-medium">
-              <ul>
-                <li className={this.state.type == "propuestas" ? 'is-active' : ''}>
-                  <a onClick={this.updatePropuestas}>Propuestas</a>
-                </li>
-                <li className={this.state.type == "historial" ? 'is-active' : ''}>
-                  <a onClick={this.updateHistorial}>Historial</a>
-                </li>
-                <li className={this.state.type == "politicos" ? 'is-active' : ''}>
-                  <a onClick={this.updatePoliticos}>Politicos</a>
-                </li>
-              </ul>
+    render() {
+      return (
+        <div className="section">
+          <div className="columns is-desktop">
+            <div className="column is-8-widescreen is-10-dektop is-10-tablet is-offset-1-desktop is-offset-2-widescreen is-offset-1-tablet">
+              <h1 className="is-size-2">Moderador</h1>
+              <hr />
+              <div className="tabs is-medium">
+                <ul>
+                  <li className={this.state.type == "propuestas" ? 'is-active' : ''}>
+                    <a onClick={this.updatePropuestas}>Propuestas</a>
+                  </li>
+                  <li className={this.state.type == "historial" ? 'is-active' : ''}>
+                    <a onClick={this.updateHistorial}>Historial</a>
+                  </li>
+                  <li className={this.state.type == "politicos" ? 'is-active' : ''}>
+                    <a onClick={this.updatePoliticos}>Politicos</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
+          <div>
+            {this.update()}
+          </div>
+          <div className="level"><br /><br /></div>
         </div>
-        <div>
-          {this.update()}
-        </div>
-        <div className="level"><br /><br /></div>
-      </div>
-    )
+      )
+    }
+
   }
 
-}
-
-export default Moderador;
+  export default Moderador;
