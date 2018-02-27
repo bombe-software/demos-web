@@ -11,7 +11,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { createHttpLink } from 'apollo-link-http';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { createUploadLink } from 'apollo-upload-client';
+//import { createUploadLink } from 'apollo-upload-client';
 
 //Sin manejo de informacion
 import NotFound from './components/not_found';
@@ -43,6 +43,8 @@ import EventoSeleccionado from './components/politico/politico_detail/evento_sel
 
 import Moderador from './components/moderador/moderador';
 
+import Soporte from './components/soporte/soporte';
+
 //Pruebas 
 
 // Crear un http link
@@ -60,10 +62,12 @@ const wsLink = new WebSocketLink({
   credentials: 'include'
 });
  
+/*
 const uploadLink = createUploadLink({
   uri: 'https://demos-gql.herokuapp.com/graphql',
   credentials: 'include'
 });
+*/
 
 
 // USar dependencia split para hacer una union de ambos 
@@ -116,6 +120,7 @@ class App extends React.Component {
               <Route path="/acerca_de" component={AcercaDe} />
               <Route path="/politicos" component={Politicos} />
               <Route path="/moderador" component={Moderador} />
+              <Route path="/soporte" component={Soporte} />
              
               <Route path="/login" component={Login}/>
       
