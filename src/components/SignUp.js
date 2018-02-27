@@ -12,6 +12,8 @@ import WaveBackground from './generic/wave_background';
 
 import signup from '../queries/signup';
 import GenericForm from './generic/generic_form';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 
 class SignUp extends GenericForm {
@@ -39,6 +41,15 @@ class SignUp extends GenericForm {
     this.updateErizo = this.updateErizo.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  handleOpen(){
+    this.setState({ open: true });
+  };
+
+  handleClose(){
+    this.setState({ open: false });
+    this.loadPosition();
+  };
 
   /**
   * Cambia el avatar actualmente seleccionado a Jaiba.jpg
@@ -117,7 +128,7 @@ class SignUp extends GenericForm {
           this.setState({toggled: true });
         }, 
         (err)=>{
-          this.setState({error: "Recarga la pagina y activa la ubicacion o no podras continuar", toggled: false});
+          this.setState({error: "Se necesita la ubicación para proceder con el registro"});
         },
         {
           enableHighAccuracy: true,
@@ -174,6 +185,16 @@ class SignUp extends GenericForm {
     const { handleSubmit } = this.props;
     return (
       <div>
+        <Dialog
+          title="Para continuar, proporcione su ubicación"
+          actions={[<FlatButton label="Aceptar" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+        Necesitamos saber de que estado de la república eres para optimizar tu experiencia en la plataforma y comprobar que eres mexicano,
+        tu ubicación se guardará hasta que te registres en el sistema.
+        </Dialog>
         <section className="hero is-large">
           <section className="hero is-large">
             <div className="section">
@@ -275,16 +296,6 @@ class SignUp extends GenericForm {
                                     component={this.renderTextField}
                                     hintText="Ingrese su curp"
                                     floatingLabelText="CURP"
-                                  />
-                                </div>
-                              </div>
-                              <div className="level">
-                                <div className="level-item">
-                                  <Toggle
-                                    label="Dar acceso a la localizacion"
-                                    onToggle={this.loadPosition}
-                                    toggled={this.state.toggled}
-                                    style={({marginBottom: 16})}
                                   />
                                 </div>
                               </div>
