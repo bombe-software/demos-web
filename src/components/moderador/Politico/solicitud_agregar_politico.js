@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPolitico from '../../queries/fetchSolicitudPolitico';
+import fetchSolicitudPolitico from '../../../queries/fetchSolicitudPolitico';
 
-import AceptarPolitico from '../../queries/AceptarPolitico'
-import DenegarPolitico from '../../queries/DenegarPolitico';
+import AceptarPolitico from '../../../queries/AceptarPolitico'
+import DenegarPolitico from '../../../queries/DenegarPolitico';
 
-import DetalleSolicitudPolitico from './Politico/detalle_solicitud_politico';
+import DetalleSolicitudPolitico from './detalle_solicitud_politico';
 
 class SolicitudPolitico extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      idPolitico: null
+      idPolitico: null,
+      type: "Nuevo"
     }
 
     this.aceptar = this.aceptar.bind(this);
@@ -100,7 +101,7 @@ class SolicitudPolitico extends Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPolitico ? <DetalleSolicitudPolitico id={this.state.idPolitico} />: 
+          { this.state.idPolitico ? <DetalleSolicitudPolitico id={this.state.idPolitico} type={this.state.type} />: 
           <div className="card">
             <div className="card-content">
               <div className="section has-text-centered">

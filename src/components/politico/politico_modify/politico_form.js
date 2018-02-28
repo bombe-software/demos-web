@@ -16,7 +16,7 @@ import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
 import fetchPolitico from './../../../queries/fetchPoliticoPerfil';
-
+import ModifyPolitico from './../../../queries/ModifyPolitico';
 
 const load = async (props) => {
   if (props.loading) return <div>Loading...</div>;
@@ -49,13 +49,15 @@ class ModificarPoliticoForm extends GenericForm {
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
+    const politico = this.props.match.params.id_politico;
+    const estudios = this.props.fetchPolitico.politicosPorId.estudios[0].id;
     const {
-      nombre, cargo, estado, titulo, grado_academico, lugar_estudio, partido, referencia
+    nombre, cargo, partido, estado, titulo, grado_academico, lugar_estudio, referencia
     } = values
 
-    this.props.addPolitico({
+    this.props.ModifyPolitico({
       variables: {
-        nombre, cargo, partido, estado, lugar_estudio, grado_academico, titulo, usuario, referencia
+        politico, nombre, cargo, partido, estado,estudios , lugar_estudio,  grado_academico, titulo,  usuario,  referencia
       }
     }).then(() => this.props.history.push(`/politicos`));
   };
@@ -268,6 +270,9 @@ export default compose(
   }),
   graphql(fetchUsuario, {
     name: 'fetchUsuario'
+  }),
+  graphql(ModifyPolitico, {
+    name: 'ModifyPolitico'
   }),
   graphql(fetchPolitico, {
     name: "fetchPolitico",

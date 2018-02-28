@@ -121,3 +121,4 @@ export default compose(
         name: 'DenegarPropuesta'
     }),
 )(SolicitudPropuesta);
+

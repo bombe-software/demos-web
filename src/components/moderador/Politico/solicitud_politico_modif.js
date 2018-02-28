@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPolitico from '../../../queries/fetchSolicitudPolitico';
+import fetchSolicitudPoliticoModif from '../../../queries/fetchSolicitudPoliticoModif';
 
 import AceptarPolitico from '../../../queries/AceptarPolitico'
 import DenegarPolitico from '../../../queries/DenegarPolitico';
 
 import DetalleSolicitudPolitico from './detalle_solicitud_politico';
+
 
 class SolicitudPoliticoModif extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class SolicitudPoliticoModif extends Component {
       variables: {
        idPolitico
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props. fetchSolicitudPoliticoModif.refetch());
   }
 
   denegar(idPolitico) {
@@ -37,7 +38,7 @@ class SolicitudPoliticoModif extends Component {
       variables: {
         idPolitico
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props. fetchSolicitudPoliticoModif.refetch());
   }
 
   seleccionar(idPolitico) {
@@ -45,8 +46,9 @@ class SolicitudPoliticoModif extends Component {
   }
 
   renderList() {
-
-    return this.props.fetchSolicitudPolitico.solicitudPoliticos.map(({id, nombre}) => {
+    console.log("hola");
+    console.log(this.props);
+    return this.props.fetchSolicitudPoliticoModif.solicitudesModificarPolitico.map(({id, nombre}) => {
       return (
         <div key={id}>
           <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
@@ -83,7 +85,7 @@ class SolicitudPoliticoModif extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudPolitico.loading){
+    if (this.props.fetchSolicitudPoliticoModif.loading){
       return <div>Loading...</div>
     }
     return (
@@ -113,8 +115,8 @@ class SolicitudPoliticoModif extends Component {
   }
 }
 export default compose(
-    graphql(fetchSolicitudPolitico, {
-        name: 'fetchSolicitudPolitico'
+    graphql(fetchSolicitudPoliticoModif, {
+        name: 'fetchSolicitudPoliticoModif'
     }),
     graphql(AceptarPolitico, {
       name: 'AceptarPolitico'
