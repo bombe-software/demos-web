@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPropuesta from '../../queries/fetchSolicitudPropuesta';
-import AceptarPropuesta from '../../queries/AceptarPropuesta';
-import DenegarPropuesta from '../../queries/DenegarPropuesta';
+import fetchSolicitudPropuesta from '../../../queries/fetchSolicitudPropuesta';
+import AceptarPropuesta from '../../../queries/AceptarPropuesta';
+import DenegarPropuesta from '../../../queries/DenegarPropuesta';
 
-import DetalleSolicitudPropuesta from './Propuesta/detalle_solicitud_propuesta';
+import DetalleSolicitudPropuesta from './detalle_solicitud_propuesta';
 
 class SolicitudPropuesta extends Component {
   constructor(props) {
@@ -81,7 +81,6 @@ class SolicitudPropuesta extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.fetchSolicitudPropuesta.loading){
       return <div>Loading...</div>
     }

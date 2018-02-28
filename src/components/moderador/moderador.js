@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 //Components
-import PendientesAgregarPropuestas from './solicitud_agregar_propuesta';
-import PendientesAgregarHistorial from './solicitud_agregar_evento';
-import PendientesAgregarPoliticos from './solicitud_agregar_politico';
+import PendientesAgregarPropuestas from './Propuesta/solicitud_agregar_propuesta';
+import PendientesAgregarHistorial from './Evento/solicitud_agregar_evento';
+import PendientesAgregarPoliticos from './Politico/solicitud_agregar_politico';
 
  import PendientesModificarPoliticos from './Politico/solicitud_politico_modif';
  import PendientesModificarHistorial from './Evento/solicitud_evento_modif';

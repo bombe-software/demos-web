@@ -31,7 +31,7 @@ class Password extends GenericForm {
 
   render() {
     return (
-      <div class="box">
+      <div className="box">
         <h1 className="is-size-4">Cambia tu password</h1><hr />
           <Form
             onSubmit={this.onSubmit}

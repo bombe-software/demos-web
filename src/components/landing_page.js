@@ -77,7 +77,7 @@ class LandingPage extends Component {
 
                         <div className="hero-body">
                             <div className="container">
-                                <p className="is-size-1">Bienvenido a SD Demos</p>
+                                <p className="is-size-1">Bienvenido a Demos</p>
                                 <p className="subtitle">Decide por quien votar informándote de las propuestas y el historial de cada político</p>
                             </div>
                         </div>

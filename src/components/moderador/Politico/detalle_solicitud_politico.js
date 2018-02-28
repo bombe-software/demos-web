@@ -16,6 +16,7 @@ class DetalleSolicitudPolitico extends Component {
                 <div>Loading...</div>
             );
         }
+        console.log(this.props);
         const politico = this.props.SolicitudPolitico.solicitudPolitico;
         return (
             <div className="card">
@@ -24,7 +25,7 @@ class DetalleSolicitudPolitico extends Component {
                     Publicado por el usuario: <b>{politico.usuario.nombre}</b>&nbsp;&nbsp;
                     <img src={`../../assets/img/${politico.usuario.avatar}.png`} height="14" width="14"/></p>
                     <hr />
-                    <p className="title">{console.log(this.props)}</p>
+                    <p className="title"></p>
                     <p className="title is-4">Nombre: {politico.nombre}</p>
                     <p><b>Cargo: </b>{politico.cargo}</p>
                     <p><b>Partido: </b>{politico.partido.nombre}</p>

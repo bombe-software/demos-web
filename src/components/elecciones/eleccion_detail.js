@@ -60,7 +60,6 @@ class EleccionDetail extends Component {
                     </div>
                 );
             } else {
-                console.log(this.props.fetchEleccion.votacion);
                 const votacion = this.props.fetchEleccion.votacion.preferencias;
                 let colorList = [
                     'rgba(69, 196, 158, 0.9)',
