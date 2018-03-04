@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
 
 //Components
-import PendientesPropuestas from './solicitud_propuesta';
-import PendientesHistorial from './solicitud_evento';
-import PendientesPoliticos from './solicitud_politico';
-import fetchUsuario from './../../queries/fetchUsuario';
-import { graphql } from 'react-apollo';
-import NotFound from './../not_found';
+import PendientesAgregarPropuestas from './solicitud_agregar_propuesta';
+import PendientesAgregarHistorial from './solicitud_agregar_evento';
+import PendientesAgregarPoliticos from './solicitud_agregar_politico';
+
 class Moderador extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'propuestas'
+      type: 'propuestas',
+      tabList: 'nuevo'
     };
     this.updatePropuestas = this.updatePropuestas.bind(this);
     this.updateHistorial = this.updateHistorial.bind(this);
     this.updatePoliticos = this.updatePoliticos.bind(this);
+
+    this.renderPendientesPoliticos = this.renderPendientesPoliticos.bind(this);
+    this.renderPendientesPropuestas = this.renderPendientesPropuestas.bind(this);
+    this.renderPendientesHistorial = this.renderPendientesHistorial.bind(this);
+
+    this.updateNuevo = this.updateNuevo.bind(this);
+    this.updateModificacion = this.updateModificacion.bind(this);
+    this.updateEliminar = this.updateEliminar.bind(this);
+
     this.update = this.update.bind(this);
   }
 
@@ -28,46 +36,114 @@ class Moderador extends Component {
   updatePoliticos() {
     this.setState({ type: 'politicos' })
   }
-
-  update() {
-    let type = this.state.type;
-    if (type == "propuestas") {
-      return (
-        <div>
-          <PendientesPropuestas />
-        </div>
-      );
-    } else if (type == "historial") {
-      return (
-        <div>
-          <PendientesHistorial />
-        </div>
-      );
-    } else if (type == "politicos") {
+  updateNuevo() {
+    this.setState({ tabList: 'nuevo' });
+  }
+  updateModificacion() {
+    this.setState({ tabList: 'modif' })
+  }
+  updateEliminar() {
+    this.setState({ tabList: 'eliminar' })
+  }
+  renderPendientesPoliticos() {
+    let tabList = this.state.tabList;
+    if (tabList == "nuevo") {
       return (
         <div>
           <PendientesPoliticos />
         </div>
       );
     }
+    else if (tabList == "modif") {
+      return (
+        <div>
+          <PendientesPoliticosModif />
+        </div>
+      );
+    } else if (tabList == "eliminar") {
+      return (
+        <div>
+       
+        </div>
+      );
+    }
+  }
+
+  renderPendientesHistorial() {
+    let tabList = this.state.tabList;
+    if (tabList == "nuevo") {
+      return (
+        <div>
+          <PendientesHistorial />
+        </div>
+      );
+    }
+    else if (tabList == "modif") {
+      return (
+        <div>
+          <PendientesHistorialModif />
+        </div>
+      );
+    } else if (tabList == "eliminar") {
+      return (
+        <div>
+       
+        </div>
+      );
+    }
+  }
+  renderPendientesPropuestas() {
+    let tabList = this.state.tabList;
+    if (tabList == "nuevo") {
+      return (
+        <div>
+          <PendientesPropuestas />
+        </div>
+      );
+    }
+    else if (tabList == "modif") {
+      return (
+        <div>
+          <PendientesPropuestasModif />
+        </div>
+      );
+    } else if (tabList == "eliminar") {
+      return (
+        <div>
+       
+        </div>
+      );
+    }
+  }
+
+  update() {
+    let type = this.state.type;
+    if (type == "propuestas") {
+      return (
+        <div>
+          <PendientesAgregarPropuestas  />
+        </div>
+      );
+    } else if (type == "historial") {
+      return (
+        <div>
+          <PendientesAgregarHistorial />
+        </div>
+      );
+    } else if (type == "politicos") {
+      return (
+        <div>
+          <PendientesAgregarPoliticos />
+        </div>
+      );
+    }
   }
 
   render() {
-    if (this.props.data.loading) {return(<div>Loading..</div>);
-    }
-    if (this.props.data.usuario === null) {
-      return (
-        <NotFound />
-      );
-    } else if(this.props.data.usuario.tipo_usuario.tipo != "Moderador") {
-      return(
-        <NotFound />
-      );
-    }
     return (
       <div className="section">
         <div className="columns is-desktop">
-          <div className="column is-8-widescreen is-10-desktop is-10-tablet is-10-mobile is-offset-1-mobile is-offset-1-tablet is-offset-1-desktop is-offset-2-widescreen">
+          <div className="column is-8-widescreen is-10-dektop is-10-tablet is-offset-1-desktop is-offset-2-widescreen is-offset-1-tablet">
             <h1 className="is-size-2">Moderador</h1>
             <hr />
             <div className="tabs is-medium">
@@ -83,12 +159,10 @@ class Moderador extends Component {
                 </li>
               </ul>
             </div>
-
-            <div>
-              {this.update()}
-            </div>
-
           </div>
+        </div>
+        <div>
+          {this.update()}
         </div>
         <div className="level"><br /><br /></div>
       </div>
@@ -97,4 +171,4 @@ class Moderador extends Component {
 
 }
 
-export default graphql(fetchUsuario)(Moderador);
+export default Moderador;

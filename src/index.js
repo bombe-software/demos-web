@@ -11,7 +11,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { createHttpLink } from 'apollo-link-http';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { createUploadLink } from 'apollo-upload-client';
+//import { createUploadLink } from 'apollo-upload-client';
 
 //Sin manejo de informacion
 import NotFound from './components/not_found';
@@ -25,7 +25,7 @@ import Navbar from './components/generic/navbar';
 import SignUp from './components/signup';
 import Login from './components/login';
 
-{/*import ConfirmEmail from './components/confirm_ email';*/}
+import ConfirmEmail from './components/confirm_email';
 import RecoverPassword from './components/recover_password';
 import ConfigCuenta from './components/config_cuenta/config_cuenta';
 
@@ -42,6 +42,11 @@ import PropuestaSeleccionada from './components/politico/politico_detail/propues
 import EventoSeleccionado from './components/politico/politico_detail/evento_seleccionado';
 
 import Moderador from './components/moderador/moderador';
+
+import Soporte from './components/soporte/soporte';
+import ModificarEvento from './components/politico/politico_modify/evento_form';
+import ModificarPolitico from './components/politico/politico_modify/politico_form';
+import ModificarPropuesta from './components/politico/politico_modify/propuesta_form';
 
 //Pruebas 
 
@@ -60,10 +65,12 @@ const wsLink = new WebSocketLink({
   credentials: 'include'
 });
  
+/*
 const uploadLink = createUploadLink({
   uri: 'https://demos-gql.herokuapp.com/graphql',
   credentials: 'include'
 });
+*/
 
 
 // USar dependencia split para hacer una union de ambos 
@@ -108,7 +115,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
-              {/*<Route path="/confirm_email" component={ConfirmEmail} />*/}
+              <Route path="/confirm_email" component={ConfirmEmail} />
               <Route path="/recover_password" component={RecoverPassword} />
               <Route path="/config_cuenta" component={ConfigCuenta} />
 
@@ -116,6 +123,7 @@ class App extends React.Component {
               <Route path="/acerca_de" component={AcercaDe} />
               <Route path="/politicos" component={Politicos} />
               <Route path="/moderador" component={Moderador} />
+              <Route path="/soporte" component={Soporte} />
              
               <Route path="/login" component={Login}/>
       
@@ -135,6 +143,10 @@ class App extends React.Component {
 
                 <Route path="/politico/:id/propuesta/:id_propuesta" exact component={PropuestaSeleccionada} />
                 <Route path="/politico/:id/evento/:id_evento" exact component={EventoSeleccionado} />
+                
+                <Route path="/evento/modify/:id_evento" exact component={ModificarEvento} />
+                <Route path="/propuesta/modify/:id_propuesta" exact component={ModificarPropuesta} />
+                 <Route path="/politico/modify/:id_politico" exact component={ModificarPolitico} />
 
                 {/*Landing page*/}
                 <Route path="/" exact component={LandingPage} />

@@ -35,8 +35,8 @@ class PropuestaSeleccionada extends Component {
                         <br />
                         <p>{descripcion}</p>
                         <p>Fuente de consulta: <a href={referencia}>{referencia}</a></p>
-                        <br />
-                        <p>Usuario: @{usuario.nombre}</p>
+                        {/*<br />
+                        <p>Usuario: @{usuario.nombre}</p>*/}
                     </div>
                 </div>
                </div>

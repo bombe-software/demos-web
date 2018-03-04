@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
+import { Link } from 'react-router-dom';
 
 import fetchPoliticoPerfil from '../../../queries/fetchPoliticoPerfil';
 
@@ -40,7 +41,10 @@ class PoliticoPerfil extends Component {
                         </div>
                         <div className="card-content">
                             <div className="is-size-5 has-text-centered">
-                                <span>{nombre}</span>
+                                <span>{nombre}</span> 
+                                <Link to={`/politico/modify/${this.props.id}`}>
+                                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
+                                </Link>
                             </div>
                             <hr />
                             <span className="is-size-6">

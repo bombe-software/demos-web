@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
@@ -24,6 +25,9 @@ class EventoSeleccionado extends Component {
                    <div>
                     <Link to={`/politico/${politico.id}`}>
                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Regresar</span>
+                    </Link>
+                    <Link to={`/evento/modify/${this.props.match.params.id_evento}`}>
+                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
                     </Link>
                    </div>
                    <br />

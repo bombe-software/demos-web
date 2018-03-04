@@ -5,6 +5,9 @@ export default gql`
   solicitudEventos {
     id
     titulo
+    politico{
+      id
+    }
   }
 }
 `;

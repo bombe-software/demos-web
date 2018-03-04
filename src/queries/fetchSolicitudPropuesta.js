@@ -5,6 +5,9 @@ export default gql`
   solicitudPropuestas {
     id
     titulo
+    politico{
+      id
+    }
   }
 }
 `;

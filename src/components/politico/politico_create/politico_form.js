@@ -273,4 +273,3 @@ export default compose(
   })
 
 )(PoliticoForm);
-

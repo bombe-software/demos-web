@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 import { Form, Field } from "react-final-form";
+import Toggle from 'material-ui/Toggle';
+import { createClient } from '@google/maps';
+import _ from 'lodash';
+
+import axios from "axios";
 
 import WaveBackground from './generic/wave_background';
 
 import signup from '../queries/signup';
 import GenericForm from './generic/generic_form';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 
 class SignUp extends GenericForm {
@@ -21,16 +28,28 @@ class SignUp extends GenericForm {
     super(props);
     this.state = {
       avatar: '',
-      localidad: "localidad",
+      localidad: '',
       imgAvatar: ['none', 'none', 'none', 'none'],
-      error: ''
+      error: '',
+      toggled: false,
+      address: ''
     };
     this.updateJaiba = this.updateJaiba.bind(this);
+    this.loadPosition = this.loadPosition.bind(this);
     this.updateAnguila = this.updateAnguila.bind(this);
     this.updateChivo = this.updateChivo.bind(this);
     this.updateErizo = this.updateErizo.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  handleOpen(){
+    this.setState({ open: true });
+  };
+
+  handleClose(){
+    this.setState({ open: false });
+    this.loadPosition();
+  };
 
   /**
   * Cambia el avatar actualmente seleccionado a Jaiba.jpg
@@ -84,11 +103,46 @@ class SignUp extends GenericForm {
     })
   }
 
+  loadPosition(event, bool) {
+    if(bool){
+      navigator.geolocation.getCurrentPosition(
+        (pos)=>{
+          let crd = pos.coords;
+          createClient({ key: 'AIzaSyCRi0T7zpYssizFATxh2n0LovJQtvVDNSY' }).reverseGeocode({
+            latlng:(crd.latitude+","+crd.longitude)
+          },(err, response) => {
+            let estado = '';
+            if (!err) {
+              response.json.results[0].address_components.map((o) => { 
+                for (let i = 0; i < o.types.length; i++) {
+                  const element = o.types[i];
+                  if(element=="administrative_area_level_1"){
+                    estado = o.long_name;
+                  }
+                }
+                return true;
+              });
+            }
+            this.setState({localidad: estado });
+          });
+          this.setState({toggled: true });
+        }, 
+        (err)=>{
+          this.setState({error: "Se necesita la ubicación para proceder con el registro"});
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        });
+    }
+  }
+
   async onSubmit(values) {
-    if(this.state.avatar == ''){
-      this.setState({error: 'Selecciona un avatar'})
-    }else{
-      const {avatar, localidad} = this.state;
+    if (this.state.avatar == '') {
+      this.setState({ error: 'Selecciona un avatar' })
+    } else {
+      const { avatar, localidad } = this.state;
       const {
         nombre, email, password,
         curp
@@ -98,7 +152,9 @@ class SignUp extends GenericForm {
           nombre, email, password, localidad,
           curp, avatar, localidad
         }
-      }).then(alert('Informacion enviada'));
+      }).then(() => {
+        this.props.history.push("/confirm_email");
+      });
     }
   };
 
@@ -125,9 +181,20 @@ class SignUp extends GenericForm {
   * @method render
   */
   render() {
+    console.log(this.state.localidad);
     const { handleSubmit } = this.props;
     return (
       <div>
+        <Dialog
+          title="Para continuar, proporcione su ubicación"
+          actions={[<FlatButton label="Aceptar" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+        Necesitamos saber de que estado de la república eres para optimizar tu experiencia en la plataforma y comprobar que eres mexicano,
+        tu ubicación se guardará hasta que te registres en el sistema.
+        </Dialog>
         <section className="hero is-large">
           <section className="hero is-large">
             <div className="section">
@@ -137,7 +204,7 @@ class SignUp extends GenericForm {
                     <Form
                       onSubmit={this.onSubmit}
                       validate={values => {
-                        /*
+                        
                         const errors = {};
                         if (!values.nombre) {
                           errors.nombre = "Escriba su nombre de usuario";
@@ -179,7 +246,7 @@ class SignUp extends GenericForm {
                           errors.email = 'Correo inválido';
                         }
                         return errors;
-                        */
+                        
                       }}
                       render={({ handleSubmit, reset, submitting, pristine, values }) => (
                         <form onSubmit={handleSubmit}>
