@@ -48,23 +48,37 @@ import ModificarEvento from './components/politico/politico_modify/evento_form';
 import ModificarPolitico from './components/politico/politico_modify/politico_form';
 import ModificarPropuesta from './components/politico/politico_modify/propuesta_form';
 
-//Pruebas 
-
-// Crear un http link
 const httpLink = createHttpLink({
-  uri: 'https://demos-gql.herokuapp.com/graphql',
+  uri: 'http://localhost:3000/graphql',
   credentials: 'include'
 });
 
 // Crear el web socket link
 const wsLink = new WebSocketLink({
-  uri: `wss://demos-gql.herokuapp.com/subscriptions`,
+  uri: `ws://localhost:3000/subscriptions`,
+  options: {
+    reconnect: true //Very important
+  },
+  credentials: 'include'
+});
+
+//Pruebas 
+/*
+// Crear un http link
+const httpLink = createHttpLink({
+  uri: 'http://localhost:3000',
+  credentials: 'include'
+});
+
+// Crear el web socket link
+const wsLink = new WebSocketLink({
+  uri: `ws://localhost:3000/subscriptions`,
   options: {
     reconnect: true
   },
   credentials: 'include'
 });
- 
+ */
 /*
 const uploadLink = createUploadLink({
   uri: 'https://demos-gql.herokuapp.com/graphql',
