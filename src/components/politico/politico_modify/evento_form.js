@@ -61,13 +61,13 @@ class ModificarEventoForm extends GenericForm {
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
-    const politico = this.props.match.params.id;
+    const politico = this.props.match.params.id_evento;
     const {
       fecha, titulo,
       descripcion, referencia
     } = values
 
-
+    console.log(values);
     this.props.addEvento({
       variables: {
         fecha, titulo,
@@ -90,6 +90,7 @@ class ModificarEventoForm extends GenericForm {
         <NeedLogin />
       );
     }
+    console.log(this.props);
     return (
       <div>
         <Dialog

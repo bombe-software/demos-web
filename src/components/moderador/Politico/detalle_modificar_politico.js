@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 //Queries
-import SolicitudPolitico from '../../../queries/SolicitudPolitico';
+import SolicitudPolitico from '../../../queries/SolicitudModificarPolitico';
 
-class DetalleSolicitudPolitico extends Component {
+class DetalleModificarPolitico extends Component {
 
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ class DetalleSolicitudPolitico extends Component {
                 <div>Loading...</div>
             );
         }
-        const politico = this.props.SolicitudPolitico.solicitudPolitico;
+        const politico = this.props.SolicitudPolitico.solicitudModificarPolitico;
         return (
             <div className="card">
                 <div className="card-content">
@@ -31,7 +31,7 @@ class DetalleSolicitudPolitico extends Component {
                     <p><b>Estado: </b>{politico.estado.nombre}</p>
                     {politico.estudios[0] ? 
                         <p>
-                        <b>Estudios: </b>
+                        <b>Estudios: </b> &nbsp;
                         {politico.estudios[0].grado_academico.grado} 
                         en {politico.estudios[0].titulo} 
                         en {politico.estudios[0].lugar_estudio.nombre}
@@ -49,4 +49,4 @@ export default compose(
     graphql(SolicitudPolitico, {
         name: 'SolicitudPolitico'
     })
-)(DetalleSolicitudPolitico);
+)(DetalleModificarPolitico);

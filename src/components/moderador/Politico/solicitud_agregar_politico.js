@@ -84,7 +84,6 @@ class SolicitudPolitico extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.fetchSolicitudPolitico.loading){
       return <div>Loading...</div>
     }

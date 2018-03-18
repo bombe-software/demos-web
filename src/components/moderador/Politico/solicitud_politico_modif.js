@@ -6,7 +6,7 @@ import fetchSolicitudPoliticoModif from '../../../queries/fetchSolicitudPolitico
 import AceptarPolitico from '../../../queries/AceptarPolitico'
 import DenegarPolitico from '../../../queries/DenegarPolitico';
 
-import DetalleSolicitudPolitico from './detalle_solicitud_politico';
+import DetalleSolicitudModificarPolitico from './detalle_modificar_politico';
 
 
 class SolicitudPoliticoModif extends Component {
@@ -46,8 +46,6 @@ class SolicitudPoliticoModif extends Component {
   }
 
   renderList() {
-    console.log("hola");
-    console.log(this.props);
     return this.props.fetchSolicitudPoliticoModif.solicitudesModificarPolitico.map(({id, nombre}) => {
       return (
         <div key={id}>
@@ -101,7 +99,7 @@ class SolicitudPoliticoModif extends Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPolitico ? <DetalleSolicitudPolitico id={this.state.idPolitico} />: 
+          { this.state.idPolitico ? <DetalleSolicitudModificarPolitico id={this.state.idPolitico} />: 
           <div className="card">
             <div className="card-content">
               <div className="section has-text-centered">
