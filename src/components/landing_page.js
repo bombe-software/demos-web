@@ -2,6 +2,9 @@ import Navbar from "./generic/navbar";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Doughnut, Bar, Line, Pie } from 'react-chartjs-2';
+import { graphql } from 'react-apollo';
+import usuario from "./../queries/fetchUsuario";
+import Mexico from './nacional/mexico';
 
 class LandingPage extends Component {
 
@@ -41,8 +44,12 @@ class LandingPage extends Component {
         console.log("Info: " + info);
     }
 
-    render() {
+    renderActive(){
+        return <Mexico width={1000} height={604} />
+    }
 
+    render() {
+        if(this.props.data.usuario != null)  return this.renderActive()
         let names = [
             'Jesús Medina',
             'Mariana Benítez',
@@ -201,9 +208,7 @@ class LandingPage extends Component {
                                 </div>
                                 <br /><br /><br />
                                 <div className="column is-8-desktop is-12-tablet">
-                                    {/*
                                     <Doughnut data={this.generateData(names)} />
-                                     */}
                                 </div>
                             </div>
                         </div>
@@ -275,4 +280,4 @@ class LandingPage extends Component {
 
 }
 
-export default LandingPage;
+export default graphql(usuario)(LandingPage);
