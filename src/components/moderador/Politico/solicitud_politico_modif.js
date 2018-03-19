@@ -118,7 +118,7 @@ export default compose(
     graphql(fetchSolicitudPoliticoModif, {
         name: 'fetchSolicitudPoliticoModif'
     }),
-    graphql(AceptarModificarSolicitudPolitico, {
+    graphql(AceptarPolitico, {
       name: 'AceptarModificarSolicitudPolitico'
     }),
     graphql(DenegarPolitico, {
