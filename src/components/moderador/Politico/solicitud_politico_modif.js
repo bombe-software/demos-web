@@ -27,7 +27,6 @@ class SolicitudPoliticoModif extends Component {
    // console.log(this.props.SolicitudPolitico);
    //let id_solicitud = this.props.SolicitudPolitico.solicitudModificarPolitico.id;
     this.setState({ idPolitico: null });
-
     this.props.AceptarPolitico({
       variables: {
        id_politico, id_solicitud
@@ -119,8 +118,8 @@ export default compose(
     graphql(fetchSolicitudPoliticoModif, {
         name: 'fetchSolicitudPoliticoModif'
     }),
-    graphql(AceptarPolitico, {
-      name: 'AceptarPolitico'
+    graphql(AceptarModificarSolicitudPolitico, {
+      name: 'AceptarModificarSolicitudPolitico'
     }),
     graphql(DenegarPolitico, {
         name: 'DenegarPolitico'
