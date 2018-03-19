@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPoliticoModif from '../../../queries/fetchSolicitudPoliticoModif';
 
-import AceptarPolitico from '../../../queries/AceptarModifPolitico'
+import AceptarModifPolitico from '../../../queries/AceptarModifPolitico'
 import DenegarPolitico from '../../../queries/DenegarModifPolitico';
 
 import DetalleSolicitudModificarPolitico from './detalle_modificar_politico';
@@ -22,12 +22,13 @@ class SolicitudPoliticoModif extends Component {
     this.setState = this.setState.bind(this);
   }
 
-  aceptar(id_politico) {
+  aceptar(id_solicitud) {
+    console.log(id_solicitud)
     console.log(this.props);
     this.setState({ idPolitico: null });
-    this.props.AceptarPolitico({
+    this.props.AceptarModifPolitico({
       variables: {
-       id_solicitud
+      id_solicitud
       }
     }).then(()=> this.props.fetchSolicitudPoliticoModif.refetch());
   }
@@ -86,6 +87,7 @@ class SolicitudPoliticoModif extends Component {
     if (this.props.fetchSolicitudPoliticoModif.loading){
       return <div>Loading...</div>
     }
+    console.log("fetchSolicitudPoliticoModif: " + fetchSolicitudPoliticoModif);
     return (
       <div className="columns is-desktop">
         <div className="column is-3-widescreen is-3-desktop is-12-tablet is-offset-1-tablet is-offset-1-desktop is-offset-2-widescreen">
@@ -116,8 +118,8 @@ export default compose(
     graphql(fetchSolicitudPoliticoModif, {
         name: 'fetchSolicitudPoliticoModif'
     }),
-    graphql(AceptarPolitico, {
-      name: 'AceptarModificarSolicitudPolitico'
+    graphql(AceptarModifPolitico, {
+      name: 'AceptarModifPolitico'
     }),
     graphql(DenegarPolitico, {
         name: 'DenegarPolitico'
