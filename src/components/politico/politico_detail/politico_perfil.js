@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
+import deletePolitico from '../../../queries/DeletePolitico';
 import fetchPoliticoPerfil from '../../../queries/fetchPoliticoPerfil';
-
+import fetchUsuario from '../../../queries/fetchUsuario';
 class PoliticoPerfil extends Component {
     constructor(props) {
         super(props);
@@ -11,6 +12,7 @@ class PoliticoPerfil extends Component {
         this.state = {
             id_politico: id
         };
+         this.Eliminar = this.Eliminar.bind(this);
     }
 
     /**
@@ -25,12 +27,23 @@ class PoliticoPerfil extends Component {
         console.log("Error: " + error);
         console.log("Info: " + info);
     }
-
+    Eliminar(){
+        console.log("hola");
+        console.log(this.props);
+        let politico = this.props.id;
+        let usuario = this.props.fetchUsuario.usuario.id;
+        this.props.deletePolitico({
+        variables: {
+        politico,usuario
+      }
+    }).then(this.handleOpen); 
+    }
     render() {
         if (this.props.fetchPolitico.politicosPorId != undefined) {
             //let {politico} = this.props.fetchPolitico.politicosPorId;
             let politico, {nombre, partido, estudios} = this.props.fetchPolitico.politicosPorId;
             //if(politico, nombre, partido.nombre, estudios.grado_academico, estudios.titulo, estudios.lugar_estudio);
+            console.log(this.props);
             return (
                 <div>
                     <div className="card">
@@ -45,6 +58,9 @@ class PoliticoPerfil extends Component {
                                 <Link to={`/politico/modify/${this.props.id}`}>
                                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
                                 </Link>
+                                  
+                                    <input type="button" onClick={this.Eliminar} value="Eliminar" />
+                               
                             </div>
                             <hr />
                             <span className="is-size-6">
@@ -69,10 +85,15 @@ class PoliticoPerfil extends Component {
     }
 }
 
-export default
-    compose(
+export default compose(
         graphql(fetchPoliticoPerfil, {
             name: 'fetchPolitico',
             options: (props) => { return { variables: { id: props.id } } }
+        }),
+         graphql(fetchUsuario, {
+            name: 'fetchUsuario'
+        }),
+        graphql(deletePolitico, {
+            name: 'deletePolitico'
         })
     )(PoliticoPerfil);
