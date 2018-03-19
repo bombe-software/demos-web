@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPoliticoModif from '../../../queries/fetchSolicitudPoliticoModif';
 
-import AceptarModifPolitico from '../../../queries/AceptarModifPolitico'
+import AceptarPolitico from '../../../queries/AceptarModifPolitico'
 import DenegarPolitico from '../../../queries/DenegarModifPolitico';
 
 import DetalleSolicitudModificarPolitico from './detalle_modificar_politico';
@@ -22,15 +22,13 @@ class SolicitudPoliticoModif extends Component {
     this.setState = this.setState.bind(this);
   }
 
-  aceptar(id_solicitud) {
-    console.log(id_solicitud)
-    console.log(this.props);
+  aceptar(id_solicitudo) {
     this.setState({ idPolitico: null });
-    this.props.AceptarModifPolitico({
+    this.props.AceptarPolitico({
       variables: {
-      id_solicitud
-      }
-    }).then(()=> this.props.fetchSolicitudPoliticoModif.refetch());
+      id_solicitud 
+    }
+    })
   }
 
   denegar(idPolitico) {
@@ -39,7 +37,7 @@ class SolicitudPoliticoModif extends Component {
       variables: {
         idPolitico
       }
-    }).then(()=> this.props.fetchSolicitudPoliticoModif.refetch());
+    }).then(()=> this.props. fetchSolicitudPoliticoModif.refetch());
   }
 
   seleccionar(idPolitico) {
@@ -52,7 +50,7 @@ class SolicitudPoliticoModif extends Component {
         <div key={id}>
           <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id,id_politico) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
@@ -87,7 +85,6 @@ class SolicitudPoliticoModif extends Component {
     if (this.props.fetchSolicitudPoliticoModif.loading){
       return <div>Loading...</div>
     }
-    console.log("fetchSolicitudPoliticoModif: " + fetchSolicitudPoliticoModif);
     return (
       <div className="columns is-desktop">
         <div className="column is-3-widescreen is-3-desktop is-12-tablet is-offset-1-tablet is-offset-1-desktop is-offset-2-widescreen">
@@ -118,8 +115,8 @@ export default compose(
     graphql(fetchSolicitudPoliticoModif, {
         name: 'fetchSolicitudPoliticoModif'
     }),
-    graphql(AceptarModifPolitico, {
-      name: 'AceptarModifPolitico'
+    graphql(AceptarPolitico, {
+      name: 'AceptarPolitico'
     }),
     graphql(DenegarPolitico, {
         name: 'DenegarPolitico'
