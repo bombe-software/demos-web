@@ -49,7 +49,7 @@ class ModificarPoliticoForm extends GenericForm {
 
   async onSubmit(values) {
     const usuario = this.props.fetchUsuario.usuario.id;
-    const politico = this.props.match.params.id_politico;
+    const id_politico = this.props.match.params.id_politico;
     const estudios = this.props.fetchPolitico.politicosPorId.estudios[0].id;
     const {
     nombre, cargo, partido, estado, titulo, grado_academico, lugar_estudio, referencia
@@ -57,7 +57,7 @@ class ModificarPoliticoForm extends GenericForm {
 
     this.props.ModifyPolitico({
       variables: {
-        politico, nombre, cargo, partido, estado,estudios , lugar_estudio,  grado_academico, titulo,  usuario,  referencia
+        id_politico, nombre, cargo, partido, estado,estudios , lugar_estudio,  grado_academico, titulo,  usuario,  referencia
       }
     }).then(() => this.props.history.push(`/politicos`));
   };

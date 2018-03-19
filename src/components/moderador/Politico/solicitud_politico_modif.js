@@ -20,24 +20,25 @@ class SolicitudPoliticoModif extends Component {
     this.denegar = this.denegar.bind(this);
     this.seleccionar = this.seleccionar.bind(this);
     this.setState = this.setState.bind(this);
+    this.renderSectionPolitico = this.renderSectionPolitico.bind(this);
   }
 
-  aceptar(id_solicitudo) {
+  aceptar(id_solicitud) {
     this.setState({ idPolitico: null });
     this.props.AceptarPolitico({
       variables: {
       id_solicitud 
     }
-    })
+    }).then(()=> this.props.fetchSolicitudPoliticoModif.refetch());
   }
 
-  denegar(idPolitico) {
+  denegar(id_solicitud) {
     this.setState({ idPolitico: null });
     this.props.DenegarPolitico({
       variables: {
-        idPolitico
+        id_solicitud
       }
-    }).then(()=> this.props. fetchSolicitudPoliticoModif.refetch());
+    }).then(()=> this.props.fetchSolicitudPoliticoModif.refetch());
   }
 
   seleccionar(idPolitico) {
@@ -50,7 +51,7 @@ class SolicitudPoliticoModif extends Component {
         <div key={id}>
           <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id,id_politico) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
@@ -80,7 +81,23 @@ class SolicitudPoliticoModif extends Component {
     console.log("Error: " + error);
     console.log("Info: " + info);
   }
-
+  renderSectionPolitico(){
+    if(this.state.idPolitico){
+      console.log(this.state.idPolitico);
+      return <DetalleSolicitudModificarPolitico id={this.state.idPolitico} />;
+    }else{
+      console.log("Entras perrtio bonito");
+      return(          
+        <div className="card">
+            <div className="card-content">
+              <div className="section has-text-centered">
+                Selecciona un politico
+              </div>
+            </div>
+          </div>
+        );
+    }
+  }
   render() {
     if (this.props.fetchSolicitudPoliticoModif.loading){
       return <div>Loading...</div>
@@ -98,14 +115,7 @@ class SolicitudPoliticoModif extends Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPolitico ? <DetalleSolicitudModificarPolitico id={this.state.idPolitico} />: 
-          <div className="card">
-            <div className="card-content">
-              <div className="section has-text-centered">
-                Selecciona un político
-              </div>
-            </div>
-          </div> }
+         { this.renderSectionPolitico()}
         </div>
       </div>
     )

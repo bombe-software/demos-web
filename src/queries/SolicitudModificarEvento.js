@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-query SolicitudModificarPolitico($id: ID!){
-  solicitudModificarPolitico(id: $id){
+query solicitudModificarEvento($id: ID!){
+  solicitudModificarEvento(id: $id){
      id
     nombre
     cargo

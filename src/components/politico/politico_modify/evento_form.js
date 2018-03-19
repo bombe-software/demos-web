@@ -13,7 +13,7 @@ import AnimatedBackground from './../../generic/animated_background';
 //Queries
 import fetchEvento from './../../../queries/fetchEvento'
 import fetchUsuario from './../../../queries/fetchUsuario';
-import addEvento from './../../../queries/addEvento';
+import ModifyEvento from './../../../queries/ModifyEvento';
 import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
 
@@ -68,7 +68,7 @@ class ModificarEventoForm extends GenericForm {
     } = values
 
     console.log(values);
-    this.props.addEvento({
+    this.props.modifyEvento({
       variables: {
         fecha, titulo,
         descripcion, referencia, usuario, politico
@@ -208,9 +208,9 @@ class ModificarEventoForm extends GenericForm {
 }
 
 export default compose(
-  graphql(addEvento,
+  graphql(ModifyEvento,
     {
-      name: 'addEvento'
+      name: 'modifyEvento'
     }),
   graphql(fetchUsuario,
     {

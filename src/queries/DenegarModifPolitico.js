@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-mutation DenegarModificarSolicitudPolitico($id_politico:ID){
-  denegarModificarSolicitudPolitico(id_politico: $id_politico){
+mutation DenegarModificarSolicitudPolitico($id_solicitud:ID){
+  denegarModificarSolicitudPolitico(id_solicitud: $id_solicitud){
     id
   }
 }

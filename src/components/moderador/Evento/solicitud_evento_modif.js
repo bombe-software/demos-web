@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudEvento from '../../../queries/fetchSolicitudEvento';
+import fetchSolicitudEvento from '../../../queries/fetchSolicitudEventoModif';
 
-import AceptarEvento from '../../../queries/AceptarEvento'
-import DenegarEvento from '../../../queries/DenegarEvento';
+import AceptarEvento from '../../../queries/AceptarModifEvento'
+import DenegarEvento from '../../../queries/DenegarModifEvento';
 
-import DetalleSolicitudEvento from './detalle_solicitud_evento';
+import DetalleSolicitudEvento from './detalle_modificar_evento';
 
 class SolicitudEventoModif extends Component {
   constructor(props) {
@@ -23,11 +23,11 @@ class SolicitudEventoModif extends Component {
     this.renderSectionEvento = this.renderSectionEvento.bind(this);
   }
 
-  aceptar(idEvento) {
+  aceptar(id_solicitud) {
     this.setState({ idEvento: null });
     this.props.AceptarEvento({
       variables: {
-       idEvento
+       id_solicitud
       }
     }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
@@ -46,8 +46,8 @@ class SolicitudEventoModif extends Component {
   }
 
   renderList() {
-   // console.log(this.props.fetchSolicitudEvento);
-    return this.props.fetchSolicitudEvento.solicitudEventos.map(({id, titulo}) => {
+    console.log(this.props);
+    return this.props.fetchSolicitudEvento.solicitudesModificarEvento.map(({id, titulo}) => {
       return (
         <div key={id}>
           <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
@@ -77,6 +77,7 @@ class SolicitudEventoModif extends Component {
 
   renderSectionEvento(){
     if(this.state.idEvento){
+      console.log(this.state.idEvento);
       return <DetalleSolicitudEvento id={this.state.idEvento} />;
     }else{
       return(          
@@ -111,6 +112,7 @@ class SolicitudEventoModif extends Component {
           {this.renderSectionEvento()}
         </div>
       </div>
+      
     )
   }
 }
