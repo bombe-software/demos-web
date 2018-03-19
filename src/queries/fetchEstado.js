@@ -4,7 +4,7 @@ export default gql`
 query Estado($id:ID){
     estado(id: $id){
       id
-      estado
+      nombre
     }
 }
 `;

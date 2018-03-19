@@ -28,6 +28,7 @@ class SignUp extends GenericForm {
     super(props);
     this.state = {
       avatar: '',
+      open: true,
       localidad: '',
       imgAvatar: ['none', 'none', 'none', 'none'],
       error: '',
@@ -39,6 +40,8 @@ class SignUp extends GenericForm {
     this.updateAnguila = this.updateAnguila.bind(this);
     this.updateChivo = this.updateChivo.bind(this);
     this.updateErizo = this.updateErizo.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this)
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -103,8 +106,7 @@ class SignUp extends GenericForm {
     })
   }
 
-  loadPosition(event, bool) {
-    if(bool){
+  loadPosition() {
       navigator.geolocation.getCurrentPosition(
         (pos)=>{
           let crd = pos.coords;
@@ -135,7 +137,6 @@ class SignUp extends GenericForm {
           timeout: 5000,
           maximumAge: 0
         });
-    }
   }
 
   async onSubmit(values) {
@@ -150,7 +151,7 @@ class SignUp extends GenericForm {
       this.props.mutate({
         variables: {
           nombre, email, password, localidad,
-          curp, avatar, localidad
+          curp, avatar
         }
       }).then(() => {
         this.props.history.push("/confirm_email");

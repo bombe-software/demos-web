@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Estado from './estado';
 import { Pie } from 'react-chartjs-2';
+import GraficaLateral from './grafica_lateral'
 
 class Mexico extends Component {
 
@@ -51,27 +52,7 @@ class Mexico extends Component {
             ];
       }
 
-      generateData(names) {
-            return {
-                labels: names,
-                datasets: [{
-                    data: [500, 230, 140],
-                    backgroundColor: [
-                        'rgba(69, 196, 158, 0.9)',
-                        'rgba(115, 86, 201, 0.9)',
-                        'rgba(234, 83, 136, 0.9)'
-                    ],
-                    hoverBackgroundColor: [
-                        'rgba(69, 196, 158, 1)',
-                        'rgba(115, 86, 201, 1)',
-                        'rgba(234, 83, 136, 1)'
-                    ]
-                }]
-            };
-        }
-
       handleEstadoSelected(id){
-            console.log(id);
             this.setState({estadoSelected: id});
       }
 
@@ -83,14 +64,10 @@ class Mexico extends Component {
       }
 
       render() {
-            let partidos = [
-                  'MORENA',
-                  'PAN',
-                  'PRI',
-              ];
+            
             return (
-                  <div class="columns">
-                        <div class="column">
+                  <div className="columns">
+                        <div className="column">
                         <svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width={this.props.width} height={this.props.height} viewBox="0 0 800 504" strokeLinecap="round"
                               strokeLinejoin="round">
                               <g className={"mexicoMap"}>
@@ -98,11 +75,9 @@ class Mexico extends Component {
                               </g>
                         </svg>
                         </div>
-                        <div class="column">
-                              {this.state.estadoSelected}
-                              {
-                                    <Pie data={this.generateData(partidos)} />
-                              }
+                        <div className="column">
+                              {(this.state.estadoSelected != "") ? <GraficaLateral id_estado={this.state.estadoSelected} /> : ""}
+                              
                         </div>
                   </div>
             )

@@ -126,6 +126,9 @@ renderModerador(){
                   <Link to="/politicos" className="navbar-item" onClick={this.handleClick}>
                     Politicos
                   </Link>
+                  <Link to="/nacional" className="navbar-item" onClick={this.handleClick}>
+                    Nacional
+                  </Link>
                   <Link to="/acerca_de" className="navbar-item" onClick={this.handleClick}>
                     Ayuda
                   </Link>

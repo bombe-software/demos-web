@@ -15,7 +15,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 //Sin manejo de informacion
 import NotFound from './components/not_found';
-import LandingPage from './components/landing_page';
+import LandingPage from './components/landing_page/landing_page';
 
 
 //Genericos
@@ -47,6 +47,7 @@ import Soporte from './components/soporte/soporte';
 import ModificarEvento from './components/politico/politico_modify/evento_form';
 import ModificarPolitico from './components/politico/politico_modify/politico_form';
 import ModificarPropuesta from './components/politico/politico_modify/propuesta_form';
+import Nacional from './components/nacional/nacional';
 
 //Pruebas 
 
@@ -118,6 +119,7 @@ class App extends React.Component {
               <Route path="/confirm_email" component={ConfirmEmail} />
               <Route path="/recover_password" component={RecoverPassword} />
               <Route path="/config_cuenta" component={ConfigCuenta} />
+              <Route path="/nacional" component={Nacional} />
 
               <Route path="/elecciones" component={Elecciones} />
               <Route path="/acerca_de" component={AcercaDe} />
