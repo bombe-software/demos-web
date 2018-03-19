@@ -24,6 +24,7 @@ class SolicitudPolitico extends Component {
   }
 
   aceptar(idPolitico) {
+    console.log(this.props);
     this.setState({ idPolitico: null });
     this.props.AceptarPolitico({
       variables: {
