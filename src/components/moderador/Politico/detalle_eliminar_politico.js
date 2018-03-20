@@ -17,6 +17,7 @@ class DetalleEliminarPolitico extends Component {
             );
         }
         const politico = this.props.SolicitudPolitico.solicitudModificarPolitico;
+        console.log(politico)
         return (
             <div className="card">
                 <div className="card-content">

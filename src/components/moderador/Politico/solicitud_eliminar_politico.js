@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPolitico from '../../../queries/fetchSolicitudPoliticoElim';
+import fetchSolicitudPoliticoElim from '../../../queries/fetchSolicitudPoliticoElim';
 
 import AceptarPolitico from '../../../queries/AceptarEliminarPolitico'
 import DenegarPolitico from '../../../queries/DenegarEliminarPolitico';
@@ -28,7 +28,7 @@ class SolicitudPolitico extends Component {
       variables: {
        idPolitico
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props.fetchSolicitudPoliticoElim.refetch());
   }
 
   denegar(idPolitico) {
@@ -37,7 +37,7 @@ class SolicitudPolitico extends Component {
       variables: {
         idPolitico
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props.fetchSolicitudPoliticoElim.refetch());
   }
 
   seleccionar(idPolitico) {
@@ -46,7 +46,7 @@ class SolicitudPolitico extends Component {
 
   renderList() {
     console.log(this.props);
-    return this.props.fetchSolicitudPolitico.solicitudesDeletePolitico.map(({id, nombre}) => {
+    return this.props.fetchSolicitudPoliticoElim.solicitudesDeletePolitico.map(({id, id_usuario, id_politico}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -62,7 +62,7 @@ class SolicitudPolitico extends Component {
             </span>
             <a  onClick={()=>{this.seleccionar(id)}}
             style={{color: 'inherit', textDecoration: 'none'}}
-            >{nombre}</a>
+            >{id_politico.nombre}</a>
           </div>
         </div>
       );
@@ -83,7 +83,7 @@ class SolicitudPolitico extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudPolitico.loading){
+    if (this.props.fetchSolicitudPoliticoElim.loading){
       return <div>Loading...</div>
     }
     return (
@@ -113,8 +113,8 @@ class SolicitudPolitico extends Component {
   }
 }
 export default compose(
-    graphql(fetchSolicitudPolitico, {
-        name: 'fetchSolicitudPolitico'
+    graphql(fetchSolicitudPoliticoElim, {
+        name: 'fetchSolicitudPoliticoElim'
     }),
     graphql(AceptarPolitico, {
       name: 'AceptarPolitico'

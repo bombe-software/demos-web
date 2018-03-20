@@ -4,8 +4,14 @@ export default gql`
 {
   solicitudesDeletePolitico {
     id
-    id_politico,
-    id_usuario
+    id_politico{
+    	id
+    	nombre
+    },
+    id_usuario{
+    	id
+    	nombre
+    }
 }
 }
 `;
