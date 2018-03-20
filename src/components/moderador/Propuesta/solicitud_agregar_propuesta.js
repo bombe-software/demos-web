@@ -47,7 +47,7 @@ class SolicitudPropuesta extends Component {
     return this.props.fetchSolicitudPropuesta.solicitudPropuestas.map(({id, titulo}) => {
       return (
         <div key={id}>
-          <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
+          <div className="panel-block"  >
             <span className="panel-icon">
               <a className="is-primary" onClick={() => { this.aceptar(id) }}>
                 <i className="fa fa-check"></i>
@@ -58,7 +58,7 @@ class SolicitudPropuesta extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a
+            <a onClick={()=>{this.seleccionar(id)}}
             style={{color: 'inherit', textDecoration: 'none'}}
             >{titulo}</a>
           </div>

@@ -49,7 +49,7 @@ class SolicitudPoliticoModif extends Component {
     return this.props.fetchSolicitudPoliticoModif.solicitudesModificarPolitico.map(({id, nombre}) => {
       return (
         <div key={id}>
-          <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
+          <div className="panel-block" >
             <span className="panel-icon">
               <a className="is-primary" onClick={() => { this.aceptar(id) }}>
                 <i className="fa fa-check"></i>
@@ -60,7 +60,7 @@ class SolicitudPoliticoModif extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a
+            <a onClick={()=>{this.seleccionar(id)}}
             style={{color: 'inherit', textDecoration: 'none'}}
             >{nombre}</a>
           </div>
@@ -82,7 +82,9 @@ class SolicitudPoliticoModif extends Component {
     console.log("Info: " + info);
   }
   renderSectionPolitico(){
-    if(this.state.idPolitico){
+    console.log(this.state.idPolitico);
+    if(this.state.idPolitico!=null){
+      console.log("Entras perrito feo");
       console.log(this.state.idPolitico);
       return <DetalleSolicitudModificarPolitico id={this.state.idPolitico} />;
     }else{

@@ -46,7 +46,7 @@ class ModificarEventoForm extends GenericForm {
 
   handleClose() {
     this.setState({ open: false });
-    this.props.history.push(`/politico/${this.props.match.params.id}`);
+    this.props.history.push(`/politicos/`);
   };
 
   componentWillReceiveProps(props) {
@@ -60,8 +60,10 @@ class ModificarEventoForm extends GenericForm {
   }
 
   async onSubmit(values) {
+  
     const usuario = this.props.fetchUsuario.usuario.id;
-    const politico = this.props.match.params.id_evento;
+    const id_evento = this.props.match.params.id_evento;
+    const politico = this.props.fetchEvento.evento.politico.id;
     const {
       fecha, titulo,
       descripcion, referencia
@@ -70,7 +72,7 @@ class ModificarEventoForm extends GenericForm {
     console.log(values);
     this.props.modifyEvento({
       variables: {
-        fecha, titulo,
+        id_evento, fecha, titulo,
         descripcion, referencia, usuario, politico
       }
     }).then(this.handleOpen);

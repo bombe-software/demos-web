@@ -16,28 +16,20 @@ class DetalleModificarEvento extends Component {
                 <div>Loading...</div>
             );
         }
-        console.log(this.props);
+
         const evento = this.props.SolicitudEvento.solicitudModificarEvento;
-        return (
+        console.log(evento);
+             return (
             <div className="card">
+
                 <div className="card-content">
                     <p className="subtitle is-7">
                     Publicado por el usuario: <b>{evento.usuario.nombre}</b>&nbsp;&nbsp;
                     <img src={`../../assets/img/${evento.usuario.avatar}.png`} height="14" width="14"/></p>
                     <hr />
-                    <p className="title"></p>
-                    <p className="title is-4">Nombre: {evento.nombre}</p>
-                    <p><b>Cargo: </b>{evento.cargo}</p>
-                    <p><b>Partido: </b>{evento.partido.nombre}</p>
-                    <p><b>Estado: </b>{evento.estado.nombre}</p>
-                    {evento.estudios[0] ? 
-                        <p>
-                        <b>Estudios: </b> &nbsp;
-                        {evento.estudios[0].grado_academico.grado} 
-                        en {evento.estudios[0].titulo} 
-                        en {evento.estudios[0].lugar_estudio.nombre}
-                        </p> : <p>No se encontraron estudios</p>
-                    }
+                     <p className="title is-4"><b>Título: </b>{evento.titulo}</p>
+                      <p><b>Descripción: </b>{evento.descripcion}</p>
+                       <p><b>Fecha del evento: </b>{evento.fecha}</p>
                     <hr />
                     <b>Fuente de consulta: </b><a target="_blank" href={evento.referencia}>{evento.referencia}</a>
                 </div>

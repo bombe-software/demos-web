@@ -24,6 +24,7 @@ class SolicitudEventoModif extends Component {
   }
 
   aceptar(id_solicitud) {
+    console.log(id_solicitud);
     this.setState({ idEvento: null });
     this.props.AceptarEvento({
       variables: {
@@ -32,11 +33,11 @@ class SolicitudEventoModif extends Component {
     }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
 
-  denegar(idEvento) {
+  denegar(id_solicitud) {
     this.setState({ idEvento: null });
     this.props.DenegarEvento({
       variables: {
-        idEvento
+        id_solicitud
       }
     }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
@@ -50,7 +51,7 @@ class SolicitudEventoModif extends Component {
     return this.props.fetchSolicitudEvento.solicitudesModificarEvento.map(({id, titulo}) => {
       return (
         <div key={id}>
-          <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
+          <div className="panel-block" >
             <span className="panel-icon">
               <a className="is-primary" onClick={() => { this.aceptar(id) }}>
                 <i className="fa fa-check"></i>
@@ -61,7 +62,7 @@ class SolicitudEventoModif extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a
+            <a onClick={()=>{this.seleccionar(id)}}
             style={{color: 'inherit', textDecoration: 'none'}}
             >{titulo}</a>
           </div>
