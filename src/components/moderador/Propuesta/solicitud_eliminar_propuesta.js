@@ -1,51 +1,51 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPolitico from '../../../queries/fetchSolicitudPoliticoElim';
+import fetchSolicitudPropuestaElim from '../../../queries/fetchSolicitudPropuestaElim';
+import AceptarPropuesta from '../../../queries/AceptarEliminarPropuesta';
+import DenegarPropuesta from '../../../queries/DenegarEliminarPropuesta';
 
-import AceptarPolitico from '../../../queries/AceptarEliminarPolitico'
-import DenegarPolitico from '../../../queries/DenegarEliminarPolitico';
+import DetalleSolicitudEliminarPropuesta from './detalle_eliminar_propuesta';
 
-import DetalleEliminarPolitico from './detalle_eliminar_politico';
-
-class SolicitudEliminarPolitico extends Component {
+class SolicitudEliminarPropuesta extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      idPolitico: null,
+      idPropuesta: null
     }
 
     this.aceptar = this.aceptar.bind(this);
     this.denegar = this.denegar.bind(this);
     this.seleccionar = this.seleccionar.bind(this);
     this.setState = this.setState.bind(this);
+    this.renderSectionPropuesta = this.renderSectionPropuesta.bind(this);
   }
 
   aceptar(id_solicitud) {
-    this.setState({ idPolitico: null });
-    this.props.AceptarPolitico({
+    this.setState({ idPropuesta: null });
+    this.props.AceptarPropuesta({
       variables: {
        id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props.fetchSolicitudPropuestaElim.refetch());
   }
 
   denegar(id_solicitud) {
-    this.setState({ idPolitico: null });
-    this.props.DenegarPolitico({
+    this.setState({ idPropuesta: null });
+    this.props.DenegarPropuesta({
       variables: {
         id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props.fetchSolicitudPropuestaElim.refetch());
   }
 
-  seleccionar(idPolitico) {
-    this.setState({ idPolitico });
+  seleccionar(idPropuesta) {
+    this.setState({ idPropuesta });
   }
 
   renderList() {
-    return this.props.fetchSolicitudPolitico.solicitudesDeletePolitico.map(({id,id_politico, id_usuario}) => {
+    return this.props.fetchSolicitudPropuestaElim.solicitudesDeletePropuesta.map(({id,id_propuesta, id_usuario}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -59,9 +59,9 @@ class SolicitudEliminarPolitico extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a  onClick={()=>{this.seleccionar(id)}}
+            <a onClick={()=>{this.seleccionar(id)}} 
             style={{color: 'inherit', textDecoration: 'none'}}
-            >{id_politico.nombre}</a>
+            >{id_propuesta.titulo}</a>
           </div>
         </div>
       );
@@ -80,9 +80,23 @@ class SolicitudEliminarPolitico extends Component {
     console.log("Error: " + error);
     console.log("Info: " + info);
   }
-
+ renderSectionPropuesta(){
+    if(this.state.idPropuesta!=null){
+      return <DetalleSolicitudEliminarPropuesta id={this.state.idPropuesta} />;
+    }else{
+      return(          
+        <div className="card">
+            <div className="card-content">
+              <div className="section has-text-centered">
+                Selecciona una propuesta
+              </div>
+            </div>
+          </div>
+        );
+    }
+  }
   render() {
-    if (this.props.fetchSolicitudPolitico.loading){
+    if (this.props.fetchSolicitudPropuestaElim.loading){
       return <div>Loading...</div>
     }
     return (
@@ -91,34 +105,27 @@ class SolicitudEliminarPolitico extends Component {
           <div>
             
           <div className="panel">
-            <div className="panel-heading">Politicos</div>
+            <div className="panel-heading">Propuestas Cambios</div>
             {this.renderList()}
           </div>
 
           </div>
         </div>
         <div className="column is-5-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPolitico ? <DetalleEliminarPolitico id={this.state.idPolitico} />: 
-          <div className="card">
-            <div className="card-content">
-              <div className="section has-text-centered">
-                Selecciona un político
-              </div>
-            </div>
-          </div> }
+        {this.renderSectionPropuesta()}
         </div>
       </div>
     )
   }
 }
 export default compose(
-    graphql(fetchSolicitudPolitico, {
-        name: 'fetchSolicitudPolitico'
+    graphql(fetchSolicitudPropuestaElim, {
+        name: 'fetchSolicitudPropuestaElim'
     }),
-    graphql(AceptarPolitico, {
-      name: 'AceptarPolitico'
+    graphql(AceptarPropuesta, {
+      name: 'AceptarPropuesta'
     }),
-    graphql(DenegarPolitico, {
-        name: 'DenegarPolitico'
+    graphql(DenegarPropuesta, {
+        name: 'DenegarPropuesta'
     }),
-)(SolicitudEliminarPolitico);
+)(SolicitudEliminarPropuesta);

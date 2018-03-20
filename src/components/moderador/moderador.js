@@ -5,12 +5,13 @@ import PendientesAgregarPropuestas from './Propuesta/solicitud_agregar_propuesta
 import PendientesAgregarHistorial from './Evento/solicitud_agregar_evento';
 import PendientesAgregarPoliticos from './Politico/solicitud_agregar_politico';
 
- import PendientesModificarPoliticos from './Politico/solicitud_politico_modif';
- import PendientesModificarHistorial from './Evento/solicitud_evento_modif';
- import PendientesModificarPropuestas from './Propuesta/solicitud_propuesta_modif';
+import PendientesModificarPoliticos from './Politico/solicitud_politico_modif';
+import PendientesModificarHistorial from './Evento/solicitud_evento_modif';
+import PendientesModificarPropuestas from './Propuesta/solicitud_propuesta_modif';
 
-  import PendientesEliminarPoliticos from './Politico/solicitud_eliminar_politico';
-
+import PendientesEliminarPoliticos from './Politico/solicitud_eliminar_politico';
+import PendientesEliminarHistorial from './Evento/solicitud_eliminar_evento';
+import PendientesEliminarPropuestas from './Propuesta/solicitud_eliminar_propuesta';
 
 class Moderador extends Component {
   constructor(props) {
@@ -94,7 +95,7 @@ class Moderador extends Component {
     } else if (tabList == "eliminar") {
       return (
         <div>
-
+          <PendientesEliminarHistorial/>
         </div>
       );
     }
@@ -117,7 +118,7 @@ class Moderador extends Component {
     } else if (tabList == "eliminar") {
       return (
         <div>
-        
+            <PendientesEliminarPropuestas/>
         </div>
       );
     }
