@@ -46,7 +46,6 @@ class SolicitudEvento extends Component {
   }
 
   renderList() {
-   // console.log(this.props.fetchSolicitudEvento);
     return this.props.fetchSolicitudEvento.solicitudEventos.map(({id, titulo}) => {
       return (
         <div key={id}>

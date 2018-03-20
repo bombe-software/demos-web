@@ -18,7 +18,6 @@ class DetalleModificarEvento extends Component {
         }
 
         const evento = this.props.SolicitudEvento.solicitudModificarEvento;
-        console.log(evento);
              return (
             <div className="card">
 

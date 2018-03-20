@@ -69,7 +69,6 @@ class ModificarEventoForm extends GenericForm {
       descripcion, referencia
     } = values
 
-    console.log(values);
     this.props.modifyEvento({
       variables: {
         id_evento, fecha, titulo,
@@ -92,7 +91,6 @@ class ModificarEventoForm extends GenericForm {
         <NeedLogin />
       );
     }
-    console.log(this.props);
     return (
       <div>
         <Dialog

@@ -46,7 +46,6 @@ class ModificarPropuestaForm extends GenericForm {
   };
 
   handleClose(){
-    console.log(this.props);
     this.setState({ open: false });
     this.props.history.push(`/politicos/`);
   };
@@ -61,7 +60,6 @@ class ModificarPropuestaForm extends GenericForm {
     this.setState({ loading: false, data });
    }
   async onSubmit(values) {
-    console.log(this.props);
     const usuario = this.props.fetchUsuario.usuario.id;
     const id_propuesta = this.props.match.params.id_propuesta;
     const politico = this.props.fetchPropuesta.propuesta.politico.id;

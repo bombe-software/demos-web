@@ -82,13 +82,9 @@ class SolicitudPoliticoModif extends Component {
     console.log("Info: " + info);
   }
   renderSectionPolitico(){
-    console.log(this.state.idPolitico);
     if(this.state.idPolitico!=null){
-      console.log("Entras perrito feo");
-      console.log(this.state.idPolitico);
       return <DetalleSolicitudModificarPolitico id={this.state.idPolitico} />;
     }else{
-      console.log("Entras perrtio bonito");
       return(          
         <div className="card">
             <div className="card-content">

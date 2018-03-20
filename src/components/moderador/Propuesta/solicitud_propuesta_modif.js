@@ -45,7 +45,6 @@ class SolicitudPropuestaModif extends Component {
   }
 
   renderList() {
-    console.log(this.props)
     return this.props.fetchSolicitudPropuestaModif.solicitudesModificarPropuesta.map(({id, titulo}) => {
       return (
         <div key={id}>

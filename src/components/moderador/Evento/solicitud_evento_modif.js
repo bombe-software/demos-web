@@ -24,7 +24,6 @@ class SolicitudEventoModif extends Component {
   }
 
   aceptar(id_solicitud) {
-    console.log(id_solicitud);
     this.setState({ idEvento: null });
     this.props.AceptarEvento({
       variables: {
@@ -47,7 +46,6 @@ class SolicitudEventoModif extends Component {
   }
 
   renderList() {
-    console.log(this.props);
     return this.props.fetchSolicitudEvento.solicitudesModificarEvento.map(({id, titulo}) => {
       return (
         <div key={id}>
@@ -78,7 +76,6 @@ class SolicitudEventoModif extends Component {
 
   renderSectionEvento(){
     if(this.state.idEvento){
-      console.log(this.state.idEvento);
       return <DetalleSolicitudEvento id={this.state.idEvento} />;
     }else{
       return(          

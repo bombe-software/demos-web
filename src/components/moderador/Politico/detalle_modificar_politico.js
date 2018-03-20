@@ -16,7 +16,6 @@ class DetalleModificarPolitico extends Component {
                 <div>Loading...</div>
             );
         }
-        console.log(this.props);
         const politico = this.props.SolicitudPolitico.solicitudModificarPolitico;
         return (
             <div className="card">

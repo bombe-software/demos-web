@@ -17,7 +17,6 @@ class DetalleModificarPropuesta extends Component {
             );
         }
         const propuesta = this.props.SolicitudPropuesta.solicitudModificarPropuesta;
-        console.log(this.props);
         return (
             <div className="card">
 
