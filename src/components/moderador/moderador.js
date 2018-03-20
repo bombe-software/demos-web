@@ -9,6 +9,9 @@ import PendientesAgregarPoliticos from './Politico/solicitud_agregar_politico';
  import PendientesModificarHistorial from './Evento/solicitud_evento_modif';
  import PendientesModificarPropuestas from './Propuesta/solicitud_propuesta_modif';
 
+  import PendientesEliminarPoliticos from './Politico/solicitud_eliminar_politico';
+
+
 class Moderador extends Component {
   constructor(props) {
     super(props);
@@ -67,7 +70,7 @@ class Moderador extends Component {
     } else if (tabList == "eliminar") {
       return (
         <div>
-
+            <PendientesEliminarPoliticos/>
         </div>
       );
     }
@@ -114,7 +117,7 @@ class Moderador extends Component {
     } else if (tabList == "eliminar") {
       return (
         <div>
-
+        
         </div>
       );
     }
