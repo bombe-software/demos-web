@@ -13,7 +13,7 @@ import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
 //Queries y Mutations
 import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
-import addPropuesta from "../../../queries/addPropuesta";
+import ModifyPropuesta from "../../../queries/modifyPropuesta";
 import fetchUsuario from "../../../queries/fetchUsuario";
 import fetchPropuesta from '../../../queries/fetchPropuesta'
 
@@ -47,7 +47,7 @@ class ModificarPropuestaForm extends GenericForm {
 
   handleClose(){
     this.setState({ open: false });
-    this.props.history.push(`/politico/${this.props.match.params.id}`)
+    this.props.history.push(`/politicos/`);
   };
 
   componentWillReceiveProps(props){
@@ -60,16 +60,16 @@ class ModificarPropuestaForm extends GenericForm {
     this.setState({ loading: false, data });
    }
   async onSubmit(values) {
-
     const usuario = this.props.fetchUsuario.usuario.id;
-    const politico = this.props.match.params.id;
+    const id_propuesta = this.props.match.params.id_propuesta;
+    const politico = this.props.fetchPropuesta.propuesta.politico.id;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values
 
-    this.props.addPropuesta({
+    this.props.modifyPropuesta({
       variables: {
-        titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
+        id_propuesta, titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
       }
     }).then(this.handleOpen); 
 
@@ -135,12 +135,13 @@ class ModificarPropuestaForm extends GenericForm {
                         errors.referencia = "Escriba el link de referenica";
 
                       } else if (values.referencia != undefined) {
-                        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
+                         var re = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
+                        //var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
                         if (/^\s+|\s+$/.test(values.referencia)) {
                           errors.referencia = "Link invalido";
                         } else
                           if (!re.test(values.referencia)) {
-                            errors.referencia = "Link invalido";
+                            errors.referencia = "Los links deben empezar con http,https. (http(s)://www.demos.com)";
                           }
                       }
 
@@ -199,6 +200,7 @@ class ModificarPropuestaForm extends GenericForm {
                             />
                           </div>
                         </div>
+                        <br />
                         <div className="buttons has-text-centered">
                           <button type="submit" className="button is-primary" disabled={submitting}>
                             Registrar Evento
@@ -226,9 +228,9 @@ export default compose(
     {
       name: 'fetchTipoPropuesta'
     }),
-  graphql(addPropuesta,
+  graphql(ModifyPropuesta,
     {
-      name: 'addPropuesta'
+      name: 'modifyPropuesta'
     }),
   graphql(fetchUsuario,
     {

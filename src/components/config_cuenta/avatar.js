@@ -45,7 +45,6 @@ class Avatar extends Component {
   }
   async onSubmit(event) {
     event.preventDefault();
-    console.log("Todo bien");
     if (this.state.avatar == '') {
       this.setState({ error: 'Selecciona un avatar' })
     } else {

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPolitico from '../../../queries/fetchSolicitudPolitico';
+import fetchSolicitudPoliticoModif from '../../../queries/fetchSolicitudPoliticoModif';
 
-import AceptarPolitico from '../../../queries/AceptarPolitico'
-import DenegarPolitico from '../../../queries/DenegarPolitico';
+import AceptarPolitico from '../../../queries/AceptarModifPolitico'
+import DenegarPolitico from '../../../queries/DenegarModifPolitico';
 
-import DetalleSolicitudPolitico from './detalle_solicitud_politico';
+import DetalleSolicitudModificarPolitico from './detalle_modificar_politico';
 
 class SolicitudPoliticoModif extends Component {
   constructor(props) {
@@ -20,24 +20,25 @@ class SolicitudPoliticoModif extends Component {
     this.denegar = this.denegar.bind(this);
     this.seleccionar = this.seleccionar.bind(this);
     this.setState = this.setState.bind(this);
+    this.renderSectionPolitico = this.renderSectionPolitico.bind(this);
   }
 
-  aceptar(idPolitico) {
+  aceptar(id_solicitud) {
     this.setState({ idPolitico: null });
     this.props.AceptarPolitico({
       variables: {
-       idPolitico
-      }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+      id_solicitud 
+    }
+    }).then(()=> this.props.fetchSolicitudPoliticoModif.refetch());
   }
 
-  denegar(idPolitico) {
+  denegar(id_solicitud) {
     this.setState({ idPolitico: null });
     this.props.DenegarPolitico({
       variables: {
-        idPolitico
+        id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props.fetchSolicitudPoliticoModif.refetch());
   }
 
   seleccionar(idPolitico) {
@@ -45,11 +46,10 @@ class SolicitudPoliticoModif extends Component {
   }
 
   renderList() {
-
-    return this.props.fetchSolicitudPolitico.solicitudPoliticos.map(({id, nombre}) => {
+    return this.props.fetchSolicitudPoliticoModif.solicitudesModificarPolitico.map(({id, nombre}) => {
       return (
         <div key={id}>
-          <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
+          <div className="panel-block" >
             <span className="panel-icon">
               <a className="is-primary" onClick={() => { this.aceptar(id) }}>
                 <i className="fa fa-check"></i>
@@ -60,7 +60,7 @@ class SolicitudPoliticoModif extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a
+            <a onClick={()=>{this.seleccionar(id)}}
             style={{color: 'inherit', textDecoration: 'none'}}
             >{nombre}</a>
           </div>
@@ -81,9 +81,23 @@ class SolicitudPoliticoModif extends Component {
     console.log("Error: " + error);
     console.log("Info: " + info);
   }
-
+  renderSectionPolitico(){
+    if(this.state.idPolitico!=null){
+      return <DetalleSolicitudModificarPolitico id={this.state.idPolitico} />;
+    }else{
+      return(          
+        <div className="card">
+            <div className="card-content">
+              <div className="section has-text-centered">
+                Selecciona un politico
+              </div>
+            </div>
+          </div>
+        );
+    }
+  }
   render() {
-    if (this.props.fetchSolicitudPolitico.loading){
+    if (this.props.fetchSolicitudPoliticoModif.loading){
       return <div>Loading...</div>
     }
     return (
@@ -99,27 +113,20 @@ class SolicitudPoliticoModif extends Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPolitico ? <DetalleSolicitudPolitico id={this.state.idPolitico} />: 
-          <div className="card">
-            <div className="card-content">
-              <div className="section has-text-centered">
-                Selecciona un político
-              </div>
-            </div>
-          </div> }
+         { this.renderSectionPolitico()}
         </div>
       </div>
     )
   }
 }
 export default compose(
-    graphql(fetchSolicitudPolitico, {
-        name: 'fetchSolicitudPolitico'
+    graphql(fetchSolicitudPoliticoModif, {
+        name: 'fetchSolicitudPoliticoModif'
     }),
     graphql(AceptarPolitico, {
       name: 'AceptarPolitico'
     }),
     graphql(DenegarPolitico, {
         name: 'DenegarPolitico'
-    }),
+    })
 )(SolicitudPoliticoModif);

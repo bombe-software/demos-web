@@ -13,13 +13,12 @@ import AnimatedBackground from './../../generic/animated_background';
 //Queries
 import fetchEvento from './../../../queries/fetchEvento'
 import fetchUsuario from './../../../queries/fetchUsuario';
-import addEvento from './../../../queries/addEvento';
+import ModifyEvento from './../../../queries/ModifyEvento';
 import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
 
 const load = async (props) => {
-  console.log(props);
-  if(props.loading)return <div>Loading...</div>;
+  if (props.loading) return <div>Loading...</div>;
   return {
     titulo: props.evento.titulo,
     descripcion: props.evento.descripcion,
@@ -41,40 +40,41 @@ class ModificarEventoForm extends GenericForm {
     this.handleOpen = this.handleOpen.bind(this);
   }
 
-  handleOpen(){
+  handleOpen() {
     this.setState({ open: true });
   };
 
-  handleClose(){
+  handleClose() {
     this.setState({ open: false });
-    this.props.history.push(`/politico/${this.props.match.params.id}`);
+    this.props.history.push(`/politicos/`);
   };
 
-  componentWillReceiveProps(props){
-    {this.renderFetchField(props.fetchEvento)}
-  } 
+  componentWillReceiveProps(props) {
+    { this.renderFetchField(props.fetchEvento) }
+  }
 
- async renderFetchField(props) {
+  async renderFetchField(props) {
     this.setState({ loading: true });
     const data = await load(props);
     this.setState({ loading: false, data });
-   }
+  }
 
   async onSubmit(values) {
+  
     const usuario = this.props.fetchUsuario.usuario.id;
-    const politico = this.props.match.params.id;
+    const id_evento = this.props.match.params.id_evento;
+    const politico = this.props.fetchEvento.evento.politico.id;
     const {
       fecha, titulo,
       descripcion, referencia
     } = values
 
-
-    this.props.addEvento({
+    this.props.modifyEvento({
       variables: {
-        fecha, titulo,
+        id_evento, fecha, titulo,
         descripcion, referencia, usuario, politico
       }
-    }).then(this.handleOpen); 
+    }).then(this.handleOpen);
   }
 
   /**
@@ -86,12 +86,11 @@ class ModificarEventoForm extends GenericForm {
   * @const error Es el titulo del error
   */
   render() {
-    console.log(this.props);
     if (!this.props.fetchUsuario.usuario) {
       return (
         <NeedLogin />
       );
-    }    
+    }
     return (
       <div>
         <Dialog
@@ -141,12 +140,13 @@ class ModificarEventoForm extends GenericForm {
                         errors.referencia = "Escriba el link de referencia";
 
                       } else if (values.referencia != undefined) {
-                        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
+                        var re = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
+                        //var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
                         if (/^\s+|\s+$/.test(values.referencia)) {
                           errors.referencia = "Link invalido";
                         } else
                           if (!re.test(values.referencia)) {
-                            errors.referencia = "Link invalido";
+                            errors.referencia = "Los links deben empezar con http,https. (http(s)://www.demos.com)";
                           }
                       }
                       return errors;
@@ -190,6 +190,7 @@ class ModificarEventoForm extends GenericForm {
                             />
                           </div>
                         </div>
+                        <br />
                         <div className="buttons has-text-centered">
                           <button type="submit" className="button is-primary" disabled={submitting}>
                             Registrar evento
@@ -207,18 +208,18 @@ class ModificarEventoForm extends GenericForm {
 }
 
 export default compose(
-  graphql(addEvento,
+  graphql(ModifyEvento,
     {
-      name: 'addEvento'
+      name: 'modifyEvento'
     }),
   graphql(fetchUsuario,
     {
       name: 'fetchUsuario'
     }),
-    graphql(fetchEvento,
-      {
-        name: 'fetchEvento',
-        options: (props) => { return { variables: { id: props.match.params.id_evento} } }
-      }
-    )
+  graphql(fetchEvento,
+    {
+      name: 'fetchEvento',
+      options: (props) => { return { variables: { id: props.match.params.id_evento } } }
+    }
+  )
 )(ModificarEventoForm);
