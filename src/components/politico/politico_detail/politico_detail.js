@@ -29,8 +29,9 @@ class PoliticoDetail extends Component {
 
     renderSection() {
         if (!this.props.fetchPolitico.loading &&  !this.props.fetchUsuario.loading) {
+            console.log("politicodetail");
+            console.log(this.props);
             if (this.state.type == "propuestas") {
-                console.log(this.props);
                 return (
                     <div>
                         <Propuestas
@@ -72,8 +73,6 @@ class PoliticoDetail extends Component {
     }
 
     render() {
-        console.log(this.props);
-
         return (
             <div>
                 <br />

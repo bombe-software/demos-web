@@ -8,7 +8,6 @@ class Historial extends Component {
     }
 
     renderHistorialList() {
-        console.log(this.props);
         const { id_politico, eventos, id_usuario, cargo } = this.props;
         return this.props.eventos.map(({id, titulo, fecha}) => {
             return (

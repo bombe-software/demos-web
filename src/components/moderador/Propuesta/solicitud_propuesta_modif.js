@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPropuesta from '../../../queries/fetchSolicitudPropuesta';
-import AceptarPropuesta from '../../../queries/AceptarPropuesta';
-import DenegarPropuesta from '../../../queries/DenegarPropuesta';
+import fetchSolicitudPropuestaModif from '../../../queries/fetchSolicitudPropuestaModif';
+import AceptarPropuesta from '../../../queries/AceptarModifPropuesta';
+import DenegarPropuesta from '../../../queries/DenegarModifPropuesta';
 
-import DetalleSolicitudPropuesta from './detalle_solicitud_propuesta';
+import DetalleSolicitudModificarPropuesta from './detalle_modificar_propuesta';
 
 class SolicitudPropuestaModif extends Component {
   constructor(props) {
@@ -19,24 +19,25 @@ class SolicitudPropuestaModif extends Component {
     this.denegar = this.denegar.bind(this);
     this.seleccionar = this.seleccionar.bind(this);
     this.setState = this.setState.bind(this);
+    this.renderSectionPropuesta = this.renderSectionPropuesta.bind(this);
   }
 
-  aceptar(idPropuesta) {
+  aceptar(id_solicitud) {
     this.setState({ idPropuesta: null });
     this.props.AceptarPropuesta({
       variables: {
-       idPropuesta
+       id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
+    }).then(()=> this.props.fetchSolicitudPropuestaModif.refetch());
   }
 
-  denegar(idPropuesta) {
+  denegar(id_solicitud) {
     this.setState({ idPropuesta: null });
     this.props.DenegarPropuesta({
       variables: {
-        idPropuesta
+        id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
+    }).then(()=> this.props.fetchSolicitudPropuestaModif.refetch());
   }
 
   seleccionar(idPropuesta) {
@@ -44,10 +45,10 @@ class SolicitudPropuestaModif extends Component {
   }
 
   renderList() {
-    return this.props.fetchSolicitudPropuesta.solicitudPropuestas.map(({id, titulo}) => {
+    return this.props.fetchSolicitudPropuestaModif.solicitudesModificarPropuesta.map(({id, titulo}) => {
       return (
         <div key={id}>
-          <div className="panel-block" onClick={()=>{this.seleccionar(id)}} >
+          <div className="panel-block" >
             <span className="panel-icon">
               <a className="is-primary" onClick={() => { this.aceptar(id) }}>
                 <i className="fa fa-check"></i>
@@ -58,7 +59,7 @@ class SolicitudPropuestaModif extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a
+            <a onClick={()=>{this.seleccionar(id)}} 
             style={{color: 'inherit', textDecoration: 'none'}}
             >{titulo}</a>
           </div>
@@ -79,9 +80,23 @@ class SolicitudPropuestaModif extends Component {
     console.log("Error: " + error);
     console.log("Info: " + info);
   }
-
+ renderSectionPropuesta(){
+    if(this.state.idPropuesta!=null){
+      return <DetalleSolicitudModificarPropuesta id={this.state.idPropuesta} />;
+    }else{
+      return(          
+        <div className="card">
+            <div className="card-content">
+              <div className="section has-text-centered">
+                Selecciona una propuesta
+              </div>
+            </div>
+          </div>
+        );
+    }
+  }
   render() {
-    if (this.props.fetchSolicitudPropuesta.loading){
+    if (this.props.fetchSolicitudPropuestaModif.loading){
       return <div>Loading...</div>
     }
     return (
@@ -97,22 +112,15 @@ class SolicitudPropuestaModif extends Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPropuesta ? <DetalleSolicitudPropuesta id={this.state.idPropuesta} />: 
-          <div className="card">
-            <div className="card-content">
-              <div className="section has-text-centered">
-                Selecciona un político
-              </div>
-            </div>
-          </div> }
+        {this.renderSectionPropuesta()}
         </div>
       </div>
     )
   }
 }
 export default compose(
-    graphql(fetchSolicitudPropuesta, {
-        name: 'fetchSolicitudPropuesta'
+    graphql(fetchSolicitudPropuestaModif, {
+        name: 'fetchSolicitudPropuestaModif'
     }),
     graphql(AceptarPropuesta, {
       name: 'AceptarPropuesta'
