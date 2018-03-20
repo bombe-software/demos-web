@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Pie, Bar, Line, Polar } from 'react-chartjs-2';
-import { graphql } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import fetchGraficas from "./../../queries/fetchGraficas";
+import fetchUsuario from "./../../queries/fetchUsuario";
 
 class Graficas extends Component {
 
@@ -29,13 +30,13 @@ class Graficas extends Component {
     }
 
     render() {
-        if (this.props.data.loading) return <div></div>
+        if (this.props.loading) return <div></div>
         let partidos = [
             'MORENA',
             'PAN',
             'PRI',
         ];
-        console.log(this.props.data);
+        console.log(this.props);
         return (
             <div>
                 <Pie data={this.generateData(partidos)} />
@@ -47,4 +48,11 @@ class Graficas extends Component {
     }
 }
 
-export default graphql(fetchGraficas)(Graficas);
+export default compose(
+    graphql(fetchGraficas, {
+        name: 'fetchGraficas'
+    }),
+    graphql(fetchUsuario, {
+      name: 'fetchUsuario'
+    }),
+)(Graficas);

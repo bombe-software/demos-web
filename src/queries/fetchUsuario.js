@@ -6,7 +6,10 @@ export default gql`
         id,
         nombre,
         email,
-        localidad,
+        localidad{
+            id,
+            nombre
+        },
         puntos,
         fecha_registro,
         password,
