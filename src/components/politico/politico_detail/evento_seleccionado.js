@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
+import deleteEvento from '../../../queries/DeleteEvento';
 import fetchEvento from '../../../queries/fetchEvento';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
@@ -15,7 +16,17 @@ class EventoSeleccionado extends Component {
         this.state = {
             id_politico: id
         };
+         this.Eliminar = this.Eliminar.bind(this);
     }
+ Eliminar(){
+        let id_evento = this.props.match.params.id_evento;
+        let id_usuario = this.props.fetchUsuario.usuario.id;
+        this.props.deleteEvento({
+        variables: {
+        id_evento,id_usuario
+      }
+    }).then(this.handleOpen); 
+}
 
     renderSection() {
         if (!this.props.fetchEvento.loading &&  !this.props.fetchUsuario.loading) {
@@ -29,6 +40,7 @@ class EventoSeleccionado extends Component {
                     <Link to={`/evento/modify/${this.props.match.params.id_evento}`}>
                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
                     </Link>
+                     <input type="button" onClick={this.Eliminar} value="Eliminar" />
                    </div>
                    <br />
                    <div className="card">
@@ -92,5 +104,8 @@ export default
         graphql(fetchEvento, {
             name: 'fetchEvento',
             options: (props) => { return { variables: { id: props.match.params.id_evento } } }
+        }),
+        graphql(deleteEvento, {
+            name: 'deleteEvento'
         })
     )(EventoSeleccionado);

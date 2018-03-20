@@ -28,8 +28,6 @@ class PoliticoPerfil extends Component {
         console.log("Info: " + info);
     }
     Eliminar(){
-        console.log("hola");
-        console.log(this.props);
         let politico = this.props.id;
         let usuario = this.props.fetchUsuario.usuario.id;
         this.props.deletePolitico({
@@ -40,10 +38,7 @@ class PoliticoPerfil extends Component {
     }
     render() {
         if (this.props.fetchPolitico.politicosPorId != undefined) {
-            //let {politico} = this.props.fetchPolitico.politicosPorId;
             let politico, {nombre, partido, estudios} = this.props.fetchPolitico.politicosPorId;
-            //if(politico, nombre, partido.nombre, estudios.grado_academico, estudios.titulo, estudios.lugar_estudio);
-            console.log(this.props);
             return (
                 <div>
                     <div className="card">

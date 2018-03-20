@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-mutation AceptarEliminarEvento($id_solicitud:ID){
-  aceptarEliminarEvento(id_solicutd: $id_solicitud){
+mutation AceptarSolicitudDeletePolitico($id_solicitud:ID){
+  aceptarSolicitudDeletePolitico(id_solicitud: $id_solicitud){
     id
   }
 }

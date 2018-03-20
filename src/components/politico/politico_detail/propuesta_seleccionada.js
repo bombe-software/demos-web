@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
+import deletePropuesta from '../../../queries/DeletePropuesta';
 import fetchPropuesta from '../../../queries/fetchPropuesta';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
@@ -14,7 +15,18 @@ class PropuestaSeleccionada extends Component {
         this.state = {
             id_politico: id
         };
+         this.Eliminar = this.Eliminar.bind(this);
     }
+
+   Eliminar(){
+        let id_propuesta = this.props.match.params.id_propuesta;
+        let id_usuario = this.props.fetchUsuario.usuario.id;
+        this.props.deletePropuesta({
+        variables: {
+        id_propuesta,id_usuario
+      }
+    }).then(this.handleOpen); 
+}
 
     renderSection() {
         if (!this.props.fetchPropuesta.loading && !this.props.fetchUsuario.loading) {
@@ -28,6 +40,7 @@ class PropuestaSeleccionada extends Component {
                     <Link to={`/propuesta/modify/${this.props.match.params.id_propuesta}`}>
                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
                     </Link>
+                    <input type="button" onClick={this.Eliminar} value="Eliminar" />
                     </div>
                     <br />
                     <div className="card">
@@ -91,5 +104,8 @@ export default
         graphql(fetchPropuesta, {
             name: 'fetchPropuesta',
             options: (props) => { return { variables: { id: props.match.params.id_propuesta } } }
+        }),
+        graphql(deletePropuesta, {
+            name: 'deletePropuesta'
         })
     )(PropuestaSeleccionada);

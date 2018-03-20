@@ -2,15 +2,15 @@ import gql from 'graphql-tag';
 
 export default gql`
 {
-  solicitudesDeletePolitico{
+  solicitudesDeletePropuesta{
     id,
     id_usuario{
       id,
       nombre
     },
-    id_politico{
+    id_propuesta{
       id,
-      nombre
+      titulo
     }
   }
 }

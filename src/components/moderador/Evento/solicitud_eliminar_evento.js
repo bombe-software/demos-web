@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPolitico from '../../../queries/fetchSolicitudPoliticoElim';
+import fetchSolicitudEvento from '../../../queries/fetchSolicitudEventoElim';
 
-import AceptarPolitico from '../../../queries/AceptarEliminarPolitico'
-import DenegarPolitico from '../../../queries/DenegarEliminarPolitico';
+import AceptarEvento from '../../../queries/AceptarEliminarEvento'
+import DenegarEvento from '../../../queries/DenegarEliminarEvento';
 
-import DetalleEliminarPolitico from './detalle_eliminar_politico';
+import DetalleEliminarEvento from './detalle_eliminar_evento';
 
-class SolicitudEliminarPolitico extends Component {
+class SolicitudEliminarEvento extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      idPolitico: null,
+      idEvento: null,
     }
 
     this.aceptar = this.aceptar.bind(this);
@@ -23,29 +23,29 @@ class SolicitudEliminarPolitico extends Component {
   }
 
   aceptar(id_solicitud) {
-    this.setState({ idPolitico: null });
-    this.props.AceptarPolitico({
+    this.setState({ idEvento: null });
+    this.props.AceptarEvento({
       variables: {
        id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
 
   denegar(id_solicitud) {
-    this.setState({ idPolitico: null });
-    this.props.DenegarPolitico({
+    this.setState({ idEvento: null });
+    this.props.DenegarEvento({
       variables: {
         id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPolitico.refetch());
+    }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
 
-  seleccionar(idPolitico) {
-    this.setState({ idPolitico });
+  seleccionar(idEvento) {
+    this.setState({ idEvento });
   }
 
   renderList() {
-    return this.props.fetchSolicitudPolitico.solicitudesDeletePolitico.map(({id,id_politico, id_usuario}) => {
+    return this.props.fetchSolicitudEvento.solicitudesDeleteEvento.map(({id,id_evento, id_usuario}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -61,7 +61,7 @@ class SolicitudEliminarPolitico extends Component {
             </span>
             <a  onClick={()=>{this.seleccionar(id)}}
             style={{color: 'inherit', textDecoration: 'none'}}
-            >{id_politico.nombre}</a>
+            >{id_evento.titulo}</a>
           </div>
         </div>
       );
@@ -82,7 +82,7 @@ class SolicitudEliminarPolitico extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudPolitico.loading){
+    if (this.props.fetchSolicitudEvento.loading){
       return <div>Loading...</div>
     }
     return (
@@ -91,18 +91,18 @@ class SolicitudEliminarPolitico extends Component {
           <div>
             
           <div className="panel">
-            <div className="panel-heading">Politicos</div>
+            <div className="panel-heading">Eventos</div>
             {this.renderList()}
           </div>
 
           </div>
         </div>
         <div className="column is-5-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPolitico ? <DetalleEliminarPolitico id={this.state.idPolitico} />: 
+          { this.state.idEvento ? <DetalleEliminarEvento id={this.state.idEvento} />: 
           <div className="card">
             <div className="card-content">
               <div className="section has-text-centered">
-                Selecciona un político
+                Selecciona un evento
               </div>
             </div>
           </div> }
@@ -112,13 +112,13 @@ class SolicitudEliminarPolitico extends Component {
   }
 }
 export default compose(
-    graphql(fetchSolicitudPolitico, {
-        name: 'fetchSolicitudPolitico'
+    graphql(fetchSolicitudEvento, {
+        name: 'fetchSolicitudEvento'
     }),
-    graphql(AceptarPolitico, {
-      name: 'AceptarPolitico'
+    graphql(AceptarEvento, {
+      name: 'AceptarEvento'
     }),
-    graphql(DenegarPolitico, {
-        name: 'DenegarPolitico'
+    graphql(DenegarEvento, {
+        name: 'DenegarEvento'
     }),
-)(SolicitudEliminarPolitico);
+)(SolicitudEliminarEvento);

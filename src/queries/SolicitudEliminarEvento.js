@@ -1,10 +1,10 @@
 import gql from 'graphql-tag';
 
 export default gql`
-query SolicitudDeletePolitico($id: ID!) {
-  solicitudDeletePolitico(id: $id) {
-  	id_politico{
-      nombre
+query SolicitudDeleteEvento($id: ID!) {
+  solicitudDeleteEvento(id: $id) {
+  	id_evento{
+      titulo
     }
     id_usuario{
       nombre,
