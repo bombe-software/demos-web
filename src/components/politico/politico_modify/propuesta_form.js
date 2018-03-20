@@ -13,7 +13,7 @@ import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
 //Queries y Mutations
 import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
-import addPropuesta from "../../../queries/addPropuesta";
+import ModifyPropuesta from "../../../queries/modifyPropuesta";
 import fetchUsuario from "../../../queries/fetchUsuario";
 import fetchPropuesta from '../../../queries/fetchPropuesta'
 
@@ -47,7 +47,7 @@ class ModificarPropuestaForm extends GenericForm {
 
   handleClose(){
     this.setState({ open: false });
-    this.props.history.push(`/politico/${this.props.match.params.id}`)
+    this.props.history.push(`/politicos/`);
   };
 
   componentWillReceiveProps(props){
@@ -60,16 +60,16 @@ class ModificarPropuestaForm extends GenericForm {
     this.setState({ loading: false, data });
    }
   async onSubmit(values) {
-
     const usuario = this.props.fetchUsuario.usuario.id;
-    const politico = this.props.match.params.id;
+    const id_propuesta = this.props.match.params.id_propuesta;
+    const politico = this.props.fetchPropuesta.propuesta.politico.id;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values
 
-    this.props.addPropuesta({
+    this.props.modifyPropuesta({
       variables: {
-        titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
+        id_propuesta, titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
       }
     }).then(this.handleOpen); 
 
@@ -228,9 +228,9 @@ export default compose(
     {
       name: 'fetchTipoPropuesta'
     }),
-  graphql(addPropuesta,
+  graphql(ModifyPropuesta,
     {
-      name: 'addPropuesta'
+      name: 'modifyPropuesta'
     }),
   graphql(fetchUsuario,
     {
