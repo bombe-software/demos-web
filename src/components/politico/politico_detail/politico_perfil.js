@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import deletePolitico from '../../../queries/DeletePolitico';
 import fetchPoliticoPerfil from '../../../queries/fetchPoliticoPerfil';
 import fetchUsuario from '../../../queries/fetchUsuario';
+import BotonCaptcha from './../../generic/boton_captcha';
 class PoliticoPerfil extends Component {
     constructor(props) {
         super(props);
@@ -53,9 +54,7 @@ class PoliticoPerfil extends Component {
                                 <Link to={`/politico/modify/${this.props.id}`}>
                                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
                                 </Link>
-                                  
-                                    <input type="button" onClick={this.Eliminar} value="Eliminar" />
-                               
+                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>                              
                             </div>
                             <hr />
                             <span className="is-size-6">

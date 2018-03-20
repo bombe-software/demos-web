@@ -8,6 +8,7 @@ import fetchEvento from '../../../queries/fetchEvento';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
 import PoliticoPerfil from './politico_perfil';
+import BotonCaptcha from './../../generic/boton_captcha';
 
 class EventoSeleccionado extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class EventoSeleccionado extends Component {
                     <Link to={`/evento/modify/${this.props.match.params.id_evento}`}>
                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
                     </Link>
-                     <input type="button" onClick={this.Eliminar} value="Eliminar" />
+                    <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
                    </div>
                    <br />
                    <div className="card">

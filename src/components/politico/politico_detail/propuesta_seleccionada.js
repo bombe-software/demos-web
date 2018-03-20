@@ -7,6 +7,7 @@ import fetchPropuesta from '../../../queries/fetchPropuesta';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
 import PoliticoPerfil from './politico_perfil';
+import BotonCaptcha from './../../generic/boton_captcha';
 
 class PropuestaSeleccionada extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class PropuestaSeleccionada extends Component {
                     <Link to={`/propuesta/modify/${this.props.match.params.id_propuesta}`}>
                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
                     </Link>
-                    <input type="button" onClick={this.Eliminar} value="Eliminar" />
+                    <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
                     </div>
                     <br />
                     <div className="card">
