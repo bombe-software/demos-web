@@ -11,7 +11,6 @@ import WaveBackground from './generic/wave_background';
 
 import { Form, Field } from "react-final-form";
 import GenericForm from './generic/generic_form';
-import Captcha from './generic/captcha';
 class Login extends GenericForm {
     constructor(props) {
         super(props);
@@ -142,7 +141,6 @@ class Login extends GenericForm {
                                                 )}
                                             />
                                         </div>
-                                        <Captcha checkedFunction={()=>console.log("hola")}/>
                                     </div>
                                 </div>
                             </div>

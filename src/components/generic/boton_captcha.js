@@ -5,7 +5,9 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Menu from 'material-ui/Menu';
 import Popover, { PopoverAnimationVertical } from 'material-ui/Popover';
 
-class Captcha extends Component {
+//Ejemplo de uso del elemento BotonCaptcha
+//<BotonCaptcha label={"Borrar"} checkedFunction={()=>console.log("hola")}/>
+class BotonCaptcha extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,7 +42,7 @@ class Captcha extends Component {
             <div>
                 <RaisedButton
                     onClick={this.handleClick}
-                    label="Borrar"
+                    label={this.props.label}
                 />
                 <Popover
                     open={this.state.open}
@@ -62,4 +64,4 @@ class Captcha extends Component {
 }
 
 
-export default Captcha;
+export default BotonCaptcha;
