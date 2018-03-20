@@ -144,10 +144,12 @@ class SignUp extends GenericForm {
       this.setState({ error: 'Selecciona un avatar' })
     } else {
       const { avatar, localidad } = this.state;
+      console.log(localidad);
       const {
         nombre, email, password,
         curp
       } = values;
+      console.log(localidad);
       this.props.mutate({
         variables: {
           nombre, email, password, localidad,
@@ -156,7 +158,7 @@ class SignUp extends GenericForm {
       }).then(() => {
         this.props.history.push("/confirm_email");
       });
-    }
+    } s
   };
 
 
