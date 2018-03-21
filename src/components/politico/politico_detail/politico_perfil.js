@@ -50,11 +50,7 @@ class PoliticoPerfil extends Component {
                         </div>
                         <div className="card-content">
                             <div className="is-size-5 has-text-centered">
-                                <span>{nombre}</span> 
-                                <Link to={`/politico/modify/${this.props.id}`}>
-                                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
-                                </Link>
-                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>                              
+                                <span>{nombre}</span>                             
                             </div>
                             <hr />
                             <span className="is-size-6">
@@ -62,6 +58,16 @@ class PoliticoPerfil extends Component {
                                 <p>Titulo: {estudios[0].titulo}</p>
                                 <p>Grado academico: {estudios[0].grado_academico.grado}</p>
                                 <p>Lugar de estudio: {estudios[0].lugar_estudio.nombre}</p>
+                            </span>
+                        </div>
+                        <div className="card-footer">
+                            <span className="card-footer-item">
+                                <Link to={`/politico/modify/${this.props.id}`}>
+                                    <span className="is-6"><i className="fa fa-pencil"></i> Modificar</span>
+                                </Link>
+                            </span>
+                            <span className="card-footer-item">
+                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
                             </span>
                         </div>
                     </div>

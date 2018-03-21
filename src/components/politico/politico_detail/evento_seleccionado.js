@@ -36,12 +36,8 @@ class EventoSeleccionado extends Component {
                <div>
                    <div>
                     <Link to={`/politico/${politico.id}`}>
-                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Regresar</span>
-                    </Link>
-                    <Link to={`/evento/modify/${this.props.match.params.id_evento}`}>
-                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
-                    </Link>
-                    <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+                    <span className="is-5 title"><i className="fa fa-arrow-left"></i> Regresar</span>
+                    </Link> 
                    </div>
                    <br />
                    <div className="card">
@@ -54,6 +50,16 @@ class EventoSeleccionado extends Component {
                         <p>Fuente de consulta: <a href={referencia}>{referencia}</a></p>
                         <br />
                         <p>Usuario: @{usuario.nombre}</p>
+                    </div>
+                    <div className="card-footer">
+                        <span className="card-footer-item">
+                        <Link to={`/evento/modify/${this.props.match.params.id_evento}`}>
+                        <span className="is-6"><i className="fa fa-pencil"></i> Modificar</span>
+                        </Link>
+                        </span>
+                        <span className="card-footer-item">
+                            <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+                        </span>
                     </div>
                 </div>
                </div>

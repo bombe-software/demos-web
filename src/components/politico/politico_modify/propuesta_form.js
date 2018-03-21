@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 import NeedLogin from './../../generic/need_login';
-import AnimatedBackground from './../../generic/animated_background';
+import WaveBackground from './../../generic/wave_background';
 
 
 import MenuItem from 'material-ui/MenuItem';
@@ -215,7 +215,7 @@ class ModificarPropuestaForm extends GenericForm {
             </div>
           </div>
         </section>
-        <AnimatedBackground />
+        <WaveBackground />
       </div>
     );
   }

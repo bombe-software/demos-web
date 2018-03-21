@@ -49,7 +49,9 @@ class Historial extends Component {
             return(
                 <div>
                     <div className="level">
-                    <div className="level-left"></div>
+                    <div className="level-left">
+                    <h2 className="title is-4">Eventos</h2>
+                    </div>
                     <div className="level-right">
                       <div className="level-item">
                         <p className="has-text-right">

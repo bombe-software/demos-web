@@ -205,10 +205,10 @@ class Moderador extends Component {
                   </li>
                 </ul>
               </div>
+              {this.update()}
             </div>
           </div>
           <div>
-            {this.update()}
           </div>
           <div className="level"><br /><br /></div>
         </div>

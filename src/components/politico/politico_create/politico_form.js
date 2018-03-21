@@ -8,7 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Form, Field } from "react-final-form";
 
 import NeedLogin from './../../generic/need_login';
-import AnimatedBackground from './../../generic/animated_background';
+import WaveBackground from './../../generic/wave_background';
 
 import GenericForm from '../../generic/generic_form';
 import addPolitico from './../../../queries/addPolitico';
@@ -248,7 +248,7 @@ class PoliticoForm extends GenericForm {
             </div>
           </div>
         </section>
-        <AnimatedBackground />
+        <WaveBackground />
       </div>
     );
   }
