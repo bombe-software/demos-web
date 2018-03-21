@@ -158,7 +158,7 @@ class SignUp extends GenericForm {
       }).then(() => {
         this.props.history.push("/confirm_email");
       });
-    } s
+    } 
   };
 
 

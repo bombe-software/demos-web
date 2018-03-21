@@ -41,7 +41,7 @@ class Perfil extends Component {
                     </div>
                     <div className="content">
                       Fecha de registro: {`${fecha.getDay()}/${fecha.getDate()}/${fecha.getFullYear()}`}<br />
-                      Localidad: {usuario.localidad}<br />
+                      Localidad: {usuario.localidad.nombre}<br />
                       Puntos: {usuario.puntos}<br />
                     </div>
                   </div>
