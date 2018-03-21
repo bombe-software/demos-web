@@ -36,7 +36,6 @@ class Graficas extends Component {
             'PAN',
             'PRI',
         ];
-        console.log(this.props);
         return (
             <div>
                 <Pie data={this.generateData(partidos)} />

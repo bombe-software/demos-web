@@ -14,6 +14,7 @@ class PoliticoPerfil extends Component {
             id_politico: id
         };
          this.Eliminar = this.Eliminar.bind(this);
+         this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
     }
 
     /**
@@ -36,7 +37,16 @@ class PoliticoPerfil extends Component {
         politico,usuario
       }
     }).then(this.handleOpen); 
+}
+renderBotonEliminar(){
+   if (!this.props.fetchUsuario.usuario) {
     }
+    else {
+        return(
+            <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+        );
+    }
+}
     render() {
         if (this.props.fetchPolitico.politicosPorId != undefined) {
             let politico, {nombre, partido, estudios} = this.props.fetchPolitico.politicosPorId;
@@ -54,7 +64,7 @@ class PoliticoPerfil extends Component {
                                 <Link to={`/politico/modify/${this.props.id}`}>
                                     <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
                                 </Link>
-                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>                              
+                                {this.renderBotonEliminar()}                             
                             </div>
                             <hr />
                             <span className="is-size-6">
