@@ -7,6 +7,7 @@ import deleteEvento from '../../../queries/DeleteEvento';
 import fetchEvento from '../../../queries/fetchEvento';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
+import NeedLogin from './../../generic/need_login';
 import PoliticoPerfil from './politico_perfil';
 import BotonCaptcha from './../../generic/boton_captcha';
 
@@ -18,6 +19,7 @@ class EventoSeleccionado extends Component {
             id_politico: id
         };
          this.Eliminar = this.Eliminar.bind(this);
+         this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
     }
  Eliminar(){
         let id_evento = this.props.match.params.id_evento;
@@ -28,7 +30,15 @@ class EventoSeleccionado extends Component {
       }
     }).then(this.handleOpen); 
 }
-
+renderBotonEliminar(){
+   if (!this.props.fetchUsuario.usuario) {
+    }
+    else {
+        return(
+            <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+        );
+    }
+}
     renderSection() {
         if (!this.props.fetchEvento.loading &&  !this.props.fetchUsuario.loading) {
         let {titulo, descripcion, fecha, referencia, politico, usuario} = this.props.fetchEvento.evento;

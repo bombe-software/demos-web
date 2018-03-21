@@ -17,6 +17,7 @@ class PropuestaSeleccionada extends Component {
             id_politico: id
         };
          this.Eliminar = this.Eliminar.bind(this);
+         this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
     }
 
    Eliminar(){
@@ -28,7 +29,15 @@ class PropuestaSeleccionada extends Component {
       }
     }).then(this.handleOpen); 
 }
-
+renderBotonEliminar(){
+   if (!this.props.fetchUsuario.usuario) {
+    }
+    else {
+        return(
+            <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+        );
+    }
+}
     renderSection() {
         if (!this.props.fetchPropuesta.loading && !this.props.fetchUsuario.loading) {
             let {titulo, descripcion, tipo_propuesta, referencia, usuario, politico} = this.props.fetchPropuesta.propuesta;
