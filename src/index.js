@@ -15,6 +15,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 //Sin manejo de informacion
 import NotFound from './components/not_found';
+import ErrorScreen from './components/error_screen';
 import LandingPage from './components/landing_page/landing_page';
 
 
@@ -163,6 +164,8 @@ class App extends React.Component {
                 <Route path="/evento/modify/:id_evento" exact component={ModificarEvento} />
                 <Route path="/propuesta/modify/:id_propuesta" exact component={ModificarPropuesta} />
                  <Route path="/politico/modify/:id_politico" exact component={ModificarPolitico} />
+
+                 < Route path="/error" exact component={ErrorScreen} />
 
                 {/*Landing page*/}
                 <Route path="/" exact component={LandingPage} />

@@ -20,8 +20,8 @@ export default gql`
     usuarios{
       id
          localidad {
-          id
-          nombre
+           id
+           nombre
          }
     }
     preferencias{

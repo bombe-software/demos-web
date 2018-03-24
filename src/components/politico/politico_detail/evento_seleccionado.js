@@ -3,10 +3,13 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
+import deleteEvento from '../../../queries/DeleteEvento';
 import fetchEvento from '../../../queries/fetchEvento';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
+import NeedLogin from './../../generic/need_login';
 import PoliticoPerfil from './politico_perfil';
+import BotonCaptcha from './../../generic/boton_captcha';
 
 class EventoSeleccionado extends Component {
     constructor(props) {
@@ -15,8 +18,27 @@ class EventoSeleccionado extends Component {
         this.state = {
             id_politico: id
         };
+         this.Eliminar = this.Eliminar.bind(this);
+         this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
     }
-
+ Eliminar(){
+        let id_evento = this.props.match.params.id_evento;
+        let id_usuario = this.props.fetchUsuario.usuario.id;
+        this.props.deleteEvento({
+        variables: {
+        id_evento,id_usuario
+      }
+    }).then(this.handleOpen); 
+}
+renderBotonEliminar(){
+   if (!this.props.fetchUsuario.usuario) {
+    }
+    else {
+        return(
+            <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+        );
+    }
+}
     renderSection() {
         if (!this.props.fetchEvento.loading &&  !this.props.fetchUsuario.loading) {
         let {titulo, descripcion, fecha, referencia, politico, usuario} = this.props.fetchEvento.evento;
@@ -24,11 +46,8 @@ class EventoSeleccionado extends Component {
                <div>
                    <div>
                     <Link to={`/politico/${politico.id}`}>
-                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Regresar</span>
-                    </Link>
-                    <Link to={`/evento/modify/${this.props.match.params.id_evento}`}>
-                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
-                    </Link>
+                    <span className="is-5 title"><i className="fa fa-arrow-left"></i> Regresar</span>
+                    </Link> 
                    </div>
                    <br />
                    <div className="card">
@@ -41,6 +60,16 @@ class EventoSeleccionado extends Component {
                         <p>Fuente de consulta: <a href={referencia}>{referencia}</a></p>
                         <br />
                         <p>Usuario: @{usuario.nombre}</p>
+                    </div>
+                    <div className="card-footer">
+                        <span className="card-footer-item">
+                        <Link to={`/evento/modify/${this.props.match.params.id_evento}`}>
+                        <span className="is-6"><i className="fa fa-pencil"></i> Modificar</span>
+                        </Link>
+                        </span>
+                        <span className="card-footer-item">
+                            <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+                        </span>
                     </div>
                 </div>
                </div>
@@ -92,5 +121,8 @@ export default
         graphql(fetchEvento, {
             name: 'fetchEvento',
             options: (props) => { return { variables: { id: props.match.params.id_evento } } }
+        }),
+        graphql(deleteEvento, {
+            name: 'deleteEvento'
         })
     )(EventoSeleccionado);

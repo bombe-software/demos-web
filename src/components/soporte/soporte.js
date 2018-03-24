@@ -133,7 +133,14 @@ class Soporte extends GenericForm {
                                             <Form
                                                 onSubmit={this.onSubmit}
                                                 validate={values => {
+
                                                     const errors = {};
+                                                     if (!values.mensajeUser) {
+                                                        errors.mensajeUser = "Escriba un mensaje";
+                                                    }
+                                                     if(/^\s+|\s+$/.test(values.mensajeUser)) {
+                                                         errors.mensajeUser = "No ingrese espacios";
+                                                     }
                                                     return errors;
                                                 }}
                                                 render={({ handleSubmit, reset, submitting, pristine, values }) => (

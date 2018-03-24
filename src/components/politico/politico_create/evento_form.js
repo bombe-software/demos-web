@@ -8,7 +8,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
 import NeedLogin from './../../generic/need_login';
-import AnimatedBackground from './../../generic/animated_background';
+import WaveBackground from './../../generic/wave_background';
 
 //Queries
 import fetchUsuario from './../../../queries/fetchUsuario';
@@ -174,7 +174,7 @@ class EventoForm extends GenericForm {
                     )}
                   />
                 </div></div></div></div></section>
-        <AnimatedBackground />
+        <WaveBackground />
       </div>
     );
   }

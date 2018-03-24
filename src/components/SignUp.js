@@ -158,7 +158,7 @@ class SignUp extends GenericForm {
       }).then(() => {
         this.props.history.push("/confirm_email");
       });
-    } s
+    } 
   };
 
 
@@ -277,7 +277,7 @@ class SignUp extends GenericForm {
                                 <div className="level-item">
                                   <Field name="password"
                                     type="password"
-                                    component={this.renderTextField}
+                                    component={this.renderPasswordField}
                                     hintText="Ingrese su password"
                                     floatingLabelText="Password"
                                   />
@@ -286,8 +286,7 @@ class SignUp extends GenericForm {
                               <div className="level">
                                 <div className="level-item">
                                   <Field name="Rpassword"
-                                    type="password"
-                                    component={this.renderTextField}
+                                    component={this.renderPasswordField}
                                     hintText="Ingrese nuevamente su password"
                                     floatingLabelText="Password"
                                   />

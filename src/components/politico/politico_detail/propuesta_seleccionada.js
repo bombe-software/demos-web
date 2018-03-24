@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
+import deletePropuesta from '../../../queries/DeletePropuesta';
 import fetchPropuesta from '../../../queries/fetchPropuesta';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
 import PoliticoPerfil from './politico_perfil';
+import BotonCaptcha from './../../generic/boton_captcha';
 
 class PropuestaSeleccionada extends Component {
     constructor(props) {
@@ -14,8 +16,28 @@ class PropuestaSeleccionada extends Component {
         this.state = {
             id_politico: id
         };
+         this.Eliminar = this.Eliminar.bind(this);
+         this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
     }
 
+   Eliminar(){
+        let id_propuesta = this.props.match.params.id_propuesta;
+        let id_usuario = this.props.fetchUsuario.usuario.id;
+        this.props.deletePropuesta({
+        variables: {
+        id_propuesta,id_usuario
+      }
+    }).then(this.handleOpen); 
+}
+renderBotonEliminar(){
+   if (!this.props.fetchUsuario.usuario) {
+    }
+    else {
+        return(
+            <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+        );
+    }
+}
     renderSection() {
         if (!this.props.fetchPropuesta.loading && !this.props.fetchUsuario.loading) {
             let {titulo, descripcion, tipo_propuesta, referencia, usuario, politico} = this.props.fetchPropuesta.propuesta;
@@ -23,11 +45,8 @@ class PropuestaSeleccionada extends Component {
                 <div>
                     <div>
                         <Link to={`/politico/${politico.id}`}>
-                            <span className="is-4 title"><i className="fa fa-arrow-left"></i> Regresar</span>
-                        </Link>
-                    <Link to={`/propuesta/modify/${this.props.match.params.id_propuesta}`}>
-                    <span className="is-4 title"><i className="fa fa-arrow-left"></i> Modificar</span>
-                    </Link>
+                            <span className="is-5 title"><i className="fa fa-arrow-left"></i> Regresar</span>
+                        </Link> 
                     </div>
                     <br />
                     <div className="card">
@@ -40,6 +59,16 @@ class PropuestaSeleccionada extends Component {
                             <p>Fuente de consulta: <a href={referencia}>{referencia}</a></p>
                             {/*<br />
                         <p>Usuario: @{usuario.nombre}</p>*/}
+                        </div>
+                        <div className="card-footer">
+                            <span className="card-footer-item">
+                            <Link to={`/propuesta/modify/${this.props.match.params.id_propuesta}`}>
+                            <span className="is-6"><i className="fa fa-pencil"></i> Modificar</span>
+                            </Link>
+                            </span>
+                            <span className="card-footer-item">
+                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -91,5 +120,8 @@ export default
         graphql(fetchPropuesta, {
             name: 'fetchPropuesta',
             options: (props) => { return { variables: { id: props.match.params.id_propuesta } } }
+        }),
+        graphql(deletePropuesta, {
+            name: 'deletePropuesta'
         })
     )(PropuestaSeleccionada);

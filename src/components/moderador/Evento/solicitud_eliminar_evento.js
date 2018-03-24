@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
-import fetchSolicitudPoliticoElim from '../../../queries/fetchSolicitudPoliticoElim';
+import fetchSolicitudEvento from '../../../queries/fetchSolicitudEventoElim';
 
-import AceptarPolitico from '../../../queries/AceptarEliminarPolitico'
-import DenegarPolitico from '../../../queries/DenegarEliminarPolitico';
+import AceptarEvento from '../../../queries/AceptarEliminarEvento'
+import DenegarEvento from '../../../queries/DenegarEliminarEvento';
 
-import DetalleEliminarPolitico from './detalle_eliminar_politico';
+import DetalleEliminarEvento from './detalle_eliminar_evento';
 
-class SolicitudEliminarPolitico extends Component {
+class SolicitudEliminarEvento extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      idPolitico: null,
+      idEvento: null,
     }
 
     this.aceptar = this.aceptar.bind(this);
@@ -23,29 +23,29 @@ class SolicitudEliminarPolitico extends Component {
   }
 
   aceptar(id_solicitud) {
-    this.setState({ idPolitico: null });
-    this.props.AceptarPolitico({
+    this.setState({ idEvento: null });
+    this.props.AceptarEvento({
       variables: {
        id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPoliticoElim.refetch());
+    }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
 
   denegar(id_solicitud) {
-    this.setState({ idPolitico: null });
-    this.props.DenegarPolitico({
+    this.setState({ idEvento: null });
+    this.props.DenegarEvento({
       variables: {
         id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPoliticoElim.refetch());
+    }).then(()=> this.props.fetchSolicitudEvento.refetch());
   }
 
-  seleccionar(idPolitico) {
-    this.setState({ idPolitico });
+  seleccionar(idEvento) {
+    this.setState({ idEvento });
   }
 
   renderList() {
-    return this.props.fetchSolicitudPolitico.solicitudesDeletePolitico.map(({id,id_politico, id_usuario}) => {
+    return this.props.fetchSolicitudEvento.solicitudesDeleteEvento.map(({id,id_evento, id_usuario}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -61,7 +61,7 @@ class SolicitudEliminarPolitico extends Component {
             </span>
             <a  onClick={()=>{this.seleccionar(id)}}
             style={{color: 'inherit', textDecoration: 'none'}}
-            >{id_politico.nombre}</a>
+            >{id_evento.titulo}</a>
           </div>
         </div>
       );
@@ -82,27 +82,27 @@ class SolicitudEliminarPolitico extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudPoliticoElim.loading){
+    if (this.props.fetchSolicitudEvento.loading){
       return <div>Loading...</div>
     }
     return (
       <div className="columns is-desktop">
-        <div className="column is-5-widescreen is-5-desktop is-12-tablet">
+        <div className="column is-5-widescreen is-4-desktop is-12-tablet">
           <div>
             
           <div className="panel">
-            <div className="panel-heading">Politicos</div>
+            <div className="panel-heading">Eventos</div>
             {this.renderList()}
           </div>
 
           </div>
         </div>
-        <div className="column is-7-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPolitico ? <DetalleSolicitudPolitico id={this.state.idPolitico} />: 
+        <div className="column is-7-widescreen is-8-desktop is-12-tablet">
+          { this.state.idEvento ? <DetalleEliminarEvento id={this.state.idEvento} />: 
           <div className="card">
             <div className="card-content">
               <div className="section has-text-centered">
-                Selecciona un político
+                Selecciona un evento
               </div>
             </div>
           </div> }
@@ -112,13 +112,13 @@ class SolicitudEliminarPolitico extends Component {
   }
 }
 export default compose(
-    graphql(fetchSolicitudPoliticoElim, {
-        name: 'fetchSolicitudPoliticoElim'
+    graphql(fetchSolicitudEvento, {
+        name: 'fetchSolicitudEvento'
     }),
-    graphql(AceptarPolitico, {
-      name: 'AceptarPolitico'
+    graphql(AceptarEvento, {
+      name: 'AceptarEvento'
     }),
-    graphql(DenegarPolitico, {
-        name: 'DenegarPolitico'
+    graphql(DenegarEvento, {
+        name: 'DenegarEvento'
     }),
-)(SolicitudEliminarPolitico);
+)(SolicitudEliminarEvento);
