@@ -59,9 +59,8 @@ class AcercaDe extends Component{
     return (
       <div className="section">
         <div className="columns is-tablet">
-          <div className="column is-8-widescreen is-10-desktop is-10-tablet is-10-mobile is-offset-1-mobile is-offset-1-tablet is-offset-1-desktop is-offset-2-widescreen">
-              <h1 className="is-size-2">Ayuda</h1>
-              <hr />
+          <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+              <h1 className="is-size-2 title">Ayuda</h1>
               <Ayuda />
           </div>
         </div>

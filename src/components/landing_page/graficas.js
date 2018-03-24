@@ -39,10 +39,20 @@ class Graficas extends Component {
         console.log(this.props);
         return (
             <div>
+                <div className="section">
+                <div className="columns mobile">
+                    <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                    <h1 className="is-size-2 title">Inicio</h1>
+                    <br />
+                </div>
+                </div>
+                </div>
+                {/*
                 <Pie data={this.generateData(partidos)} />
                 <Bar data={this.generateData(partidos)} />
                 <Line data={this.generateData(partidos)} />
                 <Polar data={this.generateData(partidos)} />
+                */}
             </div>
         )
     }

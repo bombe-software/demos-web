@@ -30,11 +30,9 @@ class EleccionDetail extends Component {
         if (this.props.fetchEleccion.votacion == undefined || JSON.stringify(this.props.fetchEleccion.votacion) == '[]' || JSON.stringify(this.props.fetchEleccion.votacion) == '{}') {
             return (
                 <div>
-                    <div className="card-image">
-                        <div className="hero is-light">
-                            <div className="hero-body">
-                                <h3>No hay elecciones para mostrar en esta región</h3>
-                            </div>
+                    <div className="hero is-light">
+                        <div className="hero-body">
+                            <h3>No hay elecciones para mostrar en esta región</h3>
                         </div>
                     </div>
                 </div>
@@ -43,11 +41,9 @@ class EleccionDetail extends Component {
             if (this.props.fetchEleccion.votacion.preferencias.length <= 0) {
                 return (
                     <div>
-                        <div className="card-image">
-                            <div className="hero is-light">
-                                <div className="hero-body">
-                                    <h3>Todavia no elaboramos la eleccion espera unas horas</h3>
-                                </div>
+                        <div className="hero is-light">
+                            <div className="hero-body">
+                                <h3>Todavia no elaboramos la eleccion espera unas horas</h3>
                             </div>
                         </div>
                         {(() => {
@@ -96,36 +92,32 @@ class EleccionDetail extends Component {
                 };
                 return (
                     <div>
-                        <div className="card-content">
-                            <div className="title">
-                                <nav className="breadcrumb" aria-label="breadcrumbs">
-                                    <ul>
-                                        <React.Fragment>
-                                            <li><a href="#" >Estatal</a></li>
-                                            <li><a href="#" >{this.props.zona}</a></li>
-                                            <li key><a href="#" >{this.props.estado}</a></li>
-                                        </React.Fragment>
-                                    </ul>
-                                </nav>
+                        <div className="title">
+                            <nav className="breadcrumb" aria-label="breadcrumbs">
+                                <ul>
+                                    <React.Fragment>
+                                        <li><a href="#" >Estatal</a></li>
+                                        <li><a href="#" >{this.props.zona}</a></li>
+                                        <li key><a href="#" >{this.props.estado}</a></li>
+                                    </React.Fragment>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div className="hero is-small">
+                            <div className="hero-body">
+                                <Doughnut data={data} />
                             </div>
                         </div>
-                        <div className="card-image">
-                            <div className="hero is-small">
-                                <div className="hero-body">
-                                    <Doughnut data={data} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card-content">
-                            <br />
-                            {(() => {
-                                if (this.props.fetchUsuario.usuario != undefined) return (
-                                    <button className="button is-primary" onClick={this.props.handleForm}>
-                                        Contestar encuesta
-                                </button>
-                                )
-                            })()}
-                        </div>
+                    
+                        <br />
+                        {(() => {
+                            if (this.props.fetchUsuario.usuario != undefined) return (
+                                <button className="button is-primary" onClick={this.props.handleForm}>
+                                    Contestar encuesta
+                            </button>
+                            )
+                        })()}
+                        
                     </div>
                 );
             }

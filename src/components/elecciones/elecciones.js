@@ -128,14 +128,13 @@ class Elecciones extends Component {
         if (this.props.data.loading) return <div className="spinner"> </div>;
         return (
             <div className="section">
-                <div className="columns mobile">
-                    <div className="column is-offset-1-tablet is-offset-1-mobile is-offset-2-desktop is-10-mobile is-10-tablet is-8-desktop">
-                        <h1 className="is-size-2">Elecciones</h1>
-                        <hr />
-                    </div>
+                <div className="columns is-desktop">
+                <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                  <h1 className="is-size-2 title">Elecciones</h1>
+              </div>
                 </div>
                 <div className="columns">
-                    <div className="column is-2-desktop is-3-tablet is-10-mobile is-offset-2-desktop is-offset-1-tablet is-offset-1-mobile">
+                    <div className="column is-3-desktop is-3-widescreen is-2-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                         <aside className="menu">
                             <div>
                                 <p className="menu-label">Region</p>
@@ -145,10 +144,8 @@ class Elecciones extends Component {
                             </div>
                         </aside>
                     </div>
-                    <div className="column is-6-desktop is-7-tablet is-10-mobile is-offset-1-mobile">
-                        <div className="card">
-                            {this.renderSection()}
-                        </div>
+                    <div className="column is-7-desktop is-7-widescreen is-4-fullhd is-12-tablet is-12-mobile">
+                        {this.renderSection()}
                     </div>
                 </div>
             </div>

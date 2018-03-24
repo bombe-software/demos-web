@@ -66,18 +66,23 @@ class Mexico extends Component {
       render() {
             
             return (
-                  <div className="columns">
-                        <div className="column">
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width={this.props.width} height={this.props.height} viewBox="0 0 800 504" strokeLinecap="round"
-                              strokeLinejoin="round">
-                              <g className={"mexicoMap"}>
-                                    {this.renderEstados()}
-                              </g>
-                        </svg>
-                        </div>
-                        <div className="column">
-                              {(this.state.estadoSelected != "") ? <GraficaLateral id_estado={this.state.estadoSelected} /> : ""}
+                  <div className="section">
+                        <div className="columns">
+                        <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                                    <h1 className="is-size-2 title">Nacional</h1>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width={this.props.width} height={this.props.height} viewBox="0 0 800 504" strokeLinecap="round"
+                                    strokeLinejoin="round">
+                                    <g className={"mexicoMap"}>
+                                          {this.renderEstados()}
+                                    </g>
+                              </svg>
+                              </div>
                               
+                              <div className="column">
+                                    {(this.state.estadoSelected != "") ? <GraficaLateral id_estado={this.state.estadoSelected} /> : ""}
+                                    
+                              </div>
                         </div>
                   </div>
             )

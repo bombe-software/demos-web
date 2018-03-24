@@ -102,7 +102,7 @@ class SolicitudPoliticoModif extends Component {
     }
     return (
       <div className="columns is-desktop">
-        <div className="column is-3-widescreen is-3-desktop is-12-tablet is-offset-1-tablet is-offset-1-desktop is-offset-2-widescreen">
+        <div className="column is-5-widescreen is-5-desktop is-12-tablet">
           <div>
             
           <div className="panel">
@@ -112,7 +112,7 @@ class SolicitudPoliticoModif extends Component {
 
           </div>
         </div>
-        <div className="column is-5-widescreen is-7-desktop is-12-tablet">
+        <div className="column is-7-widescreen is-7-desktop is-12-tablet">
          { this.renderSectionPolitico()}
         </div>
       </div>

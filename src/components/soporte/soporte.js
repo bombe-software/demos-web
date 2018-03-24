@@ -119,13 +119,8 @@ class Soporte extends GenericForm {
         return (
             <div className="section">
                 <div className="columns">
-                        <div className="column
-                        is-offset-1-mobile is-offset-1-tablet
-                        is-offset-2-desktop is-offset-3-widescreen
-                        is-8-desktop is-10-mobile
-                        is-10-tablet is-6-widescreen">
-                            <h1 className="is-size-2">Soporte</h1>
-                            <hr />
+                <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                        <h1 className="is-size-2 title">Soporte</h1>
                             <div className="hero">
                                 <div className="">
                                     <div className="inbox">

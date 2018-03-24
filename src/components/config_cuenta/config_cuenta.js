@@ -25,17 +25,22 @@ class Perfil extends Component {
         <div className="section">
             <br />
             <div className="columns">
-              <div className="column is-4-desktop is-4-widescreen is-3-fullhd is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+              <div className="column is-10-widescreen is-10-desktop is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                  <h1 className="is-size-2 title">Configuración de la cuenta</h1>
+              </div>
+            </div>
+            <div className="columns is-desktop">
+              <div className="column is-12-tablet is-4-desktop is-4-widescreen is-3-fullhd is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                 <div className="card">
                   <div className="card-content">
                     <div className="media">
                       <div className="media-left">
-                        <figure className="image is-48x48">
+                        <figure className="image is-32x32">
                           <img src={"../../../assets/img/" + usuario.avatar + ".png"} alt="Placeholder image" />
                         </figure>
                       </div>
                       <div className="media-content">
-                        <p className="title is-4">@{usuario.nombre}</p>
+                        <p className="title is-6">@{usuario.nombre}</p>
                         <p className="subtitle is-7">{usuario.email}</p>
                       </div>
                     </div>
@@ -47,7 +52,7 @@ class Perfil extends Component {
                   </div>
                 </div>
               </div>
-              <div className="column is-6-desktop is-6-widescreen is-5-fullhd is-12-mobile">
+              <div className="column is-12-tablet is-6-desktop is-6-widescreen is-5-fullhd is-12-mobile">
                 <ConfigForm
                   usuario={this.props.data.usuario}
                 />

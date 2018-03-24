@@ -89,7 +89,7 @@ class ConfigForm extends GenericForm {
     render() {
         return (
             <div>
-                <div className="tabs is-medium is-boxed">
+                <div className="tabs is-boxed">
                     <ul>
                         <li className={this.state.type == "Usuario" ? 'is-active' : ''}>
                             <a onClick={this.updateUsuario}>

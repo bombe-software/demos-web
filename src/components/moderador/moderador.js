@@ -188,9 +188,9 @@ class Moderador extends Component {
       return (
         <div className="section">
           <div className="columns is-desktop">
-            <div className="column is-8-widescreen is-10-dektop is-10-tablet is-offset-1-desktop is-offset-2-widescreen is-offset-1-tablet">
-              <h1 className="is-size-2">Moderador</h1>
-              <hr />
+          <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                  <h1 className="is-size-2 title">Moderador</h1>
+                  <br />
               <div className="tabs is-medium">
                 <ul>
                   <li className={this.state.type == "propuestas" ? 'is-active' : ''}>
@@ -204,10 +204,10 @@ class Moderador extends Component {
                   </li>
                 </ul>
               </div>
+              <div>
+                {this.update()}
+              </div>
             </div>
-          </div>
-          <div>
-            {this.update()}
           </div>
           <div className="level"><br /><br /></div>
         </div>

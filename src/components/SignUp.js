@@ -203,7 +203,7 @@ class SignUp extends GenericForm {
             <div className="section">
               <div className="columns">
                 <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
-                  <div className="box"> <h1 className="title is-3">Registro</h1><p>Ingrese la siguiente información</p><hr />
+                  <div className="box"> <h1 className="title is-2">Registro</h1><p>Ingrese la siguiente información</p><hr />
                     <Form
                       onSubmit={this.onSubmit}
                       validate={values => {
