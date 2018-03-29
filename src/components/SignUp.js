@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 import { Form, Field } from "react-final-form";
 import Toggle from 'material-ui/Toggle';
@@ -10,7 +9,7 @@ import axios from "axios";
 
 import WaveBackground from './generic/wave_background';
 
-import signup from '../queries/signup';
+import signup from '../mutations/signup';
 import GenericForm from './generic/generic_form';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -378,5 +377,4 @@ class SignUp extends GenericForm {
     );
   }
 }
-
 export default graphql(signup)(SignUp);

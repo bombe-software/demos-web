@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import { graphql, compose } from 'react-apollo';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
-
 import WaveBackground from './generic/wave_background';
 
 import { Form, Field } from "react-final-form";
@@ -22,7 +20,6 @@ class Login extends GenericForm {
 
     async onSubmit(values) {
         const { email, password } = values;
-
         const ticket = {
             email,
             date: (new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear())

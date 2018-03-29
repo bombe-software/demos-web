@@ -1,22 +1,21 @@
 import React, { Component } from "react";
-
 import { graphql, compose } from 'react-apollo';
 
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 import { Form, Field } from "react-final-form";
-
 import NeedLogin from './../../generic/need_login';
 import WaveBackground from './../../generic/wave_background';
 
 import GenericForm from '../../generic/generic_form';
-import addPolitico from './../../../queries/addPolitico';
 import fetchPartidos from './../../../queries/fetchPartidos';
 import fetchUsuario from './../../../queries/fetchUsuario';
 import fetchEstados from './../../../queries/fetchEstados';
 import fetchGradoAcad from './../../../queries/fetchGradoAcad';
 import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
 import fetchPolitico from './../../../queries/fetchPoliticoPerfil';
-import ModifyPolitico from './../../../queries/ModifyPolitico';
+import ModifyPolitico from './../../../mutations/modify/ModifyPolitico';
 
 const load = async (props) => {
   if (props.loading) return <div>Loading...</div>;
@@ -32,14 +31,25 @@ const load = async (props) => {
 };
 
 class ModificarPoliticoForm extends GenericForm {
-
   constructor(props) {
     super(props);
     this.state = {
+      open: false,
       data: {}
     };
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
   }
+
+  handleOpen(){
+    this.setState({ open: true });
+  };
+
+  handleClose(){
+    this.setState({ open: false });
+    this.props.history.push(`/politicos/`);
+  };
 
   async renderFetchField(props) {
     this.setState({ loading: true });
@@ -59,7 +69,7 @@ class ModificarPoliticoForm extends GenericForm {
       variables: {
         id_politico, nombre, cargo, partido, estado,estudios , lugar_estudio,  grado_academico, titulo,  usuario,  referencia
       }
-    }).then(() => this.props.history.push(`/politicos`));
+    }).then(this.handleOpen); 
   };
   componentWillReceiveProps(props) {
     { this.renderFetchField(props.fetchPolitico) }
@@ -74,8 +84,18 @@ class ModificarPoliticoForm extends GenericForm {
         <NeedLogin />
       );
     }
+    console.log(this.props);
     return (
       <div>
+        <Dialog
+          title="Tu propuesta ahora está en espera de aprobación"
+          actions={[<FlatButton label="Ok" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          Espera la aprobación de un moderador de tu propuesta
+        </Dialog>
         <section className="hero is-large">
           <div className="section">
             <div className="columns">
@@ -122,7 +142,6 @@ class ModificarPoliticoForm extends GenericForm {
                         errors.referencia = "Escriba el link de referenica";
                       } else if (values.referencia != undefined) {
                         var re = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
-                        //var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
                         if (/^\s+|\s+$/.test(values.referencia)) {
                           errors.referencia = "Link invalido";
                         } else
@@ -253,9 +272,6 @@ class ModificarPoliticoForm extends GenericForm {
 }
 
 export default compose(
-  graphql(addPolitico, {
-    name: 'addPolitico'
-  }),
   graphql(fetchPartidos, {
     name: 'fetchPartidos'
   }),
@@ -278,5 +294,4 @@ export default compose(
     name: "fetchPolitico",
     options: (props) => { return { variables: { id: props.match.params.id_politico } } }
   })
-
 )(ModificarPoliticoForm);

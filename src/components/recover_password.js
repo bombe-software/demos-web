@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Link } from "react-router-dom";
 import graphql from "graphql-tag";
 
 /**
@@ -20,7 +19,6 @@ class RecoverPassword extends Component{
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
 
  handleSubmit(event) {
     
@@ -82,5 +80,4 @@ class RecoverPassword extends Component{
     );
   }
 }
-
 export default RecoverPassword;

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPropuesta from '../../../queries/fetchSolicitudPropuesta';
-import AceptarPropuesta from '../../../queries/AceptarPropuesta';
-import DenegarPropuesta from '../../../queries/DenegarPropuesta';
+import AceptarPropuesta from '../../../mutations/accept/AceptarPropuesta';
+import DenegarPropuesta from '../../../mutations/deny/DenegarPropuesta';
 
 import DetalleSolicitudPropuesta from './detalle_solicitud_propuesta';
 

@@ -5,7 +5,6 @@ export default gql`
    estados{
     id,
     nombre
-
    }
 }
 `;

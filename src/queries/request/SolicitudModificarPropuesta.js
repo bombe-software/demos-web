@@ -4,7 +4,6 @@ export default gql`
 query SolicitudModificarPropuesta($id: ID!){
   solicitudModificarPropuesta(id: $id){
     id,
-    id_propuesta,
     fecha,
     titulo,
     descripcion,
@@ -12,6 +11,7 @@ query SolicitudModificarPropuesta($id: ID!){
       tipo
     }
     politico{
+      id
       nombre
     }
     referencia,

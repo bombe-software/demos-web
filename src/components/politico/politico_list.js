@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
-import { compose } from "react-apollo";
-import { graphql } from 'react-apollo';
+import { compose, graphql } from "react-apollo";
 import fetchPoliticosPorEstado from '../../queries/fetchPoliticosPorEstado';
 import fetchPoliticos from '../../queries/fetchPoliticos';
 
@@ -58,8 +57,6 @@ class PoliticoList extends Component {
       }
     });
   }
-
-
   /**
   * Es una forma de capturar cualquier error en la clase 
   * y que este no crashe el programa, ayuda con la depuracion
@@ -86,16 +83,13 @@ class PoliticoList extends Component {
             </div>
           </div>
         </div>
-
           <h3 className="title is-3">{this.renderTitle()}</h3>
           <br />
           {this.renderListPoliticos()}
-
       </div>
     )
   }
 }
-
 
 export default compose(
   graphql(fetchPoliticosPorEstado,

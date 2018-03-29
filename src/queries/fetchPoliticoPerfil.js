@@ -1,12 +1,12 @@
 import gql from 'graphql-tag';
 
 export default gql`
-query fetchPoliticoDetail($id: ID!) {
+query fetchPoliticoPerfil($id: ID!) {
   politicosPorId(id: $id ){
     id,
     nombre,
     cargo,
-    estado{id},
+    estado{id}
     partido{
         id,
         nombre

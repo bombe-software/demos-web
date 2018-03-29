@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPropuestaModif from '../../../queries/fetchSolicitudPropuestaModif';
-import AceptarPropuesta from '../../../queries/AceptarModifPropuesta';
-import DenegarPropuesta from '../../../queries/DenegarModifPropuesta';
-
+import AceptarModifPropuesta from '../../../mutations/accept/AceptarModifPropuesta';
+import DenegarModifPropuesta from '../../../mutations/deny/DenegarModifPropuesta';
 import DetalleSolicitudModificarPropuesta from './detalle_modificar_propuesta';
 
 class SolicitudPropuestaModif extends Component {
@@ -24,7 +23,7 @@ class SolicitudPropuestaModif extends Component {
 
   aceptar(id_solicitud) {
     this.setState({ idPropuesta: null });
-    this.props.AceptarPropuesta({
+    this.props.AceptarModifPropuesta({
       variables: {
         id_solicitud
       }
@@ -33,7 +32,7 @@ class SolicitudPropuestaModif extends Component {
 
   denegar(id_solicitud) {
     this.setState({ idPropuesta: null });
-    this.props.DenegarPropuesta({
+    this.props.DenegarModifPropuesta({
       variables: {
         id_solicitud
       }
@@ -127,10 +126,10 @@ export default compose(
   graphql(fetchSolicitudPropuestaModif, {
     name: 'fetchSolicitudPropuestaModif'
   }),
-  graphql(AceptarPropuesta, {
-    name: 'AceptarPropuesta'
+  graphql(AceptarModifPropuesta, {
+    name: 'AceptarModifPropuesta'
   }),
-  graphql(DenegarPropuesta, {
-    name: 'DenegarPropuesta'
+  graphql(DenegarModifPropuesta, {
+    name: 'DenegarModifPropuesta'
   }),
 )(SolicitudPropuestaModif);

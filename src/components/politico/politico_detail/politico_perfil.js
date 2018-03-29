@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import deletePolitico from '../../../queries/DeletePolitico';
+import deletePolitico from '../../../mutations/captcha/DeletePolitico';
 import fetchPoliticoPerfil from '../../../queries/fetchPoliticoPerfil';
 import fetchUsuario from '../../../queries/fetchUsuario';
 import BotonCaptcha from './../../generic/boton_captcha';
@@ -83,11 +83,10 @@ renderBotonEliminar(){
                                 </Link>
                             </span>
                             <span className="card-footer-item">
-                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+                                {this.renderBotonEliminar()}
                             </span>
                         </div>
                     </div>
-
                 </div>
             );
         } else {

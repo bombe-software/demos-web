@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { compose, graphql } from 'react-apollo';
-
+import { graphql } from 'react-apollo';
 //Queries
-import SolicitudPolitico from '../../../queries/SolicitudPolitico';
+import SolicitudPolitico from '../../../queries/request/SolicitudPolitico';
 
 class DetalleSolicitudPolitico extends Component {
-
     constructor(props) {
         super(props);
       }
@@ -44,9 +42,4 @@ class DetalleSolicitudPolitico extends Component {
         );
     }
 }
-
-export default compose(
-    graphql(SolicitudPolitico, {
-        name: 'SolicitudPolitico'
-    })
-)(DetalleSolicitudPolitico);
+export default graphql(SolicitudPolitico, { name: 'SolicitudPolitico' })(DetalleSolicitudPolitico)

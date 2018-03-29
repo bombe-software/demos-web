@@ -45,8 +45,6 @@ class Propuestas extends Component {
         console.log("Info: " + info);
     }
 
-
-
     render() {
         return (
             <div>

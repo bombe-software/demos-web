@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { compose, graphql } from 'react-apollo';
-import updateUsuario from '../../queries/updateUsuario';
+import { graphql } from 'react-apollo';
+
+import updateUsuario from '../../mutations/updateUsuario';
 import Password from './password';
 import Usuario from './usuario';
 import Avatar from './avatar';
 
-import { Form, Field } from "react-final-form";
 import GenericForm from './../generic/generic_form';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
 
 class ConfigForm extends GenericForm {
     constructor(props) {

@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { compose, graphql } from 'react-apollo';
-
+import { graphql } from 'react-apollo';
 //Queries
-import SolicitudEvento from '../../../queries/SolicitudEvento';
+import SolicitudEvento from '../../../queries/request/SolicitudEvento';
 
 class DetalleSolicitudEvento extends Component {
-
     constructor(props) {
         super(props);
       }
@@ -24,6 +22,7 @@ class DetalleSolicitudEvento extends Component {
                     <p className="subtitle is-7">
                     Publicado por el usuario: <b>{evento.usuario.nombre}</b>&nbsp;&nbsp;
                     <img src={`../../assets/img/${evento.usuario.avatar}.png`} height="14" width="14"/></p>
+                    <p className="subtitle is-7"><b>Politico: </b>{evento.politico.nombre}</p>
                     <hr />
                      <p className="title is-4"><b>Título: </b>{evento.titulo}</p>
                       <p><b>Descripción: </b>{evento.descripcion}</p>
@@ -35,9 +34,4 @@ class DetalleSolicitudEvento extends Component {
         );
     }
 }
-
-export default compose(
-    graphql(SolicitudEvento, {
-        name: 'SolicitudEvento'
-    })
-)(DetalleSolicitudEvento);
+export default graphql(SolicitudEvento, { name: 'SolicitudEvento' })(DetalleSolicitudEvento)

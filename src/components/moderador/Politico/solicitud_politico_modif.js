@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPoliticoModif from '../../../queries/fetchSolicitudPoliticoModif';
 
-import AceptarPolitico from '../../../queries/AceptarModifPolitico'
-import DenegarPolitico from '../../../queries/DenegarModifPolitico';
+import AceptarModifPolitico from '../../../mutations/accept/AceptarModifPolitico'
+import DenegarModifPolitico from '../../../mutations/deny/DenegarModifPolitico';
 
 import DetalleSolicitudModificarPolitico from './detalle_modificar_politico';
 
@@ -25,7 +25,7 @@ class SolicitudPoliticoModif extends Component {
 
   aceptar(id_solicitud) {
     this.setState({ idPolitico: null });
-    this.props.AceptarPolitico({
+    this.props.AceptarModifPolitico({
       variables: {
       id_solicitud 
     }
@@ -34,7 +34,7 @@ class SolicitudPoliticoModif extends Component {
 
   denegar(id_solicitud) {
     this.setState({ idPolitico: null });
-    this.props.DenegarPolitico({
+    this.props.DenegarModifPolitico({
       variables: {
         id_solicitud
       }
@@ -132,10 +132,10 @@ export default compose(
     graphql(fetchSolicitudPoliticoModif, {
         name: 'fetchSolicitudPoliticoModif'
     }),
-    graphql(AceptarPolitico, {
-      name: 'AceptarPolitico'
+    graphql(AceptarModifPolitico, {
+      name: 'AceptarModifPolitico'
     }),
-    graphql(DenegarPolitico, {
-        name: 'DenegarPolitico'
+    graphql(DenegarModifPolitico, {
+        name: 'DenegarModifPolitico'
     })
 )(SolicitudPoliticoModif);

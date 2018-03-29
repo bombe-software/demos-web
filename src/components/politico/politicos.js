@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import zonas from '../../queries/fetchZonas';
 import { graphql } from 'react-apollo';
-import { Link } from "react-router-dom";
 import PoliticoList from "./politico_list";
 
 class Politicos extends Component {
@@ -51,8 +50,7 @@ class Politicos extends Component {
                             <summary>{nombre}</summary>
                             <ul>
                             {estados.map( estado => {
-                                return (
-                                   
+                                return (    
                                     <li key={estado.id}>
                                         <a
                                         onClick={this.updateSearch(estado.id, this.state.id_puesto, estado.nombre,nombre)}
@@ -82,7 +80,6 @@ class Politicos extends Component {
   }
 
     render() {
-
          if (this.props.data.loading){return <div>Loading...</div>}
         return (
             <div className="section">

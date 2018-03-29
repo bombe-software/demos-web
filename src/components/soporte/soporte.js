@@ -133,7 +133,6 @@ class Soporte extends GenericForm {
                                             <Form
                                                 onSubmit={this.onSubmit}
                                                 validate={values => {
-
                                                     const errors = {};
                                                      if (!values.mensajeUser) {
                                                         errors.mensajeUser = "Escriba un mensaje";
@@ -171,6 +170,4 @@ class Soporte extends GenericForm {
         )
     }
 }
-
-
 export default graphql(mensaje)(Soporte);

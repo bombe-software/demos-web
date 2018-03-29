@@ -5,7 +5,6 @@ export default gql`
    tipos_politico{
     id,
     tipo
-
    }
 }
 `;

@@ -111,7 +111,6 @@ class PoliticoDetail extends Component {
         )
     }
 }
-
 export default
     compose(
         graphql(fetchUsuario, {

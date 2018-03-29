@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudEvento from '../../../queries/fetchSolicitudEventoModif';
 
-import AceptarEvento from '../../../queries/AceptarModifEvento'
-import DenegarEvento from '../../../queries/DenegarModifEvento';
+import AceptarModifEvento from '../../../mutations/accept/AceptarModifEvento'
+import DenegarModifEvento from '../../../mutations/deny/DenegarModifEvento';
 
 import DetalleSolicitudEvento from './detalle_modificar_evento';
 
@@ -25,7 +25,7 @@ class SolicitudEventoModif extends Component {
 
   aceptar(id_solicitud) {
     this.setState({ idEvento: null });
-    this.props.AceptarEvento({
+    this.props.AceptarModifEvento({
       variables: {
         id_solicitud
       }
@@ -34,7 +34,7 @@ class SolicitudEventoModif extends Component {
 
   denegar(id_solicitud) {
     this.setState({ idEvento: null });
-    this.props.DenegarEvento({
+    this.props.DenegarModifEvento({
       variables: {
         id_solicitud
       }
@@ -124,11 +124,11 @@ export default compose(
   graphql(fetchSolicitudEvento, {
     name: 'fetchSolicitudEvento'
   }),
-  graphql(AceptarEvento, {
-    name: 'AceptarEvento'
+  graphql(AceptarModifEvento, {
+    name: 'AceptarModifEvento'
   }),
-  graphql(DenegarEvento, {
-    name: 'DenegarEvento'
+  graphql(DenegarModifEvento, {
+    name: 'DenegarModifEvento'
   }),
 )(SolicitudEventoModif);
 
