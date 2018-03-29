@@ -16,7 +16,6 @@ class PoliticoPerfil extends Component {
          this.Eliminar = this.Eliminar.bind(this);
          this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
     }
-
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion
