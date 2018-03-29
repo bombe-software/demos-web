@@ -11,7 +11,7 @@ import DetalleSolicitudEvento from './detalle_modificar_evento';
 class SolicitudEventoModif extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       idEvento: null
     }
@@ -27,9 +27,9 @@ class SolicitudEventoModif extends Component {
     this.setState({ idEvento: null });
     this.props.AceptarEvento({
       variables: {
-       id_solicitud
+        id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudEvento.refetch());
+    }).then(() => this.props.fetchSolicitudEvento.refetch());
   }
 
   denegar(id_solicitud) {
@@ -38,11 +38,17 @@ class SolicitudEventoModif extends Component {
       variables: {
         id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudEvento.refetch());
+    }).then(() => this.props.fetchSolicitudEvento.refetch());
   }
 
   seleccionar(idEvento) {
     this.setState({ idEvento });
+  }
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.fetchSolicitudEvento) {
+      nextProps.fetchSolicitudEvento.refetch();
+      return true;
+    }
   }
 
   renderList() {
@@ -60,8 +66,8 @@ class SolicitudEventoModif extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a onClick={()=>{this.seleccionar(id)}}
-            style={{color: 'inherit', textDecoration: 'none'}}
+            <a onClick={() => { this.seleccionar(id) }}
+              style={{ color: 'inherit', textDecoration: 'none' }}
             >{titulo}</a>
           </div>
         </div>
@@ -74,35 +80,35 @@ class SolicitudEventoModif extends Component {
     console.log("Info: " + info);
   }
 
-  renderSectionEvento(){
-    if(this.state.idEvento){
+  renderSectionEvento() {
+    if (this.state.idEvento) {
       return <DetalleSolicitudEvento id={this.state.idEvento} />;
-    }else{
-      return(          
+    } else {
+      return (
         <div className="card">
-            <div className="card-content">
-              <div className="section has-text-centered">
-                Selecciona un evento
+          <div className="card-content">
+            <div className="section has-text-centered">
+              Selecciona un evento
               </div>
-            </div>
           </div>
-        );
+        </div>
+      );
     }
   }
 
   render() {
-    if (this.props.fetchSolicitudEvento.loading){
+    if (this.props.fetchSolicitudEvento.loading) {
       return <div>Loading...</div>
     }
     return (
       <div className="columns is-desktop">
         <div className="column is-5-widescreen is-5-desktop is-12-tablet">
           <div>
-            
-          <div className="panel">
-            <div className="panel-heading">Eventos Cambios</div>
-            {this.renderList()}
-          </div>
+
+            <div className="panel">
+              <div className="panel-heading">Eventos Cambios</div>
+              {this.renderList()}
+            </div>
 
           </div>
         </div>
@@ -110,19 +116,19 @@ class SolicitudEventoModif extends Component {
           {this.renderSectionEvento()}
         </div>
       </div>
-      
+
     )
   }
 }
 export default compose(
-    graphql(fetchSolicitudEvento, {
-        name: 'fetchSolicitudEvento'
-    }),
-    graphql(AceptarEvento, {
-      name: 'AceptarEvento'
-    }),
-    graphql(DenegarEvento, {
-        name: 'DenegarEvento'
-    }),
+  graphql(fetchSolicitudEvento, {
+    name: 'fetchSolicitudEvento'
+  }),
+  graphql(AceptarEvento, {
+    name: 'AceptarEvento'
+  }),
+  graphql(DenegarEvento, {
+    name: 'DenegarEvento'
+  }),
 )(SolicitudEventoModif);
 

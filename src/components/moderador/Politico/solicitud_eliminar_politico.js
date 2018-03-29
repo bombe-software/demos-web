@@ -39,13 +39,19 @@ class SolicitudEliminarPolitico extends Component {
       }
     }).then(()=> this.props.fetchSolicitudPoliticoElim.refetch());
   }
-
+  shouldComponentUpdate(nextProps){
+    if(nextProps.fetchSolicitudPoliticoElim)
+    {
+    nextProps.fetchSolicitudPoliticoElim.refetch();
+    return true;
+    }
+}
   seleccionar(idPolitico) {
     this.setState({ idPolitico });
   }
 
   renderList() {
-    return this.props.fetchSolicitudPolitico.solicitudesDeletePolitico.map(({id,id_politico, id_usuario}) => {
+    return this.props.fetchSolicitudPoliticoElim.solicitudesDeletePolitico.map(({id,id_politico, id_usuario}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -98,7 +104,7 @@ class SolicitudEliminarPolitico extends Component {
           </div>
         </div>
         <div className="column is-7-widescreen is-7-desktop is-12-tablet">
-          { this.state.idPolitico ? <DetalleSolicitudPolitico id={this.state.idPolitico} />: 
+          { this.state.idPolitico ? <DetalleEliminarPolitico id={this.state.idPolitico} />: 
           <div className="card">
             <div className="card-content">
               <div className="section has-text-centered">

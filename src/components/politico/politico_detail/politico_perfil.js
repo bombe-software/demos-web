@@ -47,6 +47,13 @@ renderBotonEliminar(){
         );
     }
 }
+  shouldComponentUpdate(nextProps){
+    if(nextProps.fetchPolitico)
+    {
+    nextProps.fetchPolitico.refetch();
+    return true;
+    }
+}
     render() {
         if (this.props.fetchPolitico.politicosPorId != undefined) {
             let politico, {nombre, partido, estudios} = this.props.fetchPolitico.politicosPorId;

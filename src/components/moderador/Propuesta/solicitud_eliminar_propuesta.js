@@ -10,7 +10,7 @@ import DetalleSolicitudEliminarPropuesta from './detalle_eliminar_propuesta';
 class SolicitudEliminarPropuesta extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       idPropuesta: null
     }
@@ -26,9 +26,9 @@ class SolicitudEliminarPropuesta extends Component {
     this.setState({ idPropuesta: null });
     this.props.AceptarPropuesta({
       variables: {
-       id_solicitud
+        id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPropuestaElim.refetch());
+    }).then(() => this.props.fetchSolicitudPropuestaElim.refetch());
   }
 
   denegar(id_solicitud) {
@@ -37,15 +37,20 @@ class SolicitudEliminarPropuesta extends Component {
       variables: {
         id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPropuestaElim.refetch());
+    }).then(() => this.props.fetchSolicitudPropuestaElim.refetch());
   }
-
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.fetchSolicitudPropuestaElim) {
+      nextProps.fetchSolicitudPropuestaElim.refetch();
+      return true;
+    }
+  }
   seleccionar(idPropuesta) {
     this.setState({ idPropuesta });
   }
 
   renderList() {
-    return this.props.fetchSolicitudPropuestaElim.solicitudesDeletePropuesta.map(({id,id_propuesta, id_usuario}) => {
+    return this.props.fetchSolicitudPropuestaElim.solicitudesDeletePropuesta.map(({id, id_propuesta, id_usuario}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -59,8 +64,8 @@ class SolicitudEliminarPropuesta extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a onClick={()=>{this.seleccionar(id)}} 
-            style={{color: 'inherit', textDecoration: 'none'}}
+            <a onClick={() => { this.seleccionar(id) }}
+              style={{ color: 'inherit', textDecoration: 'none' }}
             >{id_propuesta.titulo}</a>
           </div>
         </div>
@@ -80,52 +85,52 @@ class SolicitudEliminarPropuesta extends Component {
     console.log("Error: " + error);
     console.log("Info: " + info);
   }
- renderSectionPropuesta(){
-    if(this.state.idPropuesta!=null){
+  renderSectionPropuesta() {
+    if (this.state.idPropuesta != null) {
       return <DetalleSolicitudEliminarPropuesta id={this.state.idPropuesta} />;
-    }else{
-      return(          
+    } else {
+      return (
         <div className="card">
-            <div className="card-content">
-              <div className="section has-text-centered">
-                Selecciona una propuesta
+          <div className="card-content">
+            <div className="section has-text-centered">
+              Selecciona una propuesta
               </div>
-            </div>
           </div>
-        );
+        </div>
+      );
     }
   }
   render() {
-    if (this.props.fetchSolicitudPropuestaElim.loading){
+    if (this.props.fetchSolicitudPropuestaElim.loading) {
       return <div>Loading...</div>
     }
     return (
       <div className="columns is-desktop">
         <div className="column is-5-widescreen is-4-desktop is-12-tablet">
           <div>
-            
-          <div className="panel">
-            <div className="panel-heading">Propuestas Cambios</div>
-            {this.renderList()}
-          </div>
+
+            <div className="panel">
+              <div className="panel-heading">Propuestas Cambios</div>
+              {this.renderList()}
+            </div>
 
           </div>
         </div>
         <div className="column is-7-widescreen is-8-desktop is-12-tablet">
-        {this.renderSectionPropuesta()}
+          {this.renderSectionPropuesta()}
         </div>
       </div>
     )
   }
 }
 export default compose(
-    graphql(fetchSolicitudPropuestaElim, {
-        name: 'fetchSolicitudPropuestaElim'
-    }),
-    graphql(AceptarPropuesta, {
-      name: 'AceptarPropuesta'
-    }),
-    graphql(DenegarPropuesta, {
-        name: 'DenegarPropuesta'
-    }),
+  graphql(fetchSolicitudPropuestaElim, {
+    name: 'fetchSolicitudPropuestaElim'
+  }),
+  graphql(AceptarPropuesta, {
+    name: 'AceptarPropuesta'
+  }),
+  graphql(DenegarPropuesta, {
+    name: 'DenegarPropuesta'
+  }),
 )(SolicitudEliminarPropuesta);

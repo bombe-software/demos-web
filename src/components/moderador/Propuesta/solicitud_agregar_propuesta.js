@@ -38,7 +38,12 @@ class SolicitudPropuesta extends Component {
       }
     }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
-
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.fetchSolicitudPropuesta) {
+      nextProps.fetchSolicitudPropuesta.refetch();
+      return true;
+    }
+  }
   seleccionar(idPropuesta) {
     this.setState({ idPropuesta });
   }
