@@ -69,7 +69,13 @@ class SolicitudPolitico extends Component {
       );
     });
   }
-
+  shouldComponentUpdate(nextProps){
+    if(nextProps.fetchSolicitudPolitico)
+    {
+    nextProps.fetchSolicitudPolitico.refetch();
+    return true;
+    }
+}
   /**
   * Es una forma de capturar cualquier error en la clase 
   * y que este no crashe el programa, ayuda con la depuracion

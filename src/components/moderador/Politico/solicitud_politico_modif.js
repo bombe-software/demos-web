@@ -96,6 +96,15 @@ class SolicitudPoliticoModif extends Component {
         );
     }
   }
+  shouldComponentUpdate(nextProps){
+    if(nextProps.fetchSolicitudPoliticoModif)
+    {
+    nextProps.fetchSolicitudPoliticoModif.refetch();
+    return true;
+    }
+}
+
+
   render() {
     if (this.props.fetchSolicitudPoliticoModif.loading){
       return <div>Loading...</div>

@@ -10,7 +10,7 @@ import DetalleSolicitudModificarPropuesta from './detalle_modificar_propuesta';
 class SolicitudPropuestaModif extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       idPropuesta: null
     }
@@ -26,9 +26,9 @@ class SolicitudPropuestaModif extends Component {
     this.setState({ idPropuesta: null });
     this.props.AceptarPropuesta({
       variables: {
-       id_solicitud
+        id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPropuestaModif.refetch());
+    }).then(() => this.props.fetchSolicitudPropuestaModif.refetch());
   }
 
   denegar(id_solicitud) {
@@ -37,13 +37,18 @@ class SolicitudPropuestaModif extends Component {
       variables: {
         id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPropuestaModif.refetch());
+    }).then(() => this.props.fetchSolicitudPropuestaModif.refetch());
   }
 
   seleccionar(idPropuesta) {
     this.setState({ idPropuesta });
   }
-
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.fetchSolicitudPropuestaModif) {
+      nextProps.fetchSolicitudPropuestaModif.refetch();
+      return true;
+    }
+  }
   renderList() {
     return this.props.fetchSolicitudPropuestaModif.solicitudesModificarPropuesta.map(({id, titulo}) => {
       return (
@@ -59,8 +64,8 @@ class SolicitudPropuestaModif extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a onClick={()=>{this.seleccionar(id)}} 
-            style={{color: 'inherit', textDecoration: 'none'}}
+            <a onClick={() => { this.seleccionar(id) }}
+              style={{ color: 'inherit', textDecoration: 'none' }}
             >{titulo}</a>
           </div>
         </div>
@@ -80,52 +85,52 @@ class SolicitudPropuestaModif extends Component {
     console.log("Error: " + error);
     console.log("Info: " + info);
   }
- renderSectionPropuesta(){
-    if(this.state.idPropuesta!=null){
+  renderSectionPropuesta() {
+    if (this.state.idPropuesta != null) {
       return <DetalleSolicitudModificarPropuesta id={this.state.idPropuesta} />;
-    }else{
-      return(          
+    } else {
+      return (
         <div className="card">
-            <div className="card-content">
-              <div className="section has-text-centered">
-                Selecciona una propuesta
+          <div className="card-content">
+            <div className="section has-text-centered">
+              Selecciona una propuesta
               </div>
-            </div>
           </div>
-        );
+        </div>
+      );
     }
   }
   render() {
-    if (this.props.fetchSolicitudPropuestaModif.loading){
+    if (this.props.fetchSolicitudPropuestaModif.loading) {
       return <div>Loading...</div>
     }
     return (
       <div className="columns is-desktop">
         <div className="column is-5-widescreen is-5-desktop is-12-tablet">
           <div>
-            
-          <div className="panel">
-            <div className="panel-heading">Propuestas Cambios</div>
-            {this.renderList()}
-          </div>
+
+            <div className="panel">
+              <div className="panel-heading">Propuestas Cambios</div>
+              {this.renderList()}
+            </div>
 
           </div>
         </div>
         <div className="column is-7-widescreen is-7-desktop is-12-tablet">
-        {this.renderSectionPropuesta()}
+          {this.renderSectionPropuesta()}
         </div>
       </div>
     )
   }
 }
 export default compose(
-    graphql(fetchSolicitudPropuestaModif, {
-        name: 'fetchSolicitudPropuestaModif'
-    }),
-    graphql(AceptarPropuesta, {
-      name: 'AceptarPropuesta'
-    }),
-    graphql(DenegarPropuesta, {
-        name: 'DenegarPropuesta'
-    }),
+  graphql(fetchSolicitudPropuestaModif, {
+    name: 'fetchSolicitudPropuestaModif'
+  }),
+  graphql(AceptarPropuesta, {
+    name: 'AceptarPropuesta'
+  }),
+  graphql(DenegarPropuesta, {
+    name: 'DenegarPropuesta'
+  }),
 )(SolicitudPropuestaModif);

@@ -11,7 +11,7 @@ import DetalleEliminarEvento from './detalle_eliminar_evento';
 class SolicitudEliminarEvento extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       idEvento: null,
     }
@@ -26,9 +26,9 @@ class SolicitudEliminarEvento extends Component {
     this.setState({ idEvento: null });
     this.props.AceptarEvento({
       variables: {
-       id_solicitud
+        id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudEvento.refetch());
+    }).then(() => this.props.fetchSolicitudEvento.refetch());
   }
 
   denegar(id_solicitud) {
@@ -37,15 +37,20 @@ class SolicitudEliminarEvento extends Component {
       variables: {
         id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudEvento.refetch());
+    }).then(() => this.props.fetchSolicitudEvento.refetch());
   }
-
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.fetchSolicitudEvento) {
+      nextProps.fetchSolicitudEvento.refetch();
+      return true;
+    }
+  }
   seleccionar(idEvento) {
     this.setState({ idEvento });
   }
 
   renderList() {
-    return this.props.fetchSolicitudEvento.solicitudesDeleteEvento.map(({id,id_evento, id_usuario}) => {
+    return this.props.fetchSolicitudEvento.solicitudesDeleteEvento.map(({id, id_evento, id_usuario}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -59,8 +64,8 @@ class SolicitudEliminarEvento extends Component {
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a  onClick={()=>{this.seleccionar(id)}}
-            style={{color: 'inherit', textDecoration: 'none'}}
+            <a onClick={() => { this.seleccionar(id) }}
+              style={{ color: 'inherit', textDecoration: 'none' }}
             >{id_evento.titulo}</a>
           </div>
         </div>
@@ -82,43 +87,43 @@ class SolicitudEliminarEvento extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudEvento.loading){
+    if (this.props.fetchSolicitudEvento.loading) {
       return <div>Loading...</div>
     }
     return (
       <div className="columns is-desktop">
         <div className="column is-5-widescreen is-4-desktop is-12-tablet">
           <div>
-            
-          <div className="panel">
-            <div className="panel-heading">Eventos</div>
-            {this.renderList()}
-          </div>
+
+            <div className="panel">
+              <div className="panel-heading">Eventos</div>
+              {this.renderList()}
+            </div>
 
           </div>
         </div>
         <div className="column is-7-widescreen is-8-desktop is-12-tablet">
-          { this.state.idEvento ? <DetalleEliminarEvento id={this.state.idEvento} />: 
-          <div className="card">
-            <div className="card-content">
-              <div className="section has-text-centered">
-                Selecciona un evento
+          {this.state.idEvento ? <DetalleEliminarEvento id={this.state.idEvento} /> :
+            <div className="card">
+              <div className="card-content">
+                <div className="section has-text-centered">
+                  Selecciona un evento
               </div>
-            </div>
-          </div> }
+              </div>
+            </div>}
         </div>
       </div>
     )
   }
 }
 export default compose(
-    graphql(fetchSolicitudEvento, {
-        name: 'fetchSolicitudEvento'
-    }),
-    graphql(AceptarEvento, {
-      name: 'AceptarEvento'
-    }),
-    graphql(DenegarEvento, {
-        name: 'DenegarEvento'
-    }),
+  graphql(fetchSolicitudEvento, {
+    name: 'fetchSolicitudEvento'
+  }),
+  graphql(AceptarEvento, {
+    name: 'AceptarEvento'
+  }),
+  graphql(DenegarEvento, {
+    name: 'DenegarEvento'
+  }),
 )(SolicitudEliminarEvento);
