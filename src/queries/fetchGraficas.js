@@ -3,26 +3,22 @@ import gql from 'graphql-tag';
 export default gql`
 {
     propuestas{
+      id
+      titulo
       tipo_propuesta {
         tipo
       }
       likes {
         id
       }
-    }
-    partidos{
-      id
-      nombre
-      integrantes{
+    	politico {
         id
+        cargo
+        nombre
+        estado {
+          id
+        }
       }
-    }
-    usuarios{
-      id
-         localidad {
-           id
-           nombre
-         }
     }
     preferencias{
         id

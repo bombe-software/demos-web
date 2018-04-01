@@ -27,7 +27,6 @@ class Perfil extends Component {
       const fecha = new Date(usuario.fecha_registro);
       return (
         <div className="section">
-            <br />
             <div className="columns">
               <div className="column is-10-widescreen is-10-desktop is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                   <h1 className="is-size-2 title">Configuración de la cuenta</h1>

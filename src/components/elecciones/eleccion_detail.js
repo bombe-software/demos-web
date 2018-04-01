@@ -57,21 +57,27 @@ class EleccionDetail extends Component {
             } else {
                 const votacion = this.props.fetchEleccion.votacion.preferencias;
                 let colorList = [
-                    'rgba(69, 196, 158, 0.9)',
-                    'rgba(115, 86, 201, 0.9)',
-                    'rgba(234, 83, 136, 0.9)',
-                    'rgba(37, 185, 140, 0.9)',
-                    'rgba(230, 46, 111, 0.9)',
-                    'rgba(89, 55, 191, 0.9)'
+                    'rgba(69, 196, 158, 0.8)',
+                    'rgba(115, 86, 201, 0.8)',
+                    'rgba(234, 83, 136, 0.8)',
+                    'rgba(117, 97, 206, 0.8)',
+                    'rgba(226, 89, 161, 0.8)',
+                    'rgba(80,201, 164, 0.8)',
+                    'rgba(209, 186, 9, 0.8)',
+                    'rgba(89, 186,  8, 0.8)',
+                    'rgba(209, 110,  9, 0.8)',
                 ];
 
                 let colorOpacityList = [
                     'rgba(69, 196, 158, 1)',
                     'rgba(115, 86, 201, 1)',
                     'rgba(234, 83, 136, 1)',
-                    'rgba(37, 185, 140, 1)',
-                    'rgba(230, 46, 111, 1)',
-                    'rgba(89, 55, 191, 1)'
+                    'rgba(117, 97, 206, 1)',
+                    'rgba(226, 89, 161, 1)',
+                    'rgba( 80,201, 164, 1)',
+                    'rgba(209, 186, 9, 1)',
+                    'rgba(89, 186,  8, 1)',
+                    'rgba(209, 110,  9, 1)',
                 ];
                 let labelsProps = [];
                 let dataProps = [];
