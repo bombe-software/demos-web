@@ -82,7 +82,7 @@ class Graficas extends Component {
                 </div>
 
                 <div className="column is-12-tablet is-4-desktop">
-                    <Link to="/soporte">
+                    <Link to="/nacional">
                         <div className="card hover-hero">
                             <div className="hero is-danger hover-hero">
                                 <div className="hero-body">

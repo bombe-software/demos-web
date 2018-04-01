@@ -255,12 +255,12 @@ class LandingPage extends Component {
                                 </div>
 
                                 <div className="column is-12-tablet is-4-desktop">
-                                    <Link to="/soporte">
+                                    <Link to="/nacional">
                                         <div className="card hover-hero">
                                             <div className="hero is-danger hover-hero">
                                                 <div className="hero-body">
-                                                    <h2 className="title">Soporte</h2>
-                                                    <p className="subtitle">Obtén ayuda de algún administrador del programa</p>
+                                                    <h2 className="title">Nacional</h2>
+                                                    <p className="subtitle">Ve la encuesta nacional por estado en un mapa interactivo</p>
                                                 </div>
                                             </div>
                                         </div>
