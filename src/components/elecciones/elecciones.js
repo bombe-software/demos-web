@@ -50,28 +50,32 @@ class Elecciones extends Component {
 
     renderEstados() {
         return this.props.data.zonas.map(item => {
-            return (
-                <div key={item.id}>
-                    <li>
-                        <details>
-                            <summary>{item.nombre}</summary>
-                            <ul>
-                                {item.estados.map(estado => {
-                                    return (
-                                        <li key={estado.id}>
-                                            <a
-                                                onClick={this.updateSearch(estado.id, item.nombre, estado.nombre)}
-                                                className={this.getActiveEstado(estado.id)} >
-                                                {estado.nombre}
-                                            </a>
-                                        </li>
-                                    )
-                                })}
-                            </ul>
-                        </details>
-                    </li>
-                </div>
-            );
+            if (item.nombre == "Nacional") {
+                return <div key={item.id}></div>;
+            } else {
+                return (
+                    <div key={item.id}>
+                        <li>
+                            <details>
+                                <summary>{item.nombre}</summary>
+                                <ul>
+                                    {item.estados.map(estado => {
+                                        return (
+                                            <li key={estado.id}>
+                                                <a
+                                                    onClick={this.updateSearch(estado.id, item.nombre, estado.nombre)}
+                                                    className={this.getActiveEstado(estado.id)} >
+                                                    {estado.nombre}
+                                                </a>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </details>
+                        </li>
+                    </div>
+                );
+            }
         });
     }
 
@@ -87,7 +91,7 @@ class Elecciones extends Component {
                         </div>
                     </div>
                 </div>
-        );
+            );
         if (this.state.formActive) {
             return (
                 <EleccionForm
@@ -128,9 +132,9 @@ class Elecciones extends Component {
         return (
             <div className="section">
                 <div className="columns is-desktop">
-                <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
-                  <h1 className="is-size-2 title">Elecciones</h1>
-              </div>
+                    <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                        <h1 className="is-size-2 title">Elecciones</h1>
+                    </div>
                 </div>
                 <div className="columns">
                     <div className="column is-3-desktop is-3-widescreen is-2-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
