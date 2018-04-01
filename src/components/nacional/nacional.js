@@ -68,25 +68,27 @@ class Mexico extends Component {
             
             return (
                   <div className="section">
-                        <div className="columns">
-                        <div className="column is-7-widescreen is-7-desktop is-6-fullhd is-10-tablet is-10-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
-                                    <h1 className="is-size-2 title">Nacional</h1>
+                        <div className="columns is-dektop">
+                        <div className="column is-10-widescreen is-10-desktop is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                              <h1 className="is-size-2 title">Nacional</h1>
+                        </div>
+                        </div>
+                        <div className="columns id-desktop">
+                        <div className="column is-6-widescreen is-6-desktop is-6-fullhd is-12-tablet is-12-mobile">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width={this.props.width} height={this.props.height} viewBox="0 0 800 504" strokeLinecap="round"
+                              <svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width={this.props.width} height={this.props.height} viewBox="0 0 800 504" strokeLinecap="round"
                                     strokeLinejoin="round">
                                     <g className={"mexicoMap"}>
                                           {this.renderEstados()}
                                     </g>
                               </svg>
-                              </div>
-                              
-                              <div className="column">
-                                    {(this.state.estadoSelected != "") ? <GraficaLateral id_estado={this.state.estadoSelected} /> : ""}
-                                    
-                              </div>
-                              <div className="column">
-                                    {(this.state.estadoSelected != "") ? <NacionalForm id_estado={this.state.estadoSelected} /> : ""}
-                              </div>
+                        </div>
+                        
+                        <div className="column is-6-widescreen is-6-desktop is-6-fullhd is-12-tablet is-12-mobile">
+                              {(this.state.estadoSelected != "") ? <GraficaLateral id_estado={this.state.estadoSelected} /> : ""}
+                              <br/>
+                              {(this.state.estadoSelected != "") ? <NacionalForm id_estado={this.state.estadoSelected} /> : ""}
+                        </div>
                         </div>
                   </div>
             )

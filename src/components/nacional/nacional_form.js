@@ -55,7 +55,11 @@ class NacionalForm extends Component {
         return this.props.fetch.likes_nacionalPorEstado.map(({ politico }) => {
             return (
                 <div key={politico.id} onClick={() => this.handlePolitico(politico.id)}>
-                    {politico.nombre}
+                    <div className="hover-hero">
+                        <div className="box" style={this.state.id_politico_preferido == politico.id ? {backgroundColor: "#7561CE", color: "white"} : {}}>
+                            {politico.nombre}
+                        </div>
+                    </div>
                 </div>
             );
         })
@@ -65,15 +69,13 @@ class NacionalForm extends Component {
         if (this.props.fetch.loading || this.props.updateVoto.loading || this.props.fetchUsuario.loading) return <div> </div>
         return (
             <div>
-                <div className="card-content">
-                </div>
-                <div className="card-image">
-                    <div className="hero is-small">
-                        <div className="hero-body">
-                            {this.renderListPoliticos()}
-                        </div>
+                
+                <div className="hero is-small">
+                    <div className="hero-body">
+                        {this.renderListPoliticos()}
                     </div>
                 </div>
+                
                 <div className="level">
                     <div className="level-item">
                         {this.state.mensaje}
