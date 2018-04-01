@@ -5,13 +5,15 @@ import fetchSolicitudPoliticoModif from '../../../queries/fetchSolicitudPolitico
 
 import AceptarModifPolitico from '../../../mutations/accept/AceptarModifPolitico'
 import DenegarModifPolitico from '../../../mutations/deny/DenegarModifPolitico';
+import AumentarPuntos from '../../../mutations/aumentarPuntos';
+import RestarPuntos from '../../../mutations/restarPuntos';
 
 import DetalleSolicitudModificarPolitico from './detalle_modificar_politico';
 
 class SolicitudPoliticoModif extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       idPolitico: null
     }
@@ -23,45 +25,57 @@ class SolicitudPoliticoModif extends Component {
     this.renderSectionPolitico = this.renderSectionPolitico.bind(this);
   }
 
-  aceptar(id_solicitud) {
+  aceptar(id_solicitud,id_usuario) {
     this.setState({ idPolitico: null });
+    this.props.AumentarPuntos({
+      variables: {
+       id_usuario
+      }
+    })
     this.props.AceptarModifPolitico({
       variables: {
-      id_solicitud 
-    }
-    }).then(()=> this.props.fetchSolicitudPoliticoModif.refetch());
+        id_solicitud
+      }
+    }).then(() => this.props.fetchSolicitudPoliticoModif.refetch());
   }
 
-  denegar(id_solicitud) {
+  denegar(id_solicitud,id_usuario) {
     this.setState({ idPolitico: null });
+    this.props.RestarPuntos({
+      variables: {
+       id_usuario
+      }
+    })
     this.props.DenegarModifPolitico({
       variables: {
         id_solicitud
       }
-    }).then(()=> this.props.fetchSolicitudPoliticoModif.refetch());
+    }).then(() => this.props.fetchSolicitudPoliticoModif.refetch());
   }
-
+  componentWillReceiveProps(nextProps) {
+    nextProps.fetchSolicitudPoliticoModif.refetch();
+  } 
   seleccionar(idPolitico) {
     this.setState({ idPolitico });
   }
 
   renderList() {
-    return this.props.fetchSolicitudPoliticoModif.solicitudesModificarPolitico.map(({id, nombre}) => {
+    return this.props.fetchSolicitudPoliticoModif.solicitudesModificarPolitico.map(({ id, nombre, usuario }) => {
       return (
         <div key={id}>
           <div className="panel-block" >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id,usuario.id) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
-            <a onClick={()=>{this.seleccionar(id)}}
-            style={{color: 'inherit', textDecoration: 'none'}}
+            <a onClick={() => { this.seleccionar(id) }}
+              style={{ color: 'inherit', textDecoration: 'none' }}
             >{nombre}</a>
           </div>
         </div>
@@ -81,61 +95,59 @@ class SolicitudPoliticoModif extends Component {
     console.log("Error: " + error);
     console.log("Info: " + info);
   }
-  renderSectionPolitico(){
-    if(this.state.idPolitico!=null){
+  renderSectionPolitico() {
+    if (this.state.idPolitico != null) {
       return <DetalleSolicitudModificarPolitico id={this.state.idPolitico} />;
-    }else{
-      return(          
+    } else {
+      return (
         <div className="card">
-            <div className="card-content">
-              <div className="section has-text-centered">
-                Selecciona un politico
+          <div className="card-content">
+            <div className="section has-text-centered">
+              Selecciona un politico
               </div>
-            </div>
           </div>
-        );
+        </div>
+      );
     }
   }
-  shouldComponentUpdate(nextProps){
-    if(nextProps.fetchSolicitudPoliticoModif)
-    {
-    nextProps.fetchSolicitudPoliticoModif.refetch();
-    return true;
-    }
-}
-
 
   render() {
-    if (this.props.fetchSolicitudPoliticoModif.loading){
+    if (this.props.fetchSolicitudPoliticoModif.loading) {
       return <div>Loading...</div>
     }
     return (
       <div className="columns is-desktop">
         <div className="column is-5-widescreen is-5-desktop is-12-tablet">
           <div>
-            
-          <div className="panel">
-            <div className="panel-heading">Politicos Cambios</div>
-            {this.renderList()}
-          </div>
+
+            <div className="panel">
+              <div className="panel-heading">Politicos Cambios</div>
+              {this.renderList()}
+            </div>
 
           </div>
         </div>
         <div className="column is-7-widescreen is-7-desktop is-12-tablet">
-         { this.renderSectionPolitico()}
+          {this.renderSectionPolitico()}
         </div>
       </div>
     )
   }
 }
 export default compose(
-    graphql(fetchSolicitudPoliticoModif, {
-        name: 'fetchSolicitudPoliticoModif'
-    }),
-    graphql(AceptarModifPolitico, {
-      name: 'AceptarModifPolitico'
-    }),
-    graphql(DenegarModifPolitico, {
-        name: 'DenegarModifPolitico'
-    })
+  graphql(fetchSolicitudPoliticoModif, {
+    name: 'fetchSolicitudPoliticoModif'
+  }),
+  graphql(AceptarModifPolitico, {
+    name: 'AceptarModifPolitico'
+  }),
+  graphql(DenegarModifPolitico, {
+    name: 'DenegarModifPolitico'
+  }),
+  graphql(AumentarPuntos, {
+    name: 'AumentarPuntos'
+  }),
+  graphql(RestarPuntos, {
+    name: 'RestarPuntos'
+  })
 )(SolicitudPoliticoModif);

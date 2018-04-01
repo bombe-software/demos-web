@@ -8,6 +8,7 @@ export default gql`
     politico{
       id
     }
+    usuario{id}
   }
 }
 `;

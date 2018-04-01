@@ -91,7 +91,9 @@ renderBotonEliminar(){
         console.log("Error: " + error);
         console.log("Info: " + info);
     }
-
+    componentWillReceiveProps(nextProps) {
+        nextProps.fetchEvento.refetch();
+      } 
     render() {
         return (
             <div>

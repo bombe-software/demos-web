@@ -8,6 +8,7 @@ query SolicitudModificarPropuesta($id: ID!){
     titulo,
     descripcion,
     tipo_propuesta{
+      id,
       tipo
     }
     politico{

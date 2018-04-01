@@ -12,6 +12,7 @@ query SolicitudModificarPolitico($id: ID!){
       avatar
     }
     partido {
+      id,
       nombre
     }
     estado {

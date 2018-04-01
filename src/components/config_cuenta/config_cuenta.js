@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import ConfigForm from './config_form';
-import { graphql } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import fetchUsuario from '../../queries/fetchUsuario';
 
 class Perfil extends Component {
   constructor(props) {
     super(props);
   }
-
+  shouldComponentUpdate(nextProps){
+    if(nextProps.data)
+    { 
+    nextProps.data.refetch();
+    return true;
+    }
+}
   render() {
   if (this.props.data.loading) { <div>Loading...</div> }
     let {usuario} = this.props.data;

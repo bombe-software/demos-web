@@ -4,7 +4,8 @@ import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPropuestaElim from '../../../queries/fetchSolicitudPropuestaElim';
 import AceptarElimPropuesta from '../../../mutations/accept/AceptarEliminarPropuesta';
 import DenegarElimPropuesta from '../../../mutations/deny/DenegarEliminarPropuesta';
-
+import AumentarPuntos from '../../../mutations/aumentarPuntos';
+import RestarPuntos from '../../../mutations/restarPuntos';
 import DetalleSolicitudEliminarPropuesta from './detalle_eliminar_propuesta';
 
 class SolicitudEliminarPropuesta extends Component {
@@ -22,8 +23,13 @@ class SolicitudEliminarPropuesta extends Component {
     this.renderSectionPropuesta = this.renderSectionPropuesta.bind(this);
   }
 
-  aceptar(id_solicitud) {
+  aceptar(id_solicitud,id_usuario) {
     this.setState({ idPropuesta: null });
+    this.props.AumentarPuntos({
+      variables: {
+        id_usuario
+      }
+    })
     this.props.AceptarElimPropuesta({
       variables: {
         id_solicitud
@@ -31,20 +37,22 @@ class SolicitudEliminarPropuesta extends Component {
     }).then(() => this.props.fetchSolicitudPropuestaElim.refetch());
   }
 
-  denegar(id_solicitud) {
+  denegar(id_solicitud, id_usuario) {
     this.setState({ idPropuesta: null });
+    this.props.RestarPuntos({
+      variables: {
+        id_usuario
+      }
+    })
     this.props.DenegarElimPropuesta({
       variables: {
         id_solicitud
       }
     }).then(() => this.props.fetchSolicitudPropuestaElim.refetch());
   }
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.fetchSolicitudPropuestaElim) {
-      nextProps.fetchSolicitudPropuestaElim.refetch();
-      return true;
-    }
-  }
+  componentWillReceiveProps(nextProps) {
+    nextProps.fetchSolicitudPropuestaElim.refetch();
+  } 
   seleccionar(idPropuesta) {
     this.setState({ idPropuesta });
   }
@@ -55,12 +63,12 @@ class SolicitudEliminarPropuesta extends Component {
         <div key={id}>
           <div className="panel-block" >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id,id_usuario.id) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id,id_usuario.id) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
@@ -133,4 +141,10 @@ export default compose(
   graphql(DenegarElimPropuesta, {
     name: 'DenegarElimPropuesta'
   }),
+  graphql(AumentarPuntos, {
+    name: 'AumentarPuntos'
+  }),
+  graphql(RestarPuntos, {
+    name: 'RestarPuntos'
+  })
 )(SolicitudEliminarPropuesta);

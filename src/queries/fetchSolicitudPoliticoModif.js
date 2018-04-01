@@ -3,18 +3,19 @@ import gql from 'graphql-tag';
 export default gql`
 {
   solicitudesModificarPolitico {
-    id
+    id,
     nombre
     cargo
     estado {
+      id,
       nombre
-      id
     }
     estudios {
-      id
+      id,
       titulo
     }
     usuario {
+      id,
       nombre
     }
   }

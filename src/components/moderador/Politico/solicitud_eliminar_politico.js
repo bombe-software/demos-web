@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPoliticoElim from '../../../queries/fetchSolicitudPoliticoElim';
+import AumentarPuntos from '../../../mutations/aumentarPuntos';
+import RestarPuntos from '../../../mutations/restarPuntos';
+
 
 import AceptarElimPolitico from '../../../mutations/accept/AceptarEliminarPolitico'
 import DenegarElimPolitico from '../../../mutations/deny/DenegarEliminarPolitico';
@@ -22,8 +25,10 @@ class SolicitudEliminarPolitico extends Component {
     this.setState = this.setState.bind(this);
   }
 
-  aceptar(id_solicitud) {
+  aceptar(id_solicitud,id_usuario) {
     this.setState({ idPolitico: null });
+    console.log(id_solicitud, id_usuario);
+
     this.props.AceptarElimPolitico({
       variables: {
        id_solicitud
@@ -31,37 +36,39 @@ class SolicitudEliminarPolitico extends Component {
     }).then(()=> this.props.fetchSolicitudPoliticoElim.refetch());
   }
 
-  denegar(id_solicitud) {
+  denegar(id_solicitud,id_usuario) {
     this.setState({ idPolitico: null });
+    this.props.RestarPuntos({
+      variables: {
+       id_usuario
+      }
+    })
     this.props.DenegarElimPolitico({
       variables: {
         id_solicitud
       }
     }).then(()=> this.props.fetchSolicitudPoliticoElim.refetch());
   }
-  shouldComponentUpdate(nextProps){
-    if(nextProps.fetchSolicitudPoliticoElim)
-    {
-    nextProps.fetchSolicitudPoliticoElim.refetch();
-    return true;
-    }
-}
+  
   seleccionar(idPolitico) {
     this.setState({ idPolitico });
   }
-
+  componentWillReceiveProps(nextProps) {
+    nextProps.fetchSolicitudPoliticoElim.refetch();
+  } 
   renderList() {
-    return this.props.fetchSolicitudPoliticoElim.solicitudesDeletePolitico.map(({id,id_politico, id_usuario}) => {
+    console.log(this.props);
+    return this.props.fetchSolicitudPoliticoElim.solicitudesDeletePolitico.map(({id, id_usuario, id_politico}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id, id_usuario.id) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id, id_usuario.id) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
@@ -127,4 +134,10 @@ export default compose(
     graphql(DenegarElimPolitico, {
         name: 'DenegarElimPolitico'
     }),
+    graphql(AumentarPuntos, {
+      name: 'AumentarPuntos'
+    }),
+    graphql(RestarPuntos, {
+      name: 'RestarPuntos'
+    })
 )(SolicitudEliminarPolitico);

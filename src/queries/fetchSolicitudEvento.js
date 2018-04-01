@@ -3,9 +3,12 @@ import gql from 'graphql-tag';
 export default gql`
 {
   solicitudEventos {
-    id
+    id,
     titulo
     politico{
+      id
+    }
+    usuario{
       id
     }
   }

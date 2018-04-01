@@ -4,6 +4,9 @@ import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPropuestaModif from '../../../queries/fetchSolicitudPropuestaModif';
 import AceptarModifPropuesta from '../../../mutations/accept/AceptarModifPropuesta';
 import DenegarModifPropuesta from '../../../mutations/deny/DenegarModifPropuesta';
+import AumentarPuntos from '../../../mutations/aumentarPuntos';
+import RestarPuntos from '../../../mutations/restarPuntos';
+
 import DetalleSolicitudModificarPropuesta from './detalle_modificar_propuesta';
 
 class SolicitudPropuestaModif extends Component {
@@ -21,8 +24,13 @@ class SolicitudPropuestaModif extends Component {
     this.renderSectionPropuesta = this.renderSectionPropuesta.bind(this);
   }
 
-  aceptar(id_solicitud) {
+  aceptar(id_solicitud, id_usuario) {
     this.setState({ idPropuesta: null });
+    this.props.AumentarPuntos({
+      variables: {
+        id_usuario
+      }
+    })
     this.props.AceptarModifPropuesta({
       variables: {
         id_solicitud
@@ -30,8 +38,13 @@ class SolicitudPropuestaModif extends Component {
     }).then(() => this.props.fetchSolicitudPropuestaModif.refetch());
   }
 
-  denegar(id_solicitud) {
+  denegar(id_solicitud,id_usuario) {
     this.setState({ idPropuesta: null });
+    this.props.RestarPuntos({
+      variables: {
+        id_usuario
+      }
+    })
     this.props.DenegarModifPropuesta({
       variables: {
         id_solicitud
@@ -42,24 +55,21 @@ class SolicitudPropuestaModif extends Component {
   seleccionar(idPropuesta) {
     this.setState({ idPropuesta });
   }
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.fetchSolicitudPropuestaModif) {
-      nextProps.fetchSolicitudPropuestaModif.refetch();
-      return true;
-    }
-  }
+  componentWillReceiveProps(nextProps) {
+    nextProps.fetchSolicitudPropuestaModif.refetch();
+  } 
   renderList() {
-    return this.props.fetchSolicitudPropuestaModif.solicitudesModificarPropuesta.map(({id, titulo}) => {
+    return this.props.fetchSolicitudPropuestaModif.solicitudesModificarPropuesta.map(({id, titulo, usuario}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id,usuario.id) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
@@ -132,4 +142,10 @@ export default compose(
   graphql(DenegarModifPropuesta, {
     name: 'DenegarModifPropuesta'
   }),
+  graphql(AumentarPuntos, {
+    name: 'AumentarPuntos'
+  }),
+  graphql(RestarPuntos, {
+    name: 'RestarPuntos'
+  })
 )(SolicitudPropuestaModif);

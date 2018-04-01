@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudEvento from '../../../queries/fetchSolicitudEvento';
-
+import AumentarPuntos from '../../../mutations/aumentarPuntos';
+import RestarPuntos from '../../../mutations/restarPuntos';
 import AceptarEvento from '../../../mutations/accept/AceptarEvento'
 import DenegarEvento from '../../../mutations/deny/DenegarEvento';
 
@@ -23,8 +24,13 @@ class SolicitudEvento extends Component {
     this.renderSectionEvento = this.renderSectionEvento.bind(this);
   }
 
-  aceptar(idEvento) {
+  aceptar(idEvento,id_usuario) {
     this.setState({ idEvento: null });
+    this.props.AumentarPuntos({
+      variables: {
+        id_usuario
+      }
+    })
     this.props.AceptarEvento({
       variables: {
         idEvento
@@ -32,36 +38,38 @@ class SolicitudEvento extends Component {
     }).then(() => this.props.fetchSolicitudEvento.refetch());
   }
 
-  denegar(idEvento) {
+  denegar(idEvento,id_usuario) {
     this.setState({ idEvento: null });
+    this.props.RestarPuntos({
+      variables: {
+        id_usuario
+      }
+    })
     this.props.DenegarEvento({
       variables: {
         idEvento
       }
     }).then(() => this.props.fetchSolicitudEvento.refetch());
   }
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.fetchSolicitudEvento) {
-      nextProps.fetchSolicitudEvento.refetch();
-      return true;
-    }
-  }
+  componentWillReceiveProps(nextProps) {
+    nextProps.fetchSolicitudEvento.refetch();
+  } 
   seleccionar(idEvento) {
     this.setState({ idEvento });
   }
 
   renderList() {
-    return this.props.fetchSolicitudEvento.solicitudEventos.map(({id, titulo}) => {
+    return this.props.fetchSolicitudEvento.solicitudEventos.map(({id, titulo, usuario}) => {
       return (
         <div key={id}>
           <div className="panel-block" >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id,usuario.id) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
@@ -127,6 +135,12 @@ export default compose(
   }),
   graphql(DenegarEvento, {
     name: 'DenegarEvento'
+  }),
+  graphql(AumentarPuntos, {
+    name: 'AumentarPuntos'
+  }),
+  graphql(RestarPuntos, {
+    name: 'RestarPuntos'
   })
 )(SolicitudEvento);
 

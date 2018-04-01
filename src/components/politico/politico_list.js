@@ -65,7 +65,10 @@ class PoliticoList extends Component {
   * @const info Es más informacion acerca del error
   * @const error Es el titulo del error
   */
-  
+ componentWillReceiveProps(nextProps) {
+  nextProps.fetchPoliticos.refetch();
+  nextProps.fetchPoliticosPorEstado.refetch();
+} 
   render() {
     if (this.props.fetchPoliticosPorEstado.loading) { return <div className="spinner"> </div> }
     return (

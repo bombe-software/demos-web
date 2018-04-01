@@ -3,11 +3,12 @@ import gql from 'graphql-tag';
 export default gql`
 {
   solicitudPropuestas {
-    id
+    id,
     titulo
     politico{
       id
     }
+    usuario{id}
   }
 }
 `;
