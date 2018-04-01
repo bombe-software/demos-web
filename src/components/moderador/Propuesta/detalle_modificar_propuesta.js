@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { compose, graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
 //Queries
-import SolicitudPropuesta from '../../../queries/SolicitudModificarPropuesta';
+import SolicitudModifPropuesta from '../../../queries/request/SolicitudModificarPropuesta';
 
 class DetalleModificarPropuesta extends Component {
 
@@ -11,12 +11,12 @@ class DetalleModificarPropuesta extends Component {
       }
 
     render() {
-        if(this.props.SolicitudPropuesta.loading){
+        if(this.props.SolicitudModifPropuesta.loading){
             return (
                 <div>Loading...</div>
             );
         }
-        const propuesta = this.props.SolicitudPropuesta.solicitudModificarPropuesta;
+        const propuesta = this.props.SolicitudModifPropuesta.solicitudModificarPropuesta;
         return (
             <div className="card">
 
@@ -24,6 +24,7 @@ class DetalleModificarPropuesta extends Component {
                     <p className="subtitle is-7">
                     Publicado por el usuario: <b>{propuesta.usuario.nombre}</b>&nbsp;&nbsp;
                     <img src={`../../assets/img/${propuesta.usuario.avatar}.png`} height="14" width="14"/></p>
+                    <p className="subtitle is-7"><b>Politico: </b>{propuesta.politico.nombre}</p>
                     <hr />
                     <p className="title is-4"><b>Título: </b>{propuesta.titulo}</p>
                     <p><b>Descripción: </b>{propuesta.descripcion}</p>
@@ -36,9 +37,4 @@ class DetalleModificarPropuesta extends Component {
         );
     }
 }
-
-export default compose(
-    graphql(SolicitudPropuesta, {
-        name: 'SolicitudPropuesta'
-    })
-)(DetalleModificarPropuesta);
+export default graphql(SolicitudModifPropuesta, { name: 'SolicitudModifPropuesta' })(DetalleModificarPropuesta)

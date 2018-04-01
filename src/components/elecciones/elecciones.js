@@ -110,7 +110,6 @@ class Elecciones extends Component {
 
     }
 
-
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion

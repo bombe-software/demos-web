@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudEvento from '../../../queries/fetchSolicitudEventoElim';
 
-import AceptarEvento from '../../../queries/AceptarEliminarEvento'
-import DenegarEvento from '../../../queries/DenegarEliminarEvento';
+import AceptarElimEvento from '../../../mutations/accept/AceptarEliminarEvento'
+import DenegarElimEvento from '../../../mutations/deny/DenegarEliminarEvento';
 
 import DetalleEliminarEvento from './detalle_eliminar_evento';
 
@@ -24,7 +24,7 @@ class SolicitudEliminarEvento extends Component {
 
   aceptar(id_solicitud) {
     this.setState({ idEvento: null });
-    this.props.AceptarEvento({
+    this.props.AceptarElimEvento({
       variables: {
         id_solicitud
       }
@@ -33,7 +33,7 @@ class SolicitudEliminarEvento extends Component {
 
   denegar(id_solicitud) {
     this.setState({ idEvento: null });
-    this.props.DenegarEvento({
+    this.props.DenegarElimEvento({
       variables: {
         id_solicitud
       }
@@ -120,10 +120,10 @@ export default compose(
   graphql(fetchSolicitudEvento, {
     name: 'fetchSolicitudEvento'
   }),
-  graphql(AceptarEvento, {
-    name: 'AceptarEvento'
+  graphql(AceptarElimEvento, {
+    name: 'AceptarElimEvento'
   }),
-  graphql(DenegarEvento, {
-    name: 'DenegarEvento'
+  graphql(DenegarElimEvento, {
+    name: 'DenegarElimEvento'
   }),
 )(SolicitudEliminarEvento);

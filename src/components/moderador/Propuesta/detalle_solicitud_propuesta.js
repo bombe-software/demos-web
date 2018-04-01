@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { compose, graphql } from 'react-apollo';
-
+import { graphql } from 'react-apollo';
 //Queries
-import SolicitudPropuesta from '../../../queries/SolicitudPropuesta';
+import SolicitudPropuesta from '../../../queries/request/SolicitudPropuesta';
 
 class DetalleSolicitudPropuesta extends Component {
-
     constructor(props) {
         super(props);
       }
@@ -19,11 +17,11 @@ class DetalleSolicitudPropuesta extends Component {
         const propuesta = this.props.SolicitudPropuesta.solicitudPropuesta;
         return (
             <div className="card">
-
                 <div className="card-content">
                     <p className="subtitle is-7">
                     Publicado por el usuario: <b>{propuesta.usuario.nombre}</b>&nbsp;&nbsp;
                     <img src={`../../assets/img/${propuesta.usuario.avatar}.png`} height="14" width="14"/></p>
+                    <p className="subtitle is-7"><b>Politico: </b>{propuesta.politico.nombre}</p>
                     <hr />
                     <p className="title is-4"><b>Título: </b>{propuesta.titulo}</p>
                     <p><b>Descripción: </b>{propuesta.descripcion}</p>
@@ -36,9 +34,4 @@ class DetalleSolicitudPropuesta extends Component {
         );
     }
 }
-
-export default compose(
-    graphql(SolicitudPropuesta, {
-        name: 'SolicitudPropuesta'
-    })
-)(DetalleSolicitudPropuesta);
+export default graphql(SolicitudPropuesta, { name: 'SolicitudPropuesta' })(DetalleSolicitudPropuesta)

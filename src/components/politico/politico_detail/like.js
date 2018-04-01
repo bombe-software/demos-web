@@ -55,7 +55,6 @@ class Like extends Component {
     }
 }
 
-
 export default compose(
     graphql(likeGQL, {
         name: 'mutateLike'

@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export default gql`
 query SolicitudModificarPolitico($id: ID!){
   solicitudModificarPolitico(id: $id){
-     id
+    id
     nombre
     cargo
     usuario {

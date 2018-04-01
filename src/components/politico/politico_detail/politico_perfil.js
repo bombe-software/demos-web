@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import deletePolitico from '../../../queries/DeletePolitico';
+import deletePolitico from '../../../mutations/captcha/DeletePolitico';
 import fetchPoliticoPerfil from '../../../queries/fetchPoliticoPerfil';
 import fetchUsuario from '../../../queries/fetchUsuario';
 import BotonCaptcha from './../../generic/boton_captcha';
@@ -16,7 +16,6 @@ class PoliticoPerfil extends Component {
          this.Eliminar = this.Eliminar.bind(this);
          this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
     }
-
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion
@@ -84,11 +83,10 @@ renderBotonEliminar(){
                                 </Link>
                             </span>
                             <span className="card-footer-item">
-                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+                                {this.renderBotonEliminar()}
                             </span>
                         </div>
                     </div>
-
                 </div>
             );
         } else {

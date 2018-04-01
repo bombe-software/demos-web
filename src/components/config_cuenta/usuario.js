@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { compose, graphql } from 'react-apollo';
-import updateUsuario from '../../queries/updateUsuario';
+
+import updateUsuario from '../../mutations/updateUsuario';
 
 import { Form, Field } from "react-final-form";
 import GenericForm from './../generic/generic_form';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
 
 class Usuario extends GenericForm {
   constructor(props) {
@@ -28,7 +25,6 @@ class Usuario extends GenericForm {
       }
     });
     location.reload();
-
   }
 
   render() {
@@ -48,7 +44,6 @@ class Usuario extends GenericForm {
                 errors.nombre = "Solo puede contener alfa numericos y sin espacios";
               }
             }
-
             return errors;
           }}
           render={({ handleSubmit, reset, submitting, pristine, values }) => (

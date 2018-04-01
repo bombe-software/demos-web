@@ -13,7 +13,7 @@ import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
 //Queries y Mutations
 import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
-import ModifyPropuesta from "../../../queries/modifyPropuesta";
+import ModifyPropuesta from "../../../mutations/modify/modifyPropuesta";
 import fetchUsuario from "../../../queries/fetchUsuario";
 import fetchPropuesta from '../../../queries/fetchPropuesta'
 
@@ -88,7 +88,7 @@ class ModificarPropuestaForm extends GenericForm {
       <div>
         <Dialog
           title="Tu propuesta ahora está en espera de aprobación"
-          actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          actions={[<FlatButton label="Ok" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
@@ -220,8 +220,6 @@ class ModificarPropuestaForm extends GenericForm {
     );
   }
 }
-
-
 
 export default compose(
   graphql(fetchTipoPropuesta,

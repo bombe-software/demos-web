@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPolitico from '../../../queries/fetchSolicitudPolitico';
 
-import AceptarPolitico from '../../../queries/AceptarPolitico'
-import DenegarPolitico from '../../../queries/DenegarPolitico';
+import AceptarPolitico from '../../../mutations/accept/AceptarPolitico'
+import DenegarPolitico from '../../../mutations/deny/DenegarPolitico';
 
 import DetalleSolicitudPolitico from './detalle_solicitud_politico';
 

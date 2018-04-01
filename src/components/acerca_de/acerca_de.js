@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Ayuda from './ayuda.js';
 import Infosis from './infosis.js';
 
-
 class AcercaDe extends Component{
 
  constructor(props) {

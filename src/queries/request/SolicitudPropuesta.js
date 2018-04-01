@@ -20,7 +20,6 @@ query SolicitudPropuesta($id: ID!) {
     politico {
       id
       nombre
-      cargo
     }
   }
 }

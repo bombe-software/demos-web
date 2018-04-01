@@ -3,11 +3,10 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import deleteEvento from '../../../queries/DeleteEvento';
+import deleteEvento from '../../../mutations/captcha/DeleteEvento';
 import fetchEvento from '../../../queries/fetchEvento';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
-import NeedLogin from './../../generic/need_login';
 import PoliticoPerfil from './politico_perfil';
 import BotonCaptcha from './../../generic/boton_captcha';
 
@@ -68,7 +67,7 @@ renderBotonEliminar(){
                         </Link>
                         </span>
                         <span className="card-footer-item">
-                            <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+                            {this.renderBotonEliminar()}
                         </span>
                     </div>
                 </div>
@@ -112,9 +111,7 @@ renderBotonEliminar(){
         )
     }
 }
-
-export default
-    compose(
+export default compose(
         graphql(fetchUsuario, {
             name: 'fetchUsuario'
         }),

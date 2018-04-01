@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { compose, graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
 //Queries
-import SolicitudPropuesta from '../../../queries/SolicitudEliminarPropuesta';
+import SolicitudElimPropuesta from '../../../queries/request/SolicitudEliminarPropuesta';
 
 class DetalleEliminarPropuesta extends Component {
 
@@ -11,12 +11,12 @@ class DetalleEliminarPropuesta extends Component {
       }
 
     render() {
-        if(this.props.SolicitudPropuesta.loading){
+        if(this.props.SolicitudElimPropuesta.loading){
             return (
                 <div>Loading...</div>
             );
         }
-        const propuesta = this.props.SolicitudPropuesta.solicitudDeletePropuesta;
+        const propuesta = this.props.SolicitudElimPropuesta.solicitudDeletePropuesta;
         return (
              <div className="card">
                 <div className="card-content">
@@ -31,9 +31,4 @@ class DetalleEliminarPropuesta extends Component {
         );
     }
 }
-
-export default compose(
-    graphql(SolicitudPropuesta, {
-        name: 'SolicitudPropuesta'
-    })
-)(DetalleEliminarPropuesta);
+export default graphql(SolicitudElimPropuesta, { name: 'SolicitudElimPropuesta' })(DetalleEliminarPropuesta)

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudEvento from '../../../queries/fetchSolicitudEvento';
 
-import AceptarEvento from '../../../queries/AceptarEvento'
-import DenegarEvento from '../../../queries/DenegarEvento';
+import AceptarEvento from '../../../mutations/accept/AceptarEvento'
+import DenegarEvento from '../../../mutations/deny/DenegarEvento';
 
 import DetalleSolicitudEvento from './detalle_solicitud_evento';
 

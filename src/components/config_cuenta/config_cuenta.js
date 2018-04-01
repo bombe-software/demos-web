@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import ConfigForm from './config_form';
-import { compose, graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import fetchUsuario from '../../queries/fetchUsuario';
-
 
 class Perfil extends Component {
   constructor(props) {
     super(props);
   }
-
 
   render() {
   if (this.props.data.loading) { <div>Loading...</div> }

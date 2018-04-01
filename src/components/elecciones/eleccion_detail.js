@@ -24,7 +24,6 @@ class EleccionDetail extends Component {
         console.log("Info: " + info);
     }
 
-
     render() {
         if (this.props.fetchEleccion.loading || this.props.fetchUsuario.loading) return <div>Loading</div>
         if (this.props.fetchEleccion.votacion == undefined || JSON.stringify(this.props.fetchEleccion.votacion) == '[]' || JSON.stringify(this.props.fetchEleccion.votacion) == '{}') {
@@ -117,7 +116,6 @@ class EleccionDetail extends Component {
                             </button>
                             )
                         })()}
-                        
                     </div>
                 );
             }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import deletePropuesta from '../../../queries/DeletePropuesta';
+import deletePropuesta from '../../../mutations/captcha/DeletePropuesta';
 import fetchPropuesta from '../../../queries/fetchPropuesta';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
@@ -67,7 +67,7 @@ renderBotonEliminar(){
                             </Link>
                             </span>
                             <span className="card-footer-item">
-                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
+                                {this.renderBotonEliminar()}
                             </span>
                         </div>
                     </div>

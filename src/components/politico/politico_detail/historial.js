@@ -44,7 +44,6 @@ class Historial extends Component {
   }
 
     render() {
-
         if(this.props.eventos != undefined){
             return(
                 <div>
@@ -76,7 +75,4 @@ class Historial extends Component {
         }
     }
 }
-
-
-
 export default Historial;

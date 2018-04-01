@@ -16,7 +16,6 @@ query SolicitudEvento($id: ID!) {
     politico {
       id
       nombre
-      cargo
     }
   }
 }

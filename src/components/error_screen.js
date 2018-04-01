@@ -21,7 +21,6 @@ class ErrorScreen extends Component {
                             <Link to="/" style={{color: '#171717'}}>Regresar</Link>
                         </h1>
                         <br />
-
                     </div>
                 </div>
             </div>

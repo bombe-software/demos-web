@@ -1,12 +1,9 @@
 
 import React, { Component } from "react";
-
 import { compose, graphql } from 'react-apollo';
 
 import NeedLogin from './../../generic/need_login';
 import WaveBackground from './../../generic/wave_background';
-
-
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -14,11 +11,10 @@ import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
 //Queries y Mutations
 import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
-import addPropuesta from "../../../queries/addPropuesta";
+import addPropuesta from "../../../mutations/add/addPropuesta";
 import fetchUsuario from "../../../queries/fetchUsuario";
 
 class PropuestaForm extends GenericForm {
-
   constructor(props) {
     super(props);
 
@@ -40,19 +36,16 @@ class PropuestaForm extends GenericForm {
   };
 
   async onSubmit(values) {
-
     const usuario = this.props.fetchUsuario.usuario.id;
     const politico = this.props.match.params.id;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values
-
     this.props.addPropuesta({
       variables: {
         titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
       }
     }).then(this.handleOpen); 
-
   };
 
   render() {
@@ -117,17 +110,15 @@ class PropuestaForm extends GenericForm {
 
                       } else if (values.referencia != undefined) {
                          var re = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
-                        //var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
                         if (/^\s+|\s+$/.test(values.referencia)) {
                           errors.referencia = "Link invalido";
                         } else
                           if (!re.test(values.referencia)) {
                             errors.referencia = "Los links deben empezar con http,https. (http(s)://www.demos.com)";
                           }
-                      }
-
+                        }
                       return errors;
-                    }
+                      }
                     }
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
                       <form onSubmit={handleSubmit}>
@@ -185,9 +176,8 @@ class PropuestaForm extends GenericForm {
                         <div className="buttons has-text-centered">
                           <button type="submit" className="button is-primary" disabled={submitting}>
                             Registrar Evento
-            </button>
+                          </button>
                         </div>
-
                       </form>
                     )}
                   />
@@ -201,9 +191,6 @@ class PropuestaForm extends GenericForm {
     );
   }
 }
-
-
-
 export default compose(
   graphql(fetchTipoPropuesta,
     {

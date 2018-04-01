@@ -4,7 +4,6 @@ export default gql`
 query SolicitudModificarEvento($id: ID!){
   solicitudModificarEvento(id: $id){
     id,
-    id_evento,
     fecha,
     titulo,
     descripcion,
@@ -13,6 +12,10 @@ query SolicitudModificarEvento($id: ID!){
       id
       nombre
       avatar
+    }
+    politico{
+      id
+      nombre
     }
     }
 }

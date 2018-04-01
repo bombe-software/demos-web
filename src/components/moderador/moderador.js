@@ -214,7 +214,5 @@ class Moderador extends Component {
         </div>
       )
     }
-
   }
-
   export default Moderador;

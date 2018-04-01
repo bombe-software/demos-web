@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPropuestaElim from '../../../queries/fetchSolicitudPropuestaElim';
-import AceptarPropuesta from '../../../queries/AceptarEliminarPropuesta';
-import DenegarPropuesta from '../../../queries/DenegarEliminarPropuesta';
+import AceptarElimPropuesta from '../../../mutations/accept/AceptarEliminarPropuesta';
+import DenegarElimPropuesta from '../../../mutations/deny/DenegarEliminarPropuesta';
 
 import DetalleSolicitudEliminarPropuesta from './detalle_eliminar_propuesta';
 
@@ -24,7 +24,7 @@ class SolicitudEliminarPropuesta extends Component {
 
   aceptar(id_solicitud) {
     this.setState({ idPropuesta: null });
-    this.props.AceptarPropuesta({
+    this.props.AceptarElimPropuesta({
       variables: {
         id_solicitud
       }
@@ -33,7 +33,7 @@ class SolicitudEliminarPropuesta extends Component {
 
   denegar(id_solicitud) {
     this.setState({ idPropuesta: null });
-    this.props.DenegarPropuesta({
+    this.props.DenegarElimPropuesta({
       variables: {
         id_solicitud
       }
@@ -127,10 +127,10 @@ export default compose(
   graphql(fetchSolicitudPropuestaElim, {
     name: 'fetchSolicitudPropuestaElim'
   }),
-  graphql(AceptarPropuesta, {
-    name: 'AceptarPropuesta'
+  graphql(AceptarElimPropuesta, {
+    name: 'AceptarElimPropuesta'
   }),
-  graphql(DenegarPropuesta, {
-    name: 'DenegarPropuesta'
+  graphql(DenegarElimPropuesta, {
+    name: 'DenegarElimPropuesta'
   }),
 )(SolicitudEliminarPropuesta);

@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { compose, graphql } from 'react-apollo';
-import updateUsuario from '../../queries/updateUsuario';
+import { graphql } from 'react-apollo';
+import updateUsuario from '../../mutations/updateUsuario';
 
 import { Form, Field } from "react-final-form";
 import GenericForm from './../generic/generic_form';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
 
 class Password extends GenericForm {
   constructor(props) {

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { compose, graphql } from 'react-apollo';
-import updateUsuario from '../../queries/updateUsuario';
-
+import { graphql } from 'react-apollo';
+import updateUsuario from '../../mutations/updateUsuario';
 
 class Avatar extends Component {
   constructor(props) {
@@ -50,7 +48,6 @@ class Avatar extends Component {
     } else {
       const { id, nombre, password } = this.props;
       const avatar = this.state.avatar;
-      console.log(id, nombre, avatar);
       this.props.mutate({
         variables: {
           id, nombre, password, avatar
