@@ -48,8 +48,8 @@ class EleccionForm extends Component {
                     id_preferencia: this.state.id_preferencia,
                     id_estado: this.props.fetchEleccion.votacion.estado.id
                 }
-            }).then(alert('Informacion enviada'));
-            this.props.handleForm();
+            }).then(this.props.handleForm);
+            window.scrollTo(0, 0);
         }
     }
 

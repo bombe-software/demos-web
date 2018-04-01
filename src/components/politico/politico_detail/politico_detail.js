@@ -70,7 +70,7 @@ class PoliticoDetail extends Component {
         console.log("Info: " + info);
     }
     componentWillReceiveProps(nextProps) {
-        nextProps.fetchDetail.refetch();
+        nextProps.fetchPolitico.refetch();
       } 
     render() {
         return (

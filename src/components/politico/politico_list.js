@@ -12,11 +12,10 @@ class PoliticoList extends Component {
     };
   }
   renderTitle() {
-    let {id_estado} = this.props;
+    let { id_estado } = this.props;
     if (id_estado === "5a66340f2ad334a3426ebc49") {
       return (
         <div>
-          <p key={1}>{this.state.puestos[this.props.id_puesto]}&nbsp;/&nbsp;Nacional</p>
         </div>
       );
     } else {
@@ -31,31 +30,43 @@ class PoliticoList extends Component {
   }
 
   renderListPoliticos() {
-    return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, cargo, partido }) => {
-      if (this.state.puestos[this.props.id_puesto] === cargo) {
-        return (
-          <div key={id}>
-            <Link to={'/politico/' + id} >
-              <div className="card">
-              <div className="card-content">
-                <div className="media">
-                  <div className="media-left">
-                    <figure className="image is-48x48">
-                      <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
-                    </figure>
-                  </div>
-                  <div className="media-content">
-                    <p className="title is-4">{nombre}</p>
-                    <p className="subtitle is-6">{partido.nombre}</p>
+    if (this.props.id_estado === "5a66340f2ad334a3426ebc49") {
+      return (
+        <div>
+          <div className="hero is-light">
+            <div className="hero-body">
+              <h3>No ha seleccionado ninguna region</h3>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return this.props.fetchPoliticosPorEstado.politicosPorEstado.map(({ id, nombre, cargo, partido }) => {
+        if (this.state.puestos[this.props.id_puesto] === cargo) {
+          return (
+            <div key={id}>
+              <Link to={'/politico/' + id} >
+                <div className="card">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <figure className="image is-48x48">
+                          <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+                        </figure>
+                      </div>
+                      <div className="media-content">
+                        <p className="title is-4">{nombre}</p>
+                        <p className="subtitle is-6">{partido.nombre}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              </div>
-            </Link>
-          </div>
-        );
-      }
-    });
+              </Link>
+            </div>
+          );
+        }
+      });
+    }
   }
   /**
   * Es una forma de capturar cualquier error en la clase 
@@ -65,10 +76,10 @@ class PoliticoList extends Component {
   * @const info Es más informacion acerca del error
   * @const error Es el titulo del error
   */
- componentWillReceiveProps(nextProps) {
-  nextProps.fetchPoliticos.refetch();
-  nextProps.fetchPoliticosPorEstado.refetch();
-} 
+  componentWillReceiveProps(nextProps) {
+    nextProps.fetchPoliticos.refetch();
+    nextProps.fetchPoliticosPorEstado.refetch();
+  }
   render() {
     if (this.props.fetchPoliticosPorEstado.loading) { return <div className="spinner"> </div> }
     return (
@@ -86,9 +97,9 @@ class PoliticoList extends Component {
             </div>
           </div>
         </div>
-          <h3 className="title is-3">{this.renderTitle()}</h3>
-          <br />
-          {this.renderListPoliticos()}
+        <h3 className="title is-3">{this.renderTitle()}</h3>
+        <br />
+        {this.renderListPoliticos()}
       </div>
     )
   }

@@ -42,27 +42,32 @@ class Politicos extends Component {
     }
 
     renderEstados() {
-        return this.props.data.zonas.map(({ nombre,estados }) => { 
-            return(
-                <div key={nombre}>
-                        <li>
-                        <details>
-                            <summary>{nombre}</summary>
-                            <ul>
-                            {estados.map( estado => {
-                                return (    
-                                    <li key={estado.id}>
-                                        <a
-                                        onClick={this.updateSearch(estado.id, this.state.id_puesto, estado.nombre,nombre)}
-                                        className={this.getActiveEstado(estado.id)} >{estado.nombre}</a>
-                                    </li>
-                                )
-                            })}
-                            </ul>
-                        </details>
-                        </li>
-                    </div>
-            );
+        return this.props.data.zonas.map(({ nombre, estados }) => { 
+            if(nombre == "Nacional"){
+                return <div key={nombre}></div>;
+            }else{
+                return(
+                    <div key={nombre}>
+                            <li>
+                            <details>
+                                <summary>{nombre}</summary>
+                                <ul>
+                                {estados.map( estado => {
+                                    return (    
+                                        <li key={estado.id}>
+                                            <a
+                                            onClick={this.updateSearch(estado.id, this.state.id_puesto, estado.nombre,nombre)}
+                                            className={this.getActiveEstado(estado.id)} >{estado.nombre}</a>
+                                        </li>
+                                    )
+                                })}
+                                </ul>
+                            </details>
+                            </li>
+                        </div>
+                );      
+            }
+
         });
         
     }

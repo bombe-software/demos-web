@@ -68,7 +68,7 @@ class Mexico extends Component {
             return (
                   <div className="section">
                         <div className="columns">
-                        <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                        <div className="column is-7-widescreen is-7-desktop is-6-fullhd is-10-tablet is-10-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                                     <h1 className="is-size-2 title">Nacional</h1>
 
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width={this.props.width} height={this.props.height} viewBox="0 0 800 504" strokeLinecap="round"
