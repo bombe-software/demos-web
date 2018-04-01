@@ -156,7 +156,7 @@ class SignUp extends GenericForm {
         }
       }).then(() => {
         this.props.history.push("/confirm_email");
-      });
+      }) .catch(({graphQLErrors})=>this.setState({error: graphQLErrors[0].message}))
     } 
   };
 
