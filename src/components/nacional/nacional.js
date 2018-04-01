@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Estado from './estado';
 import { Pie } from 'react-chartjs-2';
 import GraficaLateral from './grafica_lateral'
+import NacionalForm from './nacional_form';
 
 class Mexico extends Component {
 
@@ -82,6 +83,9 @@ class Mexico extends Component {
                               <div className="column">
                                     {(this.state.estadoSelected != "") ? <GraficaLateral id_estado={this.state.estadoSelected} /> : ""}
                                     
+                              </div>
+                              <div className="column">
+                                    {(this.state.estadoSelected != "") ? <NacionalForm id_estado={this.state.estadoSelected} /> : ""}
                               </div>
                         </div>
                   </div>
