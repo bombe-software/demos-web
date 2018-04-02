@@ -47,7 +47,8 @@ class LandingPage extends Component {
     render() {
         if(this.props.data.loading)  return <div></div>
         let {usuario} = this.props.data;
-        if(usuario != null)  return <Graficas usuario={usuario}/>
+        console.log(usuario);
+        if(usuario != null)  return <Graficas usuario={usuario} id_estado={usuario.localidad.id}/>
         let names = [
             'Jesús Medina',
             'Mariana Benítez',
@@ -254,17 +255,61 @@ class LandingPage extends Component {
                                 </div>
 
                                 <div className="column is-12-tablet is-4-desktop">
-                                    <Link to="/soporte">
+                                    <Link to="/nacional">
                                         <div className="card hover-hero">
                                             <div className="hero is-danger hover-hero">
                                                 <div className="hero-body">
-                                                    <h2 className="title">Soporte</h2>
-                                                    <p className="subtitle">Obtén ayuda de algún administrador del programa</p>
+                                                    <h2 className="title">Nacional</h2>
+                                                    <p className="subtitle">Ve la encuesta nacional por estado en un mapa interactivo</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </Link>
                                 </div>
+
+                            </div>
+
+                            <div className="columns is-desktop">
+
+                            <div className="column is-12-tablet is-4-desktop">
+                                <Link to="/elecciones">
+                                    <div className="card hover-hero">
+                                        <div className="hero is-primary hover-hero">
+                                            <div className="hero-body">
+                                                <h2 className="title">Elecciones</h2>
+                                                <p className="subtitle">Consulta la posición de los candidatos de tu interés</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+
+
+                            <div className="column is-12-tablet is-4-desktop">
+                                <Link to="/politicos">
+                                    <div className="card hover-hero">
+                                        <div className="hero is-info hover-hero">
+                                            <div className="hero-body">
+                                                <h2 className="title">Políticos</h2>
+                                                <p className="subtitle">Consulta las propuestas e historial de candidatos</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+
+                            <div className="column is-12-tablet is-4-desktop">
+                                <Link to="/soporte">
+                                    <div className="card hover-hero">
+                                        <div className="hero is-danger hover-hero">
+                                            <div className="hero-body">
+                                                <h2 className="title">Soporte</h2>
+                                                <p className="subtitle">Obtén ayuda de algún administrador del programa</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
 
                             </div>
 

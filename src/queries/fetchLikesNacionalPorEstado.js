@@ -7,6 +7,11 @@ query LikesNacionalPorEstado($id_estado: ID!){
       politico{
         id
         nombre
+        partido {
+          id
+          nombre
+          color
+        }
       }
       usuarios{
         id

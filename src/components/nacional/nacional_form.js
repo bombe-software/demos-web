@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import _ from "lodash";
-
 import { graphql, compose } from 'react-apollo';
-import eleccion from "../../queries/fetchVotacionEstado";
-import usuario from "../../queries/fetchUsuario";
-import voto_por_estado from "./../../mutations/voto_por_estado";
+import usuario from "./../../queries/fetchUsuario";
+import fetchLikesNacionalPorEstado from "./../../queries/fetchLikesNacionalPorEstado";
+import Voto_nacional from "./../../mutations/voto _nacional";
 
-class EleccionForm extends Component {
+class NacionalForm extends Component {
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
-            id_preferencia: "",
+            id_politico_preferido: "",
             mensaje: ""
         };
 
@@ -34,73 +33,49 @@ class EleccionForm extends Component {
     }
 
     handlePolitico(id) {
-        this.setState({ id_preferencia: id });
+        this.setState({ id_politico_preferido: id });
     }
 
     handleClick() {
-        if (this.state.id_preferencia.length == 0) {
+        if (this.state.id_politico_preferido.length == 0) {
             this.setState({ mensaje: "Selecciona a alguien" })
-        }else{
+        } else {
             this.props.updateVoto({
                 variables: {
-                    id_votacion: this.props.fetchEleccion.votacion.id,
+                    id_estado: this.props.id_estado,
                     id_usuario: this.props.fetchUsuario.usuario.id,
-                    id_preferencia: this.state.id_preferencia,
-                    id_estado: this.props.fetchEleccion.votacion.estado.id
+                    id_politico: this.state.id_politico_preferido
                 }
-            }).then(this.props.handleForm);
-            window.scrollTo(0, 0);
+            }).then(console.log("cambios hechos"));
         }
     }
 
     renderListPoliticos() {
-        const preferencias = this.props.fetchEleccion.votacion.preferencias;
-        let selected = {'color': 'red'}
-        return _.map(preferencias, preferencia => {
-            return (            
-                <div style={{'cursor': 'pointer'}} key={preferencia.id}  onClick={() => this.handlePolitico(preferencia.id)}>
-                    <br />
-                    <div className="box" style={this.state.id_preferencia == preferencia.id ? {selected}:{}}>
-                    <div className="media">
-                      <div className="media-left">
-                        <figure className="image is-32x32">
-                          <img src="../../assets/img/politico.png" alt="Placeholder image" />
-                        </figure>
-                      </div>
-                      <div className="media-content">
-                        <p className="title is-4">{preferencia.politico.nombre}&nbsp;&nbsp;&nbsp;
-                        </p>
-                      </div>
+        //Agregar render de politicos
+        return this.props.fetch.likes_nacionalPorEstado.map(({ politico }) => {
+            return (
+                <div key={politico.id} onClick={() => this.handlePolitico(politico.id)}>
+                    <div className="hover-hero">
+                        <div className="box" style={this.state.id_politico_preferido == politico.id ? {backgroundColor: "#7561CE", color: "white"} : {}}>
+                            {politico.nombre}
+                        </div>
                     </div>
-                    </div>
-              </div>
+                </div>
             );
         })
     }
 
     render() {
+        if (this.props.fetch.loading || this.props.updateVoto.loading || this.props.fetchUsuario.loading) return <div> </div>
         return (
             <div>
-                <div className="card-content">
-                    <div className="title">
-                        <nav className="breadcrumb" aria-label="breadcrumbs">
-                            <ul>
-                                <React.Fragment>
-                                    <li><a href="#" >Estatal</a></li>
-                                    <li><a href="#" >{this.props.zona}</a></li>
-                                    <li key><a href="#" >{this.props.estado}</a></li>
-                                </React.Fragment>
-                            </ul>
-                        </nav>
+                
+                <div className="hero is-small">
+                    <div className="hero-body">
+                        {this.renderListPoliticos()}
                     </div>
                 </div>
-                <div className="card-image">
-                    <div className="hero is-small">
-                        <div className="hero-body">
-                            {this.renderListPoliticos()}
-                        </div>
-                    </div>
-                </div>
+                
                 <div className="level">
                     <div className="level-item">
                         {this.state.mensaje}
@@ -112,11 +87,6 @@ class EleccionForm extends Component {
                             Enviar respuesta
                         </button>
                     </div>
-                    <div className="level-item">
-                        <button className="button is-primary" onClick={this.props.handleForm}>
-                            Regresar
-                        </button>
-                    </div>
                 </div>
                 <br /><br />
             </div>
@@ -125,10 +95,13 @@ class EleccionForm extends Component {
 }
 export default compose(
     graphql(Voto_nacional, {
-        name: 'mutate'
+        name: 'updateVoto'
     }),
     graphql(fetchLikesNacionalPorEstado, {
         name: 'fetch',
         options: (props) => { return { variables: { id_estado: props.id_estado } } }
+    }),
+    graphql(usuario, {
+        name: 'fetchUsuario'
     })
-)(GraficaLateral);
+)(NacionalForm);
