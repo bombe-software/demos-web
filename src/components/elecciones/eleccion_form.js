@@ -36,7 +36,9 @@ class EleccionForm extends Component {
     handlePolitico(id) {
         this.setState({ id_preferencia: id });
     }
-
+    componentWillReceiveProps(nextProps) {
+        nextProps.fetchEleccion.refetch();
+      } 
     handleClick() {
         if (this.state.id_preferencia.length == 0) {
             this.setState({ mensaje: "Selecciona a alguien" })

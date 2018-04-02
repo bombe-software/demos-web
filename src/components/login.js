@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
-
+import { Link } from "react-router-dom";
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
 import WaveBackground from './generic/wave_background';
@@ -39,12 +39,12 @@ class Login extends GenericForm {
                         },
                         refetchQueries: [{ query }]
                     })
-                    .then(() => this.props.history.push("/"))
-                    .catch(res => {
-                        const errors = res.graphQLErrors.map(error => error.message);
-                        const error = errors[0]
-                        this.setState({ error });
-                    });  
+                        .then(() => this.props.history.push("/"))
+                        .catch(res => {
+                            const errors = res.graphQLErrors.map(error => error.message);
+                            const error = errors[0]
+                            this.setState({ error });
+                        });
                 } else {
                     this.setState({ error: "Password o email incorrecto." });
                 }
@@ -124,7 +124,11 @@ class Login extends GenericForm {
                                                                     floatingLabelText="Password"
                                                                 />
                                                             </div>
+                                                            <Link to={`/recover_password/`}>
+                                                            <span className="is-6"><i className="center" className="fa fa-pencil"></i>Olvidaste tu contrasena?</span>
+                                                        </Link>
                                                         </div>
+                                                        
                                                         <code>
                                                             {this.state.error}
                                                         </code>
