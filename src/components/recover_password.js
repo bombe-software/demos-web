@@ -16,13 +16,11 @@ class RecoverPassword extends GenericForm {
   }
   async onSubmit(values) {
     const { email } = values;
-    console.log(email);
     this.props.mutate({
       variables: {
         email
       },
-    })
-      .then(() => this.props.history.push("/"))
+    }).then(() => this.props.history.push("/login"))
       .catch(res => {
         const errors = res.graphQLErrors.map(error => error.message);
         const error = errors[0]
@@ -92,11 +90,8 @@ class RecoverPassword extends GenericForm {
                     </div>
                   </div>
                   <br />
-                  <p className="is-size-7">Para recuperar el acceso a su cuenta, le enviaremos una contraseña
-                  generada por el sistema a su correo usela para acceder desde el login,
-                  recuerde que lo más importante para nosotros es su seguridad, si desea
-                  cambiar su contraseña por una más amigable, recuerde que puede editarla
-                en  la seccion de "Configuracion de la cuenta"</p>
+                          <code>{this.state.error}</code>
+
                 </div>
               </div>
             </div>
