@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 
 import { Form, Field } from "react-final-form";
