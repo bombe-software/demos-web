@@ -272,8 +272,6 @@ class Graficas extends Component {
             return <div>No hay propuestas en tu estado</div>
         }
 
-        console.log(propuestas);
-
         _.map(propuestas, function(propuesta){
             console.log(propuesta);
             if(propuesta.politico){
