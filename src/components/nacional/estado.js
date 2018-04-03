@@ -11,27 +11,23 @@ class Estado extends Component {
             r: 0,
             g: 0,
             b: 0,
-            a: 1
+            a: 1,
+            bool: true
         }
     }
-    componentWillMount() {
-        this.colorUpdate(this.color())
+    componentDidUpdate(){
+        if(this.state.bool){
+            this.renderColor();
+            this.setState({bool: false})
+        }
     }
-
+    
     color() {
-        /*
-        let colors = [
-            { r: 69, g: 196, b: 158, a: 0.9 },
-            { r: 115, g: 86, b: 201, a: 0.9 },
-            { r: 234, g: 83, b: 136, a: 0.9 },
-        ];
-        return colors[Math.floor(Math.random()*3)]
-        */
        return { r: 68, g: 68, b: 68, a: 0.9 }
     }
 
-    colorUpdate({ r, g, b, a }) {
-        this.setState({ r, g, b, a })
+    colorUpdate({r,g,b,a}) {
+        this.setState({r,g,b,a});
     }
 
     getRGBA(color) {
@@ -40,8 +36,8 @@ class Estado extends Component {
     }
 
     stringToObject(color){
-        colorArray = color.split(",");
-        return {r: color[0], g: cpolor[1], a:color[2]}
+        let colorArray = color.split(",");
+        return {r: parseInt(colorArray[0]), g: parseInt(colorArray[1]), b:parseInt(colorArray[2]), a:1}
     }
 
     opacar() {
@@ -52,34 +48,32 @@ class Estado extends Component {
         this.setState({ a: (this.state.a + 0.1) })
     }
 
+    renderColor(){
+        if(!this.props.fetch.loading){
+            let likes = this.props.fetch.likes_nacionalPorEstado
+            let preferencias = [];
+
+            _.map(likes, like=>{
+                preferencias.push({
+                    color: like.politico.partido.color,
+                    politico: like.politico.nombre,
+                    partido: like.politico.partido.nombre,
+                    likes: like.usuarios.length
+                });
+                
+            });
+
+            preferencias = _.sortBy(preferencias, 'likes');
+            preferencias.reverse();
+            let color;
+            if(preferencias[0].likes>0){
+                color = this.stringToObject(preferencias[0].color);
+                this.colorUpdate(color);
+            };
+        }
+    }
+
     render() {
-        console.log(this.props.fetch);
-        /*
-        _.map(propuestas, function(propuesta){
-            console.log(propuesta);
-            if(propuesta.politico){
-                if(propuesta.politico.estado.id === usuario.localidad.id){
-                    propuestasEstado.push(propuesta);
-                }
-            }
-        });
-
-        propuestasEstado.sort(function(a, b){
-            return a.likes.length - b.likes.length;
-        });
-
-        var topPropuestas = propuestasEstado.slice(0,3).map((item)=>{
-            return (
-                <div className="card" key={item.id}>
-                    <div className="card-content">
-                        <h4>{item.titulo}</h4>
-                        <p>{item.likes.length}</p>
-                        <p>{item.politico.nombre}</p>
-                    </div>
-                </div>
-            );
-        });
-        */
         return (
             <path
                 style={{ stroke: 'white', strokeWidth: '0.5px', fill: this.getRGBA(this.state) }}

@@ -127,7 +127,7 @@ class Graficas extends Component {
             } else {
                 const votacion = this.props.fetchEleccion.votacion.preferencias;
 
-                let backgroundColor = [
+                let colorList = [
                     'rgba(69, 196, 158, 0.8)',
                     'rgba(115, 86, 201, 0.8)',
                     'rgba(234, 83, 136, 0.8)',
@@ -139,7 +139,7 @@ class Graficas extends Component {
                     'rgba(209, 110,  9, 0.8)',
 
                 ];
-                let hoverBackgroundColor = [
+                let colorOpacityList = [
                     'rgba(69, 196, 158, 1)',
                     'rgba(115, 86, 201, 1)',
                     'rgba(234, 83, 136, 1)',
@@ -169,14 +169,9 @@ class Graficas extends Component {
                 };
                 return (
                     <div className="section">
-                    <div className="columns mobile">
+                    <div className="columns">
                         <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
-                        <h2 className="is-size-3 title">Encuesta de {this.props.usuario.localidad.nombre}</h2>
-                        <br />
-
-                        <div className="title">
-                            {this.props.usuario.localidad.nombre}
-                        </div>
+                        <h2 className="is-size-4 title">Encuesta de {this.props.usuario.localidad.nombre}</h2>
                         <div className="hero is-small">
                             <div className="hero-body">
                                 <Pie data={data} />

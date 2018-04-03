@@ -56,7 +56,7 @@ class NacionalForm extends Component {
             return (
                 <div key={politico.id} onClick={() => this.handlePolitico(politico.id)}>
                     <div className="hover-hero">
-                        <div className="box" style={this.state.id_politico_preferido == politico.id ? {backgroundColor: "#7561CE", color: "white"} : {}}>
+                        <div className="box" style={this.state.id_politico_preferido == politico.id ? {backgroundColor: "#7EDEC1", color: "white"} : {}}>
                             {politico.nombre}
                         </div>
                     </div>
