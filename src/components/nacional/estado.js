@@ -8,9 +8,9 @@ class Estado extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            r: 0,
-            g: 0,
-            b: 0,
+            r: 68,
+            g: 68,
+            b: 68,
             a: 1,
             bool: true
         }

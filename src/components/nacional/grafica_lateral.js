@@ -5,6 +5,7 @@ import { Pie } from 'react-chartjs-2';
 import { graphql, compose } from 'react-apollo';
 import fetchLikesNacionalPorEstado from "./../../queries/fetchLikesNacionalPorEstado";
 import Voto_nacional from "./../../mutations/voto _nacional";
+import _ from "lodash";
 
 class GraficaLateral extends Component {
 
@@ -40,18 +41,46 @@ class GraficaLateral extends Component {
             this.setState({ estadoSelected: id });
       }
 
+      renderDatos(){
+            
+                let likes = this.props.fetch.likes_nacionalPorEstado
+                var usuarios = [];
+                var color = [];
+                  var colorHover = [];
+                  var labels = [];
+                _.map(likes, like=>{
+                    color.push(`rgba(${like.politico.partido.color},1)`);
+                    colorHover.push(`rgba(${like.politico.partido.color},0.9)`);
+                    usuarios.push(like.usuarios.length);
+                    labels.push(like.politico.nombre); 
+                });
+
+                console.log({
+                  labels: labels,
+                  datasets: [{
+                      data: usuarios,
+                      backgroundColor: color,
+                      hoverBackgroundColor: colorHover
+                  }]
+              });
+
+            return {
+                  labels: labels,
+                  datasets: [{
+                      data: usuarios,
+                      backgroundColor: color,
+                      hoverBackgroundColor: colorHover
+                  }]
+              };
+      }
+
       render() {
             if (this.props.fetch.loading || this.props.mutate.loading) return <div> </div>
             console.log(this.props.fetch.likes_nacionalPorEstado);
             //console.log(this.props.mutate.votarNacional); $id_politico: ID, $id_usuario: ID, $id_estado: ID
-            let partidos = [
-                  'MORENA',
-                  'PAN',
-                  'PRI',
-            ];
             return (
                   <div>
-                        <Pie data={this.generateData(partidos)} />
+                        <Pie data={this.renderDatos()} />
                   </div>
             )
       }
