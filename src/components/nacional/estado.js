@@ -14,6 +14,12 @@ class Estado extends Component {
             a: 1
         }
     }
+
+    componentWillUpdate(nextProps, nextState){
+        if(this.state == nextState){
+            return false;
+        }
+    }
     
     color() {
         /*
