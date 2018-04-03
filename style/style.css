@@ -236,6 +236,10 @@ html, body {
   cursor: pointer;
 }
 
+.clickable{
+  cursor: pointer;
+}
+
 .has-bg-img {
   background: url('./../assets/images/img.jpg') center center;
   background-size: cover;

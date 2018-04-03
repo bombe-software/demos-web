@@ -4,6 +4,8 @@ import Estado from './estado';
 import { Pie } from 'react-chartjs-2';
 import GraficaLateral from './grafica_lateral'
 import NacionalForm from './nacional_form';
+import fetchUsuario from './../../queries/fetchUsuario';
+import { graphql } from 'react-apollo';
 
 class Mexico extends Component {
 
@@ -65,7 +67,7 @@ class Mexico extends Component {
       }
 
       render() {
-            
+            if(this.props.data.loading) return <div></div>
             return (
                   <div className="section">
                         <div className="columns is-dektop">
@@ -86,8 +88,7 @@ class Mexico extends Component {
                         
                         <div className="column is-6-widescreen is-6-desktop is-6-fullhd is-12-tablet is-12-mobile">
                               {(this.state.estadoSelected != "") ? <GraficaLateral id_estado={this.state.estadoSelected} /> : ""}
-                              <br/>
-                              {(this.state.estadoSelected != "") ? <NacionalForm id_estado={this.state.estadoSelected} /> : ""}
+                              {(this.props.data.usuario) ? <NacionalForm id_estado={this.props.data.usuario.localidad.id} /> : ""}
                         </div>
                         </div>
                   </div>
@@ -96,4 +97,4 @@ class Mexico extends Component {
 }
 
 
-export default Mexico;
+export default graphql(fetchUsuario)(Mexico);
