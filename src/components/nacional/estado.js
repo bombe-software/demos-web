@@ -11,7 +11,14 @@ class Estado extends Component {
             r: 0,
             g: 0,
             b: 0,
-            a: 1
+            a: 1,
+            bool: true
+        }
+    }
+    componentDidUpdate(){
+        if(this.state.bool){
+            this.renderColor();
+            this.setState({bool: false})
         }
     }
 
@@ -22,14 +29,6 @@ class Estado extends Component {
     }
     
     color() {
-        /*
-        let colors = [
-            { r: 69, g: 196, b: 158, a: 0.9 },
-            { r: 115, g: 86, b: 201, a: 0.9 },
-            { r: 234, g: 83, b: 136, a: 0.9 },
-        ];
-        return colors[Math.floor(Math.random()*3)]
-        */
        return { r: 68, g: 68, b: 68, a: 0.9 }
     }
 
@@ -76,13 +75,11 @@ class Estado extends Component {
             if(preferencias[0].likes>0){
                 color = this.stringToObject(preferencias[0].color);
                 this.colorUpdate(color);
-                console.log(this.state);
             };
         }
     }
 
     render() {
-        this.renderColor();
         return (
             <path
                 style={{ stroke: 'white', strokeWidth: '0.5px', fill: this.getRGBA(this.state) }}
