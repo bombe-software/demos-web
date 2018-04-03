@@ -51,13 +51,13 @@ import ModificarPropuesta from './components/politico/politico_modify/propuesta_
 import Nacional from './components/nacional/nacional';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'https://demos-gql.herokuapp.com/graphql',
   credentials: 'include'
 });
 
 // Crear el web socket link
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:3000/subscriptions`,
+  uri: `ws://demos-gql.herokuapp.comsubscriptions`,
   options: {
     reconnect: true //Very important
   },
