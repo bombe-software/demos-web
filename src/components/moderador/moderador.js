@@ -188,7 +188,15 @@ class Moderador extends Component {
     }
   }
     render() {
-  
+      if (this.props.fetchUsuario.loading) {
+        return <div>Loading...</div>
+      } 
+      console.log(this.props);
+      if (!this.props.fetchUsuario.usuario || this.props.fetchUsuario.usuario.tipo_usuario.tipo != "Moderador") {
+        return (
+          <NotFound />
+        );
+      }
       return (
         <div className="section">
           <div className="columns is-desktop">
