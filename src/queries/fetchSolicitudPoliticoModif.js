@@ -16,7 +16,8 @@ export default gql`
     }
     usuario {
       id,
-      nombre
+      nombre,
+      puntos
     }
   }
 }

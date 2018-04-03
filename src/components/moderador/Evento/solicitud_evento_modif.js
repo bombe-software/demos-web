@@ -6,6 +6,7 @@ import AumentarPuntos from '../../../mutations/aumentarPuntos';
 import RestarPuntos from '../../../mutations/restarPuntos';
 import AceptarModifEvento from '../../../mutations/accept/AceptarModifEvento'
 import DenegarModifEvento from '../../../mutations/deny/DenegarModifEvento';
+import AscenderModerador from '../../../mutations/ascenderModerador';
 
 import DetalleSolicitudEvento from './detalle_modificar_evento';
 
@@ -24,13 +25,21 @@ class SolicitudEventoModif extends Component {
     this.renderSectionEvento = this.renderSectionEvento.bind(this);
   }
 
-  aceptar(id_solicitud,id_usuario) {
+  aceptar(id_solicitud,id_usuario,puntos) {
     this.setState({ idEvento: null });
+
     this.props.AumentarPuntos({
       variables: {
         id_usuario
       }
     })
+    if(puntos>1000){
+      this.props.AscenderModerador({
+        variables: {
+          id_usuario
+        }
+      })
+    }
     this.props.AceptarModifEvento({
       variables: {
         id_solicitud
@@ -38,7 +47,7 @@ class SolicitudEventoModif extends Component {
     }).then(() => this.props.fetchSolicitudEvento.refetch());
   }
 
-  denegar(id_solicitud,id_usuario) {
+  denegar(id_solicitud,id_usuario, puntos) {
     this.setState({ idEvento: null });
     this.props.RestarPuntos({
       variables: {
@@ -64,12 +73,12 @@ class SolicitudEventoModif extends Component {
         <div key={id}>
           <div className="panel-block" >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id,usuario.id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id,usuario.id, usuario.puntos) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id,usuario.id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id,usuario.id, usuario.puntos) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
@@ -142,6 +151,9 @@ export default compose(
   }),
   graphql(RestarPuntos, {
     name: 'RestarPuntos'
+  }),
+  graphql(AscenderModerador, {
+    name: 'AscenderModerador'
   })
 )(SolicitudEventoModif);
 
