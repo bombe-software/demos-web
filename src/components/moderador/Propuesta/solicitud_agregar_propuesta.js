@@ -6,6 +6,8 @@ import AceptarPropuesta from '../../../mutations/accept/AceptarPropuesta';
 import DenegarPropuesta from '../../../mutations/deny/DenegarPropuesta';
 import AumentarPuntos from '../../../mutations/aumentarPuntos';
 import RestarPuntos from '../../../mutations/restarPuntos';
+import AscenderModerador from '../../../mutations/ascenderModerador';
+
 import DetalleSolicitudPropuesta from './detalle_solicitud_propuesta';
 
 class SolicitudPropuesta extends Component {
@@ -22,13 +24,20 @@ class SolicitudPropuesta extends Component {
     this.setState = this.setState.bind(this);
   }
 
-  aceptar(idPropuesta,id_usuario) {
+  aceptar(idPropuesta,id_usuario, puntos) {
     this.setState({ idPropuesta: null });
     this.props.AumentarPuntos({
       variables: {
         id_usuario
       }
     })
+    if (puntos > 1000) {
+      this.props.AscenderModerador({
+        variables: {
+          id_usuario
+        }
+      })
+    }
     this.props.AceptarPropuesta({
       variables: {
        idPropuesta
@@ -36,7 +45,7 @@ class SolicitudPropuesta extends Component {
     }).then(()=> this.props.fetchSolicitudPropuesta.refetch());
   }
 
-  denegar(idPropuesta,id_usuario) {
+  denegar(idPropuesta,id_usuario, puntos) {
     this.setState({ idPropuesta: null });
     this.props.RestarPuntos({
       variables: {
@@ -62,12 +71,12 @@ class SolicitudPropuesta extends Component {
         <div key={id}>
           <div className="panel-block"  >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id, usuario.puntos) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id, usuario.id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id, usuario.id, usuario.puntos) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
@@ -138,6 +147,9 @@ export default compose(
     }),
     graphql(RestarPuntos, {
       name: 'RestarPuntos'
+    }),
+    graphql(AscenderModerador, {
+      name: 'AscenderModerador'
     })
 )(SolicitudPropuesta);
 

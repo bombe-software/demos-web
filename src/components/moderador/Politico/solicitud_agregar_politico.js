@@ -7,6 +7,7 @@ import AceptarPolitico from '../../../mutations/accept/AceptarPolitico'
 import DenegarPolitico from '../../../mutations/deny/DenegarPolitico';
 import AumentarPuntos from '../../../mutations/aumentarPuntos';
 import RestarPuntos from '../../../mutations/restarPuntos';
+import AscenderModerador from '../../../mutations/ascenderModerador';
 
 import DetalleSolicitudPolitico from './detalle_solicitud_politico';
 
@@ -25,13 +26,21 @@ class SolicitudPolitico extends Component {
     this.setState = this.setState.bind(this);
   }
 
-  aceptar(idPolitico, id_usuario) {
+  aceptar(idPolitico, id_usuario, puntos) {
     this.setState({ idPolitico: null });
+
     this.props.AumentarPuntos({
       variables: {
         id_usuario
       }
     })
+    if(puntos>1000){
+      this.props.AscenderModerador({
+        variables: {
+          id_usuario
+        }
+      })
+    }
     this.props.AceptarPolitico({
       variables: {
         idPolitico
@@ -39,7 +48,7 @@ class SolicitudPolitico extends Component {
     }).then(() => this.props.fetchSolicitudPolitico.refetch());
   }
 
-  denegar(idPolitico, id_usuario) {
+  denegar(idPolitico, id_usuario, puntos) {
     this.setState({ idPolitico: null });
     this.props.RestarPuntos({
       variables: {
@@ -67,12 +76,12 @@ class SolicitudPolitico extends Component {
         <div key={id}>
           <div className="panel-block" >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id, usuario.puntos) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id, usuario.id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id, usuario.id, usuario.puntos) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
@@ -144,5 +153,8 @@ export default compose(
   }),
   graphql(RestarPuntos, {
     name: 'RestarPuntos'
+  }),
+  graphql(AscenderModerador, {
+    name: 'AscenderModerador'
   })
 )(SolicitudPolitico);

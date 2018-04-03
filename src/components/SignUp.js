@@ -258,8 +258,8 @@ class SignUp extends GenericForm {
                                 <div className="level-item">
                                   <Field name="nombre"
                                     component={this.renderTextField}
-                                    hintText="Escribe tu nombre"
-                                    floatingLabelText="Nombre"
+                                    hintText="Escribe tu nombre de usuario"
+                                    floatingLabelText="Nombre de usuario"
                                   />
                                 </div>
                               </div>

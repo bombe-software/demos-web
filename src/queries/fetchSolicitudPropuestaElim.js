@@ -6,7 +6,8 @@ export default gql`
     id,
     id_usuario{
       id,
-      nombre
+      nombre,
+      puntos
     },
     id_propuesta{
       id,

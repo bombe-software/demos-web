@@ -47,7 +47,6 @@ class LandingPage extends Component {
     render() {
         if(this.props.data.loading)  return <div></div>
         let {usuario} = this.props.data;
-        console.log(usuario);
         if(usuario != null)  return <Graficas usuario={usuario} id_estado={usuario.localidad.id}/>
         let names = [
             'Jesús Medina',

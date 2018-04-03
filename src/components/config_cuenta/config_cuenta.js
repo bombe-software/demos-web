@@ -50,7 +50,8 @@ class Perfil extends Component {
                     <div className="content">
                       Fecha de registro: {`${fecha.getDay()}/${fecha.getDate()}/${fecha.getFullYear()}`}<br />
                       Localidad: {usuario.localidad.nombre}<br />
-                      Puntos: {usuario.puntos}<br />
+                      Puntos: {usuario.puntos}<br /> <br />
+                      <p className="subtitle is-7">*Si un puntaje menor a -100 puntos, tu cuenta sera desactivada permanentemente. Haz solicitudes de agregar o modificar correctas y obtendras puntos, de lo contrario, perderas.</p>
                     </div>
                   </div>
                 </div>
