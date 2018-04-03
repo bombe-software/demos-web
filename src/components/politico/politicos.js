@@ -94,7 +94,7 @@ class Politicos extends Component {
                 </div>
               </div>
               <div className="columns is-desktop">
-              <div className="column is-3-desktop is-3-widescreen is-2-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+              <div className="column is-3-desktop is-3-widescreen is-3-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                     <aside className="menu">
                       <div>
                           <p className="menu-label">Tipo</p>
@@ -116,7 +116,7 @@ class Politicos extends Component {
                       </div>
                     </aside>
                   </div>
-                  <div className="column is-7-desktop is-7-widescreen is-4-fullhd is-12-tablet is-12-mobile">
+                  <div className="column is-7-desktop is-7-widescreen is-5-fullhd is-12-tablet is-12-mobile">
                     <div key={this.state.id_estado+this.state.id_puesto}> 
                         <PoliticoList
                             id_estado = {this.state.id_estado}
