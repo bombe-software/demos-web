@@ -3,9 +3,10 @@ const path = require('path');
 const app = express();
 
 app.use((req, res, next) => {
+  console.log(req.protocol != 'https',req.protocol);
   if(req.protocol != 'https'){
     res.status(301).redirect('https://www.demos-web.com')
-  }else if(req.protocol == 'https'){
+  }else {
     next();
   }
 });
