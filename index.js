@@ -2,12 +2,11 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-app.use((req, res, next) => {
-  console.log(req.protocol != 'https',req.protocol);
-  if(req.protocol != 'https'){
-    res.status(301).redirect('https://www.demos-web.com')
-  }else {
-    next();
+app.use (function (req, res, next) {
+  if (req.secure) {
+          next();
+  } else {
+          res.redirect('https://' + req.headers.host + req.url);
   }
 });
 
