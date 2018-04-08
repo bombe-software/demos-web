@@ -8,7 +8,7 @@ class Politicos extends Component {
         super(props);
         this.state = {
             id_puesto: 0,
-            id_estado: "5a66340f2ad334a3426ebc49",
+            id_estado: "5a68b566f5985aaea61a93ce",
             zona: '',
             estado: ''
         };
@@ -43,9 +43,6 @@ class Politicos extends Component {
 
     renderEstados() {
         return this.props.data.zonas.map(({ nombre, estados }) => { 
-            if(nombre == "Nacional"){
-                return <div key={nombre}></div>;
-            }else{
                 return(
                     <div key={nombre}>
                             <li>
@@ -65,9 +62,7 @@ class Politicos extends Component {
                             </details>
                             </li>
                         </div>
-                );      
-            }
-
+                );    
         });
         
     }

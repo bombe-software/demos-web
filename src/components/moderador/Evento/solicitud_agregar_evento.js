@@ -6,6 +6,7 @@ import AumentarPuntos from '../../../mutations/aumentarPuntos';
 import RestarPuntos from '../../../mutations/restarPuntos';
 import AceptarEvento from '../../../mutations/accept/AceptarEvento'
 import DenegarEvento from '../../../mutations/deny/DenegarEvento';
+import AscenderModerador from '../../../mutations/ascenderModerador';
 
 import DetalleSolicitudEvento from './detalle_solicitud_evento';
 
@@ -24,13 +25,20 @@ class SolicitudEvento extends Component {
     this.renderSectionEvento = this.renderSectionEvento.bind(this);
   }
 
-  aceptar(idEvento,id_usuario) {
+  aceptar(idEvento,id_usuario, puntos) {
     this.setState({ idEvento: null });
     this.props.AumentarPuntos({
       variables: {
         id_usuario
       }
     })
+    if(puntos>1000){
+      this.props.AscenderModerador({
+        variables: {
+          id_usuario
+        }
+      })
+    }
     this.props.AceptarEvento({
       variables: {
         idEvento
@@ -38,7 +46,7 @@ class SolicitudEvento extends Component {
     }).then(() => this.props.fetchSolicitudEvento.refetch());
   }
 
-  denegar(idEvento,id_usuario) {
+  denegar(idEvento,id_usuario, puntos) {
     this.setState({ idEvento: null });
     this.props.RestarPuntos({
       variables: {
@@ -64,12 +72,12 @@ class SolicitudEvento extends Component {
         <div key={id}>
           <div className="panel-block" >
             <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id) }}>
+              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id, usuario.puntos) }}>
                 <i className="fa fa-check"></i>
               </a> &nbsp;&nbsp;&nbsp;
             </span>
             <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id,usuario.id) }}>
+              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id,usuario.id, usuario.puntos) }}>
                 <i className="fa fa-times"></i>
               </a>
             </span>
@@ -141,6 +149,9 @@ export default compose(
   }),
   graphql(RestarPuntos, {
     name: 'RestarPuntos'
+  }),
+  graphql(AscenderModerador, {
+    name: 'AscenderModerador'
   })
 )(SolicitudEvento);
 

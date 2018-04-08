@@ -8,9 +8,9 @@ class Estado extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            r: 0,
-            g: 0,
-            b: 0,
+            r: 68,
+            g: 68,
+            b: 68,
             a: 1,
             bool: true
         }
@@ -19,6 +19,12 @@ class Estado extends Component {
         if(this.state.bool){
             this.renderColor();
             this.setState({bool: false})
+        }
+    }
+
+    componentWillUpdate(nextProps, nextState){
+        if(this.state == nextState){
+            return false;
         }
     }
     

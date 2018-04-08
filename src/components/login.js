@@ -124,11 +124,14 @@ class Login extends GenericForm {
                                                                     floatingLabelText="Password"
                                                                 />
                                                             </div>
-                                                            <Link to={`/recover_password/`}>
+                                                        </div>
+                                                        <div className='level'>
+                                                        <div className='level-item'>
+                                                        <Link to={`/recover_password/`}>
                                                             <span className="is-6"><i className="center" className="fa fa-pencil"></i>Olvidaste tu contrasena?</span>
                                                         </Link>
                                                         </div>
-                                                        
+                                                        </div>
                                                         <code>
                                                             {this.state.error}
                                                         </code>
