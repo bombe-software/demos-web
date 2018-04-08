@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
 import WaveBackground from './generic/wave_background';
+import { demos_krb_http } from './../../deploy';
 
 import { Form, Field } from "react-final-form";
 import GenericForm from './generic/generic_form';
@@ -25,7 +26,7 @@ class Login extends GenericForm {
             date: (new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear())
         };
 
-        const request = axios.post("https://demos-krb.herokuapp.com/ticket_controller", ticket);
+        const request = axios.post(`${demos_krb_http}/ticket_controller`, ticket);
 
         request.then(({ data }) => {
             if (data.message != 404) {
@@ -126,11 +127,11 @@ class Login extends GenericForm {
                                                             </div>
                                                         </div>
                                                         <div className='level'>
-                                                        <div className='level-item'>
-                                                        <Link to={`/recover_password/`}>
-                                                            <span className="is-6"><i className="center" className="fa fa-pencil"></i>Olvidaste tu contrasena?</span>
-                                                        </Link>
-                                                        </div>
+                                                            <div className='level-item'>
+                                                                <Link to={`/recover_password/`}>
+                                                                    <span className="is-6"><i className="center" className="fa fa-pencil"></i>Olvidaste tu contrasena?</span>
+                                                                </Link>
+                                                            </div>
                                                         </div>
                                                         <code>
                                                             {this.state.error}
