@@ -39,11 +39,11 @@ class Footer extends Component {
               </p>
               <br />
               <p>
-                <Link to="/acerca-de">Acerca de</Link>
+                <Link to="/acerca_de">Ayuda</Link>
               </p>
               <br />
               <p>
-                <Link to="/soporte">Acerca de</Link>
+                <Link to="/soporte">Soporte</Link>
               </p>
 
             </div>
@@ -69,7 +69,7 @@ class Footer extends Component {
               </p>
               <hr />
               <p>
-                <a href="http://bombesoftware.com"><i className="fa fa-globe" aria-hidden="true"></i></a>
+                <a href="http://www.bombesoftware.com"><i className="fa fa-globe" aria-hidden="true"></i></a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="https://www.facebook.com/bombesoftware"><i className="fa fa-facebook-official" aria-hidden="true"></i></a>
                 &nbsp;&nbsp;&nbsp;&nbsp;

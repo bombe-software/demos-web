@@ -11,11 +11,13 @@ exports.demos_gql_ws = "wss://demos-gql.herokuapp.com";
 exports.validation_http = true;
 
 
-/**
- * Variables de desarrollo
+
+
+/*
+ //* 
 exports.demos_web_http = "http://localhost:9000";
 exports.demos_krb_http = "http://localhost:5000";
 exports.demos_gql_http = "http://localhost:3000";
 exports.demos_gql_ws = "ws://localhost:3000";
 exports.validation_http = false;
-*/
+/** */

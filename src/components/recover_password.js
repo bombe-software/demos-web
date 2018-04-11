@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import { Form, Field } from "react-final-form";
 import GenericForm from './generic/generic_form';
 import RecoverPass from './../mutations/recoverPasssword';
+import fetchUsuario from './../queries/fetchUsuario';
 
 class RecoverPassword extends GenericForm {
   constructor(props) {
@@ -42,6 +43,10 @@ class RecoverPassword extends GenericForm {
   }
 
   render() {
+    if(this.props.data.usuario || this.props.data.loading){
+      this.props.history.push("/");
+      return "Loading.."
+    }else{
     return (
       <div>
         <section className="hero is-large">
@@ -101,4 +106,5 @@ class RecoverPassword extends GenericForm {
     );
   }
 }
-export default graphql(RecoverPass)(RecoverPassword);
+}
+export default graphql(fetchUsuario)(graphql(RecoverPass)(RecoverPassword));

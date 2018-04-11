@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 import { Form, Field } from "react-final-form";
 import GenericForm from './generic/generic_form';
 import WaveBackground from './generic/wave_background';
-
+import fetchUsuario from './../queries/fetchUsuario';
 import confirmEmail from "./../mutations/confirmEmail";
 
 
@@ -40,6 +40,10 @@ class ConfirmEmail extends GenericForm {
     }
 
     render() {
+        if(this.props.data.usuario || this.props.data.loading){
+            this.props.history.push("/");
+            return "Loading.."
+          }else{
         const { handleSubmit } = this.props;
         return (
             <div>
@@ -104,5 +108,6 @@ class ConfirmEmail extends GenericForm {
         );
     }
 }
+}
 
-export default graphql(confirmEmail)(ConfirmEmail);
+export default graphql(fetchUsuario)(graphql(confirmEmail)(ConfirmEmail));

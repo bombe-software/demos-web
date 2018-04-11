@@ -42,8 +42,12 @@ class Estado extends Component {
     }
 
     stringToObject(color){
+        if(this.props.fetch.likes_nacionalPorEstado.length > 0){
+            return(<div>Nel prro</div>);
+        } else {
         let colorArray = color.split(",");
         return {r: parseInt(colorArray[0]), g: parseInt(colorArray[1]), b:parseInt(colorArray[2]), a:1}
+        }
     }
 
     opacar() {
@@ -80,15 +84,22 @@ class Estado extends Component {
     }
 
     render() {
-        return (
-            <path
-                style={{ stroke: 'white', strokeWidth: '0.5px', fill: this.getRGBA(this.state) }}
-                d={this.props.d} onClick={() => this.props.handleEstadoSelected(this.props.name)}
-                onMouseOver={() => this.opacar()}
-                onMouseOut={() => this.regresar()}
-            />
-        )
-    }
+        if(this.props.fetch.loading){
+            return(<div>Nel prro</div>);        
+        }else{
+            if(this.props.fetch.likes_nacionalPorEstado.length == 0){
+                return(<div>Nel prro</div>);
+            } else
+                return (
+                    <path
+                        style={{ stroke: 'white', strokeWidth: '0.5px', fill: this.getRGBA(this.state) }}
+                        d={this.props.d} onClick={() => this.props.handleEstadoSelected(this.props.name)}
+                        onMouseOver={() => this.opacar()}
+                        onMouseOut={() => this.regresar()}
+                    />
+                )
+            }
+        }
 }
 
 
