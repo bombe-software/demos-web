@@ -60,26 +60,30 @@ class Estado extends Component {
 
     renderColor(){
         if(!this.props.fetch.loading){
-            let likes = this.props.fetch.likes_nacionalPorEstado
-            let preferencias = [];
-
-            _.map(likes, like=>{
-                preferencias.push({
-                    color: like.politico.partido.color,
-                    politico: like.politico.nombre,
-                    partido: like.politico.partido.nombre,
-                    likes: like.usuarios.length
+            if(this.props.fetch.likes_nacionalPorEstado.length == 0){
+                return(<div>No hay datos</div>);
+            } else {
+                let likes = this.props.fetch.likes_nacionalPorEstado
+                let preferencias = [];
+    
+                _.map(likes, like=>{
+                    preferencias.push({
+                        color: like.politico.partido.color,
+                        politico: like.politico.nombre,
+                        partido: like.politico.partido.nombre,
+                        likes: like.usuarios.length
+                    });
+                    
                 });
-                
-            });
-
-            preferencias = _.sortBy(preferencias, 'likes');
-            preferencias.reverse();
-            let color;
-            if(preferencias[0].likes>0){
-                color = this.stringToObject(preferencias[0].color);
-                this.colorUpdate(color);
-            };
+    
+                preferencias = _.sortBy(preferencias, 'likes');
+                preferencias.reverse();
+                let color;
+                if(preferencias[0].likes>0){
+                    color = this.stringToObject(preferencias[0].color);
+                    this.colorUpdate(color);
+                };
+            }
         }
     }
 
