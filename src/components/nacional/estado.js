@@ -61,7 +61,7 @@ class Estado extends Component {
     renderColor(){
         if(!this.props.fetch.loading){
             if(this.props.fetch.likes_nacionalPorEstado.length == 0){
-                return(<div>No hay datos</div>);
+                console.log("");
             } else if(this.props.fetch.likes_nacionalPorEstado.length < 0){
                 let likes = this.props.fetch.likes_nacionalPorEstado
                 let preferencias = [];
