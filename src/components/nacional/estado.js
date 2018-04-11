@@ -62,7 +62,7 @@ class Estado extends Component {
         if(!this.props.fetch.loading){
             if(this.props.fetch.likes_nacionalPorEstado.length == 0){
                 return(<div>No hay datos</div>);
-            } else {
+            } else if(this.props.fetch.likes_nacionalPorEstado.length < 0){
                 let likes = this.props.fetch.likes_nacionalPorEstado
                 let preferencias = [];
     
@@ -76,6 +76,8 @@ class Estado extends Component {
                     
                 });
     
+
+
                 preferencias = _.sortBy(preferencias, 'likes');
                 preferencias.reverse();
                 let color;
