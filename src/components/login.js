@@ -38,7 +38,6 @@ class Login extends GenericForm {
                     this.setState({ error: "Password o email incorrecto." });
                     return;
                 }
-                console.log(decryptedData);
                 this.props.mutate({
                     variables: {
                         email,
@@ -50,7 +49,6 @@ class Login extends GenericForm {
                     .catch(res => {
                         const errors = res.graphQLErrors.map(error => error.message);
                         const error = errors[0];
-                        console.log("Error en otra parte")
                         this.setState({ error });
                     });
             } else {
