@@ -23,7 +23,7 @@ class Login extends GenericForm {
         const { email, password } = values;
         const ticket = {
             email,
-            date: (new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear())
+            date: (new Date().getMonth() + "/" + new Date().getFullYear())
         };
 
         const request = axios.post(`${demos_krb_http}/ticket_controller`, ticket);
@@ -31,6 +31,7 @@ class Login extends GenericForm {
         request.then(({ data }) => {
             if (data.message != 404) {
                 let bytes = CryptoJS.AES.decrypt(data.message, values.password);
+                console.log(bytes.toString(CryptoJS.enc.Utf8));
                 if (bytes.words[0] == 2065855593) {
                     let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
                     this.props.mutate({
