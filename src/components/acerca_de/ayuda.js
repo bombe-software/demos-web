@@ -43,9 +43,11 @@ class Ayuda extends Component{
     return (
       <div>
         <h2 className="title is-size-4">
-        Solcitud de Moderador </h2>
-        <p>En caso de que usted sea activo en el sistema, podrá obtener una mejor cuenta, con mejores accesos, solamente ingrese a este apartado y seleccione “Solicitud Moderador”, a continuación, ingrese el motivo por el que quiere ser Moderador (Un moderador se encarga de que realicen cambios y se maneje bien el sistema)
-         </p>
+        Solicitud de Moderador </h2>
+        <p>Cuando usted llegue a cierta cantidad de puntos buenos, usted podrá ser parte de los moderadores, cuando eso suceda le avisaremos para que usted nos diga si desea o no ser moderador. Por otro lado, cuando usted llega a cierta cantidad de puntos malos, el sistema eliminará su cuenta. (Un moderador se encarga de que se realicen cambios y se maneje bien el sistema)
+         </p> <br/>
+         <p>En cada uno de peticiones de cambio / agregación / eliminación pon lo siguiente al final de cada uno</p> <br/>
+         <p>En caso de ser aceptada, recibirá puntos positivos, en caso contrario, puntos negativos.</p>
          <br/>
          <h2 className="title is-size-4">
          Peticiones de Cambio </h2>
@@ -88,7 +90,8 @@ class Ayuda extends Component{
           <h2 className="title is-size-4">
         Moderador </h2><p>
         Si usted es  Moderador, podrá administrar las solicitudes de cambio de información, agregación y eliminación que realizan, se le mostrará una lista con las solicitudes disponibles, podrá seleccionar una, al hacerlo se le mostrará detalles de esa solicitud, y podrá aceptarla o rechazarla.
-        </p>
+        </p> <br/>
+        <p>Para visualizar una de las peticiones, sólo tiene que seleccionar el tipo de petición, luego seleccionar una de las peticiones, verá la información de la petición, a lo que le pedimos que verifique que la información está correcta, en caso de estarlo y de no violar las reglas del sistema (consulte el reglamento), proceda a aceptarla, en caso contrario, rechácela.</p>
         </div>
       );
     }
@@ -104,7 +107,8 @@ class Ayuda extends Component{
            <h2 className="title is-size-4">
            Encuesta </h2><p>
            En este apartado, usted podrá contestar encuestas, las cuales nos ayudan a realizar estadísticas para nuestro sistema, realizarlas de la mejor manera, significa mucho para nosotros.
-           </p>
+           </p> <br/>
+           <p>Para contestar una encuesta, ingrese desde las elecciones y elija el estado al que está relacionado, luego de clic a "Contestar encuesta" para después seleccionar a su candidato favorito.</p>
         </div>
       );
     }
@@ -114,7 +118,7 @@ class Ayuda extends Component{
         <div>
            <h2 className="title is-size-4">
            Historial Político </h2>
-           <p>Aquí, podrá ver los hechos relevantes de un político en su vida</p>
+           <p>Aquí, podrá ver los hechos relevantes de un político en su vida.</p>
            <br/>
            <h2 className="title is-size-4">
            Biografía </h2><p>
@@ -134,7 +138,7 @@ class Ayuda extends Component{
         <div>
            <h2 className="title is-size-4">
            Soporte </h2>
-           <p>Aquí, podrá obtener información del sistema, con ayuda de un Chat-Bot</p>
+           <p>Aquí, podrá obtener información del sistema, con ayuda de un Chat-Bot.</p>
            <br/>
            <h2 className="title is-size-4">
            Ayuda </h2><p>
@@ -144,7 +148,7 @@ class Ayuda extends Component{
            <h2 className="title is-size-4">
            Acerca de </h2>
            <p>
-            Aquí podrá encontrar la siguiente información: Expectativas de los desarrolladores, Perfil del Desarrollador, Opiniones de Gente, Objetivos de la Empresa, Misión y Visión, Términos y condiciones, Código de conducta, Política de privacidad
+            Aquí podrá encontrar la siguiente información: Expectativas de los desarrolladores, Perfil del Desarrollador, Opiniones de Gente, Objetivos de la Empresa, Misión y Visión, Términos y condiciones, Código de conducta, Política de privacidad.
            </p>
         </div>
       );
@@ -155,12 +159,12 @@ class Ayuda extends Component{
         <div>
           <h2 className="title is-size-4">
         Seguimiento </h2><p>
-        Si usted es  Administrador, podrá administrar el seguimiento de los usuarios
+        Si usted es Administrador, podrá administrar el seguimiento de los usuarios.
         </p>
         <br/>
         <h2 className="title is-size-4">
         Control de Usuarios </h2><p>
-        Si usted es  Administrador, podrá eliminar o sancionar usuarios.
+        Si usted es Administrador, podrá eliminar o sancionar usuarios.
         </p>
         </div>
       );
@@ -176,7 +180,7 @@ class Ayuda extends Component{
         <br/>
         <h2 className="title is-size-4">
         Gabinete </h2><p>
-        Se mostrará el gabinete en función en el cargo actual</p>
+        Se mostrará el gabinete en función en el cargo actual.</p>
         </div>
       );
     }

@@ -6,6 +6,8 @@ import deletePropuesta from '../../../mutations/captcha/DeletePropuesta';
 import fetchPropuesta from '../../../queries/fetchPropuesta';
 import fetchUsuario from "../../../queries/fetchUsuario";
 
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import PoliticoPerfil from './politico_perfil';
 import BotonCaptcha from './../../generic/boton_captcha';
 
@@ -14,39 +16,49 @@ class PropuestaSeleccionada extends Component {
         super(props);
         let { id, id_propuesta } = this.props.match.params;
         this.state = {
-            id_politico: id
+            id_politico: id,
+            open: false
         };
-         this.Eliminar = this.Eliminar.bind(this);
-         this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
+        this.Eliminar = this.Eliminar.bind(this);
+        this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
     }
 
-   Eliminar(){
+    Eliminar() {
         let id_propuesta = this.props.match.params.id_propuesta;
         let id_usuario = this.props.fetchUsuario.usuario.id;
         this.props.deletePropuesta({
-        variables: {
-        id_propuesta,id_usuario
-      }
-    }).then(this.handleOpen); 
-}
-renderBotonEliminar(){
-   if (!this.props.fetchUsuario.usuario) {
+            variables: {
+                id_propuesta, id_usuario
+            }
+        }).then(this.handleOpen);
     }
-    else {
-        return(
-            <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar}/>  
-        );
+    renderBotonEliminar() {
+        if (!this.props.fetchUsuario.usuario) {
+        }
+        else {
+            return (
+                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar} />
+            );
+        }
     }
-}
+    handleOpen() {
+        this.setState({ open: true });
+    };
+
+    handleClose() {
+        this.setState({ open: false });
+    };
     renderSection() {
         if (!this.props.fetchPropuesta.loading && !this.props.fetchUsuario.loading) {
-            let {titulo, descripcion, tipo_propuesta, referencia, usuario, politico} = this.props.fetchPropuesta.propuesta;
+            let { titulo, descripcion, tipo_propuesta, referencia, usuario, politico } = this.props.fetchPropuesta.propuesta;
             return (
                 <div>
                     <div>
                         <Link to={`/politico/${politico.id}`}>
                             <span className="is-5 title"><i className="fa fa-arrow-left"></i> Regresar</span>
-                        </Link> 
+                        </Link>
                     </div>
                     <br />
                     <div className="card">
@@ -62,9 +74,9 @@ renderBotonEliminar(){
                         </div>
                         <div className="card-footer">
                             <span className="card-footer-item">
-                            <Link to={`/propuesta/modify/${this.props.match.params.id_propuesta}`}>
-                            <span className="is-6"><i className="fa fa-pencil"></i> Modificar</span>
-                            </Link>
+                                <Link to={`/propuesta/modify/${this.props.match.params.id_propuesta}`}>
+                                    <span className="is-6"><i className="fa fa-pencil"></i> Modificar</span>
+                                </Link>
                             </span>
                             <span className="card-footer-item">
                                 {this.renderBotonEliminar()}
@@ -93,10 +105,19 @@ renderBotonEliminar(){
     }
     componentWillReceiveProps(nextProps) {
         nextProps.fetchPropuesta.refetch();
-      } 
+    }
     render() {
         return (
             <div>
+                <Dialog
+                    title="Tu propuesta de eliminación está en espera de aprobación"
+                    actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+                    modal={false}
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}
+                >
+                    Espera la aprobación de un moderador de tu propuesta
+                    </Dialog>
                 <br />
                 <div className="section">
                     <div className="columns is-desktop">

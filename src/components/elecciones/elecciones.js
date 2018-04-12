@@ -86,7 +86,7 @@ class Elecciones extends Component {
                     <div className="card-image">
                         <div className="hero is-light">
                             <div className="hero-body">
-                                <h3>No has seleccionado ninguna eleccion</h3>
+                                <h3>No has seleccionado ninguna elección</h3>
                             </div>
                         </div>
                     </div>

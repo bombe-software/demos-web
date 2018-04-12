@@ -129,7 +129,7 @@ class Login extends GenericForm {
                                                         <div className='level'>
                                                             <div className='level-item'>
                                                                 <Link to={`/recover_password/`}>
-                                                                    <span className="is-6"><i className="center" className="fa fa-pencil"></i>Olvidaste tu contrasena?</span>
+                                                                    <span className="is-6"><i className="center" className="fa fa-pencil"></i>¿Olvidaste tu contraseña?</span>
                                                                 </Link>
                                                             </div>
                                                         </div>

@@ -71,7 +71,7 @@ class Politicos extends Component {
             <div className="card-image">
                 <div className="hero is-light">
                     <div className="hero-body">
-                        <h3>No has seleccionado ningun politico</h3>
+                        <h3>No has seleccionado ningún político</h3>
                     </div>
                 </div>
             </div>

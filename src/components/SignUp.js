@@ -291,7 +291,7 @@ class SignUp extends GenericForm {
                                     <Field name="Rpassword"
                                       component={this.renderPasswordField}
                                       hintText="Ingrese nuevamente su password"
-                                      floatingLabelText="Password"
+                                      floatingLabelText="Repita Password"
                                     />
                                   </div>
                                 </div>

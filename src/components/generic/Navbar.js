@@ -124,7 +124,7 @@ renderModerador(){
                     Elecciones
                   </Link>
                   <Link to="/politicos" className="navbar-item" onClick={this.handleClick}>
-                    Politicos
+                    Políticos
                   </Link>
                   <Link to="/nacional" className="navbar-item" onClick={this.handleClick}>
                     Nacional

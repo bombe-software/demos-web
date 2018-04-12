@@ -85,7 +85,7 @@ class RecoverPassword extends GenericForm {
                             <div className="level">
                               <div className="level-item">
                                 <button type="submit" className="button is-primary">
-                                  Cambiar
+                                  Enviar Correo
                                 </button>
                               </div>
                             </div>
