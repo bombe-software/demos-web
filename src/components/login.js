@@ -32,7 +32,6 @@ class Login extends GenericForm {
             if (data.message != 404) {
                 try {
                     let bytes = CryptoJS.AES.decrypt(data.message, values.password);
-                    console.log(bytes);
                     let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
                     console.log(decryptedData);
                     this.props.mutate({
@@ -48,9 +47,10 @@ class Login extends GenericForm {
                             const error = errors[0]
                             this.setState({ error });
                         });
-                } catch (ex) {  
-                    console.log(ex);
+                        return;
+                } catch (ex) {
                     this.setState({ error: "Password o email incorrecto." });
+                    return;
                 }
             } else {
                 this.setState({ error: "Password o email incorrecto." });
