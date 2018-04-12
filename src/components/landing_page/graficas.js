@@ -198,7 +198,6 @@ class Graficas extends Component {
     }
 
     renderInfoEstado() {
-        console.log(this.props);
         return(
             <div>
                 <div className="columns is-desktop">
@@ -268,7 +267,6 @@ class Graficas extends Component {
         }
 
         _.map(propuestas, function(propuesta){
-            console.log(propuesta);
             if(propuesta.politico){
                 if(propuesta.politico.estado.id === usuario.localidad.id){
                     propuestasEstado.push(propuesta);

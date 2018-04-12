@@ -8,7 +8,7 @@ class Politicos extends Component {
         super(props);
         this.state = {
             id_puesto: 0,
-            id_estado: "5a68b566f5985aaea61a93ce",
+            id_estado: null,
             zona: '',
             estado: ''
         };
@@ -66,6 +66,17 @@ class Politicos extends Component {
         });
         
     }
+    renderCuandoNoHayEstado(){
+        return(                            <div>
+            <div className="card-image">
+                <div className="hero is-light">
+                    <div className="hero-body">
+                        <h3>No has seleccionado ningun politico</h3>
+                    </div>
+                </div>
+            </div>
+        </div>);
+    }
   /**
   * Es una forma de capturar cualquier error en la clase 
   * y que este no crashe el programa, ayuda con la depuracion
@@ -113,12 +124,12 @@ class Politicos extends Component {
                   </div>
                   <div className="column is-7-desktop is-7-widescreen is-5-fullhd is-12-tablet is-12-mobile">
                     <div key={this.state.id_estado+this.state.id_puesto}> 
-                        <PoliticoList
+                          {(this.state.id_estado != null) ? <PoliticoList
                             id_estado = {this.state.id_estado}
                             estados = {this.state.estado}
                             zona = {this.state.zona}
                             id_puesto = {this.state.id_puesto}
-                          />
+                          /> : this.renderCuandoNoHayEstado() }
                     </div>
                   </div>
               </div>
