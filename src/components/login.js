@@ -30,28 +30,29 @@ class Login extends GenericForm {
 
         request.then(({ data }) => {
             if (data.message != 404) {
+                let decryptedData = null;
                 try {
                     let bytes = CryptoJS.AES.decrypt(data.message, values.password);
-                    let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-                    console.log(decryptedData);
-                    this.props.mutate({
-                        variables: {
-                            email,
-                            password: decryptedData.ticket
-                        },
-                        refetchQueries: [{ query }]
-                    })
-                        .then(() => this.props.history.push("/"))
-                        .catch(res => {
-                            const errors = res.graphQLErrors.map(error => error.message);
-                            const error = errors[0]
-                            this.setState({ error });
-                        });
-                        return;
+                    decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
                 } catch (ex) {
                     this.setState({ error: "Password o email incorrecto." });
                     return;
                 }
+                console.log(decryptedData);
+                this.props.mutate({
+                    variables: {
+                        email,
+                        password: decryptedData.ticket
+                    },
+                    refetchQueries: [{ query }]
+                })
+                    .then(() => this.props.history.push("/"))
+                    .catch(res => {
+                        const errors = res.graphQLErrors.map(error => error.message);
+                        const error = errors[0];
+                        console.log("Error en otra parte")
+                        this.setState({ error });
+                    });
             } else {
                 this.setState({ error: "Password o email incorrecto." });
             }
