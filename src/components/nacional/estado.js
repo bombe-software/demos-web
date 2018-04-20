@@ -82,13 +82,15 @@ class Estado extends Component {
             };
         }
     }
-
+    componentWillReceiveProps(nextProps) {
+        nextProps.fetch.refetch();
+      } 
     render() {
         if(this.props.fetch.loading){
-            return(<div>Nel prro</div>);        
+            return(<div>Loading...</div>);        
         }else{
             if(this.props.fetch.likes_nacionalPorEstado.length == 0){
-                return(<div>Nel prro</div>);
+                return(<div>Loading...</div>);
             } else
                 return (
                     <path

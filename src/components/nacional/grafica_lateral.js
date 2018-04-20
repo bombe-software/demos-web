@@ -41,39 +41,41 @@ class GraficaLateral extends Component {
             this.setState({ estadoSelected: id });
       }
 
-      renderDatos(){
-            
-                let likes = this.props.fetch.likes_nacionalPorEstado
-                var usuarios = [];
-                var color = [];
-                  var colorHover = [];
-                  var labels = [];
-                _.map(likes, like=>{
-                    color.push(`rgba(${like.politico.partido.color},1)`);
-                    colorHover.push(`rgba(${like.politico.partido.color},0.9)`);
-                    usuarios.push(like.usuarios.length);
-                    labels.push(like.politico.nombre); 
-                });
+      renderDatos() {
 
-                console.log({
+            let likes = this.props.fetch.likes_nacionalPorEstado
+            var usuarios = [];
+            var color = [];
+            var colorHover = [];
+            var labels = [];
+            _.map(likes, like => {
+                  color.push(`rgba(${like.politico.partido.color},1)`);
+                  colorHover.push(`rgba(${like.politico.partido.color},0.9)`);
+                  usuarios.push(like.usuarios.length);
+                  labels.push(like.politico.nombre);
+            });
+
+            console.log({
                   labels: labels,
                   datasets: [{
-                      data: usuarios,
-                      backgroundColor: color,
-                      hoverBackgroundColor: colorHover
+                        data: usuarios,
+                        backgroundColor: color,
+                        hoverBackgroundColor: colorHover
                   }]
-              });
+            });
 
             return {
                   labels: labels,
                   datasets: [{
-                      data: usuarios,
-                      backgroundColor: color,
-                      hoverBackgroundColor: colorHover
+                        data: usuarios,
+                        backgroundColor: color,
+                        hoverBackgroundColor: colorHover
                   }]
-              };
+            };
       }
-
+      componentWillReceiveProps(nextProps) {
+            nextProps.fetch.refetch();
+      }
       render() {
             if (this.props.fetch.loading || this.props.mutate.loading) return <div> </div>
             console.log(this.props.fetch.likes_nacionalPorEstado);
@@ -88,10 +90,10 @@ class GraficaLateral extends Component {
 
 export default compose(
       graphql(Voto_nacional, {
-          name: 'mutate'
+            name: 'mutate'
       }),
       graphql(fetchLikesNacionalPorEstado, {
-          name: 'fetch',
-          options: (props) => { return { variables: { id_estado: props.id_estado } } }
+            name: 'fetch',
+            options: (props) => { return { variables: { id_estado: props.id_estado } } }
       })
-  )(GraficaLateral);
+)(GraficaLateral);
