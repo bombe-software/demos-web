@@ -11,21 +11,21 @@ class Soporte extends GenericForm {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
-            mensajes:[]
+            mensajes: []
         }
     }
 
     async onSubmit(values) {
-        const { mensajeUser} = values;
+        const { mensajeUser } = values;
         this.addMsgLeft(mensajeUser);
         this.props.mutate({
             variables: {
                 mensajeUser
             }
-        }).then(({data}) =>  this.addMsgRight(data.mensaje));
+        }).then(({ data }) => this.addMsgRight(data.mensaje));
     }
 
-    addMsgLeft(texto){
+    addMsgLeft(texto) {
         const msg = {
             id: (this.state.mensajes.length),
             texto,
@@ -38,7 +38,7 @@ class Soporte extends GenericForm {
         });
     }
 
-    addMsgRight(texto){
+    addMsgRight(texto) {
         const msg = {
             id: (this.state.mensajes.length),
             texto,
@@ -52,22 +52,22 @@ class Soporte extends GenericForm {
     }
 
     renderListMessages(mensajes) {
-		return _.map(mensajes, mensaje => {
-			if (mensaje.is_bot) {
-				return (
-					<div key={mensaje.id}>
-						{this.renderRightMessage(mensaje)}
-					</div>
-				);
-			} else {
-				return (
-					<div key={mensaje.id}>
-						{this.renderLeftMessage(mensaje)}
-					</div>
-				);
-			}
-		});
-	}
+        return _.map(mensajes, mensaje => {
+            if (mensaje.is_bot) {
+                return (
+                    <div key={mensaje.id}>
+                        {this.renderRightMessage(mensaje)}
+                    </div>
+                );
+            } else {
+                return (
+                    <div key={mensaje.id}>
+                        {this.renderLeftMessage(mensaje)}
+                    </div>
+                );
+            }
+        });
+    }
 
     renderLeftMessage(mensaje) {
         return (
@@ -119,27 +119,27 @@ class Soporte extends GenericForm {
         return (
             <div className="section">
                 <div className="columns">
-                <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                    <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                         <h1 className="is-size-2 title">Soporte</h1>
-                            <div className="hero">
-                                <div className="">
-                                    <div className="inbox">
-                                        {this.renderListMessages(this.state.mensajes)}
-                                    </div>
-                                    <div>
-                                        <br />
-                                        <div className="level">
-                                            <div className="level-item">
+                        <div className="hero">
+                            <div className="">
+                                <div className="inbox">
+                                    {this.renderListMessages(this.state.mensajes)}
+                                </div>
+                                <div>
+                                    <br />
+                                    <div className="level">
+                                        <div className="level-item">
                                             <Form
                                                 onSubmit={this.onSubmit}
                                                 validate={values => {
                                                     const errors = {};
-                                                     if (!values.mensajeUser) {
+                                                    if (!values.mensajeUser) {
                                                         errors.mensajeUser = "Escriba un mensaje";
                                                     }
-                                                     if(/^\s+|\s+$/.test(values.mensajeUser)) {
-                                                         errors.mensajeUser = "No ingrese espacios";
-                                                     }
+                                                    if (/^\s+|\s+$/.test(values.mensajeUser)) {
+                                                        errors.mensajeUser = "No ingrese espacios";
+                                                    }
                                                     return errors;
                                                 }}
                                                 render={({ handleSubmit, reset, submitting, pristine, values }) => (
@@ -152,21 +152,27 @@ class Soporte extends GenericForm {
                                                                     floatingLabelText="Mensaje"
                                                                 />
                                                             </div>
+                                                            <div className="buttons has-text-centered">
+                                                                <button type="submit" className="button is-primary" disabled={submitting}>
+                                                                    Enviar
+                                                    </button>
+                                                            </div>
                                                         </div>
+
                                                     </form>
                                                 )}
-                                                />
-                                            </div>
+                                            />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     <div>
                         <br />
                     </div>
                 </div>
-           </div>
+            </div>
         )
     }
 }

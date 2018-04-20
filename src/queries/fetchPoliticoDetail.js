@@ -22,7 +22,7 @@ query fetchPoliticoDetail($id: ID!) {
       fecha,
       titulo,
       descripcion,
-      tipo_propuesta{ tipo },
+      tipo_propuesta{id, tipo },
       likes {id}
     },
     estudios{

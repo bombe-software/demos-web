@@ -13,7 +13,7 @@ class PoliticoList extends Component {
   }
   renderTitle() {
     let { id_estado } = this.props;
-    if (id_estado === "5a66340f2ad334a3426ebc49") {
+    if (this.props.id_estado === "5a68b566f5985aaea61a93c") {
       return (
         <div>
         </div>
@@ -30,7 +30,7 @@ class PoliticoList extends Component {
   }
 
   renderListPoliticos() {
-    if (this.props.id_estado === "5a66340f2ad334a3426ebc49") {
+    if (this.props.id_estado === "5a68b566f5985aaea61a93c") {
       return (
         <div>
           <div className="hero is-light">

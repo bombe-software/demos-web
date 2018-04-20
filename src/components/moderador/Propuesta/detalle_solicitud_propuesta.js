@@ -14,6 +14,7 @@ class DetalleSolicitudPropuesta extends Component {
                 <div>Loading...</div>
             );
         }
+        console.log(this.props);
         const propuesta = this.props.SolicitudPropuesta.solicitudPropuesta;
         return (
             <div className="card">
@@ -26,7 +27,7 @@ class DetalleSolicitudPropuesta extends Component {
                     <p className="title is-4"><b>Título: </b>{propuesta.titulo}</p>
                     <p><b>Descripción: </b>{propuesta.descripcion}</p>
                     <p><b>Fecha de la propuesta: </b>{propuesta.fecha}</p>
-                    <p>Tipo de propuesta: {propuesta.tipo_propuesta.nombre}</p>
+                    <p><b>Tipo de propuesta:</b> {propuesta.tipo_propuesta.tipo}</p>
                     <hr />
                     <b>Fuente de consulta: </b><a target="_blank" href={propuesta.referencia}>{propuesta.referencia}</a>
                 </div>

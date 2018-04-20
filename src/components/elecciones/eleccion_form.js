@@ -36,7 +36,9 @@ class EleccionForm extends Component {
     handlePolitico(id) {
         this.setState({ id_preferencia: id });
     }
-
+    componentWillReceiveProps(nextProps) {
+        nextProps.fetchEleccion.refetch();
+      } 
     handleClick() {
         if (this.state.id_preferencia.length == 0) {
             this.setState({ mensaje: "Selecciona a alguien" })
@@ -60,7 +62,7 @@ class EleccionForm extends Component {
             return (            
                 <div style={{'cursor': 'pointer'}} key={preferencia.id}  onClick={() => this.handlePolitico(preferencia.id)}>
                     <br />
-                    <div className="box" style={this.state.id_preferencia == preferencia.id ? {selected}:{}}>
+                    <div className="box" style={this.state.id_preferencia == preferencia.id ? {backgroundColor: "#7EDEC1", color: "white"} : {}}>
                     <div className="media">
                       <div className="media-left">
                         <figure className="image is-32x32">

@@ -50,37 +50,23 @@ import ModificarPolitico from './components/politico/politico_modify/politico_fo
 import ModificarPropuesta from './components/politico/politico_modify/propuesta_form';
 import Nacional from './components/nacional/nacional';
 
+import { demos_gql_http, demos_gql_ws } from './../deploy';
+
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: `${demos_gql_http}/graphql`,
   credentials: 'include'
 });
 
 // Crear el web socket link
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:3000/subscriptions`,
+  uri: `${demos_gql_ws}/subscriptions`,
   options: {
-    reconnect: true //Very important
+    reconnect: true 
   },
   credentials: 'include'
 });
 
 //Pruebas 
-/*
-// Crear un http link
-const httpLink = createHttpLink({
-  uri: 'http://localhost:3000',
-  credentials: 'include'
-});
-
-// Crear el web socket link
-const wsLink = new WebSocketLink({
-  uri: `ws://localhost:3000/subscriptions`,
-  options: {
-    reconnect: true
-  },
-  credentials: 'include'
-});
- */
 /*
 const uploadLink = createUploadLink({
   uri: 'https://demos-gql.herokuapp.com/graphql',

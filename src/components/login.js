@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
-
+import { Link } from "react-router-dom";
 import login from "./../mutations/login";
 import query from "./../queries/fetchUsuario";
 import WaveBackground from './generic/wave_background';
+import { demos_krb_http } from './../../deploy';
 
 import { Form, Field } from "react-final-form";
 import GenericForm from './generic/generic_form';
@@ -25,7 +26,7 @@ class Login extends GenericForm {
             date: (new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear())
         };
 
-        const request = axios.post("http://localhost:5000/ticket_controller", ticket);
+        const request = axios.post(`${demos_krb_http}/ticket_controller`, ticket);
 
         request.then(({ data }) => {
             if (data.message != 404) {
@@ -39,12 +40,12 @@ class Login extends GenericForm {
                         },
                         refetchQueries: [{ query }]
                     })
-                    .then(() => this.props.history.push("/"))
-                    .catch(res => {
-                        const errors = res.graphQLErrors.map(error => error.message);
-                        const error = errors[0]
-                        this.setState({ error });
-                    });  
+                        .then(() => this.props.history.push("/"))
+                        .catch(res => {
+                            const errors = res.graphQLErrors.map(error => error.message);
+                            const error = errors[0]
+                            this.setState({ error });
+                        });
                 } else {
                     this.setState({ error: "Password o email incorrecto." });
                 }
@@ -123,6 +124,13 @@ class Login extends GenericForm {
                                                                     hintText="Ingrese su password"
                                                                     floatingLabelText="Password"
                                                                 />
+                                                            </div>
+                                                        </div>
+                                                        <div className='level'>
+                                                            <div className='level-item'>
+                                                                <Link to={`/recover_password/`}>
+                                                                    <span className="is-6"><i className="center" className="fa fa-pencil"></i>¿Olvidaste tu contraseña?</span>
+                                                                </Link>
                                                             </div>
                                                         </div>
                                                         <code>

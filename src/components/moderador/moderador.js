@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import { graphql } from 'react-apollo';
+import fetchUsuario from  './../../queries/fetchUsuario';
+import NotFound from './../../components/not_found';
 //Components
 import PendientesAgregarPropuestas from './Propuesta/solicitud_agregar_propuesta';
 import PendientesAgregarHistorial from './Evento/solicitud_agregar_evento';
@@ -186,6 +188,15 @@ class Moderador extends Component {
     }
   }
     render() {
+      if (this.props.fetchUsuario.loading) {
+        return <div>Loading...</div>
+      } 
+      console.log(this.props);
+      if (!this.props.fetchUsuario.usuario || this.props.fetchUsuario.usuario.tipo_usuario.tipo != "Moderador") {
+        return (
+          <NotFound />
+        );
+      }
       return (
         <div className="section">
           <div className="columns is-desktop">
@@ -215,4 +226,4 @@ class Moderador extends Component {
       )
     }
   }
-  export default Moderador;
+  export default graphql(fetchUsuario, { name: 'fetchUsuario' })(Moderador)

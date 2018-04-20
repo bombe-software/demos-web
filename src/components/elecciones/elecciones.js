@@ -86,7 +86,7 @@ class Elecciones extends Component {
                     <div className="card-image">
                         <div className="hero is-light">
                             <div className="hero-body">
-                                <h3>No has seleccionado ninguna eleccion</h3>
+                                <h3>No has seleccionado ninguna elección</h3>
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@ class Elecciones extends Component {
                     </div>
                 </div>
                 <div className="columns">
-                    <div className="column is-3-desktop is-3-widescreen is-2-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                    <div className="column is-3-desktop is-3-widescreen is-3-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                         <aside className="menu">
                             <div>
                                 <p className="menu-label">Region</p>
@@ -147,7 +147,7 @@ class Elecciones extends Component {
                             </div>
                         </aside>
                     </div>
-                    <div className="column is-7-desktop is-7-widescreen is-4-fullhd is-12-tablet is-12-mobile">
+                    <div className="column is-7-desktop is-7-widescreen is-5-fullhd is-12-tablet is-12-mobile">
                         {this.renderSection()}
                     </div>
                 </div>

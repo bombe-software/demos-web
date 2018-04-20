@@ -8,7 +8,7 @@ class Politicos extends Component {
         super(props);
         this.state = {
             id_puesto: 0,
-            id_estado: "5a66340f2ad334a3426ebc49",
+            id_estado: null,
             zona: '',
             estado: ''
         };
@@ -43,9 +43,6 @@ class Politicos extends Component {
 
     renderEstados() {
         return this.props.data.zonas.map(({ nombre, estados }) => { 
-            if(nombre == "Nacional"){
-                return <div key={nombre}></div>;
-            }else{
                 return(
                     <div key={nombre}>
                             <li>
@@ -65,11 +62,20 @@ class Politicos extends Component {
                             </details>
                             </li>
                         </div>
-                );      
-            }
-
+                );    
         });
         
+    }
+    renderCuandoNoHayEstado(){
+        return(                            <div>
+            <div className="card-image">
+                <div className="hero is-light">
+                    <div className="hero-body">
+                        <h3>No has seleccionado ningún político</h3>
+                    </div>
+                </div>
+            </div>
+        </div>);
     }
   /**
   * Es una forma de capturar cualquier error en la clase 
@@ -94,7 +100,7 @@ class Politicos extends Component {
                 </div>
               </div>
               <div className="columns is-desktop">
-              <div className="column is-3-desktop is-3-widescreen is-2-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+              <div className="column is-3-desktop is-3-widescreen is-3-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                     <aside className="menu">
                       <div>
                           <p className="menu-label">Tipo</p>
@@ -116,14 +122,14 @@ class Politicos extends Component {
                       </div>
                     </aside>
                   </div>
-                  <div className="column is-7-desktop is-7-widescreen is-4-fullhd is-12-tablet is-12-mobile">
+                  <div className="column is-7-desktop is-7-widescreen is-5-fullhd is-12-tablet is-12-mobile">
                     <div key={this.state.id_estado+this.state.id_puesto}> 
-                        <PoliticoList
+                          {(this.state.id_estado != null) ? <PoliticoList
                             id_estado = {this.state.id_estado}
                             estados = {this.state.estado}
                             zona = {this.state.zona}
                             id_puesto = {this.state.id_puesto}
-                          />
+                          /> : this.renderCuandoNoHayEstado() }
                     </div>
                   </div>
               </div>

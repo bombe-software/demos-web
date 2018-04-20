@@ -6,7 +6,10 @@ export default gql`
     id,
     titulo,
     descripcion
-    usuario{id}
+    usuario{
+      id,
+      puntos
+    }
   }
 }
 `;

@@ -4,6 +4,7 @@ import { graphql, compose } from 'react-apollo';
 import usuario from "./../../queries/fetchUsuario";
 import fetchLikesNacionalPorEstado from "./../../queries/fetchLikesNacionalPorEstado";
 import Voto_nacional from "./../../mutations/voto _nacional";
+import { Link } from "react-router-dom";
 
 class NacionalForm extends Component {
 
@@ -45,7 +46,8 @@ class NacionalForm extends Component {
                     id_estado: this.props.id_estado,
                     id_usuario: this.props.fetchUsuario.usuario.id,
                     id_politico: this.state.id_politico_preferido
-                }
+                },
+                refetchQueries: [{ query: fetchLikesNacionalPorEstado }]
             }).then(console.log("cambios hechos"));
         }
     }
@@ -54,12 +56,27 @@ class NacionalForm extends Component {
         //Agregar render de politicos
         return this.props.fetch.likes_nacionalPorEstado.map(({ politico }) => {
             return (
-                <div key={politico.id} onClick={() => this.handlePolitico(politico.id)}>
-                    <div className="hover-hero">
-                        <div className="box" style={this.state.id_politico_preferido == politico.id ? {backgroundColor: "#7561CE", color: "white"} : {}}>
-                            {politico.nombre}
+                <div key={politico.id} >
+                    <div style={this.state.id_politico_preferido == politico.id ? {color: "#50C9A4"} : {color: '#565656'}} onClick={() => this.handlePolitico(politico.id)}>
+                        <div className="level">
+                            <div className="level-left">
+                                <div className="level-item">
+                                    <div>
+                                        <p className="is-size-4 clickable">{politico.nombre}</p>
+                                        <p>{politico.partido.nombre}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="level-right">
+                                <div className="level-item">
+                                    <button className="button">
+                                        <Link to={`/politico/${politico.id}`}>Ver perfil</Link>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <br />
                 </div>
             );
         })
@@ -69,17 +86,15 @@ class NacionalForm extends Component {
         if (this.props.fetch.loading || this.props.updateVoto.loading || this.props.fetchUsuario.loading) return <div> </div>
         return (
             <div>
-                
+
                 <div className="hero is-small">
                     <div className="hero-body">
                         {this.renderListPoliticos()}
                     </div>
                 </div>
-                
-                <div className="level">
-                    <div className="level-item">
-                        {this.state.mensaje}
-                    </div>
+
+                <div className="panel">
+                    {this.state.mensaje}
                 </div>
                 <div className="level">
                     <div className="level-item">

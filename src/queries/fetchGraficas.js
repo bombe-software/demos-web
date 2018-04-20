@@ -6,6 +6,7 @@ export default gql`
       id
       titulo
       tipo_propuesta {
+        id,
         tipo
       }
       likes {

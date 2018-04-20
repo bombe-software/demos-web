@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import { graphql } from 'react-apollo';
 
 import { Form, Field } from "react-final-form";
 import GenericForm from './generic/generic_form';
 import WaveBackground from './generic/wave_background';
-
+import fetchUsuario from './../queries/fetchUsuario';
 import confirmEmail from "./../mutations/confirmEmail";
 
 
@@ -41,6 +40,10 @@ class ConfirmEmail extends GenericForm {
     }
 
     render() {
+        if(this.props.data.usuario || this.props.data.loading){
+            this.props.history.push("/");
+            return "Loading.."
+          }else{
         const { handleSubmit } = this.props;
         return (
             <div>
@@ -48,7 +51,7 @@ class ConfirmEmail extends GenericForm {
                     <div className="section">
                         <div className="columns">
                             <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
-                                <div className="box"><h1 className="title is-3">Confrimacion de correo</h1><hr />
+                                <div className="box"><h1 className="title is-3">Confirmación de correo</h1><hr />
                                     <p>Te enviamos un correo electronico de {'info@bombesoftware.com'} con una clave, ingrésala para continuar</p>
                                     <Form
                                         onSubmit={this.onSubmit}
@@ -105,5 +108,6 @@ class ConfirmEmail extends GenericForm {
         );
     }
 }
+}
 
-export default graphql(confirmEmail)(ConfirmEmail);
+export default graphql(fetchUsuario)(graphql(confirmEmail)(ConfirmEmail));
