@@ -23,32 +23,34 @@ class Login extends GenericForm {
         const { email, password } = values;
         const ticket = {
             email,
-            date: (new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear())
+            date: (new Date().getMonth() + "/" + new Date().getFullYear())
         };
 
         const request = axios.post(`${demos_krb_http}/ticket_controller`, ticket);
 
         request.then(({ data }) => {
             if (data.message != 404) {
-                let bytes = CryptoJS.AES.decrypt(data.message, values.password);
-                if (bytes.words[0] == 2065855593) {
-                    let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-                    this.props.mutate({
-                        variables: {
-                            email,
-                            password: decryptedData.ticket
-                        },
-                        refetchQueries: [{ query }]
-                    })
-                        .then(() => this.props.history.push("/"))
-                        .catch(res => {
-                            const errors = res.graphQLErrors.map(error => error.message);
-                            const error = errors[0]
-                            this.setState({ error });
-                        });
-                } else {
+                let decryptedData = null;
+                try {
+                    let bytes = CryptoJS.AES.decrypt(data.message, values.password);
+                    decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                } catch (ex) {
                     this.setState({ error: "Password o email incorrecto." });
+                    return;
                 }
+                this.props.mutate({
+                    variables: {
+                        email,
+                        password: decryptedData.ticket
+                    },
+                    refetchQueries: [{ query }]
+                })
+                    .then(() => this.props.history.push("/"))
+                    .catch(res => {
+                        const errors = res.graphQLErrors.map(error => error.message);
+                        const error = errors[0];
+                        this.setState({ error });
+                    });
             } else {
                 this.setState({ error: "Password o email incorrecto." });
             }
