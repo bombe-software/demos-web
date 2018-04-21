@@ -85,6 +85,18 @@ renderModerador(){
       }
     }
   }
+
+  renderAdmin(){
+    if(this.props.data.usuario != null){
+      if(this.props.data.usuario.tipo_usuario.tipo == 'Administrador'){
+        return(
+            <Link to="/admin" className="navbar-item">
+              Administrador
+            </Link>
+        );
+      }
+    }
+  }
   /**
   * Es una forma de capturar cualquier error en la clase 
   * y que este no crashe el programa, ayuda con la depuracion
@@ -136,6 +148,7 @@ renderModerador(){
                     Soporte
                   </Link>
                   {this.renderModerador()}
+                  {this.renderAdmin()}
               </div>
 
             </div>

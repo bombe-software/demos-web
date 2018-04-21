@@ -44,6 +44,8 @@ import EventoSeleccionado from './components/politico/politico_detail/evento_sel
 
 import Moderador from './components/moderador/moderador';
 
+import Administrador from './components/administrador/administrador';
+
 import Soporte from './components/soporte/soporte';
 import ModificarEvento from './components/politico/politico_modify/evento_form';
 import ModificarPolitico from './components/politico/politico_modify/politico_form';
@@ -126,6 +128,8 @@ class App extends React.Component {
               <Route path="/acerca_de" component={AcercaDe} />
               <Route path="/politicos" component={Politicos} />
               <Route path="/moderador" component={Moderador} />
+              <Route path="/admin" component={Administrador} />
+              
               <Route path="/soporte" component={Soporte} />
              
               <Route path="/login" component={Login}/>
