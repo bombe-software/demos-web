@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPoliticoModif from '../../../queries/fetchSolicitudPoliticoModif';
+import fetchUsuario from '../../../queries/fetchUsuario';
 
 import AceptarModifPolitico from '../../../mutations/accept/AceptarModifPolitico'
 import DenegarModifPolitico from '../../../mutations/deny/DenegarModifPolitico';
@@ -69,6 +70,7 @@ class SolicitudPoliticoModif extends Component {
 
   renderList() {
     return this.props.fetchSolicitudPoliticoModif.solicitudesModificarPolitico.map(({ id, nombre, usuario }) => {
+      if (this.props.fetchUsuario.usuario.id != usuario.id) {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -87,7 +89,7 @@ class SolicitudPoliticoModif extends Component {
             >{nombre}</a>
           </div>
         </div>
-      );
+      )}
     });
   }
 
@@ -120,7 +122,7 @@ class SolicitudPoliticoModif extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudPoliticoModif.loading) {
+    if (this.props.fetchSolicitudPoliticoModif.loading || this.props.fetchUsuario.loading) {
       return <div>Loading...</div>
     }
     return (
@@ -160,5 +162,8 @@ export default compose(
   }),
   graphql(AscenderModerador, {
     name: 'AscenderModerador'
+  }),
+  graphql(fetchUsuario, {
+    name: 'fetchUsuario'
   })
 )(SolicitudPoliticoModif);

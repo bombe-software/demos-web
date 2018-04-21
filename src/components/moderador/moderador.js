@@ -191,7 +191,6 @@ class Moderador extends Component {
       if (this.props.fetchUsuario.loading) {
         return <div>Loading...</div>
       } 
-      console.log(this.props);
       if (!this.props.fetchUsuario.usuario || this.props.fetchUsuario.usuario.tipo_usuario.tipo != "Moderador") {
         return (
           <NotFound />

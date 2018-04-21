@@ -7,6 +7,7 @@ import DenegarElimPropuesta from '../../../mutations/deny/DenegarEliminarPropues
 import AumentarPuntos from '../../../mutations/aumentarPuntos';
 import RestarPuntos from '../../../mutations/restarPuntos';
 import AscenderModerador from '../../../mutations/ascenderModerador';
+import fetchUsuario from '../../../queries/fetchUsuario';
 
 import DetalleSolicitudEliminarPropuesta from './detalle_eliminar_propuesta';
 
@@ -68,6 +69,7 @@ class SolicitudEliminarPropuesta extends Component {
 
   renderList() {
     return this.props.fetchSolicitudPropuestaElim.solicitudesDeletePropuesta.map(({id, id_propuesta, id_usuario}) => {
+      if (this.props.fetchUsuario.usuario.id != id_usuario.id) {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -86,7 +88,7 @@ class SolicitudEliminarPropuesta extends Component {
             >{id_propuesta.titulo}</a>
           </div>
         </div>
-      );
+      )}
     });
   }
 
@@ -118,7 +120,7 @@ class SolicitudEliminarPropuesta extends Component {
     }
   }
   render() {
-    if (this.props.fetchSolicitudPropuestaElim.loading) {
+    if (this.props.fetchSolicitudPropuestaElim.loading || this.props.fetchUsuario.loading) {
       return <div>Loading...</div>
     }
     return (
@@ -158,5 +160,8 @@ export default compose(
   }),
   graphql(AscenderModerador, {
     name: 'AscenderModerador'
+  }),
+  graphql(fetchUsuario, {
+    name: 'fetchUsuario'
   })
 )(SolicitudEliminarPropuesta);

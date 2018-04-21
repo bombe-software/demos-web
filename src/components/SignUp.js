@@ -146,14 +146,13 @@ class SignUp extends GenericForm {
       const { avatar, localidad } = this.state;
       console.log(localidad);
       const {
-        nombre, email, password,
-        curp
+        nombre, email, password   
       } = values;
       console.log(localidad);
       this.props.mutate({
         variables: {
           nombre, email, password, localidad,
-          curp, avatar
+          avatar
         }
       }).then(() => {
         this.props.history.push("/confirm_email");
@@ -236,15 +235,6 @@ class SignUp extends GenericForm {
                           if (!values.Rpassword) {
                             errors.Rpassword = "Escriba su contraseña";
                           }
-                          if (!values.curp) {
-                            errors.curp = "Escriba su curp";
-                          }
-                          if (values.curp != undefined) {
-                            var ri = /^([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\d)$/i
-                            if (!ri.test(values.curp)) {
-                              errors.curp = "CURP invalido";
-                            }
-                          }
                           if (values.password != values.Rpassword) {
                             errors.Rpassword = "Asegurese que las contraseñas coincidan";
                           }
@@ -292,15 +282,6 @@ class SignUp extends GenericForm {
                                       component={this.renderPasswordField}
                                       hintText="Ingrese nuevamente su password"
                                       floatingLabelText="Repita Password"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="level">
-                                  <div className="level-item">
-                                    <Field name="curp"
-                                      component={this.renderTextField}
-                                      hintText="Ingrese su curp"
-                                      floatingLabelText="CURP"
                                     />
                                   </div>
                                 </div>
