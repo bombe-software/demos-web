@@ -30,10 +30,12 @@ class Bugs extends Component {
 
     render() {
         if (this.props.data.loading) {
+            <h1 className="is-size-3 subtitle">Bugs</h1>
             return <div>Loading...</div>
         }
         return (
             <div>
+                <h1 className="is-size-3 subtitle">Bugs</h1>
                 {this.renderList(this.props.data.bugs)}
             </div>
         );

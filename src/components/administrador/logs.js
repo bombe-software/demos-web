@@ -29,11 +29,15 @@ class Logs extends Component {
 
     render() {
         if (this.props.data.loading) {
+            <h1 className="is-size-3 subtitle">Registros</h1>
             return <div>Loading...</div>
         }
         return (
             <div>
-                {this.renderList(this.props.data.logs)}
+                <h1 className="is-size-3 subtitle">Registros</h1>
+                    <div>
+                        {this.renderList(this.props.data.logs)}
+                    </div>
             </div>
         );
     }

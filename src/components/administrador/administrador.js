@@ -11,7 +11,7 @@ import ListaUsuarios from './lista_usuarios';
 class Administrador extends Component {
     constructor(props) {
         super(props);
-        this.state = { type: 'bus' };
+        this.state = { type: 'bugs' };
         this.update = this.update.bind(this);
     }
 
@@ -52,12 +52,42 @@ class Administrador extends Component {
             );
         }
         return (
-            <div>
-                Administrador
-                <a onClick={()=>this.update('logs')}>Logs</a>
-                <a onClick={()=>this.update('bugs')}>Bugs</a>
-                <a onClick={()=>this.update('lista_usuarios')}>Eliminar usuarios</a>
-                {this.renderSection(this.state.type)}
+            <div className="section">
+                <div className="columns">
+                <div className="column is-10-widescreen is-10-desktop is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                    <h1 className="is-size-2 title">Administrador</h1>
+                </div>
+                </div>
+                <div className="columns is-desktop">
+                    <div className="column is-10-widescreen is-10-desktop is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                        
+                        <div className="tabs">
+                            <ul>
+                                <li className={`${this.state.type === "bugs" ? "is-active" : ""}`}>
+                                    <a onClick={()=>this.update('bugs')}>
+                                    <span className="icon is-small"><i class="fa fa-bug" aria-hidden="true"></i></span>
+                                    &nbsp;<span>Bugs</span>
+                                    </a>
+                                </li>
+
+                                <li className={`${this.state.type === "logs" ? "is-active" : ""}`}>
+                                    <a onClick={()=>this.update('logs')}>
+                                    <span className="icon is-small"><i class="fa fa-list" aria-hidden="true"></i></span>
+                                    &nbsp;<span>Registros</span>
+                                    </a>
+                                </li>
+
+                                <li className={`${this.state.type === "lista_usuarios" ? "is-active" : ""}`}>
+                                    <a onClick={()=>this.update('lista_usuarios')}>
+                                    <span className="icon is-small"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                    &nbsp;<span>Usuarios</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        {this.renderSection(this.state.type)}
+                    </div>
+                </div>
             </div>
         );
     }
