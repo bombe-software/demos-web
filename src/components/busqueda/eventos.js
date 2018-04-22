@@ -13,16 +13,16 @@ class Eventos extends Component {
         let list = _.filter(this.props.data.eventos, (o) =>{ 
             return (o.titulo == param);
         });
+        if(list.length===0){
+            return(<div>Sin resultados</div>);
+        }
         return _.map(list, o => {
             return (
-                <tr key={o.id}>
-                    <td>
-                        {o.id}
-                    </td>
-                    <td>
+                <div key={o.id}>
+                    <p>
                         {o.titulo}
-                    </td>
-                </tr>
+                    </p>
+                </div>
             );
         });
     }
@@ -31,13 +31,8 @@ class Eventos extends Component {
         if (this.props.data.loading) return 'Loading..';
         if (this.props.busqueda == '') return 'No has buscado nada'
         return (
-            <div>
-                Eventos
-                <table >
-                    <tbody>
-                        {this.renderList(this.props.busqueda)}
-                    </ tbody>
-                </table>
+            <div className="has-text-centered">
+                {this.renderList(this.props.busqueda)}
             </div>
         )
     }

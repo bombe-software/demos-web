@@ -13,19 +13,19 @@ class Politicos extends Component {
         let list = _.filter(this.props.data.politicos, (o) =>{ 
             return (o.nombre == param);
         });
+        if(list.length===0){
+            return(<div>Sin resultados</div>);
+        }
         return _.map(list, o => {
             return (
-                <tr key={o.id}>
-                    <td>
-                        {o.id}
-                    </ td>
-                    <td>
+                <div key={o.id}>
+                    <p>
                         {o.nombre}
-                    </ td>
-                    <td>
+                    </p>
+                    <p>
                         {o.cargo}
-                    </td>
-                </tr>
+                    </p>
+                </div>
             );
         });
     }
@@ -34,13 +34,8 @@ class Politicos extends Component {
         if (this.props.data.loading) return 'Loading..';
         if(this.props.busqueda == '') return 'No has buscado nada'
         return (
-            <div>
-                Politicos
-                <table >
-                    <tbody>
-                        {this.renderList(this.props.busqueda)}
-                    </ tbody>
-                </table>
+            <div className="has-text-centered">
+                {this.renderList(this.props.busqueda)}
             </div>
         )
     }
