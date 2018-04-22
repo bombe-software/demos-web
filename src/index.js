@@ -47,6 +47,8 @@ import Moderador from './components/moderador/moderador';
 import Administrador from './components/administrador/administrador';
 import ReportarBug from './components/administrador/reportar_bug';
 
+import Busqueda from './components/busqueda/busqueda';
+
 import Soporte from './components/soporte/soporte';
 import ModificarEvento from './components/politico/politico_modify/evento_form';
 import ModificarPolitico from './components/politico/politico_modify/politico_form';
@@ -131,6 +133,7 @@ class App extends React.Component {
               <Route path="/moderador" component={Moderador} />
               <Route path="/admin" component={Administrador} />
               <Route path="/bug" component={ReportarBug} />
+              <Route path="/busqueda" component={Busqueda} />
               
               <Route path="/soporte" component={Soporte} />
              
