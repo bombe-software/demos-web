@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
-import {RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -12,17 +12,33 @@ class GenericForm extends Component {
     super(props);
   }
 
-  renderTextField({ input, label, meta: { touched, error }, ...custom}) {
+  renderTextField({ input, label, meta: { touched, error }, ...custom }) {
     return (
       <TextField hintText={label}
         floatingLabelText={label}
         errorText={touched && error}
-      
+
         {...input}
         {...custom}
       />
     );
   }
+
+
+  renderTextArea({ input, label, meta: { touched, error }, ...custom }) {
+    return (
+      <TextField
+        floatingLabelText={label}
+        errorText={touched && error}
+        multiLine={true}
+        rows={4}
+        rowsMax={4}
+        {...input}
+        {...custom}
+      />
+    );
+  }
+
 
   renderPasswordField({ input, label, meta: { touched, error }, ...custom }) {
     return (
@@ -40,9 +56,9 @@ class GenericForm extends Component {
       <Checkbox label={label}
         checked={input.value ? true : false}
         onCheck={input.onChange}
-        
-         />
-      
+
+      />
+
     );
   }
 
@@ -54,7 +70,7 @@ class GenericForm extends Component {
     );
   }
 
-  renderDateField({input, label, meta: { touched, error }, ...custom }) {
+  renderDateField({ input, label, meta: { touched, error }, ...custom }) {
     return (
       <DatePicker
         floatingLabelText={label}

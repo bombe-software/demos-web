@@ -17,12 +17,14 @@ class Logs extends Component {
         console.log("Info: " + info);
     }
 
-    renderList(list){
+    renderList(list) {
         return _.map(list, o => {
-            return (  
-                <div key={o.id}>
-                    {o.id}
-                </div>
+            return (
+                <tr className="full-width-row" key={o.id}>
+                    <td>
+                        {o.id}
+                    </td>
+                </tr>
             );
         });
     }
@@ -35,9 +37,12 @@ class Logs extends Component {
         return (
             <div>
                 <h1 className="is-size-3 subtitle">Registros</h1>
-                    <div>
+                <h1 className="is-size-3 subtitle">Registros</h1>
+                <table className="table full-width-row is-fullwidth">
+                    <tbody>
                         {this.renderList(this.props.data.logs)}
-                    </div>
+                    </ tbody>
+                </table>
             </div>
         );
     }

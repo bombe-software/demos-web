@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import fetchUsuariosAdmin from './../../queries/fetchUsuariosAdmin';
+import deleteUser from './../../mutations/deleteUser';
 
 class ListaUsuarios extends Component {
 
@@ -17,33 +18,52 @@ class ListaUsuarios extends Component {
         console.log("Info: " + info);
     }
 
-    renderList(list){
-        return _.map(list, o => {
-            let color = o.tipo_usuario.tipo === "Moderador" ? "secondary": "primary";
-            return (  
-                <div key={o.id}>
-                    <tr className="full-width-row">
-                        <td>
-                            <figure className="image is-32x32">
-                            <img src={`./assets/img/${o.avatar}.svg`} alt="Avatar de usuario" />
-                            </figure>
-                        </td>
-                        <td>
-                            <p className="title is-5">{o.nombre}</p>
-                        </td>
-                        <td >
-                            <span className={`tag is-${color}`}>Tipo: {o.tipo_usuario.tipo}</span>
-                        </td>
-                        <td>
-                            <span className="tag is-light">Puntos: {o.puntos}</span>
-                        </td>
-                        <td className="has-text-right">
-                            <button className="button is-danger">
-                                <i className="fa fa-times" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </div>
+    eliminarUsuario(id_usuario) {
+        this.props.mutate({
+            variables: { id_usuario },
+            optimisticResponse: {
+                __typename: "Mutation",
+                deleteUser: {
+                    id: id_usuario,
+                    __typename: "UsuarioType"
+                }
+            },
+            update: (proxy, { data: { deleteUser } }) => {
+              const data = proxy.readQuery({ query: fetchUsuariosAdmin });
+              _.remove(data.usuarios, function(n) {
+                return n.id == id_usuario; 
+              });
+              proxy.writeQuery({ query: fetchUsuariosAdmin, data });
+            }
+        })
+    }
+
+    renderList(list) {
+        let listFilter = _.filter(list, function (o) { return (o.tipo_usuario.tipo != "Administrador") });
+        return _.map(listFilter, o => {
+            let color = o.tipo_usuario.tipo === "Moderador" ? "secondary" : "primary";
+            return (
+                <tr className="full-width-row" key={o.id}>
+                    <td>
+                        <figure className="image is-32x32">
+                            <img src={`./assets/img/${o.avatar}.png`} alt="Avatar de usuario" />
+                        </figure>
+                    </td>
+                    <td>
+                        <p className="title is-5">{o.nombre}</p>
+                    </td>
+                    <td >
+                        <span className={`tag is-${color}`}>Tipo: {o.tipo_usuario.tipo}</span>
+                    </td>
+                    <td>
+                        <span className="tag is-light">Puntos: {o.puntos}</span>
+                    </td>
+                    <td className="has-text-right">
+                        <button className="button is-danger" onClick={() => this.eliminarUsuario(o.id)}>
+                            <i className="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
             );
         });
     }
@@ -59,13 +79,13 @@ class ListaUsuarios extends Component {
             <div>
                 <h1 className="is-size-3 subtitle">Usuarios</h1>
                 <table className="table full-width-row is-fullwidth">
-                    <div>
+                    <tbody>
                         {this.renderList(this.props.data.usuarios)}
-                    </div>
+                    </ tbody>
                 </table>
             </div>
         );
     }
 }
 
-export default graphql(fetchUsuariosAdmin)(ListaUsuarios)
+export default graphql(deleteUser)(graphql(fetchUsuariosAdmin)(ListaUsuarios));

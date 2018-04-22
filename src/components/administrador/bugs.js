@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import fetchBugs from './../../queries/fetchBugs';
-import _  from 'lodash'
+import deleteBug from './../../mutations/deleteBug';
+import _ from 'lodash'
 
 class Bugs extends Component {
 
@@ -17,13 +18,39 @@ class Bugs extends Component {
         console.log("Error: " + error);
         console.log("Info: " + info);
     }
+    eliminarBug(id_bug){
+        this.props.mutate({
+            variables: { id_bug },
+            optimisticResponse: {
+                __typename: "Mutation",
+                deleteBug: {
+                    id: id_bug,
+                    __typename: "BugType"
+                }
+            },
+            update: (proxy, { data: { deleteBug } }) => {
+              const data = proxy.readQuery({ query: fetchBugs });
+              _.remove(data.bugs, function(n) {
+                return n.id == id_bug; 
+              });
+              proxy.writeQuery({ query: fetchBugs, data });
+            }
+        })
+    }
 
-    renderList(list){
+    renderList(list) {
         return _.map(list, o => {
-            return (  
-                <div key={o.id}>
-                    {o.id}
-                </div>
+            return (
+                <tr className="full-width-row" key={o.id}>
+                    <td>
+                        {o.id}
+                    </td>
+                    <td className="has-text-right">
+                        <button className="button is-danger" onClick={() => this.eliminarBug(o.id)}>
+                            <i className="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
             );
         });
     }
@@ -34,12 +61,17 @@ class Bugs extends Component {
             return <div>Loading...</div>
         }
         return (
+
             <div>
                 <h1 className="is-size-3 subtitle">Bugs</h1>
-                {this.renderList(this.props.data.bugs)}
+                <table className="table full-width-row is-fullwidth">
+                    <tbody>
+                        {this.renderList(this.props.data.bugs)}
+                    </ tbody>
+                </table>
             </div>
         );
     }
 }
 
-export default graphql(fetchBugs)(Bugs)
+export default graphql(deleteBug)(graphql(fetchBugs)(Bugs));

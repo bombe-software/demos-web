@@ -22,8 +22,8 @@ class ConfirmEmail extends GenericForm {
         this.props.mutate({
             variables: values
         })
-        .then(some =>  this.props.history.push("/login"))
-        .catch(({graphQLErrors})=>this.setState({error: graphQLErrors[0].message}))
+            .then(some => this.props.history.push("/login"))
+            .catch(({ graphQLErrors }) => this.setState({ error: graphQLErrors[0].message }))
     }
 
     /**
@@ -40,74 +40,78 @@ class ConfirmEmail extends GenericForm {
     }
 
     render() {
-        if(this.props.data.usuario || this.props.data.loading){
-            this.props.history.push("/");
+        if (this.props.data.loading) {
             return "Loading.."
-          }else{
-        const { handleSubmit } = this.props;
-        return (
-            <div>
-                <section className="hero is-large">
-                    <div className="section">
-                        <div className="columns">
-                            <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
-                                <div className="box"><h1 className="title is-3">Confirmación de correo</h1><hr />
-                                    <p>Te enviamos un correo electronico de {'info@bombesoftware.com'} con una clave, ingrésala para continuar</p>
-                                    <Form
-                                        onSubmit={this.onSubmit}
-                                        validate={values => {
-                                            const errors = {};
-                                            if (!values.email) {
-                                                errors.email = "Ingrese su email";
-                                            }
-                                            if (!values.firma) {
-                                                errors.firma = "Ingrese su firma";
-                                            }
-                                            return errors;
-                                        }}
-
-                                        render={({ handleSubmit, reset, submitting, pristine, values }) => (
-                                            <form onSubmit={handleSubmit}>
-                                                <div className="level">
-                                                    <div className="level-item">
-                                                        <Field name="email"
-                                                            component={this.renderTextField}
-                                                            hintText="Escribe el email"
-                                                            floatingLabelText="Email"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="level">
-                                                    <div className="level-item">
-                                                        <Field name="firma"
-                                                            component={this.renderTextField}
-                                                            hintText="Escribe el codigo"
-                                                            floatingLabelText="Codigo"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <code>
-                                                    {this.state.error}
-                                                </code>
-                                                <br />
-                                                <div className="buttons has-text-centered">
-                                                    <button type="submit" className="button is-primary" disabled={submitting}>
-                                                        Confirmar email
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        )}
-                                    />
+        } else {
+            if (this.props.data.usuario == undefined){
+                const { handleSubmit } = this.props;
+                return (
+                    <div>
+                        <section className="hero is-large">
+                            <div className="section">
+                                <div className="columns">
+                                    <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
+                                        <div className="box"><h1 className="title is-3">Confirmación de correo</h1><hr />
+                                            <p>Te enviamos un correo electronico de {'info@bombesoftware.com'} con una clave, ingrésala para continuar</p>
+                                            <Form
+                                                onSubmit={this.onSubmit}
+                                                validate={values => {
+                                                    const errors = {};
+                                                    if (!values.email) {
+                                                        errors.email = "Ingrese su email";
+                                                    }
+                                                    if (!values.firma) {
+                                                        errors.firma = "Ingrese su firma";
+                                                    }
+                                                    return errors;
+                                                }}
+    
+                                                render={({ handleSubmit, reset, submitting, pristine, values }) => (
+                                                    <form onSubmit={handleSubmit}>
+                                                        <div className="level">
+                                                            <div className="level-item">
+                                                                <Field name="email"
+                                                                    component={this.renderTextField}
+                                                                    hintText="Escribe el email"
+                                                                    floatingLabelText="Email"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="level">
+                                                            <div className="level-item">
+                                                                <Field name="firma"
+                                                                    component={this.renderTextField}
+                                                                    hintText="Escribe el codigo"
+                                                                    floatingLabelText="Codigo"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <code>
+                                                            {this.state.error}
+                                                        </code>
+                                                        <br />
+                                                        <div className="buttons has-text-centered">
+                                                            <button type="submit" className="button is-primary" disabled={submitting}>
+                                                                Confirmar email
+                                                        </button>
+                                                        </div>
+                                                    </form>
+                                                )}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <WaveBackground />
+                        </section>
                     </div>
-                    <WaveBackground />
-                </section>
-            </div>
-        );
+                );
+            }else{
+                this.props.history.push("/");
+                return 'loading'
+            }
+        }
     }
-}
 }
 
 export default graphql(fetchUsuario)(graphql(confirmEmail)(ConfirmEmail));

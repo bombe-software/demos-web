@@ -65,21 +65,21 @@ class Administrador extends Component {
                             <ul>
                                 <li className={`${this.state.type === "bugs" ? "is-active" : ""}`}>
                                     <a onClick={()=>this.update('bugs')}>
-                                    <span className="icon is-small"><i class="fa fa-bug" aria-hidden="true"></i></span>
+                                    <span className="icon is-small"><i className="fa fa-bug" aria-hidden="true"></i></span>
                                     &nbsp;<span>Bugs</span>
                                     </a>
                                 </li>
 
                                 <li className={`${this.state.type === "logs" ? "is-active" : ""}`}>
                                     <a onClick={()=>this.update('logs')}>
-                                    <span className="icon is-small"><i class="fa fa-list" aria-hidden="true"></i></span>
+                                    <span className="icon is-small"><i className="fa fa-list" aria-hidden="true"></i></span>
                                     &nbsp;<span>Registros</span>
                                     </a>
                                 </li>
 
                                 <li className={`${this.state.type === "lista_usuarios" ? "is-active" : ""}`}>
                                     <a onClick={()=>this.update('lista_usuarios')}>
-                                    <span className="icon is-small"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                    <span className="icon is-small"><i className="fa fa-user" aria-hidden="true"></i></span>
                                     &nbsp;<span>Usuarios</span>
                                     </a>
                                 </li>
