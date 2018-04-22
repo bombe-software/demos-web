@@ -133,19 +133,28 @@ renderModerador(){
               <div className="navbar-item">
 
                   <Link to="/elecciones" className="navbar-item" onClick={this.handleClick}>
-                    Elecciones
+                  Elecciones&nbsp;&nbsp;
+                  <span className="icon has-text-info">
+                    <i class="fa fa-line-chart" aria-hidden="true"></i>
+                  </span>
                   </Link>
                   <Link to="/politicos" className="navbar-item" onClick={this.handleClick}>
-                    Políticos
+                  Políticos&nbsp;&nbsp;
+                  <span className="icon has-text-primary">
+                  <i className="fa fa-user" aria-hidden="true"></i>
+                  </span>
                   </Link>
                   <Link to="/nacional" className="navbar-item" onClick={this.handleClick}>
-                    Nacional
+                  Nacional&nbsp;&nbsp;
+                  <span className="icon has-text-danger">
+                  <i className="icon-demos-mexico"></i>
+                  </span>
                   </Link>
-                  <Link to="/acerca_de" className="navbar-item" onClick={this.handleClick}>
-                    Ayuda
-                  </Link>
-                  <Link to="/soporte" className="navbar-item" onClick={this.handleClick}>
-                    Soporte
+                  <Link to ="/busqueda" className="navbar-item" onClick={this.handleClick}>
+                  Buscar&nbsp;&nbsp;
+                  <span className="icon has-text-success">
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                  </span>
                   </Link>
                   {this.renderModerador()}
                   {this.renderAdmin()}

@@ -29,21 +29,20 @@ class Footer extends Component {
               <p>
                 <Link to="/">Inicio</Link>
               </p>
-              <br />
               <p>
                 <Link to="/elecciones">Elecciones</Link>
               </p>
-              <br />
               <p>
                 <Link to="/politicos">Políticos</Link>
               </p>
-              <br />
               <p>
-                <Link to="/acerca_de">Ayuda</Link>
+              <Link to="/acerca_de">Acerca de</Link>
               </p>
-              <br />
               <p>
                 <Link to="/soporte">Soporte</Link>
+              </p>
+              <p>
+                <Link to="/busqueda">Busqueda</Link>
               </p>
 
             </div>
@@ -55,15 +54,12 @@ class Footer extends Component {
               <p>
                 <a href="http://www.bombesoftware.com/">Bombe Software</a>
               </p>
-              <br />
               <p>
                 <a href="http://www.bombesoftware.com/about.html">Acerca de</a>
               </p>
-              <br />
               <p>
                 <a href="http://www.bombesoftware.com/services.html">Servicios</a>
               </p>
-              <br />
               <p>
                 <a href="http://www.bombesoftware.com/contact.php">Contacto</a>
               </p>

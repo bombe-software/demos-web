@@ -78,6 +78,7 @@ class Busqueda extends Component {
                         
                         <div className="level-element">
                             <TextField 
+                                id={"campoBusqueda"}
                                 onChange={this.onChange}
                                 value={this.state.busqueda}
                             />

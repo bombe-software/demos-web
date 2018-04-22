@@ -18,14 +18,7 @@ class Politicos extends Component {
         }
         return _.map(list, o => {
             return (
-                <div key={o.id}>
-                    <p>
-                        {o.nombre}
-                    </p>
-                    <p>
-                        {o.cargo}
-                    </p>
-                </div>
+                <CardPolitico o={o} tipo />
             );
         });
     }

@@ -6,7 +6,11 @@ export default gql`
   politicos{
     id,
     nombre,
-    cargo
+    cargo,
+    partido {
+      id,
+      nombre
+    }
   }
 }
 `;
