@@ -7,6 +7,7 @@ import RestarPuntos from '../../../mutations/restarPuntos';
 import AceptarElimEvento from '../../../mutations/accept/AceptarEliminarEvento'
 import DenegarElimEvento from '../../../mutations/deny/DenegarEliminarEvento';
 import AscenderModerador from '../../../mutations/ascenderModerador';
+import fetchUsuario from '../../../queries/fetchUsuario';
 
 import DetalleEliminarEvento from './detalle_eliminar_evento';
 
@@ -68,6 +69,7 @@ class SolicitudEliminarEvento extends Component {
 
   renderList() {
     return this.props.fetchSolicitudEvento.solicitudesDeleteEvento.map(({id, id_evento, id_usuario}) => {
+      if (this.props.fetchUsuario.usuario.id != id_usuario.id) {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -86,7 +88,7 @@ class SolicitudEliminarEvento extends Component {
             >{id_evento.titulo}</a>
           </div>
         </div>
-      );
+      )}
     });
   }
 
@@ -104,7 +106,7 @@ class SolicitudEliminarEvento extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudEvento.loading) {
+    if (this.props.fetchSolicitudEvento.loading || this.props.fetchUsuario.loading) {
       return <div>Loading...</div>
     }
     return (
@@ -151,5 +153,8 @@ export default compose(
   }),
   graphql(AscenderModerador, {
     name: 'AscenderModerador'
+  }),
+  graphql(fetchUsuario, {
+    name: 'fetchUsuario'
   })
 )(SolicitudEliminarEvento);

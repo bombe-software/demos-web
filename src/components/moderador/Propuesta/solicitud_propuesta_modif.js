@@ -7,6 +7,7 @@ import DenegarModifPropuesta from '../../../mutations/deny/DenegarModifPropuesta
 import AumentarPuntos from '../../../mutations/aumentarPuntos';
 import RestarPuntos from '../../../mutations/restarPuntos';
 import AscenderModerador from '../../../mutations/ascenderModerador';
+import fetchUsuario from '../../../queries/fetchUsuario';
 
 import DetalleSolicitudModificarPropuesta from './detalle_modificar_propuesta';
 
@@ -68,6 +69,7 @@ class SolicitudPropuestaModif extends Component {
   } 
   renderList() {
     return this.props.fetchSolicitudPropuestaModif.solicitudesModificarPropuesta.map(({id, titulo, usuario}) => {
+      if (this.props.fetchUsuario.usuario.id != usuario.id) {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -86,7 +88,7 @@ class SolicitudPropuestaModif extends Component {
             >{titulo}</a>
           </div>
         </div>
-      );
+      )}
     });
   }
 
@@ -118,7 +120,7 @@ class SolicitudPropuestaModif extends Component {
     }
   }
   render() {
-    if (this.props.fetchSolicitudPropuestaModif.loading) {
+    if (this.props.fetchSolicitudPropuestaModif.loading || this.props.fetchUsuario.loading) {
       return <div>Loading...</div>
     }
     return (
@@ -158,5 +160,8 @@ export default compose(
   }),
   graphql(AscenderModerador, {
     name: 'AscenderModerador'
+  }),
+  graphql(fetchUsuario, {
+    name: 'fetchUsuario'
   })
 )(SolicitudPropuestaModif);

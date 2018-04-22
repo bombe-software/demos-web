@@ -6,7 +6,8 @@ export default gql`
     id,
     titulo
     politico{
-      id
+      id,
+      nombre
     }
     usuario{
       id,

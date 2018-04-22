@@ -5,7 +5,8 @@ query VotacionPorEstado($id_estado: ID){
   votacion(estado: $id_estado){
     id
     estado {
-      id
+      id,
+      nombre
     }
     preferencias{
       id

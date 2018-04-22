@@ -4,6 +4,7 @@ import { compose, graphql } from 'react-apollo';
 import fetchSolicitudPoliticoElim from '../../../queries/fetchSolicitudPoliticoElim';
 import AumentarPuntos from '../../../mutations/aumentarPuntos';
 import RestarPuntos from '../../../mutations/restarPuntos';
+import fetchUsuario from '../../../queries/fetchUsuario';
 
 import AscenderModerador from '../../../mutations/ascenderModerador';
 import AceptarElimPolitico from '../../../mutations/accept/AceptarEliminarPolitico'
@@ -67,8 +68,8 @@ class SolicitudEliminarPolitico extends Component {
     nextProps.fetchSolicitudPoliticoElim.refetch();
   }
   renderList() {
-    console.log(this.props);
     return this.props.fetchSolicitudPoliticoElim.solicitudesDeletePolitico.map(({ id, id_usuario, id_politico }) => {
+      if (this.props.fetchUsuario.usuario.id != id_usuario.id) {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -87,7 +88,7 @@ class SolicitudEliminarPolitico extends Component {
             >{id_politico.nombre}</a>
           </div>
         </div>
-      );
+      )}
     });
   }
 
@@ -105,7 +106,7 @@ class SolicitudEliminarPolitico extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudPoliticoElim.loading) {
+    if (this.props.fetchSolicitudPoliticoElim.loading || this.props.fetchUsuario.loading) {
       return <div>Loading...</div>
     }
     return (
@@ -152,5 +153,8 @@ export default compose(
   }),
   graphql(AscenderModerador, {
     name: 'AscenderModerador'
+  }),
+  graphql(fetchUsuario, {
+    name: 'fetchUsuario'
   })
 )(SolicitudEliminarPolitico);

@@ -8,6 +8,7 @@ import DenegarPolitico from '../../../mutations/deny/DenegarPolitico';
 import AumentarPuntos from '../../../mutations/aumentarPuntos';
 import RestarPuntos from '../../../mutations/restarPuntos';
 import AscenderModerador from '../../../mutations/ascenderModerador';
+import fetchUsuario from '../../../queries/fetchUsuario';
 
 import DetalleSolicitudPolitico from './detalle_solicitud_politico';
 
@@ -34,7 +35,7 @@ class SolicitudPolitico extends Component {
         id_usuario
       }
     })
-    if(puntos>1000){
+    if (puntos > 1000) {
       this.props.AscenderModerador({
         variables: {
           id_usuario
@@ -67,30 +68,31 @@ class SolicitudPolitico extends Component {
   }
   componentWillReceiveProps(nextProps) {
     nextProps.fetchSolicitudPolitico.refetch();
-  } 
+  }
   renderList() {
-    console.log(this.props);
-
+    //console.log(this.props);
     return this.props.fetchSolicitudPolitico.solicitudPoliticos.map(({ id, nombre, usuario }) => {
-      return (
-        <div key={id}>
-          <div className="panel-block" >
-            <span className="panel-icon">
-              <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id, usuario.puntos) }}>
-                <i className="fa fa-check"></i>
-              </a> &nbsp;&nbsp;&nbsp;
+      if (this.props.fetchUsuario.usuario.id != usuario.id) {
+        return (
+          <div key={id}>
+            <div className="panel-block" >
+              <span className="panel-icon">
+                <a className="is-primary" onClick={() => { this.aceptar(id, usuario.id, usuario.puntos) }}>
+                  <i className="fa fa-check"></i>
+                </a> &nbsp;&nbsp;&nbsp;
             </span>
-            <span className="panel-icon">
-              <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id, usuario.id, usuario.puntos) }}>
-                <i className="fa fa-times"></i>
-              </a>
-            </span>
-            <a onClick={() => { this.seleccionar(id) }}
-              style={{ color: 'inherit', textDecoration: 'none' }}
-            >{nombre}</a>
+              <span className="panel-icon">
+                <a className="is-danger" style={{ color: 'red' }} onClick={() => { this.denegar(id, usuario.id, usuario.puntos) }}>
+                  <i className="fa fa-times"></i>
+                </a>
+              </span>
+              <a onClick={() => { this.seleccionar(id) }}
+                style={{ color: 'inherit', textDecoration: 'none' }}
+              >{nombre}</a>
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     });
   }
 
@@ -108,10 +110,9 @@ class SolicitudPolitico extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudPolitico.loading) {
+    if (this.props.fetchSolicitudPolitico.loading || this.props.fetchUsuario.loading) {
       return <div>Loading...</div>
     }
-    console.log(this.props);
     return (
       <div className="columns is-desktop">
         <div className="column is-5-widescreen is-5-desktop is-12-tablet">
@@ -156,5 +157,8 @@ export default compose(
   }),
   graphql(AscenderModerador, {
     name: 'AscenderModerador'
+  }),
+  graphql(fetchUsuario, {
+    name: 'fetchUsuario'
   })
 )(SolicitudPolitico);

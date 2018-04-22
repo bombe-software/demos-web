@@ -96,7 +96,6 @@ class RecoverPassword extends GenericForm {
                   </div>
                   <br />
                           <code>{this.state.error}</code>
-
                 </div>
               </div>
             </div>

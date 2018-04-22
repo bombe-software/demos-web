@@ -88,7 +88,9 @@ class Estado extends Component {
             }
         }
     }
-
+    componentWillReceiveProps(nextProps) {
+        nextProps.fetch.refetch();
+      } 
     render() {
         return (
             <path

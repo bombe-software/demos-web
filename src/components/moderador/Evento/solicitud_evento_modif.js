@@ -9,6 +9,8 @@ import DenegarModifEvento from '../../../mutations/deny/DenegarModifEvento';
 import AscenderModerador from '../../../mutations/ascenderModerador';
 
 import DetalleSolicitudEvento from './detalle_modificar_evento';
+import fetchUsuario from '../../../queries/fetchUsuario';
+
 
 class SolicitudEventoModif extends Component {
   constructor(props) {
@@ -69,6 +71,7 @@ class SolicitudEventoModif extends Component {
   } 
   renderList() {
     return this.props.fetchSolicitudEvento.solicitudesModificarEvento.map(({id, titulo, usuario}) => {
+      if (this.props.fetchUsuario.usuario.id != usuario.id) {
       return (
         <div key={id}>
           <div className="panel-block" >
@@ -87,7 +90,7 @@ class SolicitudEventoModif extends Component {
             >{titulo}</a>
           </div>
         </div>
-      );
+      )}
     });
   }
 
@@ -113,7 +116,7 @@ class SolicitudEventoModif extends Component {
   }
 
   render() {
-    if (this.props.fetchSolicitudEvento.loading) {
+    if (this.props.fetchSolicitudEvento.loading || this.props.fetchUsuario.loading) {
       return <div>Loading...</div>
     }
     return (
@@ -154,6 +157,9 @@ export default compose(
   }),
   graphql(AscenderModerador, {
     name: 'AscenderModerador'
+  }),
+  graphql(fetchUsuario, {
+    name: 'fetchUsuario'
   })
 )(SolicitudEventoModif);
 
