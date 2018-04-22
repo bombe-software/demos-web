@@ -19,7 +19,7 @@ class CardPolitico extends Component {
                             <p className="title is-4">{o.nombre}</p>
                             <p className="subtitle is-6">
                                 {o.partido.nombre}
-                                {this.props.tipo ? <span>, {o.tipo}</span>: <span></span>}
+                                {o.cargo ? <span>, {o.cargo}</span>: <span></span>}
                             </p>
                         </div>
                         </div>

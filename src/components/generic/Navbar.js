@@ -135,7 +135,7 @@ renderModerador(){
                   <Link to="/elecciones" className="navbar-item" onClick={this.handleClick}>
                   Elecciones&nbsp;&nbsp;
                   <span className="icon has-text-info">
-                    <i class="fa fa-line-chart" aria-hidden="true"></i>
+                    <i className="fa fa-line-chart" aria-hidden="true"></i>
                   </span>
                   </Link>
                   <Link to="/politicos" className="navbar-item" onClick={this.handleClick}>
@@ -152,7 +152,7 @@ renderModerador(){
                   </Link>
                   <Link to ="/busqueda" className="navbar-item" onClick={this.handleClick}>
                   Buscar&nbsp;&nbsp;
-                  <span className="icon has-text-success">
+                  <span className="icon has-text-warning">
                   <i className="fa fa-search" aria-hidden="true"></i>
                   </span>
                   </Link>

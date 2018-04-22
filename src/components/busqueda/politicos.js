@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import fetchPoliticos from './../../queries/fetchPoliticos';
 
+import {validadoAcentos} from './buscar';
+
+import CardPolitico from '../generic/CardPolitico';
+
 class Politicos extends Component {
 
     constructor(props) {
@@ -10,15 +14,22 @@ class Politicos extends Component {
     }
 
     renderList(param) {
-        let list = _.filter(this.props.data.politicos, (o) =>{ 
-            return (o.nombre == param);
+
+        var re = new RegExp(param);
+        
+        let list = _.filter(this.props.data.politicos, (o) =>{
+            return re.test(validadoAcentos(o.nombre));
         });
+
+
         if(list.length===0){
             return(<div>Sin resultados</div>);
         }
         return _.map(list, o => {
             return (
-                <CardPolitico o={o} tipo />
+                <div key={o.id}>
+                    <CardPolitico o={o} />
+                </div>
             );
         });
     }

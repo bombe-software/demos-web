@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import fetchEventos from './../../queries/fetchEventos';
 
+import {validadoAcentos} from './buscar';
+import CardEvento from '../generic/CardEvento';
+
 class Eventos extends Component {
 
     constructor(props) {
@@ -10,8 +13,10 @@ class Eventos extends Component {
     }
 
     renderList(param) {
-        let list = _.filter(this.props.data.eventos, (o) =>{ 
-            return (o.titulo == param);
+        var re = new RegExp(param);
+        console.log(this.props.data);
+        let list = _.filter(this.props.data.eventos, (o) =>{
+            return re.test(validadoAcentos(o.titulo))||re.test(validadoAcentos(o.descripcion));
         });
         if(list.length===0){
             return(<div>Sin resultados</div>);
@@ -19,9 +24,7 @@ class Eventos extends Component {
         return _.map(list, o => {
             return (
                 <div key={o.id}>
-                    <p>
-                        {o.titulo}
-                    </p>
+                    <CardEvento o={o} politico />
                 </div>
             );
         });

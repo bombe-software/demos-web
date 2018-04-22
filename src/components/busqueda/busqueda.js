@@ -66,16 +66,8 @@ class Busqueda extends Component {
                 <div className="level">
                     <div className="level-left">
                         <div className="level-element">
-                            <h1 className="is-size-2 title">Búsqueda</h1>
-                            {this.state.busqueda!=="" ? <div><p className="is-size-5 subtitle">
-                            Resultados para: "{this.state.busqueda}"
-                            </p></div>
-                            : 
-                            <p></p>}
+                            <h1 className="is-size-2 title">Búsqueda&nbsp;&nbsp;</h1>
                         </div>
-                    </div>
-                    <div className="level-right">
-                        
                         <div className="level-element">
                             <TextField 
                                 id={"campoBusqueda"}
@@ -88,7 +80,17 @@ class Busqueda extends Component {
                                 &nbsp;&nbsp;<i className="fa fa-search" aria-hidden="true"></i>
                             </h2>
                         </div>
-                        
+                    </div>
+                </div>
+                <div className="level">
+                    <div className="level-left">
+                        <div className="level-item">
+                            {this.state.busqueda!=="" ? <div><p className="is-size-5 subtitle">
+                            Resultados para: "{this.state.busqueda}"
+                            </p></div>
+                            : 
+                            <p></p>}
+                        </div>
                     </div>
                 </div>
                     

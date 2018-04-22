@@ -6,6 +6,12 @@ export default gql`
     {
       id
       titulo
+      descripcion
+      politico {
+        id
+        nombre
+      }
+      fecha
     }
   }
 `;

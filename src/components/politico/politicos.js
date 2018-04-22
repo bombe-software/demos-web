@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import zonas from '../../queries/fetchZonas';
 import { graphql } from 'react-apollo';
 import PoliticoList from "./politico_list";
+import { Link } from "react-router-dom";
 
 class Politicos extends Component {
     constructor(props) {
@@ -124,6 +125,19 @@ class Politicos extends Component {
                   </div>
                   <div className="column is-7-desktop is-7-widescreen is-5-fullhd is-12-tablet is-12-mobile">
                     <div key={this.state.id_estado+this.state.id_puesto}> 
+                        <div className="level">
+                        <div className="level-left"></div>
+                        <div className="level-right">
+                            <div className="level-item">
+                            <p className="has-text-right">
+                                <Link to="/crear/politico" className="button is-success">
+                                <i className="fa fa-plus" aria-hidden="true"></i>
+                                &nbsp;&nbsp;&nbsp;Agregar un político
+                                </Link >
+                            </p>
+                            </div>
+                        </div>
+                        </div>
                           {(this.state.id_estado != null) ? <PoliticoList
                             id_estado = {this.state.id_estado}
                             estados = {this.state.estado}

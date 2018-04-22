@@ -49,6 +49,7 @@ class PoliticoList extends Component {
           return (
             <div key={id}>
               <CardPolitico o={o} />
+              <br/>
             </div>
           );
         }
@@ -71,19 +72,6 @@ class PoliticoList extends Component {
     if (this.props.fetchPoliticosPorEstado.loading) { return <div className="spinner"> </div> }
     return (
       <div>
-        <div className="level">
-          <div className="level-left"></div>
-          <div className="level-right">
-            <div className="level-item">
-              <p className="has-text-right">
-                <Link to="/crear/politico" className="button is-success">
-                  <i className="fa fa-plus" aria-hidden="true"></i>
-                  &nbsp;&nbsp;&nbsp;Agregar un político
-                </Link >
-              </p>
-            </div>
-          </div>
-        </div>
         <h3 className="title is-3">{this.renderTitle()}</h3>
         <br />
         {this.renderListPoliticos()}

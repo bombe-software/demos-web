@@ -6,6 +6,15 @@ export default gql`
     {
       id
       titulo
+      descripcion
+      politico {
+        id
+        nombre
+      }
+      tipo_propuesta {
+        id
+        tipo
+      }
     }
   }
 `;
