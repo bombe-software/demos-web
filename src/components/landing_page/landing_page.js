@@ -78,13 +78,26 @@ class LandingPage extends Component {
 
         return (
             <div>
-                <div className="hero is-medium is-dark">
+                <div className="hero is-medium is-dark is-hidden-desktop">
                     <div className="hero-image img-1">
 
                         <div className="hero-body">
                             <div className="container">
                                 <p className="is-size-1 title">Bienvenido a Demos</p>
                                 <p className="subtitle">Decide por quien votar informándote de las propuestas y el historial de cada político</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            
+                <div className="hero is-large is-dark is-hidden-touch">
+                    <div className="hero-image img-1">
+
+                        <div className="hero-body">
+                            <div className="container">
+                                <p className="is-size-1 title">Bienvenido a Demos</p>
+                                <p className="is-size-2 subtitle">Decide por quien votar informándote de las propuestas y el historial de cada político</p>
                             </div>
                         </div>
 
