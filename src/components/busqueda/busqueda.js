@@ -68,12 +68,14 @@ class Busqueda extends Component {
                         <div className="level-element">
                             <h1 className="is-size-2 title">Búsqueda&nbsp;&nbsp;</h1>
                         </div>
-                        <div className="level-element">
-                            <TextField 
-                                id={"campoBusqueda"}
-                                onChange={this.onChange}
-                                value={this.state.busqueda}
-                            />
+                    </div>
+                    <div className="level-right">
+                    <div className="level-element">
+                        <TextField 
+                            id={"campoBusqueda"}
+                            onChange={this.onChange}
+                            value={this.state.busqueda}
+                        />
                         </div>
                         <div className="level-element is-hidden-touch">
                             <h2 className="is-size-3 title">
