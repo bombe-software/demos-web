@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import fetchUsuario from  './../../queries/fetchUsuario';
 import NotFound from './../../components/not_found';
+import LoadingScreen from '../generic/loading_screen';
 //Components
 import PendientesAgregarPropuestas from './Propuesta/solicitud_agregar_propuesta';
 import PendientesAgregarHistorial from './Evento/solicitud_agregar_evento';
@@ -189,7 +190,7 @@ class Moderador extends Component {
   }
     render() {
       if (this.props.fetchUsuario.loading) {
-        return <div>Loading...</div>
+        return <LoadingScreen />
       } 
       if (!this.props.fetchUsuario.usuario || this.props.fetchUsuario.usuario.tipo_usuario.tipo != "Moderador") {
         return (

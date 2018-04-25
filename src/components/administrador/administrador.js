@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import fetchUsuario from './../../queries/fetchUsuario';
 import NotFound from './../../components/not_found';
+import LoadingScreen from '../generic/loading_screen';
 
 import Logs from './logs';
 import Bugs from './bugs';
@@ -44,7 +45,7 @@ class Administrador extends Component {
 
     render() {
         if (this.props.fetchUsuario.loading) {
-            return <div>Loading...</div>
+            return <LoadingScreen />
         }
         if (!this.props.fetchUsuario.usuario || this.props.fetchUsuario.usuario.tipo_usuario.tipo != "Administrador") {
             return (

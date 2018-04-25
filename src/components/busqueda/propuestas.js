@@ -14,10 +14,9 @@ class Propuestas extends Component {
     }
 
     renderList(param) {
-        var re = new RegExp(param);
-        console.log(this.props.data);
+        var re = new RegExp(param.toUpperCase());
         let list = _.filter(this.props.data.propuestas, (o) =>{
-            return re.test(validadoAcentos(o.titulo))||re.test(validadoAcentos(o.descripcion));
+            return re.test(validadoAcentos(o.titulo.toUpperCase()))||re.test(validadoAcentos(o.descripcion.toUpperCase()));
         });
         if(list.length===0){
             return(<div>Sin resultados</div>);

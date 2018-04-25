@@ -15,10 +15,10 @@ class Politicos extends Component {
 
     renderList(param) {
 
-        var re = new RegExp(param);
+        var re = new RegExp(param.toUpperCase());
         
         let list = _.filter(this.props.data.politicos, (o) =>{
-            return re.test(validadoAcentos(o.nombre));
+            return re.test(validadoAcentos(o.nombre.toUpperCase()));
         });
 
 

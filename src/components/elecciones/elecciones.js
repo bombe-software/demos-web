@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import zonas from "../../queries/fetchZonas";
 import EleccionDetail from "./eleccion_detail";
 import EleccionForm from "./eleccion_form";
+import LoadingScreen from '../generic/loading_screen';
 
 class Elecciones extends Component {
 
@@ -128,7 +129,7 @@ class Elecciones extends Component {
     }
 
     render() {
-        if (this.props.data.loading) return <div className="spinner"> </div>;
+        if (this.props.data.loading) return <LoadingScreen />;
         return (
             <div className="section">
                 <div className="columns is-desktop">

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ConfigForm from './config_form';
 import { compose, graphql } from 'react-apollo';
 import fetchUsuario from '../../queries/fetchUsuario';
+import LoadingScreen from '../generic/loading_screen';
+import NeedLogin from '../generic/need_login';
 
 class Perfil extends Component {
   constructor(props) {
@@ -15,13 +17,11 @@ class Perfil extends Component {
     }
 }
   render() {
-  if (this.props.data.loading) { <div>Loading...</div> }
+  if (this.props.data.loading) { <LoadingScreen /> }
     let {usuario} = this.props.data;
     if (JSON.stringify(usuario) == undefined) {
       return (
-        <div>
-          Inicia sesion para acceder a este modulo
-        </div>
+        <NeedLogin />
       );
     } else {
       const fecha = new Date(usuario.fecha_registro);

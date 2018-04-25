@@ -9,6 +9,7 @@ import { Form, Field } from "react-final-form";
 
 import NeedLogin from './../../generic/need_login';
 import WaveBackground from './../../generic/wave_background';
+import LoadingScreen from '../../generic/loading_screen';
 
 import GenericForm from '../../generic/generic_form';
 import addPolitico from './../../../mutations/add/addPolitico';
@@ -54,7 +55,7 @@ class PoliticoForm extends GenericForm {
   };
   render() {
     if (this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) {
-      return <div>Loading...</div>;
+      return <LoadingScreen />;
     }
     if (!this.props.fetchUsuario.usuario){
       return (
@@ -65,17 +66,17 @@ class PoliticoForm extends GenericForm {
       <div>
         <Dialog
           title="Tu propuesta ahora está en espera de aprobación"
-          actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          actions={[<FlatButton label="Aceptar" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          Espera la aprobación de un moderador de tu propuesta
+          Espera la aprobación de un moderador de tu solicitud de agregar político
         </Dialog>
         <section className="hero is-large">
           <div className="section">
             <div className="columns">
-              <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
+              <div className="column is-6-desktop is-10-tablet is-offset-3-desktop is-offset-2-tablet">
                 <div className="box" style={{padding: "48px"}}>
                   <br />
                   <h1 className="title has-text-centered">
@@ -136,8 +137,8 @@ class PoliticoForm extends GenericForm {
                           <div className="level-item">
                             <Field name="nombre"
                               component={this.renderTextField}
-                              hintText="Escribe tu nombre"
-                              floatingLabelText="Nombre"
+                              hintText="Juan Pérez"
+                              floatingLabelText="Nombre del político"
                             />
                           </div>
                         </div>
@@ -226,7 +227,7 @@ class PoliticoForm extends GenericForm {
                             <Field name="referencia"
                               component={this.renderTextField}
                               hintText="Ingrese el link de referencia"
-                              floatingLabelText="Referencia"
+                              floatingLabelText="Enlace consultado"
                             />
                           </div>
                         </div>

@@ -71,17 +71,17 @@ class EventoForm extends GenericForm {
       <div>
         <Dialog
           title="Tu propuesta ahora está en espera de aprobación"
-          actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          actions={[<FlatButton label="Aceptar" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          Espera la aprobación de un moderador de tu propuesta
+          Espera la aprobación de un moderador de tu solicitud para agregar un evento al historial del político.
         </Dialog>
         <section className="hero is-large">
           <div className="section">
             <div className="columns">
-              <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
+              <div className="column is-6-desktop is-10-tablet is-offset-3-desktop is-offset-2-tablet">
                 <div className="box">
                   <div className="has-text-centered"><h1 className="title is-3">Registrar evento</h1></div>
                   <hr />
@@ -135,7 +135,7 @@ class EventoForm extends GenericForm {
                         <div className="level">
                           <div className="level-item">
                             <Field name="descripcion"
-                              component={this.renderTextField}
+                              component={this.renderTextArea}
                               hintText="Escribe la descripcion"
                               floatingLabelText="Descripcion"
                             />

@@ -9,6 +9,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { Form, Field } from "react-final-form";
 import GenericForm from '../../generic/generic_form';
+import LoadingScreen from '../../generic/loading_screen';
 //Queries y Mutations
 import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
 import addPropuesta from "../../../mutations/add/addPropuesta";
@@ -50,7 +51,7 @@ class PropuestaForm extends GenericForm {
 
   render() {
     if (this.props.fetchTipoPropuesta.loading) {
-      return <div>Loading...</div>;
+      return <LoadingScreen />;
     }
     if (!this.props.fetchUsuario.usuario) {
       return (
@@ -61,17 +62,17 @@ class PropuestaForm extends GenericForm {
       <div>
         <Dialog
           title="Tu propuesta ahora está en espera de aprobación"
-          actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          actions={[<FlatButton label="Aceptar" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          Espera la aprobación de un moderador de tu propuesta
+          Espera la aprobación de un moderador de tu solicitud para agregar una propuesta del político.
         </Dialog>
         <section className="hero is-large">
           <div className="section">
             <div className="columns">
-              <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
+              <div className="column is-6-desktop is-10-tablet is-offset-3-desktop is-offset-2-tablet">
                 <div className="box">
                   <br />
                   <h1 className="title">
@@ -134,7 +135,7 @@ class PropuestaForm extends GenericForm {
                         <div className="level">
                           <div className="level-item">
                             <Field name="descripcion"
-                              component={this.renderTextField}
+                              component={this.renderTextArea}
                               hintText="Escribe la descripcion"
                               floatingLabelText="Descripcion"
                             />
@@ -175,7 +176,7 @@ class PropuestaForm extends GenericForm {
                         <br />
                         <div className="buttons has-text-centered">
                           <button type="submit" className="button is-primary" disabled={submitting}>
-                            Registrar Evento
+                            Registrar Propuesta
                           </button>
                         </div>
                       </form>

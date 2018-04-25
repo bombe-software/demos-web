@@ -8,6 +8,7 @@ import deletePolitico from '../../../mutations/captcha/DeletePolitico';
 import fetchPoliticoPerfil from '../../../queries/fetchPoliticoPerfil';
 import fetchUsuario from '../../../queries/fetchUsuario';
 import BotonCaptcha from './../../generic/boton_captcha';
+import LoadingScreen from "../../generic/loading_screen";
 class PoliticoPerfil extends Component {
     constructor(props) {
         super(props);
@@ -112,10 +113,7 @@ class PoliticoPerfil extends Component {
             );
         } else {
             return (
-                <div>
-                    <div className="spinner">
-                    </div>
-                </div>
+                <div></div>
             );
         }
     }

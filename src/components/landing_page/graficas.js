@@ -7,6 +7,7 @@ import fetchGraficas from "./../../queries/fetchGraficas";
 import fetchUsuario from "./../../queries/fetchUsuario";
 import eleccion from "../../queries/fetchVotacionEstado";
 import candidatosEstado from "../../queries/fetchCandidatosEstado";
+import LoadingScreen from '../generic/loading_screen';
 
 class Graficas extends Component {
 
@@ -100,7 +101,7 @@ class Graficas extends Component {
     }
 
     renderEncuestas(){
-        if (this.props.fetchEleccion.loading || this.props.fetchUsuario.loading) return <div>Loading</div>
+        if (this.props.fetchEleccion.loading || this.props.fetchUsuario.loading) return <LoadingScreen />
         if (this.props.fetchEleccion.votacion == undefined || JSON.stringify(this.props.fetchEleccion.votacion) == '[]' || JSON.stringify(this.props.fetchEleccion.votacion) == '{}') {
             return (
                 <div>
@@ -262,7 +263,7 @@ class Graficas extends Component {
             return <div>Cargando...</div>
         }
 
-        if(propuestas.length === 0){
+        if(!this.props.fetchGraficas.propuestas || propuestas.length === 0){
             return <div>No hay propuestas en tu estado</div>
         }
 

@@ -8,6 +8,8 @@ import fetchUsuario from "../../../queries/fetchUsuario";
 
 import PoliticoPerfil from './politico_perfil';
 
+import LoadingScreen from '../../generic/loading_screen';
+
 class PoliticoDetail extends Component {
     constructor(props) {
         super(props);
@@ -53,7 +55,7 @@ class PoliticoDetail extends Component {
             }
         } else {
             return (
-                <div className="spinner"></div>
+                <LoadingScreen />
             );
         }
     }

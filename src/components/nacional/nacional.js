@@ -7,6 +7,8 @@ import NacionalForm from './nacional_form';
 import fetchUsuario from './../../queries/fetchUsuario';
 import { graphql } from 'react-apollo';
 
+import LoadingScreen from '../generic/loading_screen';
+
 class Mexico extends Component {
 
       constructor(props) {
@@ -67,7 +69,7 @@ class Mexico extends Component {
       }
 
       render() {
-            if(this.props.data.loading) return <div></div>
+            if(this.props.data.loading) return <LoadingScreen />
             return (
                   <div className="section">
                         <div className="columns is-dektop">

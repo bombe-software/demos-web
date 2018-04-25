@@ -1,6 +1,7 @@
 export function validadoAcentos (s) {
     var mapaAcentos = {
-        'á':'a', 'é':'e', 'í':'i','ó':'o','ú':'u'
+        'á':'A', 'é':'E', 'í':'I','ó':'O','ú':'U',
+        'Á':'A', 'É':'E', 'Í':'I','Ó':'O','Ú':'U'
         };
     if (!s) { return ''; }
     var ret = '';
