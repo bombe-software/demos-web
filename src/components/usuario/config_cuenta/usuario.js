@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 
-import updateUsuario from '../../mutations/updateUsuario';
-
 import { Form, Field } from "react-final-form";
-import GenericForm from './../generic/generic_form';
+import GenericForm from './../../reutilizables/generic_form';
 
 class Usuario extends GenericForm {
   constructor(props) {
@@ -12,19 +10,8 @@ class Usuario extends GenericForm {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(values) {
-    const id = this.props.id;
-    const { avatar, password } = this.props
-    const {
-      nombre
-    } = values
-
-    this.props.mutate({
-      variables: {
-        id, nombre, password, avatar
-      }
-    });
-    location.reload();
+  async onSubmit(values) {
+    this.props.mutate(this.props.id, values.nombre);
   }
 
   render() {

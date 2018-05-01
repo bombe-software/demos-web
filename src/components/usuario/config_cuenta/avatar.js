@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
-import updateUsuario from './../../../mutations/update/usuario';
 
 class Avatar extends Component {
   constructor(props) {
@@ -46,14 +45,7 @@ class Avatar extends Component {
     if (this.state.avatar == '') {
       this.setState({ error: 'Selecciona un avatar' })
     } else {
-      const { id } = this.props;
-      const avatar = this.state.avatar;
-      this.props.mutate({
-        variables: {
-          id, avatar
-        }
-      });
-      location.reload();
+      this.props.mutate(this.props.id, this.state.avatar);
     }
   }
 
@@ -103,4 +95,4 @@ class Avatar extends Component {
     );
   }
 }
-export default graphql(updateUsuario)(Avatar);
+export default Avatar;

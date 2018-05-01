@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
-import updateUsuario from '../../mutations/updateUsuario';
 
 import { Form, Field } from "react-final-form";
-import GenericForm from './../generic/generic_form';
+import GenericForm from './../../reutilizables/generic_form';
 
 class Password extends GenericForm {
   constructor(props) {
@@ -11,19 +10,8 @@ class Password extends GenericForm {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(values) {
-    const id = this.props.id;
-    const {nombre, avatar} = this.props
-    const {
-      password
-    } = values
-    this.props.mutate({
-      variables: {
-        id, nombre, password, avatar
-      }
-    });
-    location.reload();
-
+  async onSubmit(values) {
+    this.props.mutate(this.props.id, values.password);
   }
 
   render() {
@@ -87,4 +75,4 @@ class Password extends GenericForm {
     );
   }
 }
-export default graphql(updateUsuario)(Password);
+export default Password;

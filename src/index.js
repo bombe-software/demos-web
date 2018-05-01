@@ -41,6 +41,7 @@ import ScreenNeedLogin from './components/reutilizables/access/screen_need_login
 
 //usuario
 import ConfirmEmail from './components/usuario/confirm_email';
+import ConfigCuenta from './components/usuario/config_cuenta/config_cuenta';
 import Login from './components/usuario/login';
 import RecoverPassword from './components/usuario/recover_password';
 import SignUp from './components/usuario/signup';
@@ -101,13 +102,11 @@ class App extends React.Component {
               <Switch>
                 <Route path="/acerca_de" component={AcercaDe} />
                 <Route path="/confirm_email" component={NeedLogout(ConfirmEmail)} />
+                <Route path="/config_cuenta" component={ConfigCuenta} />
                 <Route path="/signup" component={NeedLogout(SignUp)} />
                 <Route path="/login" component={NeedLogout(Login)} />
                 <Route path="/recover_password" component={NeedLogout(RecoverPassword)} />
-                <Route path="/config_cuenta" component={ConfigCuenta} />
-
                 {/*
-                
                 <Route path="/nacional" component={Nacional} />
                 <Route path="/elecciones" component={Elecciones} />
                 <Route path="/politicos" component={Politicos} />

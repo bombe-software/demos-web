@@ -1,48 +1,84 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
 
-import updateUsuario from '../../mutations/updateUsuario';
 import Password from './password';
 import Usuario from './usuario';
 import Avatar from './avatar';
 
-import GenericForm from './../generic/generic_form';
+import usuario_in$acces from './../../../queries/usuario_in.acces';
+import usuario_in$navbar from './../../../queries/usuario_in.navbar';
+import update_usuario from './../../../mutations/update/usuario.config_cuenta';
 
-class ConfigForm extends GenericForm {
+class ConfigForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             avatar: 'jaiba',
             imgAvatar: ['selected', 'none', 'none', 'none'],
-            errors: []
+            errors: [],
+            type: 'Usuario'
         };
-        this.setState = this.setState.bind(this);
-        this.state = { type: 'Usuario' };
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.updateUsuario = this.updateUsuario.bind(this);
         this.updatePassword = this.updatePassword.bind(this);
         this.updateAvatar = this.updateAvatar.bind(this);
-        this.renderSection = this.renderSection.bind(this);
     }
+    handleSubmit(id, avatar, nombre, password) {
+        if(nombre){
+            this.props.mutate({
+                variables: {
+                    id, nombre
+                },
+                refetchQueries: [
+                    { query: usuario_in$acces },
+                    { query: usuario_in$navbar }
+                ]
+            });
+        }else if(password){
+            this.props.mutate({
+                variables: {
+                    id, password
+                },
+                refetchQueries: [
+                    { query: usuario_in$acces },
+                    { query: usuario_in$navbar }
+                ]
+            });
+        }else if(avatar){
+            this.props.mutate({
+                variables: {
+                    id, avatar
+                },
+                refetchQueries: [
+                    { query: usuario_in$acces },
+                    { query: usuario_in$navbar }
+                ]
+            });
+        }
+        
+    }
+
     updateUsuario() {
         this.setState({ type: 'Usuario' })
     }
+
     updatePassword() {
         this.setState({ type: 'Password' })
     }
+
     updateAvatar() {
         this.setState({ type: 'Avatar' })
     }
+
     renderSection() {
 
-        let {type} = this.state;
+        let { type } = this.state;
         if (type == "Usuario") {
             return (
                 <div>
                     <Usuario
-                        id={this.props.usuario.id}
-                        mutate={this.props.mutate}
-                        avatar={this.props.usuario.avatar}
-                        password={this.props.usuario.password}
+                        id={this.props.usuario}
+                        mutate={this.handleSubmit}
                     />
                 </div>
             );
@@ -50,10 +86,8 @@ class ConfigForm extends GenericForm {
             return (
                 <div>
                     <Password
-                        id={this.props.usuario.id}
-                        mutate={this.props.mutate}
-                        avatar={this.props.usuario.avatar}
-                        nombre={this.props.usuario.nombre}
+                        id={this.props.usuario}
+                        mutate={this.handleSubmit}
                     />
                 </div>
             );
@@ -61,10 +95,8 @@ class ConfigForm extends GenericForm {
             return (
                 <div>
                     <Avatar
-                        id={this.props.usuario.id}
-                        mutate={this.props.mutate}
-                        nombre={this.props.usuario.nombre}
-                        password={this.props.usuario.password}
+                        id={this.props.usuario}
+                        mutate={this.handleSubmite}
                     />
                 </div>
             );
@@ -124,4 +156,4 @@ class ConfigForm extends GenericForm {
 }
 
 
-export default graphql(updateUsuario)(ConfigForm)
+export default graphql(update_usuario)(ConfigForm);
