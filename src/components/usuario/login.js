@@ -13,6 +13,7 @@ import { demos_krb_http } from './../../../deploy';
 import login from "./../../mutations/especiales/login";
 import usuario_in$acces from "./../../queries/usuario_in.access";
 import usuario_in$navbar from "./../../queries/usuario_in.navbar";
+import usuario_in$perfil from "./../../queries/usuario_in.perfil";
 
 
 class Login extends GenericForm {
@@ -51,7 +52,7 @@ class Login extends GenericForm {
                     refetchQueries: [
                         { query: usuario_in$acces },
                         { query: usuario_in$navbar },
-                        { query: usuario_in }
+                        { query: usuario_in$perfil }
                     ]
                 })
                     .then(() => this.props.history.push("/"))
