@@ -11,7 +11,7 @@ class Usuario extends GenericForm {
   }
 
   async onSubmit(values) {
-    this.props.mutate(this.props.id, values.nombre);
+    this.props.mutate(false, values.nombre, false);
   }
 
   render() {

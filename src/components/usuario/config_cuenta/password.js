@@ -11,7 +11,7 @@ class Password extends GenericForm {
   }
 
   async onSubmit(values) {
-    this.props.mutate(this.props.id, values.password);
+    this.props.mutate(false, false, values.password);
   }
 
   render() {

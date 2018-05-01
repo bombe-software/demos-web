@@ -45,7 +45,7 @@ class Avatar extends Component {
     if (this.state.avatar == '') {
       this.setState({ error: 'Selecciona un avatar' })
     } else {
-      this.props.mutate(this.props.id, this.state.avatar);
+      this.props.mutate(this.state.avatar, false, false);
     }
   }
 

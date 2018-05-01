@@ -2,8 +2,8 @@ import React from 'react';
 
 function LoadingScreen(props){
     return (
-    <div class='hero is-large'>
-        <div class="hero-body">
+    <div className='hero is-large'>
+        <div className="hero-body">
             <div className="level" >
                 <div className="level-item">
                     <div className="spinner">

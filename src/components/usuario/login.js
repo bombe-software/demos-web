@@ -11,7 +11,8 @@ import GenericForm from './../reutilizables/generic_form';
 
 import { demos_krb_http } from './../../../deploy';
 import login from "./../../mutations/especiales/login";
-import usuario_in from "./../../queries/usuario_in.navbar";
+import usuario_in$acces from "./../../queries/usuario_in.access";
+import usuario_in$navbar from "./../../queries/usuario_in.navbar";
 
 
 class Login extends GenericForm {
@@ -47,7 +48,11 @@ class Login extends GenericForm {
                         email,
                         password: decryptedData.ticket
                     },
-                    refetchQueries: [{ usuario_in }]
+                    refetchQueries: [
+                        { query: usuario_in$acces },
+                        { query: usuario_in$navbar },
+                        { query: usuario_in }
+                    ]
                 })
                     .then(() => this.props.history.push("/"))
                     .catch(res => {
@@ -159,4 +164,4 @@ class Login extends GenericForm {
     }
 }
 
-export default graphql(usuario_in)(graphql(login)(Login));
+export default graphql(login)(Login);

@@ -12,3 +12,8 @@ export default gql`
     }
   }
 `;
+/**
+ * RefetchQueries Component:
+ * -ConfigForm
+ * -Login
+ */
