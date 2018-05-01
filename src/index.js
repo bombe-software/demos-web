@@ -11,51 +11,39 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { createHttpLink } from 'apollo-link-http';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-//import { createUploadLink } from 'apollo-upload-client';
-
-//Sin manejo de informacion
-import NotFound from './components/not_found';
-import ErrorScreen from './components/error_screen';
-import LandingPage from './components/landing_page/landing_page';
-
-
-//Genericos
-import Footer from './components/generic/footer';
-import Navbar from './components/generic/navbar';
-
-import SignUp from './components/signup';
-import Login from './components/login';
-
-import ConfirmEmail from './components/confirm_email';
-import RecoverPassword from './components/recover_password';
-import ConfigCuenta from './components/config_cuenta/config_cuenta';
-
-import Elecciones from './components/elecciones/elecciones';
-import AcercaDe from './components/acerca_de/acerca_de';
-import Politicos from './components/politico/politicos';
-import PoliticoDetail from './components/politico/politico_detail/politico_detail';
-
-import PoliticoForm from './components/politico/politico_create/politico_form';
-import PropuestaForm from './components/politico/politico_create/propuesta_form';
-import EventoForm from './components/politico/politico_create/evento_form';
-
-import PropuestaSeleccionada from './components/politico/politico_detail/propuesta_seleccionada';
-import EventoSeleccionado from './components/politico/politico_detail/evento_seleccionado';
-
-import Moderador from './components/moderador/moderador';
-
-import Administrador from './components/administrador/administrador';
-import ReportarBug from './components/administrador/reportar_bug';
-
-import Busqueda from './components/busqueda/busqueda';
-
-import Soporte from './components/soporte/soporte';
-import ModificarEvento from './components/politico/politico_modify/evento_form';
-import ModificarPolitico from './components/politico/politico_modify/politico_form';
-import ModificarPropuesta from './components/politico/politico_modify/propuesta_form';
-import Nacional from './components/nacional/nacional';
 
 import { demos_gql_http, demos_gql_ws } from './../deploy';
+
+//acerca_de
+import AcercaDe from './components/acerca_de/acerca_de';
+
+//administrador
+
+//busqueda
+
+//elecciones
+
+//landing_page
+
+//nacional
+
+//politico
+
+//reutilizables
+import Footer from './components/reutilizables/footer';
+import NeedLogin from './components/reutilizables/access/need_login';
+import NeedLogout from './components/reutilizables/access/need_logout';
+import Navbar from './components/reutilizables/navbar';
+import NotFound from './components/reutilizables/not_found';
+import ScreenNeedLogin from './components/reutilizables/access/screen_need_login';
+
+//soporte
+
+//usuario
+import ConfirmEmail from './components/usuario/confirm_email';
+import Login from './components/usuario/login';
+import RecoverPassword from './components/usuario/recover_password';
+import SignUp from './components/usuario/signup';
 
 const httpLink = createHttpLink({
   uri: `${demos_gql_http}/graphql`,
@@ -66,19 +54,10 @@ const httpLink = createHttpLink({
 const wsLink = new WebSocketLink({
   uri: `${demos_gql_ws}/subscriptions`,
   options: {
-    reconnect: true 
+    reconnect: true
   },
   credentials: 'include'
 });
-
-//Pruebas 
-/*
-const uploadLink = createUploadLink({
-  uri: 'https://demos-gql.herokuapp.com/graphql',
-  credentials: 'include'
-});
-*/
-
 
 // USar dependencia split para hacer una union de ambos 
 // caminos de comunicacion y separa uno del otro
@@ -98,8 +77,8 @@ const client = new ApolloClient({
 });
 
 class App extends React.Component {
-  
-  constructor(props){
+
+  constructor(props) {
     super(props);
     this.handleRender = this.handleRender.bind(this);
   }
@@ -119,52 +98,42 @@ class App extends React.Component {
           <div>
             <Navbar />
             <MuiThemeProvider>
-            <Switch>
-              <Route path="/signup" component={SignUp} />
-              <Route path="/login" component={Login} />
-              <Route path="/confirm_email" component={ConfirmEmail} />
-              <Route path="/recover_password" component={RecoverPassword} />
-              <Route path="/config_cuenta" component={ConfigCuenta} />
-              <Route path="/nacional" component={Nacional} />
+              <Switch>
+                <Route path="/acerca_de" component={AcercaDe} />
+                <Route path="/confirm_email" component={NeedLogout(ConfirmEmail)} />
+                <Route path="/signup" component={NeedLogout(SignUp)} />
+                <Route path="/login" component={NeedLogout(Login)} />
+                <Route path="/recover_password" component={NeedLogout(RecoverPassword)} />
+                <Route path="/config_cuenta" component={ConfigCuenta} />
 
-              <Route path="/elecciones" component={Elecciones} />
-              <Route path="/acerca_de" component={AcercaDe} />
-              <Route path="/politicos" component={Politicos} />
-              <Route path="/moderador" component={Moderador} />
-              <Route path="/admin" component={Administrador} />
-              <Route path="/bug" component={ReportarBug} />
-              <Route path="/busqueda" component={Busqueda} />
-              
-              <Route path="/soporte" component={Soporte} />
-             
-              <Route path="/login" component={Login}/>
-      
-              
-              <Route path="/crear/politico" component={PoliticoForm} />
-              <Route path="/crear/propuesta" component={PropuestaForm} />
-              <Route path="/crear/evento" component={EventoForm} />
-
+                {/*
+                
+                <Route path="/nacional" component={Nacional} />
+                <Route path="/elecciones" component={Elecciones} />
+                <Route path="/politicos" component={Politicos} />
+                <Route path="/moderador" component={Moderador} />
+                <Route path="/admin" component={Administrador} />
+                <Route path="/bug" component={ReportarBug} />
+                <Route path="/busqueda" component={Busqueda} />
+                <Route path="/soporte" component={Soporte} />
                 <Route path="/crear/politico" component={PoliticoForm} />
                 <Route path="/crear/propuesta" component={PropuestaForm} />
                 <Route path="/crear/evento" component={EventoForm} />
-
-                
+                <Route path="/crear/politico" component={PoliticoForm} />
+                <Route path="/crear/propuesta" component={PropuestaForm} />
+                <Route path="/crear/evento" component={EventoForm} />
                 <Route path="/crear/historial/:id" component={EventoForm} />
                 <Route path="/crear/propuestas/:id" component={PropuestaForm} />
                 <Route path="/politico/:id" exact component={PoliticoDetail} />
-
                 <Route path="/politico/:id/propuesta/:id_propuesta" exact component={PropuestaSeleccionada} />
                 <Route path="/politico/:id/evento/:id_evento" exact component={EventoSeleccionado} />
-                
                 <Route path="/evento/modify/:id_evento" exact component={ModificarEvento} />
                 <Route path="/propuesta/modify/:id_propuesta" exact component={ModificarPropuesta} />
-                 <Route path="/politico/modify/:id_politico" exact component={ModificarPolitico} />
-
-                 < Route path="/error" exact component={ErrorScreen} />
-
-                {/*Landing page*/}
+                <Route path="/politico/modify/:id_politico" exact component={ModificarPolitico} />
                 <Route path="/" exact component={LandingPage} />
-                {/*404 not found*/}
+                */}
+
+                <Route path="/need_login" exact component={ScreenNeedLogin} />
                 <Route component={NotFound} />
               </Switch>
             </MuiThemeProvider>
