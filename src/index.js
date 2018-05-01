@@ -21,6 +21,7 @@ import AcercaDe from './components/acerca_de/acerca_de';
 import Administrador from './components/administrador/administrador';
 
 //busqueda
+import Busqueda from './components/busqueda/busqueda';
 
 //elecciones
 
@@ -39,6 +40,7 @@ import NotFound from './components/reutilizables/not_found';
 import ScreenNeedLogin from './components/reutilizables/access/screen_need_login';
 
 //soporte
+import Soporte from './components/soporte/soporte';
 
 //usuario
 import ConfirmEmail from './components/usuario/confirm_email';
@@ -105,17 +107,20 @@ class App extends React.Component {
                 <Route path="/admin" component={NeedLogin(Administrador, "administrador")} />
                 <Route path="/confirm_email" component={NeedLogout(ConfirmEmail)} />
                 <Route path="/config_cuenta" component={NeedLogin(ConfigCuenta)} />
-                <Route path="/signup" component={NeedLogout(SignUp)} />
                 <Route path="/login" component={NeedLogout(Login)} />
                 <Route path="/recover_password" component={NeedLogout(RecoverPassword)} />
+                <Route path="/signup" component={NeedLogout(SignUp)} />
+                <Route path="/soporte" component={Soporte} />
+                <Route path="/busqueda" component={Busqueda} />
                 {/*
-                <Route path="/nacional" component={Nacional} />
+                <Route path="/" exact component={LandingPage} />
+                <Route path="/nacional" component={Nacional} /> 
+                <Route path="/bug" component={ReportarBug} />
+
+
                 <Route path="/elecciones" component={Elecciones} />
                 <Route path="/politicos" component={Politicos} />
                 <Route path="/moderador" component={Moderador} />
-                <Route path="/bug" component={ReportarBug} />
-                <Route path="/busqueda" component={Busqueda} />
-                <Route path="/soporte" component={Soporte} />
                 <Route path="/crear/politico" component={PoliticoForm} />
                 <Route path="/crear/propuesta" component={PropuestaForm} />
                 <Route path="/crear/evento" component={EventoForm} />
@@ -130,9 +135,7 @@ class App extends React.Component {
                 <Route path="/evento/modify/:id_evento" exact component={ModificarEvento} />
                 <Route path="/propuesta/modify/:id_propuesta" exact component={ModificarPropuesta} />
                 <Route path="/politico/modify/:id_politico" exact component={ModificarPolitico} />
-                <Route path="/" exact component={LandingPage} />
                 */}
-
                 <Route path="/need_login" exact component={ScreenNeedLogin} />
                 <Route component={NotFound} />
               </Switch>

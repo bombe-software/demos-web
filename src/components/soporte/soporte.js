@@ -1,26 +1,30 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
-import axios from 'axios';
-import _ from 'lodash';
-import { Form, Field } from "react-final-form";
-import GenericForm from './../generic/generic_form';
-import mensaje from "./../../mutations/mensaje";
+import TextField from 'material-ui/TextField';
 
-class Soporte extends GenericForm {
+import mensaje from "./../../mutations/especiales/mensaje";
+
+class Soporte extends Component {
     constructor(props) {
         super(props);
-        this.onSubmit = this.onSubmit.bind(this);
         this.state = {
-            mensajes: []
+            mensajes: [],
+            value: ''
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    async onSubmit(values) {
-        const { mensajeUser } = values;
-        this.addMsgLeft(mensajeUser);
+
+    handleChange(event) {
+        this.setState({ value: event.target.value });
+    }
+
+    handleSubmit() {
+        const { value } = this.setState;
+        this.addMsgLeft(value);
         this.props.mutate({
             variables: {
-                mensajeUser
+                value
             }
         }).then(({ data }) => this.addMsgRight(data.mensaje));
     }
@@ -130,38 +134,22 @@ class Soporte extends GenericForm {
                                     <br />
                                     <div className="level">
                                         <div className="level-item">
-                                            <Form
-                                                onSubmit={this.onSubmit}
-                                                validate={values => {
-                                                    const errors = {};
-                                                    if (!values.mensajeUser) {
-                                                        errors.mensajeUser = "Escriba un mensaje";
-                                                    }
-                                                    if (/^\s+|\s+$/.test(values.mensajeUser)) {
-                                                        errors.mensajeUser = "No ingrese espacios";
-                                                    }
-                                                    return errors;
-                                                }}
-                                                render={({ handleSubmit, reset, submitting, pristine, values }) => (
-                                                    <form onSubmit={handleSubmit}>
-                                                        <div className="level">
-                                                            <div className="level-item">
-                                                                <Field name="mensajeUser"
-                                                                    component={this.renderTextField}
-                                                                    hintText="Escribe su mensaje"
-                                                                    floatingLabelText="Mensaje"
-                                                                />
-                                                            </div>
-                                                            <div className="buttons has-text-centered">
-                                                                <button type="submit" className="button is-primary" disabled={submitting}>
-                                                                    Enviar
+                                            <form onSubmit={this.handleSubmit}>
+                                                <div className="level">
+                                                    <div className="level-item">
+                                                        <TextField
+                                                            hintText="Hint Text"
+                                                            value={this.state.value} 
+                                                            onChange={this.handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="buttons has-text-centered">
+                                                        <button type="submit" className="button is-primary" >
+                                                            Enviar
                                                     </button>
-                                                            </div>
-                                                        </div>
-
-                                                    </form>
-                                                )}
-                                            />
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

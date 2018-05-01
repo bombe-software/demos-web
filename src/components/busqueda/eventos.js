@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import fetchEventos from './../../queries/fetchEventos';
+import fetchEventos from './../../queries/eventos';
 
-import {validadoAcentos} from './buscar';
-import CardEvento from '../generic/CardEvento';
+import { validadoAcentos } from './buscar';
+import CardEvento from  './../reutilizables/cards/card_evento';
+
 
 class Eventos extends Component {
 
@@ -13,9 +14,10 @@ class Eventos extends Component {
     }
 
     renderList(param) {
-        var re = new RegExp(param.toUpperCase());
+        let string = validadoAcentos(param.toLowerCase());
+        var re = new RegExp('^(.*?(\string\b)[^$]*)$');
         let list = _.filter(this.props.data.eventos, (o) =>{
-            return re.test(validadoAcentos(o.titulo.toUpperCase()))||re.test(validadoAcentos(o.descripcion.toUpperCase()));
+            return re.test(validadoAcentos(o.titulo.toLowerCase())) || re.test(validadoAcentos(o.descripcion.toLowerCase()));
         });
         if(list.length===0){
             return(<div>Sin resultados</div>);

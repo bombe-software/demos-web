@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import fetchPoliticos from './../../queries/fetchPoliticos';
+import fetchPoliticos from './../../queries/politicos';
 
 import {validadoAcentos} from './buscar';
 
-import CardPolitico from '../generic/CardPolitico';
+import CardPolitico from './../reutilizables/cards/card_politico';
 
 class Politicos extends Component {
 
