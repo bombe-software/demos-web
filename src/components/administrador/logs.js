@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import fetchLogs from './../../queries/fetchLogs';
+import logs from './../../queries/logs';
 
 class Logs extends Component {
 
@@ -48,4 +48,4 @@ class Logs extends Component {
     }
 }
 
-export default graphql(fetchLogs)(Logs)
+export default graphql(logs)(Logs)

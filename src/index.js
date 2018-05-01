@@ -18,6 +18,7 @@ import { demos_gql_http, demos_gql_ws } from './../deploy';
 import AcercaDe from './components/acerca_de/acerca_de';
 
 //administrador
+import Administrador from './components/administrador/administrador';
 
 //busqueda
 
@@ -101,8 +102,9 @@ class App extends React.Component {
             <MuiThemeProvider>
               <Switch>
                 <Route path="/acerca_de" component={AcercaDe} />
+                <Route path="/admin" component={NeedLogin(Administrador, "administrador")} />
                 <Route path="/confirm_email" component={NeedLogout(ConfirmEmail)} />
-                <Route path="/config_cuenta" component={ConfigCuenta} />
+                <Route path="/config_cuenta" component={NeedLogin(ConfigCuenta)} />
                 <Route path="/signup" component={NeedLogout(SignUp)} />
                 <Route path="/login" component={NeedLogout(Login)} />
                 <Route path="/recover_password" component={NeedLogout(RecoverPassword)} />
@@ -111,7 +113,6 @@ class App extends React.Component {
                 <Route path="/elecciones" component={Elecciones} />
                 <Route path="/politicos" component={Politicos} />
                 <Route path="/moderador" component={Moderador} />
-                <Route path="/admin" component={Administrador} />
                 <Route path="/bug" component={ReportarBug} />
                 <Route path="/busqueda" component={Busqueda} />
                 <Route path="/soporte" component={Soporte} />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import fetchBugs from './../../queries/fetchBugs';
-import deleteBug from './../../mutations/deleteBug';
+import bugs from './../../queries/bugs';
+import delete_bug from './../../mutations/delete/bug';
 import _ from 'lodash'
 
 class Bugs extends Component {
@@ -23,17 +23,17 @@ class Bugs extends Component {
             variables: { id_bug },
             optimisticResponse: {
                 __typename: "Mutation",
-                deleteBug: {
+                delete_bug: {
                     id: id_bug,
                     __typename: "BugType"
                 }
             },
-            update: (proxy, { data: { deleteBug } }) => {
-              const data = proxy.readQuery({ query: fetchBugs });
+            update: (proxy, { data: { delete_bug } }) => {
+              const data = proxy.readQuery({ query: bugs });
               _.remove(data.bugs, function(n) {
                 return n.id == id_bug; 
               });
-              proxy.writeQuery({ query: fetchBugs, data });
+              proxy.writeQuery({ query: bugs, data });
             }
         })
     }
@@ -74,4 +74,4 @@ class Bugs extends Component {
     }
 }
 
-export default graphql(deleteBug)(graphql(fetchBugs)(Bugs));
+export default graphql(delete_bug)(graphql(bugs)(Bugs));

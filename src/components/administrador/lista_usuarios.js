@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import fetchUsuariosAdmin from './../../queries/fetchUsuariosAdmin';
-import deleteUser from './../../mutations/deleteUser';
+import usuarios from './../../queries/usuarios';
+import delete_usuario from './../../mutations/delete/usuario';
 
 class ListaUsuarios extends Component {
 
@@ -23,17 +23,17 @@ class ListaUsuarios extends Component {
             variables: { id_usuario },
             optimisticResponse: {
                 __typename: "Mutation",
-                deleteUser: {
+                delete_usuario: {
                     id: id_usuario,
                     __typename: "UsuarioType"
                 }
             },
-            update: (proxy, { data: { deleteUser } }) => {
-              const data = proxy.readQuery({ query: fetchUsuariosAdmin });
+            update: (proxy, { data: { delete_usuario } }) => {
+              const data = proxy.readQuery({ query: usuarios });
               _.remove(data.usuarios, function(n) {
                 return n.id == id_usuario; 
               });
-              proxy.writeQuery({ query: fetchUsuariosAdmin, data });
+              proxy.writeQuery({ query: usuarios, data });
             }
         })
     }
@@ -88,4 +88,4 @@ class ListaUsuarios extends Component {
     }
 }
 
-export default graphql(deleteUser)(graphql(fetchUsuariosAdmin)(ListaUsuarios));
+export default graphql(delete_usuario)(graphql(usuarios)(ListaUsuarios));

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import fetchUsuario from './../../queries/fetchUsuario';
-import NotFound from './../../components/not_found';
-import LoadingScreen from '../generic/loading_screen';
 
-import Logs from './logs';
+import NotFound from './../reutilizables/not_found';
+import LoadingScreen from './../reutilizables/loading_screen';
+
 import Bugs from './bugs';
+import Logs from './logs';
 import ListaUsuarios from './lista_usuarios';
-
 
 class Administrador extends Component {
     constructor(props) {
@@ -32,7 +31,7 @@ class Administrador extends Component {
         console.log("Error: " + error);
         console.log("Info: " + info);
     }
-
+    
     renderSection(type) {
         if (type == "bugs") {
             return <Bugs />;
@@ -44,14 +43,6 @@ class Administrador extends Component {
     }
 
     render() {
-        if (this.props.fetchUsuario.loading) {
-            return <LoadingScreen />
-        }
-        if (!this.props.fetchUsuario.usuario || this.props.fetchUsuario.usuario.tipo_usuario.tipo != "Administrador") {
-            return (
-                <NotFound />
-            );
-        }
         return (
             <div className="section">
                 <div className="columns">
@@ -94,4 +85,4 @@ class Administrador extends Component {
     }
 }
 
-export default graphql(fetchUsuario, { name: 'fetchUsuario' })(Administrador)
+export default Administrador;
