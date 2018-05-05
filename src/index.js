@@ -130,14 +130,11 @@ class App extends React.Component {
                 <Route path="/" exact component={LandingPage} />
                 <Route path="/nacional" component={Nacional} /> 
                 <Route path="/bug" component={ReportarBug} />}
+                
                 <Route path="/elecciones" component={Elecciones} />
                 <Route path="/politicos" component={Politicos} />
                 <Route path="/moderador" component={Moderador} />
-
                 <Route path="/politico/:id" exact component={PoliticoDetail} />
-                <Route path="/evento/modify/:id_evento" exact component={ModificarEvento} />
-                <Route path="/propuesta/modify/:id_propuesta" exact component={ModificarPropuesta} />
-                <Route path="/politico/modify/:id_politico" exact component={ModificarPolitico} />
                 */}
                 <Route path="/need_login" exact component={ScreenNeedLogin} />
                 <Route component={NotFound} />
