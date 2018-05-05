@@ -36,6 +36,9 @@ class PoliticoPerfil extends Component {
     }
     Eliminar() {
         let politico = this.props.id;
+        if(!this.props.fetchUsuario.usuario){
+            this.props.history.push('/need_login');
+        }
         let usuario = this.props.fetchUsuario.usuario.id;
         this.props.deletePolitico({
             variables: {
@@ -43,23 +46,15 @@ class PoliticoPerfil extends Component {
             }
         }).then(this.handleOpen);
     }
-    renderBotonEliminar() {
-        if (!this.props.fetchUsuario.usuario) {
-        }
-        else {
-            return (
-                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar} />
-            );
-        }
-    }
-    handleOpen(){
+
+    handleOpen() {
         this.setState({ open: true });
-      };
-    
-      handleClose(){
+    };
+
+    handleClose() {
         this.setState({ open: false });
-      };
-    
+    };
+
     shouldComponentUpdate(nextProps) {
         if (nextProps.fetchPolitico) {
             nextProps.fetchPolitico.refetch();
@@ -105,7 +100,7 @@ class PoliticoPerfil extends Component {
                                 </Link>
                             </span>
                             <span className="card-footer-item">
-                                {this.renderBotonEliminar()}
+                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar} />
                             </span>
                         </div>
                     </div>

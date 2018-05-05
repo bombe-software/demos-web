@@ -39,17 +39,18 @@ class PropuestaForm extends GenericForm {
 
   async onSubmit(values) {
     const usuario = this.props.data.usuario_in.id;
-    const politico = this.props.o.propuesta.politico.id;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values
     if(!this.props.o.mutate){
+      const politico = this.props.match.params.id;
       this.props.addPropuesta({
         variables: {
           titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
         }
       }).then(this.handleOpen); 
     }else{
+      const politico = this.props.o.propuesta.politico.id;
       this.props.o.mutate({variables: { usuario, politico, ...values } });
       this.handleOpen();
     }

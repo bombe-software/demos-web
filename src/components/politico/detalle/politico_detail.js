@@ -71,9 +71,6 @@ class PoliticoDetail extends Component {
         console.log("Error: " + error);
         console.log("Info: " + info);
     }
-    componentWillReceiveProps(nextProps) {
-        nextProps.fetchPolitico.refetch();
-      } 
     render() {
         return (
             <div>

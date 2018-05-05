@@ -39,12 +39,12 @@ class EventoForm extends GenericForm {
 
   async onSubmit(values) {
     const usuario = this.props.data.usuario_in.id;
-    const politico = this.props.o.evento.politico.id;
     const {
       fecha, titulo,
       descripcion, referencia
     } = values
     if (!this.props.o.mutate) {
+      const politico = this.props.match.params.id;
       this.props.mutate({
         variables: {
           fecha, titulo,
@@ -52,6 +52,7 @@ class EventoForm extends GenericForm {
         }
       }).then(this.handleOpen);
     } else {
+      const politico = this.props.o.evento.politico.id;
       this.props.o.mutate({ variables: { usuario, politico, ...values } });
       this.handleOpen();
     }

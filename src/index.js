@@ -30,6 +30,7 @@ import Busqueda from './components/busqueda/busqueda';
 //nacional
 
 //politico
+import Politicos from './components/politico/politicos';
 import LoadInformation from './components/politico/load_information';
 import PoliticoForm from './components/politico/formulario/politico_form';
 import EventoForm from './components/politico/formulario/evento_form';
@@ -126,15 +127,18 @@ class App extends React.Component {
                 <Route path="/evento/modificar/:id" component={LoadInformation(NeedLogin(EventoForm))} />
                 <Route path="/evento/formulario/:id" component={NeedLogin(EventoForm)} />
 
+                <Route path="/politicos" component={Politicos} />
+                
+
                 {/*
                 <Route path="/" exact component={LandingPage} />
                 <Route path="/nacional" component={Nacional} /> 
                 <Route path="/bug" component={ReportarBug} />}
-                
+                <Route path="/politico/:id" component={PoliticoDetail} />
                 <Route path="/elecciones" component={Elecciones} />
-                <Route path="/politicos" component={Politicos} />
+                
                 <Route path="/moderador" component={Moderador} />
-                <Route path="/politico/:id" exact component={PoliticoDetail} />
+                
                 */}
                 <Route path="/need_login" exact component={ScreenNeedLogin} />
                 <Route component={NotFound} />
