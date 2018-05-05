@@ -11,7 +11,6 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { createHttpLink } from 'apollo-link-http';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-
 import { demos_gql_http, demos_gql_ws } from './../deploy';
 
 //acerca_de
@@ -19,6 +18,7 @@ import AcercaDe from './components/acerca_de/acerca_de';
 
 //administrador
 import Administrador from './components/administrador/administrador';
+
 
 //busqueda
 import Busqueda from './components/busqueda/busqueda';
@@ -30,6 +30,10 @@ import Busqueda from './components/busqueda/busqueda';
 //nacional
 
 //politico
+import LoadInformation from './components/politico/load_information';
+import PoliticoForm from './components/politico/formulario/politico_form';
+import EventoForm from './components/politico/formulario/evento_form';
+import PropuestaForm from './components/politico/formulario/propuesta_form';
 
 //reutilizables
 import Footer from './components/reutilizables/footer';
@@ -112,26 +116,25 @@ class App extends React.Component {
                 <Route path="/signup" component={NeedLogout(SignUp)} />
                 <Route path="/soporte" component={Soporte} />
                 <Route path="/busqueda" component={Busqueda} />
+
+                <Route path="/politico/modificar/:id" component={LoadInformation(NeedLogin(PoliticoForm))} />
+                <Route path="/politico/formulario" component={NeedLogin(PoliticoForm)} />
+
+                <Route path="/propuesta/modificar/:id" component={LoadInformation(NeedLogin(PropuestaForm))} />
+                <Route path="/propuesta/formulario/:id" component={NeedLogin(PropuestaForm)} />
+
+                <Route path="/evento/modificar/:id" component={LoadInformation(NeedLogin(EventoForm))} />
+                <Route path="/evento/formulario/:id" component={NeedLogin(EventoForm)} />
+
                 {/*
                 <Route path="/" exact component={LandingPage} />
                 <Route path="/nacional" component={Nacional} /> 
-                <Route path="/bug" component={ReportarBug} />
-
-
+                <Route path="/bug" component={ReportarBug} />}
                 <Route path="/elecciones" component={Elecciones} />
                 <Route path="/politicos" component={Politicos} />
                 <Route path="/moderador" component={Moderador} />
-                <Route path="/crear/politico" component={PoliticoForm} />
-                <Route path="/crear/propuesta" component={PropuestaForm} />
-                <Route path="/crear/evento" component={EventoForm} />
-                <Route path="/crear/politico" component={PoliticoForm} />
-                <Route path="/crear/propuesta" component={PropuestaForm} />
-                <Route path="/crear/evento" component={EventoForm} />
-                <Route path="/crear/historial/:id" component={EventoForm} />
-                <Route path="/crear/propuestas/:id" component={PropuestaForm} />
+
                 <Route path="/politico/:id" exact component={PoliticoDetail} />
-                <Route path="/politico/:id/propuesta/:id_propuesta" exact component={PropuestaSeleccionada} />
-                <Route path="/politico/:id/evento/:id_evento" exact component={EventoSeleccionado} />
                 <Route path="/evento/modify/:id_evento" exact component={ModificarEvento} />
                 <Route path="/propuesta/modify/:id_propuesta" exact component={ModificarPropuesta} />
                 <Route path="/politico/modify/:id_politico" exact component={ModificarPolitico} />

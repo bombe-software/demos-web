@@ -1,43 +1,28 @@
 import React, { Component } from "react";
-import { graphql, compose } from 'react-apollo';
+
+import { graphql } from 'react-apollo';
 
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import { Form, Field } from "react-final-form";
-import NeedLogin from './../../generic/need_login';
-import WaveBackground from './../../generic/wave_background';
 
-import GenericForm from '../../generic/generic_form';
-import fetchPartidos from './../../../queries/fetchPartidos';
-import fetchUsuario from './../../../queries/fetchUsuario';
-import fetchEstados from './../../../queries/fetchEstados';
-import fetchGradoAcad from './../../../queries/fetchGradoAcad';
-import fetchLugarEstudio from './../../../queries/fetchLugarEstudio';
-import fetchPolitico from './../../../queries/fetchPoliticoPerfil';
-import ModifyPolitico from './../../../mutations/modify/ModifyPolitico';
+import WaveBackground from './../../reutilizables/wave_background';
+import LoadingScreen from './../../reutilizables/loading_screen';
 
-const load = async (props) => {
-  if (props.loading) return <div>Loading...</div>;
-  return {
-    nombre: props.politicosPorId.nombre,
-    partido: props.politicosPorId.partido.id,
-    estado: props.politicosPorId.estado.id,
-    cargo: props.politicosPorId.cargo,
-    grado_academico: props.politicosPorId.estudios[0].grado_academico.id,
-    lugar_estudio: props.politicosPorId.estudios[0].lugar_estudio.id,
-    titulo: props.politicosPorId.estudios[0].titulo
-  };
-};
+import GenericForm from './../../reutilizables/generic_form';
+import usuario_in$politico_form from './../../../queries/usuario_in.politico_form';
+import add_politico from './../../../mutations/add/politico';
 
-class ModificarPoliticoForm extends GenericForm {
+
+class PoliticoForm extends GenericForm {
+
   constructor(props) {
     super(props);
-    this.state = {
-      open: false,
-      data: {}
-    };
     this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      open: false
+    };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
   }
@@ -48,70 +33,55 @@ class ModificarPoliticoForm extends GenericForm {
 
   handleClose(){
     this.setState({ open: false });
-    this.props.history.push(`/politicos/`);
+    this.props.history.push(`/politicos`);
   };
-
-  async renderFetchField(props) {
-    this.setState({ loading: true });
-    const data = await load(props);
-    this.setState({ loading: false, data });
-  }
 
   async onSubmit(values) {
-    const usuario = this.props.fetchUsuario.usuario.id;
-    const id_politico = this.props.match.params.id_politico;
-    const estudios = this.props.fetchPolitico.politicosPorId.estudios[0].id;
-    const {
-    nombre, cargo, partido, estado, titulo, grado_academico, lugar_estudio, referencia
-    } = values
-
-    this.props.ModifyPolitico({
-      variables: {
-        id_politico, nombre, cargo, partido, estado,estudios , lugar_estudio,  grado_academico, titulo,  usuario,  referencia
-      }
-    }).then(this.handleOpen); 
+    const usuario = this.props.data.usuario_in.id;
+    const id_politico = this.props.match.params.id;
+    if(!this.props.o.mutate){
+      this.props.add_politico({
+        variables: {  usuario, ...values }
+      }).then(this.handleOpen);
+    }else{
+      this.props.o.mutate({variables: { usuario, id_politico, ...values } });
+      this.handleOpen();
+    }
   };
-  componentWillReceiveProps(props) {
-    { this.renderFetchField(props.fetchPolitico) }
-  }
-
   render() {
-    if (this.props.fetchPolitico.loading || this.props.fetchgrado_academico.loading || this.props.fetchLugarEstudio.loading || this.props.fetchPartidos.loading || this.props.fetchEstados.loading) {
-      return <div>Loading...</div>;
+    if (this.props.data.loading) {
+      return <LoadingScreen />;
     }
-    if (!this.props.fetchUsuario.usuario) {
-      return (
-        <NeedLogin />
-      );
-    }
-    console.log(this.props);
     return (
       <div>
         <Dialog
           title="Tu propuesta ahora está en espera de aprobación"
-          actions={[<FlatButton label="Ok" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+          actions={[<FlatButton label="Aceptar" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          Espera la aprobación de un moderador de tu propuesta
+          Espera la aprobación de un moderador de tu solicitud de agregar político
         </Dialog>
         <section className="hero is-large">
           <div className="section">
             <div className="columns">
-              <div className="column is-6-desktop is-8-tablet is-offset-3-desktop is-offset-2-tablet">
-                <div className="box" style={{ padding: "48px" }}>
+              <div className="column is-6-desktop is-10-tablet is-offset-3-desktop is-offset-2-tablet">
+                <div className="box" style={{padding: "48px"}}>
                   <br />
                   <h1 className="title has-text-centered">
-                    Modificar un político
+                    Registrar un político
                 </h1>
                   <br />
                   <p className="subtitle has-text-centered">
-                    ¿Encontró información incorrecta en los datos de algún político? Bríndenos su información y solicite modificarlo para que toda nuestra comunidad pueda verlo.
+                    ¿No encuentra a un político en nuestra página?
+                  Brindenos su información y solicite registrarlo para
+                  que toda nuestra comunidad pueda verlo.
                 </p>
                   <br />
                   <Form
-                    onSubmit={this.onSubmit} initialValues={this.state.data}
+                    onSubmit={this.onSubmit}
+                    initialValues={!this.props.o ? {} : this.props.o.politico }
                     validate={values => {
                       const errors = {};
                       if (!values.nombre) {
@@ -140,6 +110,7 @@ class ModificarPoliticoForm extends GenericForm {
                       }
                       if (!values.referencia) {
                         errors.referencia = "Escriba el link de referenica";
+
                       } else if (values.referencia != undefined) {
                         var re = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
                         if (/^\s+|\s+$/.test(values.referencia)) {
@@ -157,8 +128,8 @@ class ModificarPoliticoForm extends GenericForm {
                           <div className="level-item">
                             <Field name="nombre"
                               component={this.renderTextField}
-                              hintText="Escribe tu nombre"
-                              floatingLabelText="Nombre"
+                              hintText="Juan Pérez"
+                              floatingLabelText="Nombre del político"
                             />
                           </div>
                         </div>
@@ -170,7 +141,7 @@ class ModificarPoliticoForm extends GenericForm {
                               hintText="Partido politico"
                               floatingLabelText="Partido"
                             >
-                              {this.props.fetchPartidos.partidos.map(({ id, nombre }) => {
+                              {this.props.data.partidos.map(({ id, nombre }) => {
                                 return <MenuItem value={id} key={id} primaryText={nombre} />
                               })}
                             </Field>
@@ -197,7 +168,7 @@ class ModificarPoliticoForm extends GenericForm {
                               hintText="Seleccione un Estado"
                               floatingLabelText="Estado"
                             >
-                              {this.props.fetchEstados.estados.map(({ id, nombre }) => {
+                              {this.props.data.estados.map(({ id, nombre }) => {
                                 return <MenuItem value={id} key={id} primaryText={nombre} />
                               })}
                             </Field>
@@ -211,7 +182,7 @@ class ModificarPoliticoForm extends GenericForm {
                               hintText="Ing."
                               floatingLabelText="Título"
                             >
-                              {this.props.fetchgrado_academico.grados_academico.map(({ id, grado }) => {
+                              {this.props.data.grado_academicos.map(({ id, grado }) => {
                                 return <MenuItem value={id} key={id} primaryText={grado} />
                               })}
                             </Field>
@@ -235,7 +206,7 @@ class ModificarPoliticoForm extends GenericForm {
                               hintText="Lugar de estudio"
                               floatingLabelText="Lugar de estudio"
                             >
-                              {this.props.fetchLugarEstudio.lugares_estudio.map(({ id, nombre }) => {
+                              {this.props.data.lugar_estudios.map(({ id, nombre }) => {
                                 return <MenuItem value={id} key={id} primaryText={nombre} />
                               })}
                             </Field>
@@ -247,7 +218,7 @@ class ModificarPoliticoForm extends GenericForm {
                             <Field name="referencia"
                               component={this.renderTextField}
                               hintText="Ingrese el link de referencia"
-                              floatingLabelText="Referencia"
+                              floatingLabelText="Enlace consultado"
                             />
                           </div>
                         </div>
@@ -271,27 +242,4 @@ class ModificarPoliticoForm extends GenericForm {
   }
 }
 
-export default compose(
-  graphql(fetchPartidos, {
-    name: 'fetchPartidos'
-  }),
-  graphql(fetchEstados, {
-    name: 'fetchEstados'
-  }),
-  graphql(fetchGradoAcad, {
-    name: 'fetchgrado_academico'
-  }),
-  graphql(fetchLugarEstudio, {
-    name: 'fetchLugarEstudio'
-  }),
-  graphql(fetchUsuario, {
-    name: 'fetchUsuario'
-  }),
-  graphql(ModifyPolitico, {
-    name: 'ModifyPolitico'
-  }),
-  graphql(fetchPolitico, {
-    name: "fetchPolitico",
-    options: (props) => { return { variables: { id: props.match.params.id_politico } } }
-  })
-)(ModificarPoliticoForm);
+export default  graphql(add_politico)(graphql(usuario_in$politico_form)(PoliticoForm));

@@ -1,19 +1,20 @@
-
 import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
-import NeedLogin from './../../generic/need_login';
-import WaveBackground from './../../generic/wave_background';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { Form, Field } from "react-final-form";
-import GenericForm from '../../generic/generic_form';
-import LoadingScreen from '../../generic/loading_screen';
+
+
+import WaveBackground from './../../reutilizables/wave_background';
+import GenericForm from './../../reutilizables/generic_form';
+import LoadingScreen from './../../reutilizables/loading_screen';
+
 //Queries y Mutations
-import fetchTipoPropuesta from './../../../queries/fetchTipoPropuesta';
-import addPropuesta from "../../../mutations/add/addPropuesta";
-import fetchUsuario from "../../../queries/fetchUsuario";
+import query from "../../../queries/usuario_in.propuesta_form";
+import add_propuesta from "../../../mutations/add/propuesta";
+
 
 class PropuestaForm extends GenericForm {
   constructor(props) {
@@ -33,30 +34,30 @@ class PropuestaForm extends GenericForm {
 
   handleClose(){
     this.setState({ open: false });
-    this.props.history.push(`/politico/${this.props.match.params.id}`)
+    this.props.history.push(`/politico/${this.props.o.propuesta.politico.id}`)
   };
 
   async onSubmit(values) {
-    const usuario = this.props.fetchUsuario.usuario.id;
-    const politico = this.props.match.params.id;
+    const usuario = this.props.data.usuario_in.id;
+    const politico = this.props.o.propuesta.politico.id;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values
-    this.props.addPropuesta({
-      variables: {
-        titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
-      }
-    }).then(this.handleOpen); 
+    if(!this.props.o.mutate){
+      this.props.addPropuesta({
+        variables: {
+          titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
+        }
+      }).then(this.handleOpen); 
+    }else{
+      this.props.o.mutate({variables: { usuario, politico, ...values } });
+      this.handleOpen();
+    }
   };
 
   render() {
-    if (this.props.fetchTipoPropuesta.loading) {
+    if (this.props.data.loading) {
       return <LoadingScreen />;
-    }
-    if (!this.props.fetchUsuario.usuario) {
-      return (
-        <NeedLogin />
-      );
     }
     return (
       <div>
@@ -88,6 +89,7 @@ class PropuestaForm extends GenericForm {
                   <br />
                   <Form
                     onSubmit={this.onSubmit}
+                    initialValues={!this.props.o ? {} : this.props.o.propuesta }
                     validate={values => {
                       const errors = {};
                       if (!values.titulo) {
@@ -149,7 +151,7 @@ class PropuestaForm extends GenericForm {
                               hintText="Escribe tipo de la propuesta"
                               floatingLabelText="Tipo de la propuesta"
                             >
-                              {this.props.fetchTipoPropuesta.tipos_propuesta.map(({ id, tipo }) => {
+                              {this.props.data.tipo_propuestas.map(({ id, tipo }) => {
                                 return <MenuItem value={id} key={id} primaryText={tipo} />
                               })}
                             </Field>
@@ -161,6 +163,7 @@ class PropuestaForm extends GenericForm {
                               component={this.renderDateField}
                               hintText="Seleccione la fecha"
                               floatingLabelText="Fecha"
+                              defaultDate={!this.props.o ? new Date() : new Date(values.fecha)}
                             />
                           </div>
                         </div>
@@ -192,17 +195,4 @@ class PropuestaForm extends GenericForm {
     );
   }
 }
-export default compose(
-  graphql(fetchTipoPropuesta,
-    {
-      name: 'fetchTipoPropuesta'
-    }),
-  graphql(addPropuesta,
-    {
-      name: 'addPropuesta'
-    }),
-  graphql(fetchUsuario,
-    {
-      name: 'fetchUsuario'
-    })
-)(PropuestaForm);
+export default  graphql(add_propuesta)(graphql(query)(PropuestaForm));
