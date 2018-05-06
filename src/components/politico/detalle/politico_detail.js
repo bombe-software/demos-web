@@ -1,64 +1,137 @@
 import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
+import { Link } from "react-router-dom";
+import _ from 'lodash';
+
+
+import LoadingScreen from './../../reutilizables/loading_screen';
+import NeedLogin from './../../reutilizables/access/need_login';
 import Historial from './historial';
 import Propuestas from './propuestas';
-
-import fetchPoliticosDetail from '../../../queries/fetchPoliticoDetail';
-import fetchUsuario from "../../../queries/fetchUsuario";
-
 import PoliticoPerfil from './politico_perfil';
 
-import LoadingScreen from '../../generic/loading_screen';
+import politico from "./../../../queries/politico";
 
 class PoliticoDetail extends Component {
     constructor(props) {
         super(props);
-        let { id } = this.props.match.params;
         this.state = {
             type: 'propuestas',
-            id_politico: id
+            id_selected: ''
         };
         this.updatePropuestas = this.updatePropuestas.bind(this);
         this.updateHistorial = this.updateHistorial.bind(this);
+        this.updateSearch = this.updateSearch.bind(this);
+        this.regresar = this.regresar.bind(this);
     }
 
     updatePropuestas() {
-        this.setState({ type: 'propuestas' })
+        this.setState({ type: 'propuestas', id_selected: '' })
     }
     updateHistorial() {
-        this.setState({ type: 'historial' })
+        this.setState({ type: 'historial', id_selected: '' })
+    }
+    updateSearch(id_selected) {
+        return () => {
+            this.setState({ id_selected })
+        }
+    }
+
+    regresar() {
+        this.setState({ id_selected: '' })
     }
 
     renderSection() {
-        if (!this.props.fetchPolitico.loading &&  !this.props.fetchUsuario.loading) {
+        if (this.state.id_selected.length == 0) {
             if (this.state.type == "propuestas") {
                 return (
                     <div>
-                        <Propuestas
-                            cargo = {this.props.fetchPolitico.politicosPorId.cargo}
-                            propuestas={this.props.fetchPolitico.politicosPorId.propuestas}
-                            id_politico={this.props.fetchPolitico.politicosPorId.id}
-                            id_usuario={this.props.fetchUsuario.usuario == undefined ? null : this.props.fetchUsuario.usuario.id}
-                        />
+                        <div className="level">
+                            <div className="level-left"></div>
+                            <div className="level-right">
+                                <div className="level-item">
+                                    <p className="has-text-right">
+                                        <Link to={"/crear/propuestas/" + this.props.data.politico.id} className="button is-success">
+                                            <i className="fa fa-plus" aria-hidden="true"></i>
+                                            &nbsp;&nbsp;&nbsp;Agregar una propuesta
+                                        </Link>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="panel">
+                            <div className="panel-heading">
+                                Propuestas del político
+                          </div>
+                            <Propuestas
+                                search={this.updateSearch}
+                                cargo={this.props.data.politico.cargo}
+                                propuestas={this.props.data.politico.propuestas}
+                            />
+                        </div>
+                    </div>
+                );
+            } else if (this.state.type == "historial") {
+                return (
+                    <div>
+                        <div className="level">
+                            <div className="level-left">
+                                <h2 className="title is-4">Eventos</h2>
+                            </div>
+                            <div className="level-right">
+                                <div className="level-item">
+                                    <p className="has-text-right">
+                                        <Link to={"/crear/propuestas/" + this.props.data.politico.id} className="button is-success">
+                                            <i className="fa fa-plus" aria-hidden="true"></i>
+                                            &nbsp;&nbsp;&nbsp;Agregar un evento
+                                        </Link >
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <ul className="timeline ">
+                            <Historial
+                                search={this.updateSearch}
+                                eventos={this.props.data.politico.eventos}
+                            />
+                        </ul>
+                    </div>
+                );
+            }
+        } else {
+            if (this.state.type == "propuestas") {
+                return (
+                    <div>
+                        <div>
+                            <a onClick={this.regresar}>
+                                <span className="is-5 title"><i className="fa fa-arrow-left"></i> Regresar</span>
+                            </a>
+                        </div>
+                        {/** 
+                            Agregar componente evento seleccionad
+                        */}
+                        Propuesta: {this.state.id_selected}
                     </div>
                 );
             } else if (this.state.type == "historial") {
 
                 return (
                     <div>
-                        <Historial
-                            eventos={this.props.fetchPolitico.politicosPorId.eventos}
-                            id_politico={this.props.fetchPolitico.politicosPorId.id}
-                        />
+                        <div>
+                            <a onClick={this.regresar}>
+                                <span className="is-5 title"><i className="fa fa-arrow-left"></i> Regresar</span>
+                            </a>
+                        </div>
+                        {/** 
+                            Agregar componente evento seleccionad
+                        */}
+                        Evento: {this.state.id_selected}
                     </div>
                 );
             }
-        } else {
-            return (
-                <LoadingScreen />
-            );
         }
     }
+
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion
@@ -72,13 +145,20 @@ class PoliticoDetail extends Component {
         console.log("Info: " + info);
     }
     render() {
+        if (this.props.data.loading) return <LoadingScreen />
+        const PoliticoPerfilWithUsuario = NeedLogin(PoliticoPerfil, 'variable');
         return (
             <div>
                 <br />
                 <div className="section">
                     <div className="columns is-desktop">
                         <div className="column is-2-fullhd is-3-widescreen is-3-desktop is-offset-1-desktop is-offset-1-widescreen is-12-tablet is-12-mobile is-offset-2-fullhd">
-                            <PoliticoPerfil id={this.props.match.params.id} />
+                            <PoliticoPerfilWithUsuario
+                                id={this.props.data.politico.id}
+                                partido={this.props.data.politico.partido}
+                                estudios={this.props.data.politico.estudios}
+                                nombre={this.props.data.politico.nombre}
+                            />
                         </div>
                         <div className="column is-6-fullhd is-7-widescreen is-7-desktop is-12-tablet is-12-mobile">
                             <div className="tabs is-medium is-boxed">
@@ -112,13 +192,6 @@ class PoliticoDetail extends Component {
         )
     }
 }
-export default
-    compose(
-        graphql(fetchUsuario, {
-            name: 'fetchUsuario'
-        }),
-        graphql(fetchPoliticosDetail, {
-            name: 'fetchPolitico',
-            options: (props) => { return { variables: { id: props.match.params.id } } }
-        })
-    )(PoliticoDetail);
+export default graphql(politico, {
+    options: (props) => { return { variables: { id: props.match.params.id } } }
+})(PoliticoDetail);

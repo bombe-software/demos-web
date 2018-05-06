@@ -104,7 +104,7 @@ class Politicos extends Component {
                     <br />
                     {politicos.map(o => {
                             return (
-                                <div key={id}>
+                                <div key={o.id}>
                                     <CardPolitico o={o} />
                                     <br />
                                 </div>

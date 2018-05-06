@@ -12,7 +12,7 @@ import GenericForm from './../../reutilizables/generic_form';
 import LoadingScreen from './../../reutilizables/loading_screen';
 
 //Queries y Mutations
-import query from "../../../queries/usuario_in.propuesta_form";
+import query from "../../../queries/propuesta_form";
 import add_propuesta from "../../../mutations/add/propuesta";
 
 
@@ -38,7 +38,7 @@ class PropuestaForm extends GenericForm {
   };
 
   async onSubmit(values) {
-    const usuario = this.props.data.usuario_in.id;
+    const usuario = this.props.data.id_usuario;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values

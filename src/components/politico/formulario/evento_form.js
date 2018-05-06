@@ -11,7 +11,6 @@ import GenericForm from './../../reutilizables/generic_form';
 import LoadingScreen from './../../reutilizables/loading_screen';
 
 //Queries
-import query from './../../../queries/usuario_in.evento_form';
 import add_evento from './../../../mutations/add/evento';
 
 
@@ -38,7 +37,7 @@ class EventoForm extends GenericForm {
   };
 
   async onSubmit(values) {
-    const usuario = this.props.data.usuario_in.id;
+    const usuario = this.props.id_usuario;
     const {
       fecha, titulo,
       descripcion, referencia
@@ -177,4 +176,4 @@ class EventoForm extends GenericForm {
   }
 }
 
-export default  graphql(add_evento)(graphql(query)(EventoForm));
+export default  graphql(add_evento)(EventoForm);

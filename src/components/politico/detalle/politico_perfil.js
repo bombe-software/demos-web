@@ -4,21 +4,16 @@ import { Link } from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
-import deletePolitico from '../../../mutations/captcha/DeletePolitico';
-import fetchPoliticoPerfil from '../../../queries/fetchPoliticoPerfil';
-import fetchUsuario from '../../../queries/fetchUsuario';
-import BotonCaptcha from './../../generic/boton_captcha';
-import LoadingScreen from "../../generic/loading_screen";
+import delete_politico from './../../../mutations/delete/politico';
+import BotonCaptcha from './../../reutilizables/boton_captcha';
+
 class PoliticoPerfil extends Component {
     constructor(props) {
         super(props);
-        let { id } = this.props;
         this.state = {
-            id_politico: id,
             open: false
         };
-        this.Eliminar = this.Eliminar.bind(this);
-        this.renderBotonEliminar = this.renderBotonEliminar.bind(this);
+        this.eliminar = this.eliminar.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
     }
@@ -34,13 +29,10 @@ class PoliticoPerfil extends Component {
         console.log("Error: " + error);
         console.log("Info: " + info);
     }
-    Eliminar() {
+    eliminar() {
         let politico = this.props.id;
-        if(!this.props.fetchUsuario.usuario){
-            this.props.history.push('/need_login');
-        }
-        let usuario = this.props.fetchUsuario.usuario.id;
-        this.props.deletePolitico({
+        let usuario = this.props.id_usuario;
+        this.props.mutate({
             variables: {
                 politico, usuario
             }
@@ -55,15 +47,8 @@ class PoliticoPerfil extends Component {
         this.setState({ open: false });
     };
 
-    shouldComponentUpdate(nextProps) {
-        if (nextProps.fetchPolitico) {
-            nextProps.fetchPolitico.refetch();
-            return true;
-        }
-    }
     render() {
-        if (this.props.fetchPolitico.politicosPorId != undefined) {
-            let politico, { nombre, partido, estudios } = this.props.fetchPolitico.politicosPorId;
+        const { id, partido, estudios, nombre } = this.props;
             return (
                 <div>
                     <Dialog
@@ -95,34 +80,18 @@ class PoliticoPerfil extends Component {
                         </div>
                         <div className="card-footer">
                             <span className="card-footer-item">
-                                <Link to={`/politico/modify/${this.props.id}`}>
+                                <Link to={`/politico/modificar/${id}`}>
                                     <span className="is-6"><i className="fa fa-pencil"></i> Modificar</span>
                                 </Link>
                             </span>
                             <span className="card-footer-item">
-                                <BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar} />
+                                <BotonCaptcha label={"Borrar"} checkedFunction={this.eliminar} />
                             </span>
                         </div>
                     </div>
                 </div>
             );
-        } else {
-            return (
-                <div></div>
-            );
-        }
     }
 }
 
-export default compose(
-    graphql(fetchPoliticoPerfil, {
-        name: 'fetchPolitico',
-        options: (props) => { return { variables: { id: props.id } } }
-    }),
-    graphql(fetchUsuario, {
-        name: 'fetchUsuario'
-    }),
-    graphql(deletePolitico, {
-        name: 'deletePolitico'
-    })
-)(PoliticoPerfil);
+export default graphql(delete_politico)(PoliticoPerfil);

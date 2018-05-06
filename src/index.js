@@ -31,6 +31,7 @@ import Busqueda from './components/busqueda/busqueda';
 
 //politico
 import Politicos from './components/politico/politicos';
+import PoliticoDetail from './components/politico/detalle/politico_detail';
 import LoadInformation from './components/politico/load_information';
 import PoliticoForm from './components/politico/formulario/politico_form';
 import EventoForm from './components/politico/formulario/evento_form';
@@ -118,27 +119,26 @@ class App extends React.Component {
                 <Route path="/soporte" component={Soporte} />
                 <Route path="/busqueda" component={Busqueda} />
 
-                <Route path="/politico/modificar/:id" component={LoadInformation(NeedLogin(PoliticoForm))} />
-                <Route path="/politico/formulario" component={NeedLogin(PoliticoForm)} />
+                <Route path="/politico/modificar/:id" exact component={LoadInformation(NeedLogin(PoliticoForm))} />
+                <Route path="/politico/formulario" exact component={NeedLogin(PoliticoForm)} />
 
-                <Route path="/propuesta/modificar/:id" component={LoadInformation(NeedLogin(PropuestaForm))} />
-                <Route path="/propuesta/formulario/:id" component={NeedLogin(PropuestaForm)} />
+                <Route path="/propuesta/modificar/:id" exact component={LoadInformation(NeedLogin(PropuestaForm))} />
+                <Route path="/propuesta/formulario/:id" exact component={NeedLogin(PropuestaForm)} />
 
-                <Route path="/evento/modificar/:id" component={LoadInformation(NeedLogin(EventoForm))} />
-                <Route path="/evento/formulario/:id" component={NeedLogin(EventoForm)} />
+                <Route path="/evento/modificar/:id" exact component={LoadInformation(NeedLogin(EventoForm))} />
+                <Route path="/evento/formulario/:id" exact component={NeedLogin(EventoForm)} />
 
-                <Route path="/politicos" component={Politicos} />
+                <Route path="/politicos" exact component={Politicos} />
+                <Route path="/politico/:id" exact component={PoliticoDetail} />
                 
 
                 {/*
                 <Route path="/" exact component={LandingPage} />
                 <Route path="/nacional" component={Nacional} /> 
                 <Route path="/bug" component={ReportarBug} />}
-                <Route path="/politico/:id" component={PoliticoDetail} />
                 <Route path="/elecciones" component={Elecciones} />
                 
                 <Route path="/moderador" component={Moderador} />
-                
                 */}
                 <Route path="/need_login" exact component={ScreenNeedLogin} />
                 <Route component={NotFound} />

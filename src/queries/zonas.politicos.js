@@ -2,21 +2,27 @@ import gql from 'graphql-tag';
 
 export default gql`
 {
-    zonas{
+  zonas {
+    id
+    nombre
+    estados {
       id
       nombre
-      estados{
+      candidatos {
         id
         nombre
-        candidatos{
-          id
+        partido {
           nombre
         }
-        funcionarios{
-          id
+      }
+      funcionarios {
+        id
+        nombre
+        partido {
           nombre
         }
       }
     }
   }
+}
 `;

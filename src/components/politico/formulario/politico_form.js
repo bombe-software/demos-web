@@ -11,7 +11,7 @@ import WaveBackground from './../../reutilizables/wave_background';
 import LoadingScreen from './../../reutilizables/loading_screen';
 
 import GenericForm from './../../reutilizables/generic_form';
-import usuario_in$politico_form from './../../../queries/usuario_in.politico_form';
+import usuario_in$politico_form from './../../../queries/politico_form';
 import add_politico from './../../../mutations/add/politico';
 
 
@@ -37,7 +37,7 @@ class PoliticoForm extends GenericForm {
   };
 
   async onSubmit(values) {
-    const usuario = this.props.data.usuario_in.id;
+    const usuario = this.props.data.id_usuario;
     const id_politico = this.props.match.params.id;
     if(!this.props.o.mutate){
       this.props.add_politico({

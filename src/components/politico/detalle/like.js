@@ -23,7 +23,6 @@ class Like extends Component {
 
     onLike() {
         const { id_propuesta, id_usuario } = this.props;
-        console.log("like");
         this.props.mutateLike({
             variables: { id_propuesta, id_usuario }
         }).then(response => this.setState({ isLiked: true, count: response.data.like_propuesta.likes.length }));
@@ -31,7 +30,6 @@ class Like extends Component {
 
     onDislike() {
         const { id_propuesta, id_usuario } = this.props;
-        console.log("dislike");
         this.props.mutateDislike({
             variables: { id_propuesta, id_usuario }
         }).then(response => {
