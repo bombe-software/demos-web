@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-
+import axios, { post } from 'axios';
 import { graphql } from 'react-apollo';
+import { demos_krb_http } from '../../../../deploy';
 
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
@@ -21,12 +22,17 @@ class PoliticoForm extends GenericForm {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      open: false
+      open: false,
+      file: null,
+      error: '',
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.onChange = this.onChange.bind(this)
   }
-
+  onChange(e) {
+    this.setState({ file: e.target.files[0] })
+  }
   handleOpen(){
     this.setState({ open: true });
   };
@@ -37,21 +43,42 @@ class PoliticoForm extends GenericForm {
   };
 
   async onSubmit(values) {
-    const usuario = this.props.data.id_usuario;
+    if(this.state.file) {
+    const usuario = this.props.id_usuario;
+    //console.log(this.props);
     const id_politico = this.props.match.params.id;
-    if(!this.props.o.mutate){
-      this.props.add_politico({
+   
+    if(!this.props.o){
+      this.props.mutate({
         variables: {  usuario, ...values }
-      }).then(this.handleOpen);
+      }).then(response => { 
+        const url = demos_krb_http +'/uploadFile';
+        const formData = new FormData();
+        formData.append('file',this.state.file)
+        formData.append('id_solicitud',response.data.add_politico.id )
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+        axios.post(url, formData ,config)
+        .catch(error => {
+            console.log(error.response)
+        });
+        this.handleOpen();
+      });
+      
+
     }else{
       this.props.o.mutate({variables: { usuario, id_politico, ...values } });
       this.handleOpen();
     }
+  }
   };
   render() {
     if (this.props.data.loading) {
       return <LoadingScreen />;
-    }
+    } 
     return (
       <div>
         <Dialog
@@ -120,6 +147,9 @@ class PoliticoForm extends GenericForm {
                             errors.referencia = "Los links deben empezar con http,https. (http(s)://www.demos.com)";
                           }
                       }
+                      if(this.state.file === null){
+                        this.setState({ error: 'Seleccione una imagen' })
+                      } 
                       return errors;
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (
@@ -222,6 +252,12 @@ class PoliticoForm extends GenericForm {
                             />
                           </div>
                         </div>
+                        <FlatButton
+                          containerElement='label' // <-- Just add me!
+                        >
+                          <input type="file" onChange={this.onChange} accept=".png, .jpg, .jpeg" />
+                        </FlatButton>
+                        <code>{this.state.error}</code>
                         <br />
                         <div className="buttons has-text-centered">
                           <button type="submit" className="button is-primary" disabled={submitting}>

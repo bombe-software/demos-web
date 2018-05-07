@@ -92,6 +92,7 @@ class Politicos extends Component {
             const zona = _.find(this.props.data.zonas, { id: this.state.zona });
             const estado = _.find(zona.estados, { id: this.state.estado });
             const politicos = (this.state.puesto == 1) ? estado.candidatos : estado.funcionarios;
+            console.log(politicos);
             return (
                 <div>
                     <h3 className="title is-3">
@@ -156,7 +157,7 @@ class Politicos extends Component {
                                 <div className="level-right">
                                     <div className="level-item">
                                         <p className="has-text-right">
-                                            <Link to="/crear/politico" className="button is-success">
+                                            <Link to="/politico/formulario" className="button is-success">
                                                 <i className="fa fa-plus" aria-hidden="true"></i>
                                                 &nbsp;&nbsp;&nbsp;Agregar un político
                                 </Link >
