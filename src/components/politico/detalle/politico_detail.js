@@ -3,7 +3,7 @@ import { graphql, compose } from 'react-apollo';
 import { Link } from "react-router-dom";
 import _ from 'lodash';
 
-
+import EventoDetail from "./evento_detail";
 import LoadingScreen from './../../reutilizables/loading_screen';
 import NeedLogin from './../../reutilizables/access/need_login';
 import Historial from './historial';
@@ -108,13 +108,13 @@ class PoliticoDetail extends Component {
                             </a>
                         </div>
                         {/** 
-                            Agregar componente evento seleccionad
+                            Agregar componente evento seleccionado
                         */}
                         Propuesta: {this.state.id_selected}
                     </div>
                 );
             } else if (this.state.type == "historial") {
-
+                const EventoDetailWithUsuario = NeedLogin(EventoDetail, 'variable');
                 return (
                     <div>
                         <div>
@@ -122,10 +122,10 @@ class PoliticoDetail extends Component {
                                 <span className="is-5 title"><i className="fa fa-arrow-left"></i> Regresar</span>
                             </a>
                         </div>
-                        {/** 
-                            Agregar componente evento seleccionad
-                        */}
-                        Evento: {this.state.id_selected}
+                        <EventoDetailWithUsuario
+                         id={this.state.id_selected} 
+                         handleOpen={this.handleOpen}
+                         />
                     </div>
                 );
             }
