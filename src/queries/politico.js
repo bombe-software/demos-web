@@ -8,6 +8,10 @@ query data($id: ID!) {
     propuestas {
       id
       titulo
+      fecha
+      tipo_propuesta{
+        tipo
+      }
     }
     eventos {
       id

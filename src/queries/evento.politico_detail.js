@@ -10,7 +10,6 @@ query data($id: ID!) {
       referencia
       usuario {
        nombre
-      avatar
       }
     }
   }
