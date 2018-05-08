@@ -18,7 +18,7 @@ import AcercaDe from './components/acerca_de/acerca_de';
 
 //administrador
 import Administrador from './components/administrador/administrador';
-
+import ReportarBug from "./components/administrador/reportar_bug"
 
 //busqueda
 import Busqueda from './components/busqueda/busqueda';
@@ -28,7 +28,7 @@ import Busqueda from './components/busqueda/busqueda';
 //landing_page
 
 //nacional
-
+import Nacional from './components/nacional/nacional';
 //politico
 import Politicos from './components/politico/politicos';
 import PoliticoDetail from './components/politico/detalle/politico_detail';
@@ -130,12 +130,12 @@ class App extends React.Component {
 
                 <Route path="/politicos" exact component={Politicos} />
                 <Route path="/politico/:id" exact component={PoliticoDetail} />
-                
-
+                <Route path="/bug" component={NeedLogin(ReportarBug)} />} 
+                <Route path="/nacional" component={Nacional} />
                 {/*
-                <Route path="/" exact component={LandingPage} />
+                <Route path="/" exact component={LandingPage} /> 
                 <Route path="/nacional" component={Nacional} /> 
-                <Route path="/bug" component={ReportarBug} />}
+                <Route path="/bug" component={ReportarBug} />} 
                 <Route path="/elecciones" component={Elecciones} />
                 
                 <Route path="/moderador" component={Moderador} />

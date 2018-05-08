@@ -1,29 +1,21 @@
 import gql from 'graphql-tag';
 
 export default gql`
-{
-  zonas {
-    id
-    nombre
-    estados {
+query data($id_estado: ID!){
+    like_nacionals_by_id_estado(id_estado: $id_estado){
       id
-      nombre
-      candidatos {
+      politico{
         id
         nombre
         partido {
           id
           nombre
+          color
         }
       }
-      funcionarios {
+      usuarios{
         id
-        nombre
-        partido {
-          nombre
-        }
       }
     }
   }
-}
 `;

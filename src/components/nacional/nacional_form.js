@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import { graphql, compose } from 'react-apollo';
-import usuario from "./../../queries/fetchUsuario";
-import fetchLikesNacionalPorEstado from "./../../queries/fetchLikesNacionalPorEstado";
-import Voto_nacional from "./../../mutations/voto _nacional";
+import likes_nacional_by_estado from "./../../queries/likes_nacional_by_estado";
+import voto_nacional from "./../../mutations/especiales/voto_nacional";
 import { Link } from "react-router-dom";
 
 class NacionalForm extends Component {
@@ -41,20 +40,23 @@ class NacionalForm extends Component {
         if (this.state.id_politico_preferido.length == 0) {
             this.setState({ mensaje: "Selecciona a alguien" })
         } else {
-            this.props.updateVoto({
+            this.props.mutate({
                 variables: {
                     id_estado: this.props.id_estado,
-                    id_usuario: this.props.fetchUsuario.usuario.id,
+                    id_usuario: this.props.id_usuario,
                     id_politico: this.state.id_politico_preferido
                 },
-                refetchQueries: [{ query: fetchLikesNacionalPorEstado }]
-            }).then(console.log("cambios hechos"));
+                refetchQueries: [{ 
+                    query: likes_nacional_by_estado,
+                    variables: { id_estado: this.props.id_estado } 
+                }]
+            });
         }
     }
 
     renderListPoliticos() {
         //Agregar render de politicos
-        return this.props.fetch.likes_nacionalPorEstado.map(({ politico }) => {
+        return this.props.data.like_nacionals_by_id_estado.map(({ politico }) => {
             return (
                 <div key={politico.id} >
                     <div style={this.state.id_politico_preferido == politico.id ? {color: "#50C9A4"} : {color: '#565656'}} onClick={() => this.handlePolitico(politico.id)}>
@@ -83,7 +85,7 @@ class NacionalForm extends Component {
     }
 
     render() {
-        if (this.props.fetch.loading || this.props.updateVoto.loading || this.props.fetchUsuario.loading) return <div> </div>
+        if (this.props.data.loading) return <div> </div>
         return (
             <div>
 
@@ -108,15 +110,8 @@ class NacionalForm extends Component {
         )
     }
 }
-export default compose(
-    graphql(Voto_nacional, {
-        name: 'updateVoto'
-    }),
-    graphql(fetchLikesNacionalPorEstado, {
-        name: 'fetch',
-        options: (props) => { return { variables: { id_estado: props.id_estado } } }
-    }),
-    graphql(usuario, {
-        name: 'fetchUsuario'
-    })
-)(NacionalForm);
+export default graphql(voto_nacional)(graphql(likes_nacional_by_estado, 
+    {
+          options: (props) => { return { variables: { id_estado: props.id_estado } } }
+    })(NacionalForm))
+

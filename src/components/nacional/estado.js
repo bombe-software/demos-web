@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { graphql, compose } from 'react-apollo';
+import { graphql} from 'react-apollo';
 
-import fetchLikesNacionalPorEstado from "./../../queries/fetchLikesNacionalPorEstado";
+import fetchLikesNacionalPorEstado from "./../../queries/likes_nacional_by_estado";
 
 class Estado extends Component {
     constructor(props) {
@@ -22,12 +22,6 @@ class Estado extends Component {
         }
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (this.state == nextState) {
-            return false;
-        }
-    }
-
     color() {
         return { r: 68, g: 68, b: 68, a: 0.9 }
     }
@@ -38,11 +32,13 @@ class Estado extends Component {
 
     getRGBA(color) {
         let { r, g, b, a } = color;
+        console.log("rgba(" + r + ", " + g + ", " + b + ", " + a + ")");
         return "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
     }
 
     stringToObject(color) {
-        if (this.props.fetch.likes_nacionalPorEstado.length > 0) {
+       
+        if (this.props.data.like_nacionals_by_id_estado.length > 0) {
             return (<div>Nel prro</div>);
         } else {
             let colorArray = color.split(",");
@@ -59,13 +55,13 @@ class Estado extends Component {
     }
 
     renderColor() {
-        if (!this.props.fetch.loading) {
-            if (this.props.fetch.likes_nacionalPorEstado.length == 0) {
+        if (!this.props.data.loading) {
+            if (this.props.data.like_nacionals_by_id_estado.length == 0) {
                 console.log("");
-            } else if (this.props.fetch.likes_nacionalPorEstado.length < 0) {
-                let likes = this.props.fetch.likes_nacionalPorEstado
+            } else if (this.props.data.like_nacionals_by_id_estado.length < 0) {
+                let likes = this.props.data.like_nacionals_by_id_estado
                 let preferencias = [];
-
+                console.log()
                 _.map(likes, like => {
                     preferencias.push({
                         color: like.politico.partido.color,
@@ -75,9 +71,6 @@ class Estado extends Component {
                     });
 
                 });
-
-
-
                 preferencias = _.sortBy(preferencias, 'likes');
                 preferencias.reverse();
                 let color;
@@ -88,9 +81,6 @@ class Estado extends Component {
             }
         }
     }
-    componentWillReceiveProps(nextProps) {
-        nextProps.fetch.refetch();
-      } 
     render() {
         return (
             <path
@@ -104,13 +94,8 @@ class Estado extends Component {
 }
 
 
-export default compose(
-    graphql(fetchLikesNacionalPorEstado, {
-        name: 'fetch',
-        options: (props) => {
-            return {
-                variables: { id_estado: props.name }
-            }
-        }
-    })
+export default graphql(fetchLikesNacionalPorEstado, {
+    options: (props) => {
+        return { variables: { id_estado: props.name } 
+    } } }
 )(Estado);

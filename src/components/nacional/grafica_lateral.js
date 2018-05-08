@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import Estado from './estado';
 import { Pie } from 'react-chartjs-2';
 import { graphql, compose } from 'react-apollo';
-import fetchLikesNacionalPorEstado from "./../../queries/fetchLikesNacionalPorEstado";
-import Voto_nacional from "./../../mutations/voto _nacional";
+import likes_nacional_by_estado from "./../../queries/likes_nacional_by_estado";
 import _ from "lodash";
+import { defaultCipherList } from 'constants';
 
 class GraficaLateral extends Component {
 
@@ -37,13 +37,11 @@ class GraficaLateral extends Component {
       }
 
       handleEstadoSelected(id) {
-            console.log(id);
             this.setState({ estadoSelected: id });
       }
 
       renderDatos() {
-
-            let likes = this.props.fetch.likes_nacionalPorEstado
+            let likes = this.props.data.like_nacionals_by_id_estado
             var usuarios = [];
             var color = [];
             var colorHover = [];
@@ -54,16 +52,6 @@ class GraficaLateral extends Component {
                   usuarios.push(like.usuarios.length);
                   labels.push(like.politico.nombre);
             });
-
-            console.log({
-                  labels: labels,
-                  datasets: [{
-                        data: usuarios,
-                        backgroundColor: color,
-                        hoverBackgroundColor: colorHover
-                  }]
-            });
-
             return {
                   labels: labels,
                   datasets: [{
@@ -73,27 +61,17 @@ class GraficaLateral extends Component {
                   }]
             };
       }
-      componentWillReceiveProps(nextProps) {
-            nextProps.fetch.refetch();
-      }
       render() {
-            if (this.props.fetch.loading || this.props.mutate.loading) return <div> </div>
-            console.log(this.props.fetch.likes_nacionalPorEstado);
-            //console.log(this.props.mutate.votarNacional); $id_politico: ID, $id_usuario: ID, $id_estado: ID
+            if (this.props.data.loading) return <div>juiju</div>
             return (
                   <div>
+                        jujuju
                         <Pie data={this.renderDatos()} />
                   </div>
             )
       }
 }
-
-export default compose(
-      graphql(Voto_nacional, {
-            name: 'mutate'
-      }),
-      graphql(fetchLikesNacionalPorEstado, {
-            name: 'fetch',
-            options: (props) => { return { variables: { id_estado: props.id_estado } } }
-      })
-)(GraficaLateral);
+export default graphql(likes_nacional_by_estado, 
+{
+      options: (props) => { return { variables: { id_estado: props.id_estado } } }
+})(GraficaLateral)
