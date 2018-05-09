@@ -19,14 +19,17 @@ query data($id: ID!) {
       fecha
     }
     partido {
+      id
       nombre
     }
     estudios {
       id
+      titulo
       grado_academico {
         grado
       }
       lugar_estudio {
+        id
         nombre
       }
     }

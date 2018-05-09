@@ -92,7 +92,6 @@ class Politicos extends Component {
             const zona = _.find(this.props.data.zonas, { id: this.state.zona });
             const estado = _.find(zona.estados, { id: this.state.estado });
             const politicos = (this.state.puesto == 1) ? estado.candidatos : estado.funcionarios;
-            console.log(politicos);
             return (
                 <div>
                     <h3 className="title is-3">

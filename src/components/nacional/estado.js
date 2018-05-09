@@ -32,14 +32,14 @@ class Estado extends Component {
 
     getRGBA(color) {
         let { r, g, b, a } = color;
-        console.log("rgba(" + r + ", " + g + ", " + b + ", " + a + ")");
+        //console.log("rgba(" + r + ", " + g + ", " + b + ", " + a + ")");
         return "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
     }
 
     stringToObject(color) {
        
         if (this.props.data.like_nacionals_by_id_estado.length > 0) {
-            return (<div>Nel prro</div>);
+            return (<div></div>);
         } else {
             let colorArray = color.split(",");
             return { r: parseInt(colorArray[0]), g: parseInt(colorArray[1]), b: parseInt(colorArray[2]), a: 1 }
@@ -61,7 +61,6 @@ class Estado extends Component {
             } else if (this.props.data.like_nacionals_by_id_estado.length < 0) {
                 let likes = this.props.data.like_nacionals_by_id_estado
                 let preferencias = [];
-                console.log()
                 _.map(likes, like => {
                     preferencias.push({
                         color: like.politico.partido.color,

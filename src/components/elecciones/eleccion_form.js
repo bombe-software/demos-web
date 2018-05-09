@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import _ from "lodash";
 
-import { graphql, compose } from 'react-apollo';
-import eleccion from "../../queries/fetchVotacionEstado";
-import usuario from "../../queries/fetchUsuario";
-import voto_por_estado from "./../../mutations/voto_por_estado";
+import { graphql } from 'react-apollo';
+import eleccion from "../../queries/votacion_by_estado";
+import voto_por_estado from "./../../mutations/especiales/voto_estatal";
 
 class EleccionForm extends Component {
 
     constructor(props) {
         super(props);
-        
         this.state = {
             id_preferencia: "",
             mensaje: ""
@@ -36,19 +34,17 @@ class EleccionForm extends Component {
     handlePolitico(id) {
         this.setState({ id_preferencia: id });
     }
-    componentWillReceiveProps(nextProps) {
-        nextProps.fetchEleccion.refetch();
-      } 
+
     handleClick() {
         if (this.state.id_preferencia.length == 0) {
             this.setState({ mensaje: "Selecciona a alguien" })
         }else{
-            this.props.updateVoto({
+            this.props.mutate({
                 variables: {
-                    id_votacion: this.props.fetchEleccion.votacion.id,
-                    id_usuario: this.props.fetchUsuario.usuario.id,
+                    id_votacion: this.props.data.votacion.id,
+                    id_usuario: this.props.id_usuario,
                     id_preferencia: this.state.id_preferencia,
-                    id_estado: this.props.fetchEleccion.votacion.estado.id
+                    id_estado: this.props.data.votacion.estado.id
                 }
             }).then(this.props.handleForm);
             window.scrollTo(0, 0);
@@ -56,7 +52,7 @@ class EleccionForm extends Component {
     }
 
     renderListPoliticos() {
-        const preferencias = this.props.fetchEleccion.votacion.preferencias;
+        const preferencias = this.props.data.votacion.preferencias;
         let selected = {'color': 'red'}
         return _.map(preferencias, preferencia => {
             return (            
@@ -125,16 +121,5 @@ class EleccionForm extends Component {
         )
     }
 }
-export default compose(
-    graphql(usuario, {
-      name: 'fetchUsuario'
-    }),
-    graphql(eleccion, {
-      name: 'fetchEleccion',
-      options: ({ id_estado }) => ({ variables: { id_estado } }),
-    }),
-    graphql(voto_por_estado, {
-        name: 'updateVoto'
-    })
-)(EleccionForm);
+export default graphql(voto_por_estado)(graphql(eleccion)(EleccionForm))
 

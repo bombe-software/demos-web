@@ -30,7 +30,6 @@ class EventoDetail extends Component {
     }
     render() {
         if (this.props.data.loading) return <LoadingScreen />;
-        console.log(this.props);
         return (
             <div>
                 <br />

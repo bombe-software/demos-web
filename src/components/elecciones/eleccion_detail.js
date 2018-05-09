@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Doughnut } from 'react-chartjs-2';
 import _ from "lodash";
-
-import { graphql, compose } from 'react-apollo';
-import eleccion from "../../queries/fetchVotacionEstado";
-import usuario from "../../queries/fetchUsuario";
+import LoadingScreen from '../reutilizables/loading_screen';
+import { graphql } from 'react-apollo';
+import eleccion from "../../queries/votacion_by_estado";
 
 class EleccionDetail extends Component {
     constructor(props) {
@@ -23,12 +22,9 @@ class EleccionDetail extends Component {
         console.log("Error: " + error);
         console.log("Info: " + info);
     }
-    componentWillReceiveProps(nextProps) {
-        nextProps.fetchEleccion.refetch();
-      } 
     render() {
-        if (this.props.fetchEleccion.loading || this.props.fetchUsuario.loading) return <div>Loading</div>
-        if (this.props.fetchEleccion.votacion == undefined || JSON.stringify(this.props.fetchEleccion.votacion) == '[]' || JSON.stringify(this.props.fetchEleccion.votacion) == '{}') {
+        if (this.props.data.loading) return <LoadingScreen />
+        if (this.props.data.votacion == undefined || JSON.stringify(this.props.data.votacion) == '[]' || JSON.stringify(this.props.data.votacion) == '{}') {
             return (
                 <div>
                     <div className="hero is-light">
@@ -39,7 +35,7 @@ class EleccionDetail extends Component {
                 </div>
             );
         } else {
-            if (this.props.fetchEleccion.votacion.preferencias.length <= 0) {
+            if (this.props.data.votacion.preferencias.length <= 0) {
                 return (
                     <div>
                         <div className="hero is-light">
@@ -57,7 +53,7 @@ class EleccionDetail extends Component {
                     </div>
                 );
             } else {
-                const votacion = this.props.fetchEleccion.votacion.preferencias;
+                const votacion = this.props.data.votacion.preferencias;
                 let colorList = [
                     'rgba(69, 196, 158, 0.8)',
                     'rgba(115, 86, 201, 0.8)',
@@ -118,7 +114,7 @@ class EleccionDetail extends Component {
                     
                         <br />
                         {(() => {
-                            if (this.props.fetchUsuario.usuario != undefined) return (
+                            if (this.props.id_usuario != undefined) return (
                                 <button className="button is-primary" onClick={this.props.handleForm}>
                                     Contestar encuesta
                             </button>
@@ -130,12 +126,4 @@ class EleccionDetail extends Component {
         }
     }
 }
-export default compose(
-    graphql(usuario, {
-        name: 'fetchUsuario'
-    }),
-    graphql(eleccion, {
-        name: 'fetchEleccion',
-        options: ({ id_estado }) => ({ variables: { id_estado } }),
-    })
-)(EleccionDetail);
+export default graphql(eleccion)(EleccionDetail);

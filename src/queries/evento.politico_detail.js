@@ -9,6 +9,7 @@ query data($id: ID!) {
       fecha
       referencia
       usuario {
+       id
        nombre
       }
     }

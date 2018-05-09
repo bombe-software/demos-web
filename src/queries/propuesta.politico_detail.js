@@ -13,6 +13,7 @@ query data($id: ID!) {
       tipo
     }
 		usuario{
+      id
       nombre 
     }
   }

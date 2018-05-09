@@ -3,11 +3,10 @@ import { Pie, Bar, Line, Polar } from 'react-chartjs-2';
 import { compose, graphql } from 'react-apollo';
 import _ from "lodash";
 import { Link } from "react-router-dom";
-import fetchGraficas from "./../../queries/fetchGraficas";
-import fetchUsuario from "./../../queries/fetchUsuario";
-import eleccion from "../../queries/fetchVotacionEstado";
-import candidatosEstado from "../../queries/fetchCandidatosEstado";
-import LoadingScreen from '../generic/loading_screen';
+import fetchGraficas from "./../../queries/graficas";
+import eleccion from "../../queries/votacion_by_estado";
+import candidatosEstado from "../../queries/candidato_by_estado";
+import LoadingScreen from '../reutilizables/loading_screen';
 
 class Graficas extends Component {
 
@@ -101,7 +100,7 @@ class Graficas extends Component {
     }
 
     renderEncuestas(){
-        if (this.props.fetchEleccion.loading || this.props.fetchUsuario.loading) return <LoadingScreen />
+        if (this.props.fetchEleccion.loading) return <LoadingScreen />
         if (this.props.fetchEleccion.votacion == undefined || JSON.stringify(this.props.fetchEleccion.votacion) == '[]' || JSON.stringify(this.props.fetchEleccion.votacion) == '{}') {
             return (
                 <div>
@@ -216,7 +215,7 @@ class Graficas extends Component {
     }
 
     renderListPoliticos() {
-        if (this.props.fetchCandidatosEstado.loading || this.props.fetchUsuario.loading) return <div>Cargando...</div>
+        if (this.props.fetchCandidatosEstado.loading) return <div>Cargando...</div>
         let {candidatos} = this.props.fetchCandidatosEstado.estado;
         if(candidatos.length === 0){
             return (
@@ -319,9 +318,6 @@ class Graficas extends Component {
 export default compose(
     graphql(fetchGraficas, {
         name: 'fetchGraficas'
-    }),
-    graphql(fetchUsuario, {
-      name: 'fetchUsuario'
     }),
     graphql(eleccion, {
         name: 'fetchEleccion',

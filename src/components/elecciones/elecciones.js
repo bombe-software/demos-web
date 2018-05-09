@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
-import zonas from "../../queries/fetchZonas";
+import zonas from "../../queries/zonas.elecciones";
 import EleccionDetail from "./eleccion_detail";
 import EleccionForm from "./eleccion_form";
-import LoadingScreen from '../generic/loading_screen';
+import LoadingScreen from '../reutilizables/loading_screen';
 
 class Elecciones extends Component {
 
@@ -96,6 +96,7 @@ class Elecciones extends Component {
         if (this.state.formActive) {
             return (
                 <EleccionForm
+                    id_usuario={this.props.id_usuario}
                     id_estado={this.state.id_estado}
                     estado={this.state.estado}
                     zona={this.state.zona}
@@ -105,6 +106,7 @@ class Elecciones extends Component {
         } else {
             return (
                 <EleccionDetail
+                    id_usuario={this.props.id_usuario}
                     id_estado={this.state.id_estado}
                     estado={this.state.estado}
                     zona={this.state.zona}

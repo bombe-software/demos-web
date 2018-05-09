@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import Estado from './estado';
 import { Pie } from 'react-chartjs-2';
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import likes_nacional_by_estado from "./../../queries/likes_nacional_by_estado";
 import _ from "lodash";
+import LoadingScreen from './../../components/reutilizables/loading_screen';
 import { defaultCipherList } from 'constants';
 
 class GraficaLateral extends Component {
@@ -62,10 +62,9 @@ class GraficaLateral extends Component {
             };
       }
       render() {
-            if (this.props.data.loading) return <div>juiju</div>
+            if (this.props.data.loading) return <LoadingScreen />
             return (
                   <div>
-                        jujuju
                         <Pie data={this.renderDatos()} />
                   </div>
             )

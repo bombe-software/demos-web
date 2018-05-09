@@ -1,9 +1,9 @@
-import Navbar from "./../generic/navbar";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import usuario from './../../queries/usuario_in.landing';
+import Navbar from "./../reutilizables/navbar";
 import { Doughnut, Bar, Line, Pie } from 'react-chartjs-2';
 import { graphql } from 'react-apollo';
-import usuario from "./../../queries/fetchUsuario";
 import Graficas from './graficas';
 
 class LandingPage extends Component {
@@ -46,7 +46,7 @@ class LandingPage extends Component {
 
     render() {
         if(this.props.data.loading)  return <div></div>
-        let {usuario} = this.props.data;
+        let usuario = this.props.data.usuario_in;
         if(usuario != null)  return <Graficas usuario={usuario} id_estado={usuario.localidad.id}/>
         let names = [
             'Jesús Medina',
