@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import fetchUsuario from  './../../queries/fetchUsuario';
-import NotFound from './../../components/not_found';
-import LoadingScreen from '../generic/loading_screen';
+import NotFound from './../reutilizables/loading_screen';
+import LoadingScreen from './../reutilizables/loading_screen';
 //Components
+/*
 import PendientesAgregarPropuestas from './Propuesta/solicitud_agregar_propuesta';
 import PendientesAgregarHistorial from './Evento/solicitud_agregar_evento';
 import PendientesAgregarPoliticos from './Politico/solicitud_agregar_politico';
@@ -15,6 +14,7 @@ import PendientesModificarPropuestas from './Propuesta/solicitud_propuesta_modif
 import PendientesEliminarPoliticos from './Politico/solicitud_eliminar_politico';
 import PendientesEliminarHistorial from './Evento/solicitud_eliminar_evento';
 import PendientesEliminarPropuestas from './Propuesta/solicitud_eliminar_propuesta';
+*/
 
 class Moderador extends Component {
   constructor(props) {
@@ -145,7 +145,7 @@ class Moderador extends Component {
               </li>
             </ul>
           </div>
-          {this.renderPendientesPropuestas()}
+          {/*this.renderPendientesPropuestas()*/}
         </div>
       );
     } else if (type == "historial") {
@@ -164,7 +164,7 @@ class Moderador extends Component {
               </li>
             </ul>
           </div>
-          {this.renderPendientesHistorial()}
+          {/*this.renderPendientesHistorial()*/}
         </div>
       );
     } else if (type == "politicos") {
@@ -183,20 +183,12 @@ class Moderador extends Component {
               </li>
             </ul>
           </div>
-          {this.renderPendientesPoliticos()}
+          {/*this.renderPendientesPoliticos()*/}
         </div>
       );
     }
   }
     render() {
-      if (this.props.fetchUsuario.loading) {
-        return <LoadingScreen />
-      } 
-      if (!this.props.fetchUsuario.usuario || this.props.fetchUsuario.usuario.tipo_usuario.tipo != "Moderador") {
-        return (
-          <NotFound />
-        );
-      }
       return (
         <div className="section">
           <div className="columns is-desktop">
@@ -226,4 +218,4 @@ class Moderador extends Component {
       )
     }
   }
-  export default graphql(fetchUsuario, { name: 'fetchUsuario' })(Moderador)
+  export default Moderador;

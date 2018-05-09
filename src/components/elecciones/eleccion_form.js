@@ -4,6 +4,7 @@ import _ from "lodash";
 import { graphql } from 'react-apollo';
 import eleccion from "../../queries/votacion_by_estado";
 import voto_por_estado from "./../../mutations/especiales/voto_estatal";
+import votacion_by_estado from "../../queries/votacion_by_estado";
 
 class EleccionForm extends Component {
 
@@ -45,7 +46,11 @@ class EleccionForm extends Component {
                     id_usuario: this.props.id_usuario,
                     id_preferencia: this.state.id_preferencia,
                     id_estado: this.props.data.votacion.estado.id
-                }
+                },
+                refetchQueries: [{ 
+                    query: votacion_by_estado,
+                    variables: { id_estado: this.props.data.votacion.estado.id } 
+                }]
             }).then(this.props.handleForm);
             window.scrollTo(0, 0);
         }

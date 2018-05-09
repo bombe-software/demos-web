@@ -20,6 +20,9 @@ import AcercaDe from './components/acerca_de/acerca_de';
 import Administrador from './components/administrador/administrador';
 import ReportarBug from "./components/administrador/reportar_bug"
 
+//moderador
+import Moderador from './components/moderador/moderador';
+
 //busqueda
 import Busqueda from './components/busqueda/busqueda';
 
@@ -133,11 +136,8 @@ class App extends React.Component {
                 <Route path="/bug" component={NeedLogin(ReportarBug)} />} 
                 <Route path="/nacional" component={Nacional} />
                 <Route path="/elecciones" component={NeedLogin(Elecciones,'variable')} />
-                <Route path="/" exact component={LandingPage} />  
-                {/*
-                <Route path="/" exact component={LandingPage} />                 
-                <Route path="/moderador" component={Moderador} />
-                */}
+                <Route path="/" exact component={LandingPage} />
+                <Route path="/moderador" component={NeedLogin(Moderador, 'moderador')} />  
                 <Route path="/need_login" exact component={ScreenNeedLogin} />
                 <Route component={NotFound} />
               </Switch>
