@@ -39,7 +39,7 @@ class Politicos extends Component {
         if(this.props.busqueda == '') return 'No has buscado nada'
         return (
             <div className="has-text-centered">
-                {this.renderList(this.props.busqueda)}
+                {this.renderList(validadoAcentos(this.props.busqueda))}
             </div>
         )
     }

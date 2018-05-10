@@ -12,6 +12,7 @@ class Soporte extends Component {
             value: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
 
@@ -19,8 +20,10 @@ class Soporte extends Component {
         this.setState({ value: event.target.value });
     }
 
-    handleSubmit() {
-        const { value } = this.setState;
+    handleSubmit(event) {
+        event.preventDefault()
+        const { value } = this.state;
+        console.log(value);
         this.addMsgLeft(value);
         this.props.mutate({
             variables: {
@@ -74,6 +77,8 @@ class Soporte extends Component {
     }
 
     renderLeftMessage(mensaje) {
+        console.log(this.mensaje);
+        console.log(this.props);
         return (
             <div className="level">
                 <div className="level-left">
@@ -141,6 +146,7 @@ class Soporte extends Component {
                                                             hintText="Hint Text"
                                                             value={this.state.value} 
                                                             onChange={this.handleChange}
+                                                            onSubmit={this.onSubmit}
                                                         />
                                                     </div>
                                                     <div className="buttons has-text-centered">
