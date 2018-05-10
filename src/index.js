@@ -68,8 +68,7 @@ const wsLink = new WebSocketLink({
   uri: `${demos_gql_ws}/subscriptions`,
   options: {
     reconnect: true
-  },
-  credentials: 'include'
+  }
 });
 
 // USar dependencia split para hacer una union de ambos 
@@ -137,7 +136,7 @@ class App extends React.Component {
                 <Route path="/nacional" component={Nacional} />
                 <Route path="/elecciones" component={NeedLogin(Elecciones,'variable')} />
                 <Route path="/" exact component={LandingPage} />
-                <Route path="/moderador" component={NeedLogin(Moderador, 'moderador')} />  
+                <Route path="/moderador" component={NeedLogin(NeedLogin(Moderador, 'variable'), 'moderador')} />  
                 <Route path="/need_login" exact component={ScreenNeedLogin} />
                 <Route component={NotFound} />
               </Switch>

@@ -8,6 +8,7 @@ export default gql`
       avatar
       tipo_usuario {
         id
+        tipo
       }
     }
   }

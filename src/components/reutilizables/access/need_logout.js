@@ -14,6 +14,5 @@ export default (WrappedComponent) => {
       return <WrappedComponent {...this.props} />;
     }
   }
-
   return graphql(usuario_in)(NeedLogout);
 };
