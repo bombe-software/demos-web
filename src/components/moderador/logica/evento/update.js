@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
-import solicitud_propuestas from './../../../../queries/solicitud_propuestas';
-import patch_solicitud_propuesta from './../../../../mutations/patch/solicitud_propuesta';
-import patchd_solicitud_propuesta from './../../../../mutations/patchd/solicitud_propuesta';
+import modificar_eventos from './../../../../queries/modificar_eventos';
+import patch_modificar_evento from './../../../../mutations/patch/solicitud_propuesta';
+import patchd_modificar_evento from './../../../../mutations/patchd/solicitud_propuesta';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 
@@ -15,18 +15,18 @@ export default (WrappedComponent) => {
       this.denegar = this.denegar.bind(this)
     }
 
-    aceptar(id_propuesta) {
-      this.props.patch_solicitud_propuesta({
+    aceptar(id_evento) {
+      this.props.patch_modificar_evento({
         variables: {
-          id_propuesta
+          id_evento
         }
       });
     }
 
-    denegar(id_propuesta) {
-      this.props.patchd_solicitud_propuesta({
+    denegar(id_evento) {
+      this.props.patchd_modificar_evento({
         variables: {
-          id_propuesta
+          id_evento
         }
       });
     }
@@ -37,21 +37,21 @@ export default (WrappedComponent) => {
         <WrappedComponent
           id_usuario={this.props.id_usuario}
           tipo={'Evento'}
-          lista={this.props.data.solicitud_propuestas}
+          lista={this.props.data.modificar_eventos}
           aceptar={this.aceptar}
           denegar={this.denegar}
           {...this.props} {...this.context} />);
     }
   }
   return compose(
-    graphql(solicitud_propuestas, {
+    graphql(modificar_eventos, {
       name: 'data'
     }),
-    graphql(patch_solicitud_propuesta, {
-      name: 'patch_solicitud_propuesta'
+    graphql(patch_modificar_evento, {
+      name: 'patch_modificar_evento'
     }),
-    graphql(patchd_solicitud_propuesta, {
-      name: 'patchd_solicitud_propuesta'
+    graphql(patchd_modificar_evento, {
+      name: 'patchd_modificar_evento'
     })
   )(Add);
 };

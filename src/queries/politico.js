@@ -10,6 +10,7 @@ query data($id: ID!) {
       titulo
       fecha
       tipo_propuesta{
+        id
         tipo
       }
     }

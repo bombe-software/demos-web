@@ -33,16 +33,17 @@ class EventoForm extends GenericForm {
 
   handleClose() {
     this.setState({ open: false });
-    this.props.history.push(`/politico/${this.props.o.propuesta.politico.id}`);
+    console.log(this.props);
+    this.props.history.push(`/politico/${this.props.match.params.id}`);
   };
 
   async onSubmit(values) {
-    const usuario = this.props.id_usuario;
+    const usuario = this.props.data.usuario_in.id;
     const {
       fecha, titulo,
       descripcion, referencia
     } = values
-    if (!this.props.o.mutate) {
+    if (!this.props.o) {
       const politico = this.props.match.params.id;
       this.props.mutate({
         variables: {
@@ -51,7 +52,7 @@ class EventoForm extends GenericForm {
         }
       }).then(this.handleOpen);
     } else {
-      const politico = this.props.o.evento.politico.id;
+      const politico = this.props.match.params.id;
       this.props.o.mutate({ variables: { usuario, politico, ...values } });
       this.handleOpen();
     }
@@ -66,6 +67,7 @@ class EventoForm extends GenericForm {
   * @const error Es el titulo del error
   */
   render() {
+    console.log(this.props);
     return (
       <div>
         <Dialog

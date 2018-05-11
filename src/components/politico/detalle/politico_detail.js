@@ -53,7 +53,7 @@ class PoliticoDetail extends Component {
                             <div className="level-right">
                                 <div className="level-item">
                                     <p className="has-text-right">
-                                        <Link to={"/crear/propuestas/" + this.props.data.politico.id} className="button is-success">
+                                        <Link to={"/propuesta/formulario/" + this.props.data.politico.id} className="button is-success">
                                             <i className="fa fa-plus" aria-hidden="true"></i>
                                             &nbsp;&nbsp;&nbsp;Agregar una propuesta
                                         </Link>
@@ -83,7 +83,7 @@ class PoliticoDetail extends Component {
                             <div className="level-right">
                                 <div className="level-item">
                                     <p className="has-text-right">
-                                        <Link to={"/crear/propuestas/" + this.props.data.politico.id} className="button is-success">
+                                        <Link to={"/evento/formulario/" + this.props.data.politico.id} className="button is-success">
                                             <i className="fa fa-plus" aria-hidden="true"></i>
                                             &nbsp;&nbsp;&nbsp;Agregar un evento
                                         </Link >
