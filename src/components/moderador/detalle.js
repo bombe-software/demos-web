@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { demos_krb_http  } from './../../../deploy.js'
 
 class Detalle extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class Detalle extends Component {
                         </p> : <p>No se encontraron estudios</p>
                         : ''
                     }
-                    {this.props.tipo == 'Politico' ? <img src={`http://localhost:5000/img/${this.props.o.id}.jpg`} height="80" width="80" /> : ''}
+                    {this.props.tipo == 'Politico' ? <img src={`${demos_krb_http}/img/${this.props.o.id}.jpg`} height="80" width="80" /> : ''}
                     {this.props.o.titulo ? <p className="title is-4"><b>Título: </b>{this.props.o.titulo}</p> : ''}
                     {this.props.o.descripcion ? <p><b>Descripción: </b>{this.props.o.descripcion}</p> : ''}
                     {this.props.o.fecha ? <p><b>Fecha {this.props.o.fecha == 'Propuestas' ? <span>de la</span> : <span>del</span>} {this.props.tipo.toLowerCase()}: </b>{this.props.o.fecha}</p> : ''}
