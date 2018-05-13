@@ -35,7 +35,7 @@ import Nacional from './components/nacional/nacional';
 //politico
 import Politicos from './components/politico/politicos';
 import PoliticoDetail from './components/politico/detalle/politico_detail';
-import LoadInformation from './components/politico/load_information';
+import {LoadInformationPropuesta, LoadInformationPolitico, LoadInformationEvento} from './components/politico/load_information';
 import PoliticoForm from './components/politico/formulario/politico_form';
 import EventoForm from './components/politico/formulario/evento_form';
 import PropuestaForm from './components/politico/formulario/propuesta_form';
@@ -121,13 +121,13 @@ class App extends React.Component {
                 <Route path="/soporte" component={Soporte} />
                 <Route path="/busqueda" component={Busqueda} />
 
-                <Route path="/politico/modificar/:id" exact component={LoadInformation(NeedLogin(PoliticoForm,'variable'))} />
+                <Route path="/politico/modificar/:id" exact component={LoadInformationPolitico(NeedLogin(PoliticoForm,'variable'))} />
                 <Route path="/politico/formulario" exact component={NeedLogin(NeedLogin(PoliticoForm,'variable'))} />
 
-                <Route path="/propuesta/modificar/:id" exact component={LoadInformation(NeedLogin(PropuestaForm))} />
+                <Route path="/propuesta/modificar/:id" exact component={LoadInformationPropuesta(NeedLogin(PropuestaForm))} />
                 <Route path="/propuesta/formulario/:id" exact component={NeedLogin(NeedLogin(PropuestaForm,'variable'))} />
 
-                <Route path="/evento/modificar/:id" exact component={LoadInformation(NeedLogin(EventoForm))} />
+                <Route path="/evento/modificar/:id" exact component={LoadInformationEvento(NeedLogin(EventoForm))} />
                 <Route path="/evento/formulario/:id" exact component={NeedLogin(EventoForm)} />
 
                 <Route path="/politicos" exact component={Politicos} />

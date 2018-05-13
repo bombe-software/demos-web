@@ -27,6 +27,7 @@ query data($id: ID!) {
       id
       titulo
       grado_academico {
+        id
         grado
       }
       lugar_estudio {

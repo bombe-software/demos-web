@@ -67,7 +67,6 @@ class EventoForm extends GenericForm {
   * @const error Es el titulo del error
   */
   render() {
-    console.log(this.props);
     return (
       <div>
         <Dialog
@@ -178,4 +177,4 @@ class EventoForm extends GenericForm {
   }
 }
 
-export default  graphql(add_evento)(EventoForm);
+export default graphql(add_evento)(EventoForm);
