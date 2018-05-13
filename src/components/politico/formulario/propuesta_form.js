@@ -34,17 +34,17 @@ class PropuestaForm extends GenericForm {
 
   handleClose(){
     this.setState({ open: false });
-    this.props.history.push(`/politico/${this.props.o.propuesta.politico.id}`)
+    this.props.history.push(`/politico/${this.props.match.params.id}`)
   };
 
   async onSubmit(values) {
-    const usuario = this.props.data.id_usuario;
+    const usuario = this.props.id_usuario;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values
-    if(!this.props.o.mutate){
+    if(!this.props.o){
       const politico = this.props.match.params.id;
-      this.props.addPropuesta({
+      this.props.mutate({
         variables: {
           titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico
         }
@@ -60,6 +60,7 @@ class PropuestaForm extends GenericForm {
     if (this.props.data.loading) {
       return <LoadingScreen />;
     }
+    console.log(this.props);
     return (
       <div>
         <Dialog

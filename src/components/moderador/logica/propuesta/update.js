@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
-import solicitud_propuestas from './../../../../queries/solicitud_propuestas';
-import patch_solicitud_propuesta from './../../../../mutations/patch/solicitud_propuesta';
-import patchd_solicitud_propuesta from './../../../../mutations/patchd/solicitud_propuesta';
+import modificar_propuestas from './../../../../queries/modificar_propuestas';
+import patch_modificar_propuesta from './../../../../mutations/patch/solicitud_propuesta';
+import patchd_modificar_propuesta from './../../../../mutations/patchd/solicitud_propuesta';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 
@@ -16,7 +16,7 @@ export default (WrappedComponent) => {
     }
 
     aceptar(id_propuesta) {
-      this.props.patch_solicitud_propuesta({
+      this.props.patch_modificar_propuesta({
         variables: {
           id_propuesta
         }
@@ -24,7 +24,7 @@ export default (WrappedComponent) => {
     }
 
     denegar(id_propuesta) {
-      this.props.patchd_solicitud_propuesta({
+      this.props.patchd_modificar_propuesta({
         variables: {
           id_propuesta
         }
@@ -37,21 +37,21 @@ export default (WrappedComponent) => {
         <WrappedComponent
           id_usuario={this.props.id_usuario}
           tipo={'Propuesta'}
-          lista={this.props.data.solicitud_propuestas}
+          lista={this.props.data.modificar_propuestas}
           aceptar={this.aceptar}
           denegar={this.denegar}
           {...this.props} {...this.context} />);
     }
   }
   return compose(
-    graphql(solicitud_propuestas, {
+    graphql(modificar_propuestas, {
       name: 'data'
     }),
-    graphql(patch_solicitud_propuesta, {
-      name: 'patch_solicitud_propuesta'
+    graphql(patch_modificar_propuesta, {
+      name: 'patch_modificar_propuesta'
     }),
-    graphql(patchd_solicitud_propuesta, {
-      name: 'patchd_solicitud_propuesta'
+    graphql(patchd_modificar_propuesta, {
+      name: 'patchd_modificar_propuesta'
     })
   )(Add);
 };

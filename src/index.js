@@ -121,11 +121,11 @@ class App extends React.Component {
                 <Route path="/soporte" component={Soporte} />
                 <Route path="/busqueda" component={Busqueda} />
 
-                <Route path="/politico/modificar/:id" exact component={LoadInformation(NeedLogin(PoliticoForm))} />
+                <Route path="/politico/modificar/:id" exact component={LoadInformation(NeedLogin(PoliticoForm,'variable'))} />
                 <Route path="/politico/formulario" exact component={NeedLogin(NeedLogin(PoliticoForm,'variable'))} />
 
                 <Route path="/propuesta/modificar/:id" exact component={LoadInformation(NeedLogin(PropuestaForm))} />
-                <Route path="/propuesta/formulario/:id" exact component={NeedLogin(PropuestaForm)} />
+                <Route path="/propuesta/formulario/:id" exact component={NeedLogin(NeedLogin(PropuestaForm,'variable'))} />
 
                 <Route path="/evento/modificar/:id" exact component={LoadInformation(NeedLogin(EventoForm))} />
                 <Route path="/evento/formulario/:id" exact component={NeedLogin(EventoForm)} />
