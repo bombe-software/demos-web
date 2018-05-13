@@ -41,7 +41,8 @@ class PropuestaForm extends GenericForm {
     const usuario = this.props.id_usuario;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
-    } = values
+    } = values;
+
     if(!this.props.o){
       const politico = this.props.match.params.id;
       this.props.mutate({
@@ -60,7 +61,6 @@ class PropuestaForm extends GenericForm {
     if (this.props.data.loading) {
       return <LoadingScreen />;
     }
-    console.log(this.props);
     return (
       <div>
         <Dialog

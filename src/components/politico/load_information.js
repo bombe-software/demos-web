@@ -52,7 +52,8 @@ export default (WrappedComponent) => {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
       }
-      handleUpdate() {
+
+      handleUpdate({variables}) {
         this.props.mutate({variables})
       }
 
@@ -66,7 +67,8 @@ export default (WrappedComponent) => {
               titulo: this.props.data.propuesta.titulo,
               descripcion: this.props.data.propuesta.descripcion,
               tipo_propuesta: this.props.data.propuesta.tipo_propuesta.id,
-              fecha: this.props.data.propuesta.fecha
+              fecha: this.props.data.propuesta.fecha,
+              politico: this.props.data.propuesta.politico
             },
             mutate: this.handleUpdate
           }}
@@ -82,7 +84,7 @@ export default (WrappedComponent) => {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
       }
-      handleUpdate() {
+      handleUpdate({variables}) {
         this.props.mutate({variables})
       }
 
