@@ -34,7 +34,7 @@ class PoliticoPerfil extends Component {
         let usuario = this.props.id_usuario;
         this.props.mutate({
             variables: {
-                politico, usuario
+                id_politico: politico, id_usuario: usuario
             }
         }).then(this.handleOpen);
     }

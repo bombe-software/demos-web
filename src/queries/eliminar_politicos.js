@@ -4,6 +4,7 @@
 export default gql`
 {
     eliminar_politicos{
+      id
       politico{
         id
         nombre
