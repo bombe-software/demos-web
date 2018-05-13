@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 import solicitud_politicos from './../../../../queries/solicitud_politicos';
-import patch_solicitud_politico from './../../../../mutations/patch/solicitud_propuesta';
-import patchd_solicitud_politico from './../../../../mutations/patchd/solicitud_propuesta';
+import patch_solicitud_politico from './../../../../mutations/patch/solicitud_politico';
+import patchd_solicitud_politico from './../../../../mutations/patchd/solicitud_politico';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 

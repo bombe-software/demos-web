@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 import eliminar_politicos from './../../../../queries/eliminar_politicos';
-import patch_eliminar_politico from './../../../../mutations/patch/solicitud_propuesta';
-import patchd_eliminar_politico from './../../../../mutations/patchd/solicitud_propuesta';
+import patch_eliminar_politico from './../../../../mutations/patch/delete_politico';
+import patchd_eliminar_politico from './../../../../mutations/patchd/delete_politico';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 import eliminar_propuestas from './../../../../queries/eliminar_propuestas';
-import patch_eliminar_propuesta from './../../../../mutations/patch/solicitud_propuesta';
-import patchd_eliminar_propuesta from './../../../../mutations/patchd/solicitud_propuesta';
+import patch_eliminar_propuesta from './../../../../mutations/patch/delete_propuesta';
+import patchd_eliminar_propuesta from './../../../../mutations/patchd/delete_propuesta';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
 
 import modificar_eventos from './../../../../queries/modificar_eventos';
-import patch_modificar_evento from './../../../../mutations/patch/solicitud_propuesta';
-import patchd_modificar_evento from './../../../../mutations/patchd/solicitud_propuesta';
+import patch_modificar_evento from './../../../../mutations/patch/update_evento';
+import patchd_modificar_evento from './../../../../mutations/patchd/update_evento';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 
