@@ -34,7 +34,11 @@ class PropuestaForm extends GenericForm {
 
   handleClose(){
     this.setState({ open: false });
-    this.props.history.push(`/politico/${this.props.match.params.id}`)
+    if(!this.props.o){
+      this.props.history.push(`/politico/${this.props.match.params.id}`)
+    }else{
+      this.props.history.push(`/politico/${this.props.o.propuesta.politico.id}`)
+    }
   };
 
   async onSubmit(values) {
