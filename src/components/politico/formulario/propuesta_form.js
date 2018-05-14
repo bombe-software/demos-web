@@ -53,8 +53,7 @@ class PropuestaForm extends GenericForm {
       }).then(this.handleOpen); 
     }else{
       const politico = this.props.o.propuesta.politico.id;
-      console.log(politico);
-      this.props.o.mutate({variables: { usuario, politico, ...values } });
+      this.props.o.mutate({variables: { titulo, descripcion, fecha, tipo_propuesta, referencia, usuario, politico: this.props.o.propuesta.politico.id } });
       this.handleOpen();
     }
   };
