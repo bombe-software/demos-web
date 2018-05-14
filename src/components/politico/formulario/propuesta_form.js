@@ -44,6 +44,7 @@ class PropuestaForm extends GenericForm {
   async onSubmit(values) {
    
     const usuario = this.props.id_usuario;
+    console.log(this.props.id_usuario);
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values;

@@ -23,14 +23,14 @@ class Detalle extends Component {
                     {this.props.o.partido ? <p><b>Partido: </b>{this.props.o.partido.nombre}</p> : ''}
                     {this.props.o.estado ? <p><b>Estado: </b>{this.props.o.estado.nombre}</p> : ''}
                     {
-                        this.props.o.estudios ? this.props.estudios[0] ? 
+                         this.props.o.estudios  ? this.props.o.estudios.length < 0 ? this.props.estudios[0] ? 
                         <p>
                             <b>Estudios: </b>
                             {this.props.o.estudios[0].grado_academico.grado}
                             en {this.props.o.estudios[0].titulo}
                             en {this.props.o.estudios[0].lugar_estudio.nombre}
                         </p> : <p>No se encontraron estudios</p>
-                        : ''
+                        : '' : ''
                     }
                     {this.props.tipo == 'Politico' && !this.props.o.politico ? <img src={`${demos_krb_http}/img/${this.props.o.id}.jpg`} height="80" width="80" /> : ''}
                     {this.props.o.titulo ? <p className="title is-4"><b>Título: </b>{this.props.o.titulo}</p> : ''}
