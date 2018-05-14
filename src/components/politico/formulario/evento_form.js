@@ -36,7 +36,7 @@ class EventoForm extends GenericForm {
     if(!this.props.o){
       this.props.history.push(`/politico/${this.props.match.params.id}`)
     }else{
-      this.props.history.push(`/politico/${this.props.o.propuesta.politico.id}`)
+      this.props.history.push(`/politico/${this.props.o.evento.politico.id}`)
     }
   };
 
@@ -55,9 +55,10 @@ class EventoForm extends GenericForm {
         }
       }).then(this.handleOpen);
     } else {
-      const politico = this.props.o.politico.id;
+      const politico = this.props.o.evento.politico.id;
       this.props.o.mutate({
         variables: {
+          id_evento: this.props.o.evento.id,
           fecha, titulo,
           descripcion, referencia, usuario, politico
         }

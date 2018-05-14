@@ -7,6 +7,7 @@ export default gql`
       evento{
         id
         titulo
+        descripcion
       }
       usuario{
         id

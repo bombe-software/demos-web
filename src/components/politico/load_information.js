@@ -27,13 +27,15 @@ export function LoadInformationPolitico(WrappedComponent) {
       return <WrappedComponent
         o={{
           politico: {
+            id: this.props.data.politico.id,
             nombre: this.props.data.politico.nombre,
             partido: this.props.data.politico.partido.id,
             estado: this.props.data.politico.estado.id,
             cargo: this.props.data.politico.cargo,
             grado_academico: this.props.data.politico.estudios[0].grado_academico.id,
             lugar_estudio: this.props.data.politico.estudios[0].lugar_estudio.id,
-            titulo: this.props.data.politico.estudios[0].titulo
+            titulo: this.props.data.politico.estudios[0].titulo,
+            estudios: this.props.data.politico.estudios[0].id
           },
           mutate: this.handleUpdate
         }}
@@ -64,6 +66,7 @@ export function LoadInformationPropuesta(WrappedComponent) {
       return <WrappedComponent
         o={{
           propuesta: {
+            id: this.props.data.propuesta.id,
             titulo: this.props.data.propuesta.titulo,
             descripcion: this.props.data.propuesta.descripcion,
             tipo_propuesta: this.props.data.propuesta.tipo_propuesta.id,
@@ -98,9 +101,11 @@ export function LoadInformationEvento(WrappedComponent) {
       return <WrappedComponent
         o={{
           evento: {
+            id: this.props.data.evento.id,
             titulo: this.props.data.evento.titulo,
             descripcion: this.props.data.evento.descripcion,
             fecha: this.props.data.evento.fecha,
+            politico: this.props.data.evento.politico
           },
           mutate: this.handleUpdate
         }}

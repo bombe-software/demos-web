@@ -44,7 +44,7 @@ class Lista extends Component {
         }
     }
     renderList() {
-        return this.props.lista.map(({ id, titulo, usuario, nombre, politico }) => {
+        return this.props.lista.map(({ id, titulo, usuario, nombre, politico, propuesta, evento }) => {
             /**
              * Quitar el true
              */
@@ -64,7 +64,7 @@ class Lista extends Component {
                             </span>
                             <a onClick={() => { this.seleccionar(id) }}
                                 style={{ color: 'inherit', textDecoration: 'none' }}
-                            >{titulo || nombre || politico.nombre}</a>
+                            >{titulo || nombre || (politico ? politico.nombre : null)  || (propuesta ? propuesta.titulo : null)  || (evento ? evento.titulo : null) }</a>
                         </div>
                     </div >
                 )

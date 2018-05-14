@@ -4,7 +4,10 @@ export default gql`
 {
     modificar_politicos{
       id
-      id_politico
+      politico{
+        id
+        nombre
+      }
       nombre,
       cargo,
       usuario{

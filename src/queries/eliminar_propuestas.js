@@ -2,17 +2,19 @@ import gql from 'graphql-tag';
 
 export default gql`
 {
-    eliminar_propuestas{
+  eliminar_propuestas {
+    id
+    propuesta {
       id
-      propuesta{
-        id
-        titulo
-      }
-      usuario{
-        id
-        nombre
-        avatar
-      }
+      titulo
+      descripcion
+    }
+    usuario {
+      id
+      nombre
+      avatar
     }
   }
+}
+
 `;

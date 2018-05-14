@@ -43,7 +43,6 @@ class PoliticoForm extends GenericForm {
   };
 
   async onSubmit(values) {
-    console.log(this.props);
     if(this.state.file) {
     const usuario = this.props.id_usuario;
     const id_politico = this.props.match.params.id;
