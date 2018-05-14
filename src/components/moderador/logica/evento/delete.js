@@ -15,18 +15,18 @@ export default (WrappedComponent) => {
       this.denegar = this.denegar.bind(this)
     }
 
-    aceptar(id_evento) {
+    aceptar(id_solicitud) {
       this.props.patch_eliminar_evento({
         variables: {
-          id_evento
+          id_solicitud
         }
       });
     }
 
-    denegar(id_evento) {
+    denegar(id_solicitud) {
       this.props.patchd_eliminar_evento({
         variables: {
-          id_evento
+          id_solicitud
         }
       });
     }
