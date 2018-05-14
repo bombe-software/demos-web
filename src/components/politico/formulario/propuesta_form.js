@@ -38,11 +38,12 @@ class PropuestaForm extends GenericForm {
   };
 
   async onSubmit(values) {
+   
     const usuario = this.props.id_usuario;
     const {
       titulo, descripcion, fecha, tipo_propuesta, referencia
     } = values;
-
+  
     if(!this.props.o){
       const politico = this.props.match.params.id;
       this.props.mutate({
@@ -52,6 +53,7 @@ class PropuestaForm extends GenericForm {
       }).then(this.handleOpen); 
     }else{
       const politico = this.props.o.propuesta.politico.id;
+      console.log(politico);
       this.props.o.mutate({variables: { usuario, politico, ...values } });
       this.handleOpen();
     }

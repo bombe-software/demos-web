@@ -124,7 +124,7 @@ class App extends React.Component {
                 <Route path="/politico/modificar/:id" exact component={LoadInformationPolitico(NeedLogin(PoliticoForm,'variable'))} />
                 <Route path="/politico/formulario" exact component={NeedLogin(NeedLogin(PoliticoForm,'variable'))} />
 
-                <Route path="/propuesta/modificar/:id" exact component={LoadInformationPropuesta(NeedLogin(PropuestaForm))} />
+                <Route path="/propuesta/modificar/:id" exact component={LoadInformationPropuesta(NeedLogin(PropuestaForm,'variable'))} />
                 <Route path="/propuesta/formulario/:id" exact component={NeedLogin(NeedLogin(PropuestaForm,'variable'))} />
 
                 <Route path="/evento/modificar/:id" exact component={LoadInformationEvento(NeedLogin(EventoForm))} />
