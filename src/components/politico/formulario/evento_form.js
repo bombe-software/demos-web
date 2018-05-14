@@ -33,8 +33,11 @@ class EventoForm extends GenericForm {
 
   handleClose() {
     this.setState({ open: false });
-    console.log(this.props);
-    this.props.history.push(`/politico/${this.props.match.params.id}`);
+    if(!this.props.o){
+      this.props.history.push(`/politico/${this.props.match.params.id}`)
+    }else{
+      this.props.history.push(`/politico/${this.props.o.propuesta.politico.id}`)
+    }
   };
 
   async onSubmit(values) {
@@ -52,8 +55,13 @@ class EventoForm extends GenericForm {
         }
       }).then(this.handleOpen);
     } else {
-      const politico = this.props.match.params.id;
-      this.props.o.mutate({ variables: { usuario, politico, ...values } });
+      const politico = this.props.o.politico.id;
+      this.props.o.mutate({
+        variables: {
+          fecha, titulo,
+          descripcion, referencia, usuario, politico
+        }
+      });
       this.handleOpen();
     }
   }
