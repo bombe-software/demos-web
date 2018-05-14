@@ -23,10 +23,10 @@ export default (WrappedComponent) => {
       });
     }
 
-    denegar(id_propuesta) {
+    denegar(id_solicitud) {
       this.props.patchd_modificar_propuesta({
         variables: {
-          id_propuesta
+          id_solicitud
         }
       });
     }
