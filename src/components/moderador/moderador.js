@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import LoadingScreen from './../reutilizables/loading_screen';
 //Components
 import Lista from './lista';
 

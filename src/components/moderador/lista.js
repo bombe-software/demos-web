@@ -9,7 +9,6 @@ class Lista extends Component {
         this.state = {
             id: null
         }
-
         this.seleccionar = this.seleccionar.bind(this);
         this.listener = this.listener.bind(this)
     }
@@ -33,7 +32,6 @@ class Lista extends Component {
             );
         }
     }
-
     listener(o, id) {
         return () => {
             if (o) {
@@ -45,7 +43,6 @@ class Lista extends Component {
             }
         }
     }
-
     renderList() {
         return this.props.lista.map(({ id, titulo, usuario, nombre, politico }) => {
             /**
@@ -59,38 +56,38 @@ class Lista extends Component {
                                 <a className="is-primary" onClick={this.listener(true, id)}>
                                     <i className="fa fa-check"></i>
                                 </a> &nbsp;&nbsp;&nbsp;
-                </span>
-                        <span className="panel-icon">
-                            <a className="is-danger" style={{ color: 'red' }} onClick={this.listener(false, id)}>
-                                <i className="fa fa-times"></i>
-                            </a>
-                        </span>
-                        <a onClick={() => { this.seleccionar(id) }}
-                            style={{ color: 'inherit', textDecoration: 'none' }}
-                        >{titulo || nombre || politico.nombre}</a>
-                    </div>
+                            </span>
+                            <span className="panel-icon">
+                                <a className="is-danger" style={{ color: 'red' }} onClick={this.listener(false, id)}>
+                                    <i className="fa fa-times"></i>
+                                </a>
+                            </span>
+                            <a onClick={() => { this.seleccionar(id) }}
+                                style={{ color: 'inherit', textDecoration: 'none' }}
+                            >{titulo || nombre || politico.nombre}</a>
+                        </div>
                     </div >
                 )
-    }
-});
+            }
+        });
     }
 
-render() {
-    return (
-        <div className="columns is-desktop">
-            <div className="column is-5-widescreen is-5-desktop is-12-tablet">
-                <div>
-                    <div className="panel">
-                        <div className="panel-heading">{this.props.tipo + 's:'}</div>
-                        {this.renderList()}
+    render() {
+        return (
+            <div className="columns is-desktop">
+                <div className="column is-5-widescreen is-5-desktop is-12-tablet">
+                    <div>
+                        <div className="panel">
+                            <div className="panel-heading">{this.props.tipo + 's:'}</div>
+                            {this.renderList()}
+                        </div>
                     </div>
                 </div>
+                <div className="column is-7-widescreen is-7-desktop is-12-tablet">
+                    {this.renderPropuestaSelected()}
+                </div>
             </div>
-            <div className="column is-7-widescreen is-7-desktop is-12-tablet">
-                {this.renderPropuestaSelected()}
-            </div>
-        </div>
-    );
-}
+        );
+    }
 }
 export default Lista;

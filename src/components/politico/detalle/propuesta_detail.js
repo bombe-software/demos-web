@@ -2,11 +2,30 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import propuesta$politico_detail from "../../../queries/propuesta.politico_detail";
 import { graphql } from 'react-apollo';
-import LoadingScreen from "./../../reutilizables/loading_screen"
+import LoadingScreen from "./../../reutilizables/loading_screen";
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import BotonCaptcha from './../../reutilizables/boton_captcha';
-import politico$delete from "../../../mutations/delete/politico";
+import propuesta$delete from "../../../mutations/delete/propuesta";
 
 class PropuestaDetail extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false
+        };
+        this.eliminar = this.eliminar.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
+    }
+    handleOpen() {
+        this.setState({ open: true });
+    };
+
+    handleClose() {
+        this.setState({ open: false });
+    };
+
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion
@@ -32,6 +51,15 @@ class PropuestaDetail extends Component {
         if (this.props.data.loading) return <LoadingScreen />;
         return (
             <div>
+                  <Dialog
+                        title="Tu propuesta de eliminación está en espera de aprobación"
+                        actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+                        modal={false}
+                        open={this.state.open}
+                        onRequestClose={this.handleClose}
+                    >
+                        Espera la aprobación de un moderador de tu propuesta
+                    </Dialog>
                 <br />
                 <div className="card">
                     <div className="card-content">
@@ -50,7 +78,7 @@ class PropuestaDetail extends Component {
                                 <span className="is-6"><i className="fa fa-pencil"></i> Modificar</span>
                             </Link>
                         </span>
-                        {(this.props.id_usuario) ? <span className="card-footer-item"><BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar} /></span> : ""}
+                        {(this.props.id_usuario) ? <span className="card-footer-item"><BotonCaptcha label={"Borrar"} checkedFunction={this.eliminar} /></span> : ""}
                     </div>
                 </div>
             </div>
@@ -58,4 +86,4 @@ class PropuestaDetail extends Component {
     }
 }
 
-export default graphql(politico$delete)(graphql(propuesta$politico_detail)(PropuestaDetail));
+export default graphql(propuesta$delete)(graphql(propuesta$politico_detail)(PropuestaDetail));

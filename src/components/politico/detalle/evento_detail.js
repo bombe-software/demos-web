@@ -4,9 +4,18 @@ import evento$politico_detail from "../../../queries/evento.politico_detail";
 import { graphql } from 'react-apollo';
 import LoadingScreen from "./../../reutilizables/loading_screen"
 import BotonCaptcha from './../../reutilizables/boton_captcha';
-import politico$delete from "../../../mutations/delete/politico";
+import evento$delete from "../../../mutations/delete/evento";
 
 class EventoDetail extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false
+        };
+        this.eliminar = this.eliminar.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion
@@ -22,12 +31,21 @@ class EventoDetail extends Component {
     eliminar() {
         let id_evento = this.props.data.evento.id;
         let id_usuario = this.props.data.evento.usuario.id;
+        console.log(id_evento);
+        console.log(id_usuario);
         this.props.mutate({
             variables: {
                 id_evento, id_usuario
             }
         }).then(this.handleOpen);
     }
+    handleOpen() {
+        this.setState({ open: true });
+    };
+
+    handleClose() {
+        this.setState({ open: false });
+    };
     render() {
         if (this.props.data.loading) return <LoadingScreen />;
         return (
@@ -50,7 +68,7 @@ class EventoDetail extends Component {
                                 <span className="is-6"><i className="fa fa-pencil"></i> Modificar</span>
                             </Link>
                         </span>
-                        {(this.props.id_usuario) ? <span className="card-footer-item"><BotonCaptcha label={"Borrar"} checkedFunction={this.Eliminar} /></span> : ""}
+                        {(this.props.id_usuario) ? <span className="card-footer-item"><BotonCaptcha label={"Borrar"} checkedFunction={this.eliminar} /></span> : ""}
                     </div>
                 </div>
             </div>
@@ -58,4 +76,4 @@ class EventoDetail extends Component {
     }
 }
 
-export default  graphql(politico$delete)(graphql(evento$politico_detail)(EventoDetail));
+export default  graphql(evento$delete)(graphql(evento$politico_detail)(EventoDetail));

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { graphql} from 'react-apollo';
-
+import LoadingScreen from './../reutilizables/loading_screen';
 import likes_nacional_by_estado from "./../../queries/likes_nacional_by_estado";
 
 class Estado extends Component {
@@ -61,6 +61,7 @@ class Estado extends Component {
                 let likes = this.props.data.like_nacionals_by_id_estado
                 let preferencias = [];
                 _.map(likes, like => {
+                    console.log(like);
                     preferencias.push({
                         color: like.politico.partido.color,
                         likes: like.usuarios.length
@@ -77,6 +78,7 @@ class Estado extends Component {
         }
     }
     render() {
+        if(!this.props.data.loading){return(<LoadingScreen />);}
         return (
             <path
                 style={{ stroke: 'white', strokeWidth: '0.5px', fill: this.getRGBA(this.state) }}
