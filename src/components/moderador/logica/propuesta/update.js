@@ -15,10 +15,10 @@ export default (WrappedComponent) => {
       this.denegar = this.denegar.bind(this)
     }
 
-    aceptar(id_propuesta) {
+    aceptar(id_solicitud) {
       this.props.patch_modificar_propuesta({
         variables: {
-          id_propuesta
+          id_solicitud
         }
       });
     }
