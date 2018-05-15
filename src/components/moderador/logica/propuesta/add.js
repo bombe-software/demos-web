@@ -52,7 +52,7 @@ export default (WrappedComponent) => {
         document: suscribe_to_patch_propuesta_add,
         updateQuery: (previousState, {subscriptionData}) => {
           if (!subscriptionData.data) return previousState;
-          const newPropuesta = subscriptionData.data.suscribe_to_patch_propuesta_add;
+          const newPropuesta = subscriptionData.data.suscribe_to_patch_propuesta_add_moderador;
           let n_solicitud_propuestas = [...previousState.solicitud_propuestas];
           _.remove(n_solicitud_propuestas, function(o) {
             return newPropuesta.id == o.id;

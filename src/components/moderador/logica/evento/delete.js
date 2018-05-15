@@ -35,7 +35,7 @@ export default (WrappedComponent) => {
         document: suscribe_to_patch_evento_delete,
         updateQuery: (previousState, {subscriptionData}) => {
           if (!subscriptionData.data) return previousState;
-          const newEvento = subscriptionData.data.suscribe_to_patch_evento_delete;
+          const newEvento = subscriptionData.data.suscribe_to_patch_evento_delete_moderador;
           let n_eliminar_eventos = [...previousState.eliminar_eventos];
           _.remove(n_eliminar_eventos, function(o) {
             return newEvento.id == o.id;

@@ -35,7 +35,7 @@ export default (WrappedComponent) => {
         document: suscribe_to_patch_politico_delete,
         updateQuery: (previousState, {subscriptionData}) => {
           if (!subscriptionData.data) return previousState;
-          const newPolitico= subscriptionData.data.suscribe_to_patch_politico_delete;
+          const newPolitico= subscriptionData.data.suscribe_to_patch_politico_delete_moderador;
           let n_eliminar_politicos = [...previousState.eliminar_politicos];
           _.remove(n_eliminar_politicos, function(o) {
             return newPolitico.id == o.id;

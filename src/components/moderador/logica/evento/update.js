@@ -50,7 +50,7 @@ export default (WrappedComponent) => {
         document: suscribe_to_patch_evento_update,
         updateQuery: (previousState, {subscriptionData}) => {
           if (!subscriptionData.data) return previousState;
-          const newEvento = subscriptionData.data.suscribe_to_patch_evento_update;
+          const newEvento = subscriptionData.data.suscribe_to_patch_evento_update_moderador;
           let n_modificar_eventos = [...previousState.modificar_eventos];
           _.remove(n_modificar_eventos, function(o) {
             return newEvento.id == o.id;

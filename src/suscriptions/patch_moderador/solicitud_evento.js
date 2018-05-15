@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export default gql`
 subscription data {
-    suscribe_to_patchd_evento_add_moderador  {
+    suscribe_to_patch_evento_add_moderador  {
       id
       titulo
       fecha

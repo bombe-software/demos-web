@@ -50,7 +50,7 @@ export default (WrappedComponent) => {
         document: suscribe_to_patch_propuesta_update,
         updateQuery: (previousState, {subscriptionData}) => {
           if (!subscriptionData.data) return previousState;
-          const newPropuesta = subscriptionData.data.suscribe_to_patch_propuesta_update;
+          const newPropuesta = subscriptionData.data.suscribe_to_patch_propuesta_update_moderador;
           let n_modificar_propuestas = [...previousState.modificar_propuestas];
           _.remove(n_modificar_propuestas, function(o) {
             return newPropuesta.id == o.id;
