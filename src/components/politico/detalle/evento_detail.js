@@ -50,6 +50,15 @@ class EventoDetail extends Component {
         if (this.props.data.loading) return <LoadingScreen />;
         return (
             <div>
+                <Dialog
+                    title="Tu propuesta de eliminación está en espera de aprobación"
+                    actions={[<FlatButton label="Submit" primary={true} keyboardFocused={false} onClick={this.handleClose} />]}
+                    modal={false}
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}
+                >
+                    Espera la aprobación de un moderador de tu propuesta
+                    </Dialog>
                 <br />
                 <div className="card">
                     <div className="card-content">
@@ -76,4 +85,4 @@ class EventoDetail extends Component {
     }
 }
 
-export default  graphql(evento$delete)(graphql(evento$politico_detail)(EventoDetail));
+export default graphql(evento$delete)(graphql(evento$politico_detail)(EventoDetail));

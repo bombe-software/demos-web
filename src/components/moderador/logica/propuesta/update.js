@@ -19,6 +19,20 @@ export default (WrappedComponent) => {
       this.props.patch_modificar_propuesta({
         variables: {
           id_solicitud
+        },
+        optimisticResponse: {
+          __typename: "Mutation",
+          patch_modificar_propuesta: {
+            id: id_solicitud,
+            __typename: "ModificarPropuestaType"
+          }
+        },
+        update: (proxy, { data: { patch_modificar_propuesta } }) => {
+          const data = proxy.readQuery({ query: modificar_propuestas });
+          _.remove(data.modificar_propuestas, function (n) {
+            return n.id == id_solicitud;
+          });
+          proxy.writeQuery({ query: modificar_propuestas, data });
         }
       });
     }
@@ -27,6 +41,20 @@ export default (WrappedComponent) => {
       this.props.patchd_modificar_propuesta({
         variables: {
           id_solicitud
+        },
+        optimisticResponse: {
+          __typename: "Mutation",
+          patchd_modificar_propuesta: {
+            id: id_solicitud,
+            __typename: "ModificarPropuestaType"
+          }
+        },
+        update: (proxy, { data: { patchd_modificar_propuesta } }) => {
+          const data = proxy.readQuery({ query: modificar_propuestas });
+          _.remove(data.modificar_propuestas, function (n) {
+            return n.id == id_solicitud;
+          });
+          proxy.writeQuery({ query: modificar_propuestas, data });
         }
       });
     }

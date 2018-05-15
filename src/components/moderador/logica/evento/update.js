@@ -19,6 +19,20 @@ export default (WrappedComponent) => {
       this.props.patch_modificar_evento({
         variables: {
           id_solicitud
+        },
+        optimisticResponse: {
+          __typename: "Mutation",
+          patch_modificar_evento: {
+            id: id_solicitud,
+            __typename: "ModificarEventoType"
+          }
+        },
+        update: (proxy, { data: { patch_modificar_evento } }) => {
+          const data = proxy.readQuery({ query: modificar_eventos });
+          _.remove(data.modificar_eventos, function (n) {
+            return n.id == id_solicitud;
+          });
+          proxy.writeQuery({ query: modificar_eventos, data });
         }
       });
     }
@@ -27,6 +41,20 @@ export default (WrappedComponent) => {
       this.props.patchd_modificar_evento({
         variables: {
           id_solicitud
+        },
+        optimisticResponse: {
+          __typename: "Mutation",
+          patchd_modificar_evento: {
+            id: id_solicitud,
+            __typename: "ModificarEventoType"
+          }
+        },
+        update: (proxy, { data: { patchd_modificar_evento } }) => {
+          const data = proxy.readQuery({ query: modificar_eventos });
+          _.remove(data.modificar_eventos, function (n) {
+            return n.id == id_solicitud;
+          });
+          proxy.writeQuery({ query: modificar_eventos, data });
         }
       });
     }

@@ -19,6 +19,20 @@ export default (WrappedComponent) => {
       this.props.patch_modificar_politico({
         variables: {
           id_solicitud
+        },
+        optimisticResponse: {
+          __typename: "Mutation",
+          patch_modificar_politico: {
+            id: id_solicitud,
+            __typename: "ModificarPoliticoType"
+          }
+        },
+        update: (proxy, { data: { patch_modificar_politico } }) => {
+          const data = proxy.readQuery({ query: modificar_politicos });
+          _.remove(data.modificar_politicos, function (n) {
+            return n.id == id_solicitud;
+          });
+          proxy.writeQuery({ query: modificar_politicos, data });
         }
       });
     }
@@ -27,6 +41,20 @@ export default (WrappedComponent) => {
       this.props.patchd_modificar_politico({
         variables: {
           id_solicitud
+        },
+        optimisticResponse: {
+          __typename: "Mutation",
+          patchd_modificar_politico: {
+            id: id_solicitud,
+            __typename: "ModificarPoliticoType"
+          }
+        },
+        update: (proxy, { data: { patchd_modificar_politico } }) => {
+          const data = proxy.readQuery({ query: modificar_politicos });
+          _.remove(data.modificar_politicos, function (n) {
+            return n.id == id_solicitud;
+          });
+          proxy.writeQuery({ query: modificar_politicos, data });
         }
       });
     }
