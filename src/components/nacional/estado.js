@@ -61,7 +61,6 @@ class Estado extends Component {
                 let likes = this.props.data.like_nacionals_by_id_estado
                 let preferencias = [];
                 _.map(likes, like => {
-                    console.log(like);
                     preferencias.push({
                         color: like.politico.partido.color,
                         likes: like.usuarios.length
@@ -69,6 +68,7 @@ class Estado extends Component {
                 });
                 preferencias = _.sortBy(preferencias, 'likes');
                 preferencias.reverse();
+                
                 let color;
                 if (preferencias[0].likes > 0) {
                     color = this.stringToObject(preferencias[0].color);
@@ -78,8 +78,8 @@ class Estado extends Component {
         }
     }
     render() {
-        if(!this.props.data.loading){return(<LoadingScreen />);}
-        return (
+        if(this.props.data.loading) return <LoadingScreen />;
+                return (
             <path
                 style={{ stroke: 'white', strokeWidth: '0.5px', fill: this.getRGBA(this.state) }}
                 d={this.props.d} onClick={() => this.props.handleEstadoSelected(this.props.name)}
