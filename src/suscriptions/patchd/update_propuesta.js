@@ -1,9 +1,21 @@
 import gql from 'graphql-tag';
 
 export default gql`
-mutation patchd_update_propuesta($id_solicitud: ID){
-    patchd_update_propuesta(id_solicitud: $id_solicitud){
+subscription data {
+    suscribe_to_patchd_propuesta_update {
       id
-        } 
+      fecha
+      descripcion
+      titulo
+      tipo_propuesta {
+        id
+        tipo
+      }
+      usuario {
+        id
+        nombre
+        avatar
+      }
     }
+  }
 `;

@@ -2,9 +2,9 @@ import gql from 'graphql-tag';
 
 export default gql`
 subscription data {
-    suscribe_to_patchd_propuesta_delete {
+    suscribe_to_patchd_evento_delete_moderador {
       id
-      propuesta {
+      evento {
         id
         titulo
         descripcion
@@ -15,5 +15,5 @@ subscription data {
         avatar
       }
     }
-}
+}  
 `;

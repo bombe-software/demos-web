@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export default gql`
 subscription data {
-    suscribe_to_patchd_politico_update {
+    suscribe_to_patchd_politico_update_moderador  {
       id
       politico {
         id

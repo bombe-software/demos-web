@@ -7,12 +7,68 @@ import patchd_solicitud_evento from './../../../../mutations/patchd/solicitud_ev
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 
+import suscribe_to_evento_add from './../../../../suscriptions/add/evento';
+import suscribe_to_patchd_evento_add from './../../../../suscriptions/patchd/solicitud_evento';
+import suscribe_to_patch_evento_add from './../../../../suscriptions/patch_moderador/solicitud_evento';
+
 export default (WrappedComponent) => {
   class Add extends Component {
     constructor(props) {
       super(props);
       this.aceptar = this.aceptar.bind(this);
-      this.denegar = this.denegar.bind(this)
+      this.denegar = this.denegar.bind(this);
+    }
+
+    
+    componentDidMount() {
+      this.createAddSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_evento_add,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newEvento = subscriptionData.data.suscribe_to_evento_add;
+          let n_solicitud_eventos = [newEvento, ...previousState.solicitud_eventos];
+          return Object.assign({}, previousState, {
+            solicitud_eventos: n_solicitud_eventos
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+      this.createPatchDSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_patchd_evento_add,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newEvento = subscriptionData.data.suscribe_to_patchd_evento_add;
+          let n_solicitud_eventos = [...previousState.solicitud_eventos];
+          _.remove(n_solicitud_eventos, function(o) {
+            return newEvento.id == o.id;
+          });
+          return Object.assign({}, previousState, {
+            solicitud_eventos: n_solicitud_eventos
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+      this.createPatchSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_patch_evento_add,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newEvento = subscriptionData.data.suscribe_to_patch_evento_add;
+          let n_solicitud_eventos = [...previousState.solicitud_eventos];
+          _.remove(n_solicitud_eventos, function(o) {
+            return newEvento.id == o.id;
+          });
+          return Object.assign({}, previousState, {
+            solicitud_eventos: n_solicitud_eventos
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+    }
+
+    componentWillUnmount(){
+      this.createAddSubscription();
+      this.createPatchDSubscription();
+      this.createPatchSubscription();
     }
 
 

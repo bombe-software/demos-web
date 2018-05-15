@@ -2,12 +2,14 @@ import gql from 'graphql-tag';
 
 export default gql`
 subscription data {
-    suscribe_to_patchd_propuesta_delete {
+    suscribe_to_patchd_propuesta_update_moderador  {
       id
-      propuesta {
+      fecha
+      descripcion
+      titulo
+      tipo_propuesta {
         id
-        titulo
-        descripcion
+        tipo
       }
       usuario {
         id
@@ -15,5 +17,5 @@ subscription data {
         avatar
       }
     }
-}
+  }
 `;

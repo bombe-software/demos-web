@@ -13,8 +13,6 @@ export default gql`
         nombre
         avatar
       }
-      
     }
-  
   }
 `;

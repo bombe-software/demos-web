@@ -1,9 +1,19 @@
 import gql from 'graphql-tag';
 
 export default gql`
-mutation patchd_delete_evento($id_solicitud: ID){
-    patchd_delete_evento(id_solicitud: $id_solicitud){
+subscription data {
+    suscribe_to_patchd_evento_delete {
       id
-        } 
+      evento {
+        id
+        titulo
+        descripcion
+      }
+      usuario {
+        id
+        nombre
+        avatar
+      }
     }
+}  
 `;

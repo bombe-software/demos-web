@@ -4,6 +4,9 @@ import { compose, graphql } from 'react-apollo';
 import eliminar_eventos from './../../../../queries/eliminar_eventos';
 import patch_eliminar_evento from './../../../../mutations/patch/delete_evento';
 import patchd_eliminar_evento from './../../../../mutations/patchd/delete_evento';
+import suscribe_to_evento_delete from './../../../../suscriptions/delete/evento';
+import suscribe_to_patchd_evento_delete from './../../../../suscriptions/patchd/delete_evento';
+import suscribe_to_patch_evento_delete from './../../../../suscriptions/patch_moderador/delete_evento';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 
@@ -13,6 +16,42 @@ export default (WrappedComponent) => {
       super(props);
       this.aceptar = this.aceptar.bind(this);
       this.denegar = this.denegar.bind(this)
+    }
+
+    componentDidMount() {
+      this.createDeleteSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_evento_delete,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newEvento = subscriptionData.data.suscribe_to_evento_delete;
+          let n_eliminar_eventos = [newEvento, ...previousState.eliminar_eventos];
+          return Object.assign({}, previousState, {
+            eliminar_eventos: n_eliminar_eventos
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+      this.createPatchSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_patch_evento_delete,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newEvento = subscriptionData.data.suscribe_to_patch_evento_delete;
+          let n_eliminar_eventos = [...previousState.eliminar_eventos];
+          _.remove(n_eliminar_eventos, function(o) {
+            return newEvento.id == o.id;
+          });
+          return Object.assign({}, previousState, {
+            eliminar_eventos: n_eliminar_eventos
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+    }
+
+    componentWillUnmount(){
+      this.createDeleteSubscription();
+      this.createPatchDSubscription();
+      this.createPatchSubscription();
     }
 
     aceptar(id_solicitud) {

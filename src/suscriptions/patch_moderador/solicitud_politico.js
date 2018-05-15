@@ -2,18 +2,20 @@ import gql from 'graphql-tag';
 
 export default gql`
 subscription data {
-    suscribe_to_patchd_propuesta_delete {
+    suscribe_to_patchd_politico_add_moderador  {
       id
-      propuesta {
+      nombre
+      cargo
+      partido {
         id
-        titulo
-        descripcion
+        nombre
       }
       usuario {
         id
         nombre
         avatar
       }
+      referencia
     }
 }
 `;

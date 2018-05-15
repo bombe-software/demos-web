@@ -2,13 +2,12 @@ import gql from 'graphql-tag';
 
 export default gql`
 subscription data {
-    suscribe_to_patchd_propuesta_delete {
+    suscribe_to_patchd_evento_update_moderador  {
       id
-      propuesta {
-        id
-        titulo
-        descripcion
-      }
+      fecha
+      titulo
+      descripcion
+      referencia
       usuario {
         id
         nombre

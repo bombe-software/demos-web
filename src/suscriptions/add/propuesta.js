@@ -1,9 +1,26 @@
 import gql from 'graphql-tag';
 
 export default gql`
-mutation add_propuesta($fecha: String, $titulo: String, $descripcion: String, $tipo_propuesta: ID, $referencia: String, $usuario: ID, $politico: ID) {
-  add_propuesta(fecha: $fecha, descripcion: $descripcion, tipo_propuesta: $tipo_propuesta, referencia: $referencia, usuario: $usuario, politico: $politico, titulo: $titulo) {
+subscription data {
+  suscribe_to_propuesta_add {
     id
+    titulo
+    fecha
+    descripcion
+    tipo_propuesta {
+      id
+      tipo
+    }
+    referencia
+    usuario {
+      id
+      nombre
+      avatar
+    }
+    politico {
+      id
+      nombre
+    }
   }
-}  
+}
 `;

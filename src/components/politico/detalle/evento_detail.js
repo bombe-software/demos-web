@@ -6,6 +6,9 @@ import LoadingScreen from "./../../reutilizables/loading_screen"
 import BotonCaptcha from './../../reutilizables/boton_captcha';
 import evento$delete from "../../../mutations/delete/evento";
 
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+
 class EventoDetail extends Component {
     constructor(props) {
         super(props);

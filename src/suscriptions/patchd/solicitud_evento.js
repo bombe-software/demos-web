@@ -1,9 +1,22 @@
 import gql from 'graphql-tag';
 
 export default gql`
-mutation patchd_add_evento($id_evento: ID){
-    patchd_add_evento(id_evento: $id_evento){
+subscription data {
+    suscribe_to_patchd_evento_add {
       id
-        } 
+      titulo
+      fecha
+      descripcion
+      referencia
+      usuario {
+        id
+        nombre
+        avatar
+      }
+      politico {
+        id
+        nombre
+      }
     }
+}
 `;

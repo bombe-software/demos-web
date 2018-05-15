@@ -4,6 +4,9 @@ import { compose, graphql } from 'react-apollo';
 import modificar_eventos from './../../../../queries/modificar_eventos';
 import patch_modificar_evento from './../../../../mutations/patch/update_evento';
 import patchd_modificar_evento from './../../../../mutations/patchd/update_evento';
+import suscribe_to_evento_update from './../../../../suscriptions/update/evento';
+import suscribe_to_patchd_evento_update from './../../../../suscriptions/patchd/update_evento';
+import suscribe_to_patch_evento_update from './../../../../suscriptions/patch_moderador/update_evento';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 
@@ -13,6 +16,57 @@ export default (WrappedComponent) => {
       super(props);
       this.aceptar = this.aceptar.bind(this);
       this.denegar = this.denegar.bind(this)
+    }
+
+    componentDidMount() {
+      this.createUpdateSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_evento_update,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newEvento = subscriptionData.data.suscribe_to_evento_update;
+          let n_modificar_eventos = [newEvento, ...previousState.modificar_eventos];
+          return Object.assign({}, previousState, {
+            modificar_eventos: n_modificar_eventos
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+      this.createPatchDSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_patchd_evento_update,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newEvento = subscriptionData.data.suscribe_to_patchd_evento_update;
+          let n_modificar_eventos = [...previousState.modificar_eventos];
+          _.remove(n_modificar_eventos, function(o) {
+            return newEvento.id == o.id;
+          });
+          return Object.assign({}, previousState, {
+            modificar_eventos: n_modificar_eventos
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+      this.createPatchSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_patch_evento_update,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newEvento = subscriptionData.data.suscribe_to_patch_evento_update;
+          let n_modificar_eventos = [...previousState.modificar_eventos];
+          _.remove(n_modificar_eventos, function(o) {
+            return newEvento.id == o.id;
+          });
+          return Object.assign({}, previousState, {
+            modificar_eventos: n_modificar_eventos
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+    }
+
+    componentWillUnmount(){
+      this.createUpdateSubscription();
+      this.createPatchDSubscription();
+      this.createPatchSubscription();
     }
 
     aceptar(id_solicitud) {

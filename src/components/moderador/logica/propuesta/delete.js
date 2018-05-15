@@ -4,6 +4,9 @@ import { compose, graphql } from 'react-apollo';
 import eliminar_propuestas from './../../../../queries/eliminar_propuestas';
 import patch_eliminar_propuesta from './../../../../mutations/patch/delete_propuesta';
 import patchd_eliminar_propuesta from './../../../../mutations/patchd/delete_propuesta';
+import suscribe_to_propuesta_delete from './../../../../suscriptions/delete/propuesta';
+import suscribe_to_patchd_propuesta_delete from './../../../../suscriptions/patchd/delete_propuesta';
+import suscribe_to_patch_propuesta_delete from './../../../../suscriptions/patch_moderador/delete_propuesta';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 
@@ -13,6 +16,56 @@ export default (WrappedComponent) => {
       super(props);
       this.aceptar = this.aceptar.bind(this);
       this.denegar = this.denegar.bind(this)
+    }
+    componentDidMount() {
+      this.createDeleteSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_propuesta_delete,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newPropuesta = subscriptionData.data.suscribe_to_propuesta_delete;
+          let n_eliminar_propuestas = [newPropuesta, ...previousState.eliminar_propuestas];
+          return Object.assign({}, previousState, {
+            eliminar_propuestas: n_eliminar_propuestas
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+      this.createPatchDSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_patchd_propuesta_delete,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newPropuesta = subscriptionData.data.suscribe_to_patchd_propuesta_delete;
+          let n_eliminar_propuestas = [...previousState.eliminar_propuestas];
+          _.remove(n_eliminar_propuestas, function(o) {
+            return newPropuesta.id == o.id;
+          });
+          return Object.assign({}, previousState, {
+            eliminar_propuestas: n_eliminar_propuestas
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+      this.createPatchSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_patch_propuesta_delete,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newPropuesta = subscriptionData.data.suscribe_to_patch_propuesta_delete;
+          let n_eliminar_propuestas = [...previousState.eliminar_propuestas];
+          _.remove(n_eliminar_propuestas, function(o) {
+            return newPropuesta.id == o.id;
+          });
+          return Object.assign({}, previousState, {
+            eliminar_propuestas: n_eliminar_propuestas
+          });
+        },
+        onError: (err) => console.error(err),
+      });
+    }
+
+    componentWillUnmount(){
+      this.createDeleteSubscription();
+      this.createPatchDSubscription();
+      this.createPatchSubscription();
     }
 
     aceptar(id_solicitud) {
