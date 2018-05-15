@@ -4,6 +4,7 @@ import { compose, graphql } from 'react-apollo';
 import modificar_politicos from './../../../../queries/modificar_politicos';
 import patch_modificar_politico from './../../../../mutations/patch/update_politico';
 import patchd_modificar_politico from './../../../../mutations/patchd/update_politico';
+import politico from "./../../../../queries/politico";
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 
@@ -15,7 +16,7 @@ export default (WrappedComponent) => {
       this.denegar = this.denegar.bind(this)
     }
 
-    aceptar(id_solicitud) {
+    aceptar(id_solicitud, id) {
       this.props.patch_modificar_politico({
         variables: {
           id_solicitud
@@ -33,7 +34,11 @@ export default (WrappedComponent) => {
             return n.id == id_solicitud;
           });
           proxy.writeQuery({ query: modificar_politicos, data });
-        }
+        },
+        refetchQueries: [{
+          query: politico,
+          variables: { id }
+        }]
       });
     }
 

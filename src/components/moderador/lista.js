@@ -32,10 +32,10 @@ class Lista extends Component {
             );
         }
     }
-    listener(o, id) {
+    listener(o, id, id_for_update) {
         return () => {
             if (o) {
-                this.props.aceptar(id);
+                this.props.aceptar(id, id_for_update);
                 this.setState({ id: null });
             } else {
                 this.props.denegar(id);
@@ -44,6 +44,7 @@ class Lista extends Component {
         }
     }
     renderList() {
+        console.log(this.props.lista);
         return this.props.lista.map(({ id, titulo, usuario, nombre, politico, propuesta, evento }) => {
             /**
              * Quitar el true
@@ -53,7 +54,7 @@ class Lista extends Component {
                     <div key={id}>
                         <div className="panel-block"  >
                             <span className="panel-icon">
-                                <a className="is-primary" onClick={this.listener(true, id)}>
+                                <a className="is-primary" onClick={this.listener(true, id, (politico ? politico.id : null)  || (propuesta ? propuesta.id : null)  || (evento ? evento.id : null) )}>
                                     <i className="fa fa-check"></i>
                                 </a> &nbsp;&nbsp;&nbsp;
                             </span>
