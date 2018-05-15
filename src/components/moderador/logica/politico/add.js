@@ -6,7 +6,7 @@ import patch_solicitud_politico from './../../../../mutations/patch/solicitud_po
 import patchd_solicitud_politico from './../../../../mutations/patchd/solicitud_politico';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
-
+import suscribe_to_politico_add from './../../../../suscriptions/add/politico';
 export default (WrappedComponent) => {
   class Add extends Component {
     constructor(props) {
@@ -14,6 +14,23 @@ export default (WrappedComponent) => {
       this.aceptar = this.aceptar.bind(this);
       this.denegar = this.denegar.bind(this)
     }
+
+    componentDidMount() {
+      this.createAddSubscription = this.props.data.subscribeToMore({
+        document: suscribe_to_politico_add,
+        updateQuery: (previousState, {subscriptionData}) => {
+          if (!subscriptionData.data) return previousState;
+          const newPolitico = subscriptionData.data.suscribe_to_politico_add
+          const n_solicitud_politicos = [newPolitico, ...previousState.solicitud_politicos]
+          return Object.assign({}, previousState, {
+            solicitud_politicos: n_solicitud_politicos
+          });
+        },
+        onError: (err) => console.error(err),
+      })
+    }
+
+
 
     aceptar(id_politico) {
       this.props.patch_solicitud_politico({

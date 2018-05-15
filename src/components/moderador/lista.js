@@ -44,7 +44,6 @@ class Lista extends Component {
         }
     }
     renderList() {
-        console.log(this.props.lista);
         return this.props.lista.map(({ id, titulo, usuario, nombre, politico, propuesta, evento }) => {
             /**
              * Quitar el true
