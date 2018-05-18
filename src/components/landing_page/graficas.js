@@ -155,8 +155,10 @@ class Graficas extends Component {
                 let dataProps = [];
 
                 _.mapValues(votacion, function (preferencia) {
-                    labelsProps.push(preferencia.politico.nombre);
-                    dataProps.push(preferencia.usuarios.length);
+                    if(preferencia.politico){
+                        labelsProps.push(preferencia.politico.nombre);
+                        dataProps.push(preferencia.usuarios.length);
+                    }
                 });
 
                 let data = {
