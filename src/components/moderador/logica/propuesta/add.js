@@ -9,7 +9,7 @@ import LoadingScreen from './../../../reutilizables/loading_screen';
 
 import suscribe_to_propuesta_add from './../../../../suscriptions/add/propuesta';
 import suscribe_to_patchd_propuesta_add from './../../../../suscriptions/patchd/delete_propuesta';
-import suscribe_to_patch_propuesta_add from './../../../../suscriptions/patch_moderador/delete_propuesta';
+import suscribe_to_patch_propuesta_add_moderador from './../../../../suscriptions/patch_moderador/delete_propuesta';
 
 export default (WrappedComponent) => {
   class Add extends Component {
@@ -19,56 +19,61 @@ export default (WrappedComponent) => {
       this.denegar = this.denegar.bind(this)
     }
 
-    componentDidMount() {
-      this.createAddSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_propuesta_add,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPropuesta = subscriptionData.data.suscribe_to_propuesta_add;
-          const n_solicitud_propuestas = [newPropuesta, ...previousState.solicitud_propuestas];
-          return Object.assign({}, previousState, {
-            solicitud_propuestas: n_solicitud_propuestas
-          });
-        },
-        onError: (err) => console.error(err),
-
-      });
-      this.createPatchDSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_patchd_propuesta_add,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPropuesta = subscriptionData.data.suscribe_to_patchd_propuesta_add;
-          let n_solicitud_propuestas = [...previousState.solicitud_propuestas];
-          _.remove(n_solicitud_propuestas, function(o) {
-            return newPropuesta.id == o.id;
-          });
-          return Object.assign({}, previousState, {
-            solicitud_propuestas: n_solicitud_propuestas
-          });
-        },
-        onError: (err) => console.error(err),
-      });
-      this.createPatchSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_patch_propuesta_add,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPropuesta = subscriptionData.data.suscribe_to_patch_propuesta_add_moderador;
-          let n_solicitud_propuestas = [...previousState.solicitud_propuestas];
-          _.remove(n_solicitud_propuestas, function(o) {
-            return newPropuesta.id == o.id;
-          });
-          return Object.assign({}, previousState, {
-            solicitud_propuestas: n_solicitud_propuestas
-          });
-        },
-        onError: (err) => console.error(err),
-      });
+    componentWillMount() {
+      if(!this.createAddSubscription){
+        this.createAddSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_propuesta_add,
+          updateQuery: (previousState, {subscriptionData}) => {
+            if (!subscriptionData.data) return previousState;
+            const newPropuesta = subscriptionData.data.suscribe_to_propuesta_add;
+            const n_solicitud_propuestas = [newPropuesta, ...previousState.solicitud_propuestas];
+            return Object.assign({}, previousState, {
+              solicitud_propuestas: n_solicitud_propuestas
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if(!this.createPatchDSubscription){
+        this.createPatchDSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patchd_propuesta_add,
+          updateQuery: (previousState, {subscriptionData}) => {
+            if (!subscriptionData.data) return previousState;
+            const newPropuesta = subscriptionData.data.suscribe_to_patchd_propuesta_add;
+            let n_solicitud_propuestas = [...previousState.solicitud_propuestas];
+            _.remove(n_solicitud_propuestas, function(o) {
+              return newPropuesta.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              solicitud_propuestas: n_solicitud_propuestas
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if(!this.createPatchSubscription){
+        this.createPatchSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patch_propuesta_add_moderador,
+          updateQuery: (previousState, {subscriptionData}) => {
+            if (!subscriptionData.data) return previousState;
+            const newPropuesta = subscriptionData.data.suscribe_to_patch_propuesta_add_moderador;
+            let n_solicitud_propuestas = [...previousState.solicitud_propuestas];
+            _.remove(n_solicitud_propuestas, function(o) {
+              return newPropuesta.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              solicitud_propuestas: n_solicitud_propuestas
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
     }
 
-    componentWillUnmount(){
-      this.createAddSubscription();
-      this.createPatchDSubscription();
-      this.createPatchSubscription();
+    componentWillUnmount() {
+      if(this.createAddSubscription) this.createAddSubscription();
+      if(this.createPatchDSubscription) this.createPatchDSubscription();
+      if(this.createPatchSubscription ) this.createPatchSubscription();
     }
 
     aceptar(id_propuesta) {

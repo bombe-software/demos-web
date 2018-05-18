@@ -18,55 +18,61 @@ export default (WrappedComponent) => {
       this.denegar = this.denegar.bind(this)
     }
 
-    componentDidMount() {
-      this.createUpdateSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_propuesta_update,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPropuesta = subscriptionData.data.suscribe_to_propuesta_update;
-          let n_modificar_propuestas = [newPropuesta, ...previousState.modificar_propuestas];
-          return Object.assign({}, previousState, {
-            modificar_propuestas: n_modificar_propuestas
-          });
-        },
-        onError: (err) => console.error(err),
-      });
-      this.createPatchDSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_patchd_propuesta_update,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPropuesta = subscriptionData.data.suscribe_to_patchd_propuesta_update;
-          let n_modificar_propuestas = [...previousState.modificar_propuestas];
-          _.remove(n_modificar_propuestas, function(o) {
-            return newPropuesta.id == o.id;
-          });
-          return Object.assign({}, previousState, {
-            modificar_propuestas: n_modificar_propuestas
-          });
-        },
-        onError: (err) => console.error(err),
-      });
-      this.createPatchSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_patch_propuesta_update,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPropuesta = subscriptionData.data.suscribe_to_patch_propuesta_update_moderador;
-          let n_modificar_propuestas = [...previousState.modificar_propuestas];
-          _.remove(n_modificar_propuestas, function(o) {
-            return newPropuesta.id == o.id;
-          });
-          return Object.assign({}, previousState, {
-            modificar_propuestas: n_modificar_propuestas
-          });
-        },
-        onError: (err) => console.error(err),
-      });
+    componentWillMount() {
+      if (!this.createUpdateSubscription) {
+        this.createUpdateSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_propuesta_update,
+          updateQuery: (previousState, { subscriptionData }) => {
+            if (!subscriptionData.data) return previousState;
+            const newPropuesta = subscriptionData.data.suscribe_to_propuesta_update;
+            let n_modificar_propuestas = [newPropuesta, ...previousState.modificar_propuestas];
+            return Object.assign({}, previousState, {
+              modificar_propuestas: n_modificar_propuestas
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if (!this.createPatchDSubscription) {
+        this.createPatchDSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patchd_propuesta_update,
+          updateQuery: (previousState, { subscriptionData }) => {
+            if (!subscriptionData.data) return previousState;
+            const newPropuesta = subscriptionData.data.suscribe_to_patchd_propuesta_update;
+            let n_modificar_propuestas = [...previousState.modificar_propuestas];
+            _.remove(n_modificar_propuestas, function (o) {
+              return newPropuesta.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              modificar_propuestas: n_modificar_propuestas
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if (!this.createPatchSubscription) {
+        this.createPatchSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patch_propuesta_update,
+          updateQuery: (previousState, { subscriptionData }) => {
+            if (!subscriptionData.data) return previousState;
+            const newPropuesta = subscriptionData.data.suscribe_to_patch_propuesta_update_moderador;
+            let n_modificar_propuestas = [...previousState.modificar_propuestas];
+            _.remove(n_modificar_propuestas, function (o) {
+              return newPropuesta.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              modificar_propuestas: n_modificar_propuestas
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
     }
 
-    componentWillUnmount(){
-      this.createUpdateSubscription();
-      this.createPatchDSubscription();
-      this.createPatchSubscription();
+    componentWillUnmount() {
+      if (this.createUpdateSubscription) this.createUpdateSubscription();
+      if (this.createPatchDSubscription) this.createPatchDSubscription();
+      if (this.createPatchSubscription) this.createPatchSubscription();
     }
 
     aceptar(id_solicitud) {

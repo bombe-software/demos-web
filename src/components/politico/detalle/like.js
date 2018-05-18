@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { graphql, compose } from 'react-apollo';
-import likeGQL from './../../../mutations/like';
-import dislikeGQL from './../../../mutations/dislike';
+import like_propuesta from './../../../mutations/especiales/like_propuesta';
+import dislike_propuesta from './../../../mutations/especiales/dislike_propuesta';
 import _ from 'lodash';
 
 class Like extends Component {
@@ -54,10 +54,10 @@ class Like extends Component {
 }
 
 export default compose(
-    graphql(likeGQL, {
+    graphql(like_propuesta, {
         name: 'mutateLike'
     }),
-    graphql(dislikeGQL, {
+    graphql(dislike_propuesta, {
         name: 'mutateDislike'
     })
 )(Like); 

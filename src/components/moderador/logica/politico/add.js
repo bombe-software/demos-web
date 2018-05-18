@@ -8,7 +8,7 @@ import patchd_solicitud_politico from './../../../../mutations/patchd/solicitud_
 import LoadingScreen from './../../../reutilizables/loading_screen';
 import suscribe_to_politico_add from './../../../../suscriptions/add/politico';
 import suscribe_to_patchd_politico_add from './../../../../suscriptions/patchd/solicitud_politico';
-import suscribe_to_patch_politico_add from './../../../../suscriptions/patch_moderador/solicitud_politico';
+import suscribe_to_patch_politico_add_moderador from './../../../../suscriptions/patch_moderador/solicitud_politico';
 
 export default (WrappedComponent) => {
   class Add extends Component {
@@ -18,55 +18,62 @@ export default (WrappedComponent) => {
       this.denegar = this.denegar.bind(this)
     }
 
-    componentDidMount() {
-      this.createAddSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_politico_add,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPolitico = subscriptionData.data.suscribe_to_politico_add
-          const n_solicitud_politicos = [newPolitico, ...previousState.solicitud_politicos]
-          return Object.assign({}, previousState, {
-            solicitud_politicos: n_solicitud_politicos
-          });
-        },
-        onError: (err) => console.error(err),
-      });
-      this.createPatchDSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_patchd_politico_add,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPolitico= subscriptionData.data.suscribe_to_patchd_politico_add;
-          let n_solicitud_politicos = [...previousState.solicitud_politicos];
-          _.remove(n_solicitud_politicos, function(o) {
-            return newPolitico.id == o.id;
-          });
-          return Object.assign({}, previousState, {
-            solicitud_politicos: n_solicitud_politicos
-          });
-        },
-        onError: (err) => console.error(err),
-      });
-      this.createPatchSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_patch_politico_add,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPolitico= subscriptionData.data.suscribe_to_patch_politico_add_moderador;
-          let n_solicitud_politicos = [...previousState.solicitud_politicos];
-          _.remove(n_solicitud_politicos, function(o) {
-            return newPolitico.id == o.id;
-          });
-          return Object.assign({}, previousState, {
-            solicitud_politicos: n_solicitud_politicos
-          });
-        },
-        onError: (err) => console.error(err),
-      });
+    componentWillMount() {
+      if (!this.createAddSubscription) {
+        this.createAddSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_politico_add,
+          updateQuery: (previousState, { subscriptionData }) => {
+            if (!subscriptionData.data) return previousState;
+            const newPolitico = subscriptionData.data.suscribe_to_politico_add
+            const n_solicitud_politicos = [newPolitico, ...previousState.solicitud_politicos]
+            return Object.assign({}, previousState, {
+              solicitud_politicos: n_solicitud_politicos
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if (!this.createPatchDSubscription) {
+        this.createPatchDSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patchd_politico_add,
+          updateQuery: (previousState, { subscriptionData }) => {
+            if (!subscriptionData.data) return previousState;
+            const newPolitico = subscriptionData.data.suscribe_to_patchd_politico_add;
+            let n_solicitud_politicos = [...previousState.solicitud_politicos];
+            _.remove(n_solicitud_politicos, function (o) {
+              return newPolitico.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              solicitud_politicos: n_solicitud_politicos
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if (this.createPatchSubscription) {
+        this.createPatchSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patch_politico_add_moderador,
+          updateQuery: (previousState, { subscriptionData }) => {
+            if (!subscriptionData.data) return previousState;
+            const newPolitico = subscriptionData.data.suscribe_to_patch_politico_add_moderador;
+            let n_solicitud_politicos = [...previousState.solicitud_politicos];
+            _.remove(n_solicitud_politicos, function (o) {
+              return newPolitico.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              solicitud_politicos: n_solicitud_politicos
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+
     }
 
-    componentWillUnmount(){
-      this.createAddSubscription();
-      this.createPatchDSubscription();
-      this.createPatchSubscription()
+    componentWillUnmount() {
+      if (this.createAddSubscription) this.createAddSubscription();
+      if (this.createPatchDSubscription) this.createPatchDSubscription();
+      if (this.createPatchSubscription) this.createPatchSubscription();
     }
 
 

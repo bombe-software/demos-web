@@ -44,6 +44,7 @@ class PoliticoDetail extends Component {
     }
 
     renderSection() {
+        const PropuestasWithUsuario = NeedLogin(Propuestas, 'variable');
         if (this.state.id_selected.length == 0) {
             if (this.state.type == "propuestas") {
                 return (
@@ -65,7 +66,7 @@ class PoliticoDetail extends Component {
                             <div className="panel-heading">
                                 Propuestas del político
                           </div>
-                            <Propuestas
+                            <PropuestasWithUsuario
                                 search={this.updateSearch}
                                 cargo={this.props.data.politico.cargo}
                                 propuestas={this.props.data.politico.propuestas}
