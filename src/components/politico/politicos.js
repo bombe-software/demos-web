@@ -11,8 +11,8 @@ class Politicos extends Component {
         super(props);
         this.state = {
             puesto: 1,
-            estado: '',
-            zona: ''
+            estado: '5a68b566f5985aaea61a93ce',
+            zona: '5a7e42c3b23cd2edaabcce3a'
         };
         this.updateSearch = this.updateSearch.bind(this);
     }
@@ -123,7 +123,13 @@ class Politicos extends Component {
             <div className="section">
                 <div className="columns is-desktop">
                     <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
-                        <h1 className="is-size-2 title">Políticos</h1>
+                        <div className="level">
+                            <div className="level-left">
+                                <div className="level-item">
+                                <h1 className="is-size-2 title">Políticos</h1>
+                                </div>
+                            </div>
+                        </div>
                         <h2 className="subtitle">Selecciona una región y un tipo para ver los candidatos o funcionarios de esa región</h2>
                     </div>
                 </div>

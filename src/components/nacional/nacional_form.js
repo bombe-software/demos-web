@@ -32,6 +32,10 @@ class NacionalForm extends Component {
         console.log("Info: " + info);
     }
 
+    componentDidMount() {
+
+    }
+
     handlePolitico(id) {
         this.setState({ id_politico_preferido: id });
     }
@@ -56,15 +60,25 @@ class NacionalForm extends Component {
 
     renderListPoliticos() {
         //Agregar render de politicos
-        return this.props.data.like_nacionals_by_id_estado.map(({ politico }) => {
+        return this.props.data.like_nacionals_by_id_estado.map(({ politico, usuarios }) => {
+            console.log(usuarios);
+            console.log(this.props.id_usuario);
+            console.log(_.find(usuarios, this.props.data.id_usuario));
             return (
                 <div key={politico.id} >
                     <div style={this.state.id_politico_preferido == politico.id ? {color: "#50C9A4"} : {color: '#565656'}} onClick={() => this.handlePolitico(politico.id)}>
                         <div className="level">
                             <div className="level-left">
                                 <div className="level-item">
+                                    {this.state.id_politico_preferido!==politico.id?
+                                    <i className="fa fa-square-o" aria-hidden="true"></i>
+                                    :
+                                    <i className="fa fa-check-square-o" aria-hidden="true"></i>
+                                     }
+                                </div>
+                                <div className="level-item">
                                     <div>
-                                        <p className="is-size-4 clickable">{politico.nombre}</p>
+                                        <p className="is-size-5 clickable">{politico.nombre}</p>
                                         <p>{politico.partido.nombre}</p>
                                     </div>
                                 </div>
@@ -91,6 +105,7 @@ class NacionalForm extends Component {
 
                 <div className="hero is-small">
                     <div className="hero-body">
+                        <h2 className="subtitle is-size-4">Elija al candidato de su preferencia para participar en la encuesta nacional</h2>
                         {this.renderListPoliticos()}
                     </div>
                 </div>
