@@ -114,7 +114,7 @@ renderModerador(){
     if(this.props.data.loading) return <div> </div>
     return (
       //Logo de la navbar
-      <div>
+      <div className='is-light'>
         <nav className="navbar is-transparent">
           <div className="navbar-brand">
             <Link className="navbar-item" to="/">
