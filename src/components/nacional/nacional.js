@@ -78,6 +78,7 @@ class Mexico extends Component {
                         <div className="columns is-desktop">
                         <div className="column is-10-widescreen is-10-desktop is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                               <h1 className="is-size-2 title">Nacional</h1>
+                              <h2 className="subtitle">Selecciona una región para ver las preferencias por estado de los candidatos nacionales</h2>
                         </div>
                         </div>
                         <div className="columns is-desktop">

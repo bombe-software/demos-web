@@ -61,12 +61,12 @@ class Busqueda extends Component {
             <div>
                 <div className="section">
                 <div className="columns">
-                <div className="column is-10-widescreen is-10-desktop is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                     
                 <div className="level">
                     <div className="level-left">
                         <div className="level-element">
-                            <h1 className="is-size-2 title">Búsqueda&nbsp;&nbsp;</h1>
+                            <h1 className="is-size-2 title">Búsqueda</h1>
                         </div>
                     </div>
                     <div className="level-right">
@@ -84,6 +84,7 @@ class Busqueda extends Component {
                         </div>
                     </div>
                 </div>
+                <h2 className="subtitle">Ingresa el nombre de un político, alguna propuesta o evento</h2>
                 <div className="level">
                     <div className="level-left">
                         <div className="level-item">
