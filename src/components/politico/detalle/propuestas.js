@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-//import Like  from './like';
+import Like from './like';
 
 class Propuestas extends Component {
     constructor(props) {
         super(props);
     }
-    /*
-    renderLike(id_propuesta,id_usuario, likes){
-        if(id_usuario != undefined)
-            return <Like id_propuesta={id_propuesta} id_usuario={id_usuario} likes={likes} />;
-        else
-            return ""
+
+    renderLike(id_propuesta, id_usuario, likes) {
+        if (!id_usuario) return "";
+        return <Like id_propuesta={id_propuesta} id_usuario={id_usuario} likes={likes} />;
     }
-    */
+
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion
@@ -28,7 +26,7 @@ class Propuestas extends Component {
     }
 
     render() {
-        const { propuestas, cargo } = this.props;
+        const { propuestas, cargo, id_usuario } = this.props;
         return propuestas.map(({ id, fecha, titulo, tipo_propuesta, likes }) => {
             if (fecha && id && titulo && tipo_propuesta) return (
                 <div key={id}>
@@ -37,7 +35,7 @@ class Propuestas extends Component {
                             <a className="has-text-dark" onClick={this.props.search(id)}>{titulo}</a> &nbsp;{" "}&nbsp;<span className="is-size-7 tag is-light has-text-right">{tipo_propuesta.tipo}</span>
                         </p>
                         <div className={cargo != "Candidato" ? "hidden" : ""}>
-                            {/*this.renderLike(id ,id_usuario, likes)*/}
+                            {this.renderLike(id, id_usuario, likes)}
                         </div>
                     </div>
                 </div>

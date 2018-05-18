@@ -5,8 +5,8 @@ import eliminar_politicos from './../../../../queries/eliminar_politicos';
 import patch_eliminar_politico from './../../../../mutations/patch/delete_politico';
 import patchd_eliminar_politico from './../../../../mutations/patchd/delete_politico';
 import suscribe_to_politico_delete from './../../../../suscriptions/delete/politico';
-import suscribe_to_patchd_politico_delete from './../../../../suscriptions/patchd/delete_politico';
-import suscribe_to_patch_politico_delete from './../../../../suscriptions/patch_moderador/delete_politico';
+import suscribe_to_patch_politico_delete_moderador from './../../../../suscriptions/patchd/delete_politico';
+import suscribe_to_patchd_politico_delete from './../../../../suscriptions/patch_moderador/delete_politico';
 
 import LoadingScreen from './../../../reutilizables/loading_screen';
 
@@ -18,40 +18,61 @@ export default (WrappedComponent) => {
       this.denegar = this.denegar.bind(this)
     }
 
-    componentDidMount() {
-      this.createDeleteSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_politico_delete,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPolitico = subscriptionData.data.suscribe_to_politico_delete;
-          let n_eliminar_politicos = [newPolitico, ...previousState.eliminar_politicos];
-          return Object.assign({}, previousState, {
-            eliminar_politicos: n_eliminar_politicos
-          });
-        },
-        onError: (err) => console.error(err),
-      });
-      this.createPatchSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_patch_politico_delete,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newPolitico= subscriptionData.data.suscribe_to_patch_politico_delete_moderador;
-          let n_eliminar_politicos = [...previousState.eliminar_politicos];
-          _.remove(n_eliminar_politicos, function(o) {
-            return newPolitico.id == o.id;
-          });
-          return Object.assign({}, previousState, {
-            eliminar_politicos: n_eliminar_politicos
-          });
-        },
-        onError: (err) => console.error(err),
-      });
+    componentWillMount() {
+      if(!this.createDeleteSubscription){
+        this.createDeleteSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_politico_delete,
+          updateQuery: (previousState, {subscriptionData}) => {
+            if (!subscriptionData.data) return previousState;
+            const newPolitico = subscriptionData.data.suscribe_to_politico_delete;
+            let n_eliminar_politicos = [newPolitico, ...previousState.eliminar_politicos];
+            return Object.assign({}, previousState, {
+              eliminar_politicos: n_eliminar_politicos
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if(!this.createPatchSubscription){
+        this.createPatchSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patch_politico_delete_moderador,
+          updateQuery: (previousState, {subscriptionData}) => {
+            if (!subscriptionData.data) return previousState;
+            const newPolitico= subscriptionData.data.suscribe_to_patch_politico_delete_moderador;
+            let n_eliminar_politicos = [...previousState.eliminar_politicos];
+            _.remove(n_eliminar_politicos, function(o) {
+              return newPolitico.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              eliminar_politicos: n_eliminar_politicos
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if(!this.createPatchDSubscription){
+        this.createPatchDSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patchd_politico_delete,
+          updateQuery: (previousState, {subscriptionData}) => {
+            if (!subscriptionData.data) return previousState;
+            const newPolitico= subscriptionData.data.suscribe_to_patchd_politico_delete;
+            let n_eliminar_politicos = [...previousState.eliminar_politicos];
+            _.remove(n_eliminar_politicos, function(o) {
+              return newPolitico.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              eliminar_politicos: n_eliminar_politicos
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
     }
 
-    componentWillUnmount(){
-      this.createDeleteSubscription();
-      this.createPatchDSubscription();
-      this.createPatchSubscription();
+    componentWillUnmount() {
+      if(this.createDeleteSubscription) this.createDeleteSubscription();
+      if(this.createPatchDSubscription) this.createPatchDSubscription();
+      if(this.createPatchSubscription ) this.createPatchSubscription();
     }
 
 

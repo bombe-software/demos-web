@@ -5,6 +5,7 @@ query data($id: ID!) {
   politico(id: $id) {
     id
     nombre
+    cargo
     propuestas {
       id
       titulo
@@ -12,6 +13,9 @@ query data($id: ID!) {
       tipo_propuesta{
         id
         tipo
+      }
+      likes{
+        id
       }
     }
     eventos {

@@ -18,55 +18,61 @@ export default (WrappedComponent) => {
       this.denegar = this.denegar.bind(this)
     }
 
-    componentDidMount() {
-      this.createUpdateSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_evento_update,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newEvento = subscriptionData.data.suscribe_to_evento_update;
-          let n_modificar_eventos = [newEvento, ...previousState.modificar_eventos];
-          return Object.assign({}, previousState, {
-            modificar_eventos: n_modificar_eventos
-          });
-        },
-        onError: (err) => console.error(err),
-      });
-      this.createPatchDSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_patchd_evento_update,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newEvento = subscriptionData.data.suscribe_to_patchd_evento_update;
-          let n_modificar_eventos = [...previousState.modificar_eventos];
-          _.remove(n_modificar_eventos, function(o) {
-            return newEvento.id == o.id;
-          });
-          return Object.assign({}, previousState, {
-            modificar_eventos: n_modificar_eventos
-          });
-        },
-        onError: (err) => console.error(err),
-      });
-      this.createPatchSubscription = this.props.data.subscribeToMore({
-        document: suscribe_to_patch_evento_update,
-        updateQuery: (previousState, {subscriptionData}) => {
-          if (!subscriptionData.data) return previousState;
-          const newEvento = subscriptionData.data.suscribe_to_patch_evento_update_moderador;
-          let n_modificar_eventos = [...previousState.modificar_eventos];
-          _.remove(n_modificar_eventos, function(o) {
-            return newEvento.id == o.id;
-          });
-          return Object.assign({}, previousState, {
-            modificar_eventos: n_modificar_eventos
-          });
-        },
-        onError: (err) => console.error(err),
-      });
+    componentWillMount() {
+      if(!this.createUpdateSubscription){
+        this.createUpdateSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_evento_update,
+          updateQuery: (previousState, {subscriptionData}) => {
+            if (!subscriptionData.data) return previousState;
+            const newEvento = subscriptionData.data.suscribe_to_evento_update;
+            let n_modificar_eventos = [newEvento, ...previousState.modificar_eventos];
+            return Object.assign({}, previousState, {
+              modificar_eventos: n_modificar_eventos
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if(!this.createPatchDSubscription){
+        this.createPatchDSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patchd_evento_update,
+          updateQuery: (previousState, {subscriptionData}) => {
+            if (!subscriptionData.data) return previousState;
+            const newEvento = subscriptionData.data.suscribe_to_patchd_evento_update;
+            let n_modificar_eventos = [...previousState.modificar_eventos];
+            _.remove(n_modificar_eventos, function(o) {
+              return newEvento.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              modificar_eventos: n_modificar_eventos
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
+      if(!this.createPatchSubscription){
+        this.createPatchSubscription = this.props.data.subscribeToMore({
+          document: suscribe_to_patch_evento_update,
+          updateQuery: (previousState, {subscriptionData}) => {
+            if (!subscriptionData.data) return previousState;
+            const newEvento = subscriptionData.data.suscribe_to_patch_evento_update_moderador;
+            let n_modificar_eventos = [...previousState.modificar_eventos];
+            _.remove(n_modificar_eventos, function(o) {
+              return newEvento.id == o.id;
+            });
+            return Object.assign({}, previousState, {
+              modificar_eventos: n_modificar_eventos
+            });
+          },
+          onError: (err) => console.error(err),
+        });
+      }
     }
 
-    componentWillUnmount(){
-      this.createUpdateSubscription();
-      this.createPatchDSubscription();
-      this.createPatchSubscription();
+    componentWillUnmount() {
+      if(this.createUpdateSubscription) this.createUpdateSubscription();
+      if(this.createPatchDSubscription) this.createPatchDSubscription();
+      if(this.createPatchSubscription ) this.createPatchSubscription();
     }
 
     aceptar(id_solicitud) {
