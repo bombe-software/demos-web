@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
+import _ from 'lodash';
 
 import eliminar_propuestas from './../../../../queries/eliminar_propuestas';
 import patch_eliminar_propuesta from './../../../../mutations/patch/delete_propuesta';

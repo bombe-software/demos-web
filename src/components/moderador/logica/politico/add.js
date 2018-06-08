@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
+import _ from 'lodash';
 
 import solicitud_politicos from './../../../../queries/solicitud_politicos';
 import patch_solicitud_politico from './../../../../mutations/patch/solicitud_politico';

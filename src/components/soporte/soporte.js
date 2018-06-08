@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
 import TextField from 'material-ui/TextField';
+import _ from 'lodash';
 
 import mensaje from "./../../mutations/especiales/mensaje";
 

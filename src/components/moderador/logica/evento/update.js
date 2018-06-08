@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
+import _ from 'lodash';
 
 import modificar_eventos from './../../../../queries/modificar_eventos';
 import patch_modificar_evento from './../../../../mutations/patch/update_evento';

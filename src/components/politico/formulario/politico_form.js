@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios, { post } from 'axios';
 import { graphql } from 'react-apollo';
-import { demos_krb_http } from '../../../../deploy';
+import { demos_krb_http } from '../../../config/deploy';
 
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';

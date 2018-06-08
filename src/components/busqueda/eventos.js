@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import _ from 'lodash';
+
 import fetchEventos from './../../queries/eventos';
 
 import { validadoAcentos } from './buscar';
@@ -14,7 +16,7 @@ class Eventos extends Component {
     }
 
     renderList(param) {
-        let string = validadoAcentos(param.toLowerCase());
+        const string = validadoAcentos(param.toLowerCase());
         var re = new RegExp('^(.*?(\string\b)[^$]*)$');
         let list = _.filter(this.props.data.eventos, (o) =>{
             return re.test(validadoAcentos(o.titulo.toLowerCase())) || re.test(validadoAcentos(o.descripcion.toLowerCase()));

@@ -9,7 +9,7 @@ import { Form, Field } from "react-final-form";
 import WaveBackground from './../reutilizables/wave_background';
 import GenericForm from './../reutilizables/generic_form';
 
-import { demos_krb_http } from './../../../deploy';
+import { demos_krb_http } from './../../config/deploy';
 import login from "./../../mutations/especiales/login";
 import usuario_in$acces from "./../../queries/usuario_in.access";
 import usuario_in$navbar from "./../../queries/usuario_in.navbar";

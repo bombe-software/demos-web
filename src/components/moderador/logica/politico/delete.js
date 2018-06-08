@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { compose, graphql } from 'react-apollo';
+import _ from 'lodash';
 
 import eliminar_politicos from './../../../../queries/eliminar_politicos';
 import patch_eliminar_politico from './../../../../mutations/patch/delete_politico';

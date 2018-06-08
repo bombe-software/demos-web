@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import _ from 'lodash';
+
+
 import fetchPoliticos from './../../queries/politicos';
 
 import {validadoAcentos} from './buscar';

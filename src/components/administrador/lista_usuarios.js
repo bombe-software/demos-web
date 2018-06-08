@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import _ from 'lodash';
+
 import usuarios from './../../queries/usuarios';
 import delete_usuario from './../../mutations/delete/usuario';
 

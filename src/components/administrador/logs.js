@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import _ from 'lodash';
+
 import logs from './../../queries/logs';
 
 class Logs extends Component {

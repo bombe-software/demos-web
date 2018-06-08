@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import _ from 'lodash';
+
 import fetchPropuestas from './../../queries/propuestas';
 
 import {validadoAcentos} from './buscar';
-
 import CardPropuesta from './../reutilizables/cards/card_propuesta';
 
 class Propuestas extends Component {

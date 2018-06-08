@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { demos_krb_http  } from './../../../deploy.js'
+import { demos_krb_http  } from './../../config/deploy.js'
 
 class Detalle extends Component {
     constructor(props) {

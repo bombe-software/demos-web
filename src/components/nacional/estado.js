@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { graphql} from 'react-apollo';
+import _ from 'lodash';
+
 import LoadingScreen from './../reutilizables/loading_screen';
 import likes_nacional_by_estado from "./../../queries/likes_nacional_by_estado";
 

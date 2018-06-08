@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 import { graphql } from 'react-apollo';
-import logout from "./../../mutations/especiales/logout";  
+import logout from "./../../mutations/especiales/logout";
 import usuario_in from "./../../queries/usuario_in.navbar";
 
 class Navbar extends Component {
@@ -25,21 +25,21 @@ class Navbar extends Component {
     }));
   }
 
-  handleClickUser(){
+  handleClickUser() {
     this.setState(prevState => ({
       isUserSelected: !prevState.isUserSelected
     }));
   }
 
-  logout(){
+  logout() {
     this.props.mutate({
       refetchQueries: [{ query: usuario_in }]
     });
   }
 
-  renderNavEnd(){
-    if(this.props.data.usuario_in == undefined){
-      return(
+  renderNavEnd() {
+    if (this.props.data.usuario_in == undefined) {
+      return (
         <div>
           <div className="navbar-item">
             <Link to="/login" className="navbar-item is-light" onClick={this.handleClick}>
@@ -53,9 +53,9 @@ class Navbar extends Component {
           </div>
         </div>
       );
-    }else{
-      return(
-          <div>
+    } else {
+      return (
+        <div>
           <div className="navbar-item">
             <div className="field is-grouped">
               <div className="navbar-item is-light has-dropdown is-hoverable" onClick={this.handleClick}>
@@ -66,32 +66,32 @@ class Navbar extends Component {
                 </div>
               </div>
               <div className="navbar-item">
-              <img src={`../../assets/img/${this.props.data.usuario_in.avatar}.png`} height="28" width="28"/>
-              </div>	
+                <img src={`../../assets/img/${this.props.data.usuario_in.avatar}.png`} height="28" width="28" />
+              </div>
             </div>
           </div>
-          </div>
+        </div>
       );
     }
   }
-renderModerador(){
-    if(this.props.data.usuario_in != null){
-      if(this.props.data.usuario_in.tipo_usuario.tipo == 'Moderador'){
-        return(
-            <Link to="/moderador" className="navbar-item">
-              Moderador
+  renderModerador() {
+    if (this.props.data.usuario_in != null) {
+      if (this.props.data.usuario_in.tipo_usuario.tipo == 'Moderador') {
+        return (
+          <Link to="/moderador" className="navbar-item">
+            Moderador
             </Link>
         );
       }
     }
   }
 
-  renderAdmin(){
-    if(this.props.data.usuario_in != null){
-      if(this.props.data.usuario_in.tipo_usuario.tipo == 'Administrador'){
-        return(
-            <Link to="/admin" className="navbar-item">
-              Administrador
+  renderAdmin() {
+    if (this.props.data.usuario_in != null) {
+      if (this.props.data.usuario_in.tipo_usuario.tipo == 'Administrador') {
+        return (
+          <Link to="/admin" className="navbar-item">
+            Administrador
             </Link>
         );
       }
@@ -111,14 +111,14 @@ renderModerador(){
   }
 
   render() {
-    if(this.props.data.loading) return <div> </div>
+    if (this.props.data.loading) return <div> </div>
     return (
       //Logo de la navbar
       <div className='is-light'>
         <nav className="navbar is-transparent">
           <div className="navbar-brand">
             <Link className="navbar-item" to="/">
-              <img src="../../assets/img/demos_logo_21.png" alt="Demos" width="112" height="28"/>
+              <img src="../../assets/img/demos_logo_21.png" alt="Demos" width="112" height="28" />
             </Link>
 
             <div className={this.state.isToggleOn ? 'navbar-burger burger is-active' : 'navbar-burger burger'} data-target="nav-demos-menu" onClick={this.handleClick}>
@@ -132,37 +132,43 @@ renderModerador(){
 
               <div className="navbar-item">
 
-                  <Link to="/elecciones" className="navbar-item" onClick={this.handleClick}>
+                <Link to="/elecciones" className="navbar-item" onClick={this.handleClick}>
                   Elecciones&nbsp;&nbsp;
                   <span className="icon has-text-info">
                     <i className="fa fa-line-chart" aria-hidden="true"></i>
                   </span>
-                  </Link>
-                  <Link to="/politicos" className="navbar-item" onClick={this.handleClick}>
+                </Link>
+                <Link to="/politicos" className="navbar-item" onClick={this.handleClick}>
                   Políticos&nbsp;&nbsp;
                   <span className="icon has-text-primary">
-                  <i className="fa fa-user" aria-hidden="true"></i>
+                    <i className="fa fa-user" aria-hidden="true"></i>
                   </span>
-                  </Link>
-                  <Link to="/nacional" className="navbar-item" onClick={this.handleClick}>
+                </Link>
+                <Link to="/nacional" className="navbar-item" onClick={this.handleClick}>
                   Nacional&nbsp;&nbsp;
-                  <span className="icon has-text-danger">
-                  <i className="icon-demos-mexico"></i>
+                  <span className="icon has-text-success">
+                    <i className="icon-demos-mexico"></i>
                   </span>
-                  </Link>
-                  <Link to ="/busqueda" className="navbar-item" onClick={this.handleClick}>
+                </Link>
+                <Link to="/busqueda" className="navbar-item" onClick={this.handleClick}>
                   Buscar&nbsp;&nbsp;
                   <span className="icon has-text-warning">
-                  <i className="fa fa-search" aria-hidden="true"></i>
+                    <i className="fa fa-search" aria-hidden="true"></i>
                   </span>
-                  </Link>
-                  {this.renderModerador()}
-                  {this.renderAdmin()}
+                </Link>
+                <Link to="/denuncia" className="navbar-item" onClick={this.handleClick}>
+                  Denuncia&nbsp;&nbsp;
+                  <span className="icon has-text-danger">
+                    <i className="fa fa-bullhorn" aria-hidden="true"></i>
+                  </span>
+                </Link>
+                {this.renderModerador()}
+                {this.renderAdmin()}
               </div>
 
             </div>
             <div className="navbar-end">
-            {this.renderNavEnd()}
+              {this.renderNavEnd()}
             </div>
           </div>
         </nav>
