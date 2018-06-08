@@ -49,7 +49,7 @@ class Denuncia extends Component {
         ))
 
         return <MyMapComponent
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg"
+            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb3kUA8KdYfPy1MqVsfnVU-wxHzNhpm-8"
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={<div style={{ width: `100%` }} />}
             mapElement={<div style={{ width: `100%` }} />}
