@@ -31,12 +31,13 @@ class Denuncia extends Component {
     }
     render() {
         if (this.props.data.loading) return <Loading_Screen />;
-        const GoogleMapWithPreconfig =
+        const { data } = this.props;
+        const MyMapComponent = withScriptjs(withGoogleMap((props) =>
             <GoogleMap
                 defaultZoom={4}
                 defaultCenter={{ lat: 20.0036238, lng: -104.1757264 }}
             >
-                {this.props.data.denuncias.map(element => {
+                {data.denuncias.map(element => {
                     return
                     <Marcador
                         id={element.id}
@@ -44,9 +45,15 @@ class Denuncia extends Component {
                         descripcion={element.descripcion}
                         ubicacion={element.ubicacion} />;
                 })}
-            </GoogleMap>;
-        const MapWithAMarker = withScriptjs(withGoogleMap(GoogleMapWithPreconfig));
-        return <MapWithAMarker />;
+            </GoogleMap>
+        ))
+
+        return <MyMapComponent
+            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg"
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={<div style={{ width: `100%` }} />}
+            mapElement={<div style={{ width: `100%` }} />}
+        />;
     }
 }
 
