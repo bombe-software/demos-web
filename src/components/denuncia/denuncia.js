@@ -17,11 +17,6 @@ import Marcador from './marcador';
 
 class Denuncia extends Component {
 
-    constructor(props) {
-        super(props);
-        this.renderMarker = this.renderMarker.bind(this);
-    }
-
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion
