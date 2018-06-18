@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { compose, withProps, withStateHandlers } from 'recompose';
 import {
     withScriptjs,
     withGoogleMap,
@@ -17,11 +16,6 @@ import Marcador from './marcador';
 
 class Denuncia extends Component {
 
-    constructor(props) {
-        super(props);
-        this.renderMarker = this.renderMarker.bind(this);
-    }
-
     /**
     * Es una forma de capturar cualquier error en la clase 
     * y que este no crashe el programa, ayuda con la depuracion
@@ -36,12 +30,13 @@ class Denuncia extends Component {
     }
     render() {
         if (this.props.data.loading) return <Loading_Screen />;
-        const GoogleMapWithPreconfig =
+        const { data } = this.props;
+        const MyMapComponent = withScriptjs(withGoogleMap((props) =>
             <GoogleMap
                 defaultZoom={4}
                 defaultCenter={{ lat: 20.0036238, lng: -104.1757264 }}
             >
-                {this.props.data.denuncias.map(element => {
+                {data.denuncias.map(element => {
                     return
                     <Marcador
                         id={element.id}
@@ -49,9 +44,15 @@ class Denuncia extends Component {
                         descripcion={element.descripcion}
                         ubicacion={element.ubicacion} />;
                 })}
-            </GoogleMap>;
-        const MapWithAMarker = withScriptjs(withGoogleMap(GoogleMapWithPreconfig));
-        return <MapWithAMarker />;
+            </GoogleMap>
+        ))
+
+        return <MyMapComponent
+            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb3kUA8KdYfPy1MqVsfnVU-wxHzNhpm-8"
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={<div style={{ height: `400px` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+        />;
     }
 }
 

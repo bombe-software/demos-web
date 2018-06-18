@@ -4,5 +4,5 @@ import ReactDOM from 'react-dom';
 import App from './components/index';
 import registerServiceWorker from './config/registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.hydrate(<App />, document.getElementById('root'));
 registerServiceWorker();

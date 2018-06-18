@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "demosfont";
+  src:url("../fonts/demosfont.eot");
+  src:url("../fonts/demosfont.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/demosfont.woff") format("woff"),
+    url("../fonts/demosfont.ttf") format("truetype"),
+    url("../fonts/demosfont.svg#demosfont") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "demosfont" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "demosfont" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-demos-mexico:before {
+  content: "\61";
+}
+.icon-demos-line-chart:before {
+  content: "\62";
+}
