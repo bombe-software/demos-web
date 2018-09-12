@@ -61,9 +61,6 @@ class NacionalForm extends Component {
     renderListPoliticos() {
         //Agregar render de politicos
         return this.props.data.like_nacionals_by_id_estado.map(({ politico, usuarios }) => {
-            console.log(usuarios);
-            console.log(this.props.id_usuario);
-            console.log(_.find(usuarios, this.props.data.id_usuario));
             return (
                 <div key={politico.id} >
                     <div style={this.state.id_politico_preferido == politico.id ? {color: "#50C9A4"} : {color: '#565656'}} onClick={() => this.handlePolitico(politico.id)}>

@@ -66,6 +66,7 @@ class PropuestaForm extends GenericForm {
     if (this.props.data.loading) {
       return <LoadingScreen />;
     }
+    console.log(this.props);
     return (
       <div>
         <Dialog

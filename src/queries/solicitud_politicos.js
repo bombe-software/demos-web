@@ -16,6 +16,22 @@ export default gql`
         nombre
         avatar
       }
+      estado{
+        id
+        nombre
+      }
+      estudios{
+        id
+        titulo
+        grado_academico{
+         id
+         grado 
+        }
+        lugar_estudio{
+          id
+          nombre
+        }
+      }
       referencia
     }
   }

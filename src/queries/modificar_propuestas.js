@@ -7,6 +7,7 @@ export default gql`
       fecha
       descripcion
       titulo
+      referencia
       tipo_propuesta{
         id
         tipo
@@ -15,6 +16,10 @@ export default gql`
         id
         nombre
         avatar
+      }
+      politico {
+        id
+        nombre
       }
     }
   }

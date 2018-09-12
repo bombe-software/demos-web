@@ -147,7 +147,7 @@ class PoliticoForm extends GenericForm {
                           }
                       }
                       if(this.state.file === null){
-                        this.setState({ error: 'Seleccione una imagen' })
+                      //  this.setState({ error: 'Seleccione una imagen' }) //Bota error de maxium capacity of render CHECARLO
                       } 
                       return errors;
                     }}
