@@ -10,6 +10,7 @@ export default gql`
       query
       usuario {
         id
+        nombre
       }
     }
   }

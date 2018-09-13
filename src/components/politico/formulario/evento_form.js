@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { compose, graphql } from 'react-apollo';
+import React from "react";
+import { graphql } from 'react-apollo';
 
 //Componentes
 import Dialog from 'material-ui/Dialog';
@@ -76,6 +76,9 @@ class EventoForm extends GenericForm {
   * @const error Es el titulo del error
   */
   render() {
+    if (this.props.data.loading) {
+      return <LoadingScreen />;
+    }
     return (
       <div>
         <Dialog
@@ -105,7 +108,7 @@ class EventoForm extends GenericForm {
                       if (!values.titulo) {
                         errors.titulo = "Escriba el título del evento";
                       }
-                      if (values.titulo != undefined) {
+                      if (values.titulo !== undefined) {
 
                         if (/^\s+|\s+$/.test(values.titulo)) {
                           errors.titulo = "Escriba un titulo válido";
@@ -120,7 +123,7 @@ class EventoForm extends GenericForm {
                       if (!values.referencia) {
                         errors.referencia = "Escriba el link de referencia";
 
-                      } else if (values.referencia != undefined) {
+                      } else if (values.referencia !== undefined) {
                         var re = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
                         if (/^\s+|\s+$/.test(values.referencia)) {
                           errors.referencia = "Link invalido";

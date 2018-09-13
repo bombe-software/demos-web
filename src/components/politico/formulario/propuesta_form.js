@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { compose, graphql } from 'react-apollo';
+import React from "react";
+import { graphql } from 'react-apollo';
 
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';

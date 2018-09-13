@@ -17,7 +17,7 @@ export default (WrappedComponent, tipo) => {
       }
     }
     return graphql(usuario_in)(NeedLogin);
-  } else if (tipo == "moderador") {
+  } else if (tipo === "moderador") {
     class NeedLogin extends Component {
       componentWillUpdate(nextProps) {
         if (!nextProps.data.loading && !nextProps.data.usuario_in) {
@@ -36,7 +36,7 @@ export default (WrappedComponent, tipo) => {
 
     return graphql(usuario_in)(NeedLogin);
   }
-  else if (tipo == "administrador") {
+  else if (tipo === "administrador") {
     class NeedLogin extends Component {
       componentWillUpdate(nextProps) {
         if (!nextProps.data.loading && !nextProps.data.usuario_in) {
@@ -53,7 +53,7 @@ export default (WrappedComponent, tipo) => {
     }
     return graphql(usuario_in)(NeedLogin);
   }
-  else if (tipo == "variable") {
+  else if (tipo === "variable") {
     class NeedLogin extends Component {
       render() {
         if (this.props.data.loading) {

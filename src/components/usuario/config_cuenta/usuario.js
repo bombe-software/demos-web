@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { Form, Field } from "react-final-form";
 import GenericForm from './../../reutilizables/generic_form';
@@ -25,7 +25,7 @@ class Usuario extends GenericForm {
             if (!values.nombre) {
               errors.nombre = "Escriba su nombre de usuario";
             }
-            if (values.nombre != undefined) {
+            if (values.nombre !== undefined) {
               var ra = /^[a-z0-9]+$/i;
               if (!ra.test(values.nombre)) {
                 errors.nombre = "Solo puede contener alfa numericos y sin espacios";

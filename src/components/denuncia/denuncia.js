@@ -37,12 +37,15 @@ class Denuncia extends Component {
                 defaultCenter={{ lat: 20.0036238, lng: -104.1757264 }}
             >
                 {data.denuncias.map(element => {
-                    return
+
+                    return(
                     <Marcador
                         id={element.id}
+                        key={element.id}
                         titulo={element.titulo}
                         descripcion={element.descripcion}
-                        ubicacion={element.ubicacion} />;
+                        ubicacion={element.ubicacion} />
+                    );
                 })}
             </GoogleMap>
         ))

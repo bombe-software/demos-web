@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import axios, { post } from 'axios';
+import React from "react";
+import axios from 'axios';
 import { graphql } from 'react-apollo';
 import { demos_krb_http } from '../../../config/deploy';
 
@@ -137,7 +137,7 @@ class PoliticoForm extends GenericForm {
                       if (!values.referencia) {
                         errors.referencia = "Escriba el link de referenica";
 
-                      } else if (values.referencia != undefined) {
+                      } else if (values.referencia !== undefined) {
                         var re = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
                         if (/^\s+|\s+$/.test(values.referencia)) {
                           errors.referencia = "Link invalido";
@@ -146,9 +146,7 @@ class PoliticoForm extends GenericForm {
                             errors.referencia = "Los links deben empezar con http,https. (http(s)://www.demos.com)";
                           }
                       }
-                      if(this.state.file === null){
-                        this.setState({ error: 'Seleccione una imagen' })
-                      } 
+                      
                       return errors;
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (

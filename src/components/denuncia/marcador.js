@@ -41,13 +41,12 @@ class Marcador extends Component {
             isOpen: false
         })
     }
-
     render() {
         return (
             <Marker
                 key={this.props.id}
                 position={{ lat: parseFloat(this.props.ubicacion.split(',')[0]), lng: parseFloat(this.props.ubicacion.split(',')[1]) }}
-                onClick={this.props.open}
+                onClick={this.open}
             >
                 {this.state.isOpen ? <InfoWindow onCloseClick={this.close}>
                     <div>Titulo: {this.props.titulo}<br />Descripcion:{this.props.descripcion}</div>

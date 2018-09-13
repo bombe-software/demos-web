@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-
-import NotFound from './../reutilizables/not_found';
-import LoadingScreen from './../reutilizables/loading_screen';
 
 import Bugs from './bugs';
 import Logs from './logs';
@@ -43,10 +39,11 @@ class Administrador extends Component {
     }
 
     render() {
+        
         return (
             <div className="section">
                 <div className="columns">
-                <div className="column is-10-widescreen is-10-desktop is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
+                <div className="column is-10-widescreen is-10-desktop is-12-tablet is-12-mobile is-offset-1-widescreen is-offset-1-fullhd">
                     <h1 className="is-size-2 title">Administrador</h1>
                 </div>
                 </div>

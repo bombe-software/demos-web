@@ -16,7 +16,6 @@ class Eventos extends Component {
     }
 
     renderList(param) {
-        const string = validadoAcentos(param.toLowerCase());
         var re = new RegExp('^(.*?(\string\b)[^$]*)$');
         let list = _.filter(this.props.data.eventos, (o) =>{
             return re.test(validadoAcentos(o.titulo.toLowerCase())) || re.test(validadoAcentos(o.descripcion.toLowerCase()));
@@ -35,7 +34,7 @@ class Eventos extends Component {
 
     render() {
         if (this.props.data.loading) return 'Loading..';
-        if (this.props.busqueda == '') return 'No has buscado nada'
+        if (this.props.busqueda === '') return 'No has buscado nada'
         return (
             <div className="has-text-centered">
                 {this.renderList(this.props.busqueda)}

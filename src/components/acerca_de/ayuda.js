@@ -215,55 +215,55 @@ class Ayuda extends Component{
 
   update() {
     let type = this.state.type;
-    if (type == "InicioR") {
+    if (type === "InicioR") {
       return (
         <div>
           {this.renderInicioR()}
         </div>
       );
-    } else if (type == "Peticion") {
+    } else if (type === "Peticion") {
       return (
         <div>
           {this.renderPeticion()}
         </div>
       );
-    } else if (type == "InfoUsu") {
+    } else if (type === "InfoUsu") {
       return (
         <div>
           {this.renderInfoUsu()}
         </div>
       );
-    } else if (type == "Moder") {
+    } else if (type === "Moder") {
       return (
         <div>
           {this.renderModer()}
         </div>
       );
-    } else if (type == "Estad") {
+    } else if (type === "Estad") {
       return (
         <div>
           {this.renderEstad()}
         </div>
       );
-    } else if (type == "Pol") {
+    } else if (type === "Pol") {
       return (
         <div>
           {this.renderPol()}
         </div>
       );
-    } else if (type == "InfoSis") {
+    } else if (type === "InfoSis") {
       return (
         <div>
           {this.renderInfoSis()}
         </div>
       );
-    } else if (type == "Admin") {
+    } else if (type === "Admin") {
       return (
         <div>
           {this.renderAdmin()}
         </div>
       );
-    } else if (type == "Nac") {
+    } else if (type === "Nac") {
       return (
         <div>
           {this.renderNac()}
@@ -297,47 +297,47 @@ class Ayuda extends Component{
                 </div>
                 <ul>
                   <div className="panel-block">
-                    <li className={this.state.type=="InicioR" ? 'is-active' : ''}>
+                    <li className={this.state.type==="InicioR" ? 'is-active' : ''}>
                       <a onClick={this.updateInicioR}>Inicio y Registro</a>
                     </li>
                   </div>
                   <div className="panel-block">
-                    <li className={this.state.type=="Peticion" ? 'is-active' : ''}>
+                    <li className={this.state.type==="Peticion" ? 'is-active' : ''}>
                       <a onClick={this.updatePeticion}>Peticiones del Usuario</a>
                     </li>
                   </div>
                   <div className="panel-block">
-                    <li className={this.state.type=="InfoUsu" ? 'is-active' : ''}>
+                    <li className={this.state.type==="InfoUsu" ? 'is-active' : ''}>
                       <a onClick={this.updateInfoUsu}>Información del usuario</a>
                     </li>
                   </div>
                   <div className="panel-block">
-                    <li className={this.state.type=="Moder" ? 'is-active' : ''}>
+                    <li className={this.state.type==="Moder" ? 'is-active' : ''}>
                       <a onClick={this.updateModer}>Moderador</a>
                     </li>
                   </div>
                   <div className="panel-block">
-                    <li className={this.state.type=="Estad" ? 'is-active' : ''}>
+                    <li className={this.state.type==="Estad" ? 'is-active' : ''}>
                       <a onClick={this.updateEstad}>Elecciones</a>
                     </li>
                   </div>
                   <div className="panel-block">
-                    <li className={this.state.type=="Pol" ? 'is-active' : ''}>
+                    <li className={this.state.type==="Pol" ? 'is-active' : ''}>
                       <a onClick={this.updatePol}>Político</a>
                     </li>
                   </div>
                   <div className="panel-block">
-                    <li className={this.state.type=="InfoSis" ? 'is-active' : ''}>
+                    <li className={this.state.type==="InfoSis" ? 'is-active' : ''}>
                       <a onClick={this.updateInfoSis}>Información del Sistema</a>
                     </li>
                   </div>
                   <div className="panel-block">
-                    <li className={this.state.type=="Admin" ? 'is-active' : ''}>
+                    <li className={this.state.type==="Admin" ? 'is-active' : ''}>
                       <a onClick={this.updateAdmin}>Administrador</a>
                     </li>
                   </div>
                   <div className="panel-block">
-                    <li className={this.state.type=="Nac" ? 'is-active' : ''}>
+                    <li className={this.state.type==="Nac" ? 'is-active' : ''}>
                       <a onClick={this.updateNac}>Nacional</a>
                     </li>
                   </div>

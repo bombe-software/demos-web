@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { graphql } from 'react-apollo';
+import React from "react";
 
 import { Form, Field } from "react-final-form";
 import GenericForm from './../../reutilizables/generic_form';
@@ -26,7 +25,7 @@ class Password extends GenericForm {
               if (!values.password) {
                 errors.password = "Escriba su contraseña";
               }
-              if (values.password != undefined) {
+              if (values.password !== undefined) {
                 var re = /^(?=(?:.*\d){1})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){1})\S{6,}$/;
                 if (!re.test(values.password)) {
                   errors.password = "Min. 6 caractéres, 1 mayuscula, 1 minuscula y sin espacios";
@@ -35,7 +34,7 @@ class Password extends GenericForm {
               if (!values.Rpassword) {
                 errors.Rpassword = "Escriba su contraseña";
               }
-              if (values.password != values.Rpassword) {
+              if (values.password !== values.Rpassword) {
                 errors.Rpassword = "Asegurese que las contraseñas coincidan";
               }
 

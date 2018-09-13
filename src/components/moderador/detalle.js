@@ -7,6 +7,7 @@ class Detalle extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div className="card">
                 <div className="card-content">
@@ -41,7 +42,7 @@ class Detalle extends Component {
                     {this.props.o.titulo ? <p className="title is-4"><b>Título: </b>{this.props.o.titulo}</p> : ''}
                     {this.props.o.descripcion ? <p><b>Descripción: </b>{this.props.o.descripcion}</p> : ''}
                     {this.props.o.fecha ? <p><b>Fecha {this.props.o.fecha == 'Propuestas' ? <span>de la</span> : <span>del</span>} {this.props.tipo.toLowerCase()}: </b>{this.props.o.fecha}</p> : ''}
-                    {this.props.o.tipo_propuesta ? <p>Tipo de {this.props.tipo.toLowerCase()}: {this.props.o.tipo_propuesta.nombre}</p> : ''}
+                    {this.props.o.tipo_propuesta ? <p>Tipo de {this.props.tipo.toLowerCase()}: {this.props.o.tipo_propuesta.tipo}</p> : ''}
                     {this.props.o.referencia ? <hr /> : '' }
                     {this.props.o.referencia ?  <span><b>Fuente de consulta: </b> <a target="_blank" href={this.props.o.referencia}>{this.props.o.referencia}</a></span> : ''}
                 </div>

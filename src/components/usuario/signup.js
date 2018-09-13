@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 
-import _ from 'lodash';
-import axios from "axios";
 import { createClient } from '@google/maps';
 import { Form, Field } from "react-final-form";
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
 
 import GenericForm from './../reutilizables/generic_form';
 import WaveBackground from './../reutilizables/wave_background';
@@ -118,7 +115,7 @@ class SignUp extends GenericForm {
               response.json.results[0].address_components.map((o) => { 
                 for (let i = 0; i < o.types.length; i++) {
                   const element = o.types[i];
-                  if(element=="administrative_area_level_1"){
+                  if(element ==="administrative_area_level_1"){
                     estado = o.long_name;
                   }
                 }
@@ -140,15 +137,13 @@ class SignUp extends GenericForm {
   }
 
   async onSubmit(values) {
-    if (this.state.avatar == '') {
+    if (this.state.avatar === '') {
       this.setState({ error: 'Selecciona un avatar' })
     } else {
       const { avatar, localidad } = this.state;
-      console.log(localidad);
       const {
-        nombre, email, password   
-      } = values;
-      console.log(localidad);
+        nombre, email, password
+      }=values;
       this.props.mutate({
         variables: {
           nombre, email, password, localidad,
@@ -156,7 +151,7 @@ class SignUp extends GenericForm {
         }
       }).then(() => {
         this.props.history.push("/confirm_email");
-      }) .catch(({graphQLErrors})=>this.setState({error: graphQLErrors[0].message}))
+      }).catch(({graphQLErrors})=>this.setState({error: graphQLErrors[0].message}))
     } 
   };
 
@@ -183,7 +178,6 @@ class SignUp extends GenericForm {
   * @method render
   */
   render() {
-      const { handleSubmit } = this.props;
       return (
         <div>
           <Dialog
@@ -210,7 +204,7 @@ class SignUp extends GenericForm {
                           if (!values.nombre) {
                             errors.nombre = "Escriba su nombre de usuario";
                           }
-                          if (values.nombre != undefined) {
+                          if (values.nombre !== undefined) {
                             var ra = /^[a-z0-9]+$/i;
                             if (!ra.test(values.nombre)) {
                               errors.nombre = "Solo puede contener alfa numericos y sin espacios";
@@ -222,7 +216,7 @@ class SignUp extends GenericForm {
                           if (!values.password) {
                             errors.password = "Escriba su contraseña";
                           }
-                          if (values.password != undefined) {
+                          if (values.password !== undefined) {
                             var re = /^(?=(?:.*\d){1})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){1})\S{6,}$/;
                             if (!re.test(values.password)) {
                               errors.password = "Min. 6 caractéres, 1 mayuscula, 1 minuscula y sin espacios";
@@ -231,7 +225,7 @@ class SignUp extends GenericForm {
                           if (!values.Rpassword) {
                             errors.Rpassword = "Escriba su contraseña";
                           }
-                          if (values.password != values.Rpassword) {
+                          if (values.password !== values.Rpassword) {
                             errors.Rpassword = "Asegurese que las contraseñas coincidan";
                           }
                           if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -296,14 +290,14 @@ class SignUp extends GenericForm {
                                     <div className="level-item has-text-centered">
                                       <label>
                                         <input type="radio" name="imagen" selected />
-                                        <img src="./assets/img/jaiba.svg" className={this.state.imgAvatar[0] + " image is-64x64"} width="100px" height="100px" onClick={this.updateJaiba} />
+                                        <img src="./assets/img/jaiba.svg" className={this.state.imgAvatar[0] + " image is-64x64"} width="100px" height="100px" onClick={this.updateJaiba} alt="Jaiba" />
                                       </label>
                                     </div>
   
                                     <div className="level-item has-text-centered">
                                       <label>
                                         <input type="radio" name="imagen" />
-                                        <img src="./assets/img/anguila.svg" className={this.state.imgAvatar[1] + " image is-64x64"} width="100px" height="100px" onClick={this.updateAnguila} />
+                                        <img src="./assets/img/anguila.svg" className={this.state.imgAvatar[1] + " image is-64x64"} width="100px" height="100px" onClick={this.updateAnguila} alt="Anguila" />
                                       </label>
                                     </div>
                                     <div className="level-item"></div>
@@ -315,14 +309,14 @@ class SignUp extends GenericForm {
                                     <div className="level-item has-text-centered">
                                       <label>
                                         <input type="radio" name="imagen" />
-                                        <img src="./assets/img/chivo.svg" className={this.state.imgAvatar[2] + " image is-64x64"} width="100px" height="100px" onClick={this.updateChivo} />
+                                        <img src="./assets/img/chivo.svg" className={this.state.imgAvatar[2] + " image is-64x64"} width="100px" height="100px" onClick={this.updateChivo} alt="Chivo" />
                                       </label>
                                     </div>
   
                                     <div className="level-item has-text-centered">
                                       <label>
                                         <input type="radio" name="imagen" />
-                                        <img src="./assets/img/hedgehog.svg" className={this.state.imgAvatar[3] + " image is-64x64"} width="100px" height="100px" onClick={this.updateErizo} />
+                                        <img src="./assets/img/hedgehog.svg" className={this.state.imgAvatar[3] + " image is-64x64"} width="100px" height="100px" onClick={this.updateErizo} alt="Erizo"/>
                                       </label>
                                     </div>
                                     <div className="level-item"></div>

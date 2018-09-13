@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 import { Form, Field } from "react-final-form";
 import GenericForm from './../reutilizables/generic_form';

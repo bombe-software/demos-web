@@ -24,7 +24,16 @@ class Logs extends Component {
             return (
                 <tr className="full-width-row" key={o.id}>
                     <td>
-                        {o.id}
+                        {o.ip}
+                    </td>
+                    <td>
+                        {o.metodo}
+                    </td>
+                    <td>
+                    {o.usuario ? o.usuario.nombre: ''}
+                    </td>
+                    <td>
+                        {o.query}
                     </td>
                 </tr>
             );
@@ -33,14 +42,19 @@ class Logs extends Component {
 
     render() {
         if (this.props.data.loading) {
-            <h1 className="is-size-3 subtitle">Registros</h1>
             return <div>Loading...</div>
         }
         return (
             <div>
                 <h1 className="is-size-3 subtitle">Registros</h1>
-                <h1 className="is-size-3 subtitle">Registros</h1>
                 <table className="table full-width-row is-fullwidth">
+                    <thead>
+                        <tr>
+                        <th>IP</th>
+                        <th>Mètodo</th>
+                        <th>Consulta</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {this.renderList(this.props.data.logs)}
                     </ tbody>

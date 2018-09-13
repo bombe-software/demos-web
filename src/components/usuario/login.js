@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { graphql, compose } from 'react-apollo';
+import React from 'react';
+import { graphql } from 'react-apollo';
 
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
@@ -35,7 +35,7 @@ class Login extends GenericForm {
         const request = axios.post(`${demos_krb_http}/ticket_controller`, ticket);
 
         request.then(({ data }) => {
-            if (data.message != 404) {
+            if (data.message !== 404) {
                 let decryptedData = null;
                 try {
                     let bytes = CryptoJS.AES.decrypt(data.message, values.password);
