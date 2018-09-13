@@ -137,7 +137,7 @@ class Elecciones extends Component {
                 <div className="columns is-desktop">
                     <div className="column is-10-widescreen is-10-desktop is-8-fullhd is-12-tablet is-12-mobile is-offset-1-desktop is-offset-1-widescreen is-offset-2-fullhd">
                         <div className="level">
-                            <div clasName="level-left">
+                            <div className="level-left">
                                 <div className="level-item">
                                 <h1 className="is-size-2 title">Elecciones</h1>
                                 </div>

@@ -146,7 +146,7 @@ class PoliticoForm extends GenericForm {
                             errors.referencia = "Los links deben empezar con http,https. (http(s)://www.demos.com)";
                           }
                       }
-                      
+
                       return errors;
                     }}
                     render={({ handleSubmit, reset, submitting, pristine, values }) => (

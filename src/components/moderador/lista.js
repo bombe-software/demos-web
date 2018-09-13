@@ -44,6 +44,7 @@ class Lista extends Component {
         }
     }
     renderList() {
+        if(this.props.lista!=undefined){
         return this.props.lista.map(({ id, titulo, usuario, nombre, politico, propuesta, evento }) => {
             /**
              * Quitar el true
@@ -70,6 +71,7 @@ class Lista extends Component {
                 )
             }
         });
+    }
     }
 
     render() {

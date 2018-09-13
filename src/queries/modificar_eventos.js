@@ -13,6 +13,10 @@ export default gql`
         nombre
         avatar
       }
+      politico {
+        id
+        nombre
+      }
     }
   }
 `;

@@ -10,10 +10,8 @@ exports.demos_krb_http = "https://demos-krb.herokuapp.com";
 exports.demos_gql_http = "https://demos-gql.herokuapp.com";
 exports.demos_gql_ws = "wss://demos-gql.herokuapp.com";
 exports.validation_http = true;
-
-
-
- * Variables de desarrollo
+*/
+/* Variables de desarrollo
 
 */
 exports.demos_web_http = "http://localhost:9000";
