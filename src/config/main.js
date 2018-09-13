@@ -22,7 +22,7 @@ function createWindow() {
   mainWindow.maximize();
   //mainWindow.setMenu(null);
 
-  mainWindow.loadURL('file://' + __dirname + '/build/index.html');
+  mainWindow.loadURL('file://' + __dirname + '../../../build/index.html');
   
   mainWindow.show();
   //Configurar cierre de ventana

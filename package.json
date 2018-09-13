@@ -2,7 +2,7 @@
   "name": "demos-web",
   "version": "0.1.0",
   "private": true,
-  "main": "./src/config/main.js",
+  "main": "./public/electron.js",
   "scripts": {
     "start": "node index.js",
     "dev": "set PORT=9000 && react-scripts start",
@@ -16,7 +16,7 @@
     "asar": false,
     "directories": {
       "output": "dist",
-      "input": "build"
+      "buildResources": "build"
     },
     "win": {
       "icon": "favicon.ico"
