@@ -48,7 +48,7 @@ class Lista extends Component {
             /**
              * Quitar el true
              */
-            if (this.props.id_usuario != usuario.id || true) {
+            if (this.props.id_usuario != usuario.id) {
                 return (
                     <div key={id}>
                         <div className="panel-block"  >
